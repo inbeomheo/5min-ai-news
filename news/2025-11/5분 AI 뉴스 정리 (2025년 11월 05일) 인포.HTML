@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>5분 AI 뉴스 정리 (2025-11-05)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; background-color: #FDF0E0; color:#1E1E1E; }
+    .kpi-card { background:#fff; border:2px solid #1E1E1E; box-shadow:4px 4px 0 #1E1E1E; }
+    .news-card { background:#fff; border:2px solid #1E1E1E; box-shadow:6px 6px 0 #1E1E1E; transition: all .2s ease-in-out; }
+    .news-card:hover { transform: translate(2px,2px); box-shadow:4px 4px 0 #1E1E1E; }
+    .chart-container { position:relative; width:100%; max-width:600px; margin:1.5rem auto; height:300px; max-height:400px; }
+    .chart-container.doughnut { max-width:400px; }
+    @media (min-width:768px){ .chart-container { height:350px; } .chart-container.doughnut { height:350px; } }
+    .sticky-nav { position:sticky; top:0; z-index:50; }
+    /* NEW 뱃지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10 md:my-16">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2 tracking-tight">
+        AI·기술 최신 동향
+        
+      </h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 05일</p>
+    </header>
+
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">핵심 지표 요약</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">💰 오픈AI-AWS 파트너십</p>
+          <p class="text-3xl md:text-4xl font-bold">380억 달러</p>
+          <p class="text-sm text-gray-500">7년간 AWS 클라우드 사용 계약</p>
+        </div>
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🤖 AI 에이전트 충돌</p>
+          <p class="text-3xl md:text-4xl font-bold">아마존 vs 퍼플렉시티</p>
+          <p class="text-sm text-gray-500">에이전트형 쇼핑 기능 중단 요구</p>
+        </div>
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🔒 美, 칩 수출 통제</p>
+          <p class="text-3xl md:text-4xl font-bold">"블랙웰 칩 금지"</p>
+          <p class="text-sm text-gray-500">트럼프, 對중국 등 최상위 칩 차단 시사</p>
+        </div>
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🩺 의료 현장 도입</p>
+          <p class="text-3xl md:text-4xl font-bold">93%</p>
+          <p class="text-sm text-gray-500">美 병원, 120일 후 진료 노트 93% AI 완료</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라</a>
+        <a href="#platform" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🧠 플랫폼·에이전트</a>
+        <a href="#data" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ 데이터·거버넌스</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 현장 적용</a>
+      </div>
+    </nav>
+
+    <div class="space-y-16">
+
+      <section id="infra">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 수요 폭증에 대응하기 위해 빅테크들이 조 단위의 인프라 확보 전쟁을 벌이고 있습니다. 오픈AI는 AWS와 380억 달러 계약을 맺었고, MS는 UAE에 150억 달러 투자를, 구글은 우주 데이터센터를 추진합니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI, AWS와 380억 달러 '컴퓨팅 동맹'</h3>
+            <p class="mb-4">오픈AI가 MS에 이어 AWS와 7년간 380억 달러 규모의 클라우드 계약을 체결했습니다. 즉시 Amazon EC2 UltraServers와 수십만 개의 GPU에 접근하며, 2026년 말까지 전량 배치를 목표로 합니다.</p>
+            <div class="p-4 bg-red-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 수십만 개 GPU + 수천만 개 CPU 규모 확장</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 프런티어 AI 확장을 위한 '대규모·신뢰 가능한 컴퓨트' 다각화.</p>
+          </article>
+
+          <div class="news-card p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-3">빅테크 AI 인프라 투자 (11월 초)</h4>
+            <div class="chart-container">
+              <canvas id="infraChart"></canvas>
+            </div>
+            <p class="text-xs text-gray-500">※ 최근 발표된 주요 계약 및 투자 계획 (억 달러)</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="platform">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#4D96FF] pl-4">🧠 플랫폼·에이전트</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 에이전트가 웹과 상호작용하기 시작하면서 기존 플랫폼과 마찰을 빚고 있습니다. 아마존은 퍼플렉시티의 쇼핑 에이전트 차단을 요구했으며, 한편에선 30분 만에 논문을 쓰는 에이전트가 공개되었습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">아마존, 퍼플렉시티 AI 쇼핑 에이전트 '차단' 요구</h3>
+            <p class="mb-4">아마존이 퍼플렉시티의 '코멧' 브라우저가 AI로 구매를 대행하는 기능을 중단하라고 법적 서한을 보냈습니다. 아마존은 사용자 경험 저하를, 퍼플렉시티는 '경쟁 제한'이라며 반발하며 AI 에이전트와 기존 웹 플랫폼 간의 충돌이 시작되었습니다.</p>
+            <div class="p-4 bg-blue-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 아마존 'Buy For Me' vs 퍼플렉시티 '코멧'</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 에이전트의 자율적 웹 상호작용을 둘러싼 첫 번째 주요 법적·규제 논쟁.</p>
+          </article>
+
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">'30분 만에 논문 뚝딱'…다중 에이전트 '데나리오' 공개</h3>
+            <p class="mb-4">아이디어 구상부터 논문 집필까지 30분 만에 자동화하는 다중 에이전트 시스템 '데나리오'가 오픈소스로 공개되었습니다. 논문 1편당 약 4달러 비용이 들며, 일부 결과물은 실제 학회(Agents4Science 2025)에서 게재 승인을 받기도 했습니다.</p>
+             <div class="p-4 bg-blue-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 비용 4달러, 실제 학회 게재 승인</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 연구 자동화의 가능성을 열었으나, 환각·조작 등 품질과 윤리 문제 동시 제기.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="data">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#F7D060] pl-4">⚖️ 데이터·거버넌스</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 기술 경쟁이 심화되자 미국은 對중국 칩 수출 통제 강화를 시사했습니다. 내부적으로는 오픈AI의 '서츠케버 메모'가 공개되며 거버넌스 논란이 재점화됐고, arXiv는 AI 스팸 논문 급증에 게재 문턱을 높였습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">트럼프 "중국엔 최상위 블랙웰 칩 금지"…수출 통제 강화</h3>
+            <p class="mb-4">도널드 트럼프 미국 대통령이 엔비디아의 최상위 '블랙웰' AI 칩을 미국 기업에 한정하고, 중국 등 타국에는 판매를 금지하겠다고 밝혔습니다. 이는 기존보다 더 강한 수출통제 기조로, 글로벌 AI 반도체 공급망에 큰 불확실성을 더했습니다.</p>
+            <div class="p-4 bg-yellow-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> "China... can’t have Nvidia’s top AI chips"</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 미중 기술 패권 경쟁 속 AI 핵심 인프라(반도체)의 무기화 가속.</p>
+          </article>
+
+          <div class="news-card p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-3">AI 생성물에 대한 신뢰도 (가상 데이터)</h4>
+            <div class="chart-container doughnut">
+              <canvas id="govChart"></canvas>
+            </div>
+            <p class="text-xs text-gray-500">※ arXiv 스팸 논문 급증 등 신뢰성 문제가 대두됨</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="apps">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#6BCB77] pl-4">🏭 현장 적용</h2>
+        <p class="mb-8 text-lg text-gray-700">AI가 '새로운 엑셀'로 불리며 의료, 교육, 게임 등 산업 현장에 빠르게 스며들고 있습니다. 메인주 병원은 AI로 진료 기록 업무를 93% 대체했고, 인디애나대는 교수진을 위한 AI 컨설팅팀을 신설했습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">美 병원, AI 도입 120일 만에 진료 노트 93% 자동화</h3>
+            <p class="mb-4">미국 메인주 Northern Light Health는 1차 진료에 AI 스크라이브(기록 보조)를 전면 확대했습니다. 도입 120일 후, 의사 180명 중 85명이 이를 사용해 전체 진료 노트의 93%를 AI로 완료했습니다. 의사들은 문서화 업무에서 벗어나 '환자 진료'에 더 집중하게 되었습니다.</p>
+            <div class="p-4 bg-green-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 의사 180명 중 85명 사용, 노트 93% AI가 완료</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI가 의료진의 번아웃을 완화하고 행정 업무를 줄이는 '협업 도구'로 정착.</p>
+          </article>
+
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">"AI는 새로운 엑셀"…인디애나 경영대, 전담 컨설팅팀 신설</h3>
+            <p class="mb-4">인디애나대 켈리 경영대학장이 "AI는 이제 엑셀처럼 기본 역량"이라고 선언했습니다. 학교는 5인으로 구성된 내부 AI 컨설팅팀을 신설, 모든 교수가 강의에 AI 도구를 도입하고 교과 과정을 재설계하도록 지원합니다.</p>
+             <div class="p-4 bg-green-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 5인 전담팀 신설, 'AI 플레이북' 배포</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 특정 전공이 아닌, 모든 학생과 교수가 갖춰야 할 '기본 소양'으로 AI 인식 변화.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <footer class="text-center text-sm text-gray-500 mt-16 mb-8">
+      <p>※ 이 인포그래픽은 2025년 11월 4-5일 주요 AI 뉴스를 기반으로 생성되었습니다.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Chart.js-IntersectionObserver
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5 // 50%
+    };
+
+    const infraChartEl = document.getElementById('infraChart');
+    const govChartEl = document.getElementById('govChart');
+
+    const infraObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          new Chart(infraChartEl, {
+            type: 'bar',
+            data: {
+              labels: ['OpenAI→AWS', 'MS→UAE', 'Nvidia→뮌헨'],
+              datasets: [{
+                label: '투자/계약 규모 (억 달러)',
+                data: [380, 150, 1.1], // €1B ~= $1.1B
+                backgroundColor: ['#FF6B6B', '#FFB36B', '#FFD96B'],
+                borderColor: '#1E1E1E',
+                borderWidth: 2
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: { y: { beginAtZero: true } },
+              plugins: { legend: { display: false } }
+            }
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    if (infraChartEl) infraObserver.observe(infraChartEl);
+
+    const govObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          new Chart(govChartEl, {
+            type: 'doughnut',
+            data: {
+              labels: ['검증 필요', '신뢰', '불신'],
+              datasets: [{
+                label: 'AI 생성물 신뢰도 (가상)',
+                data: [65, 20, 15],
+                backgroundColor: ['#F7D060', '#6BCB77', '#FF6B6B'],
+                borderColor: '#FFFFFF',
+                borderWidth: 2
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: 'bottom' } }
+            }
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    if (govChartEl) govObserver.observe(govChartEl);
+
+  </script>
+  <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 방문자 추적 스크립트 -->
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

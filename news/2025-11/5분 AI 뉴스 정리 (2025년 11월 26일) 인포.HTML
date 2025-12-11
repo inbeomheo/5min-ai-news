@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5분 AI 뉴스: 2025년 11월 26일</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDF0E0; /* Light Peach */
+            color: #1E1E1E;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Neo-Brutalism Styles */
+        .kpi-card, .news-card, .nav-btn {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 6px 6px 0px #1E1E1E;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .kpi-card:hover, .news-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+
+        .nav-btn:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 3px 3px 0px #1E1E1E;
+        }
+
+        .highlight-box {
+            background-color: #FFDE59;
+            border: 2px solid #1E1E1E;
+            box-shadow: 3px 3px 0px #1E1E1E;
+        }
+
+        /* Flow Diagram Arrows */
+        .arrow-right::after {
+            content: "→";
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .arrow-right::after {
+                content: "↓";
+                display: block;
+                margin-left: 0;
+                margin-top: 0.5rem;
+                text-align: center;
+            }
+        }
+
+        .sticky-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            position: relative; 
+            height: 250px; 
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="selection:bg-[#FF6B6B] selection:text-white">
+
+    <!-- Header -->
+    <header class="container mx-auto px-4 py-12 max-w-5xl text-center">
+        <div class="inline-block px-4 py-1 border-2 border-[#1E1E1E] bg-white rounded-full mb-4 font-bold text-sm shadow-[3px_3px_0px_#1E1E1E]">
+            DAILY BRIEF
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight">AI·기술 최신 동향 <span class="badge-new">NEW</span></h1>
+        <p class="text-xl font-medium text-gray-700 mt-2">📅 2025년 11월 26일 (수)</p>
+    </header>
+
+    <!-- KPI Overview Section -->
+    <section id="kpi-overview" class="container mx-auto px-4 mb-16 max-w-6xl">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- KPI 1 -->
+            <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+                <span class="text-3xl mb-2">📉</span>
+                <h3 class="text-gray-600 font-bold text-sm">워너브라더스 & AWS</h3>
+                <p class="text-3xl md:text-4xl font-black text-[#FF6B6B] my-1">60%</p>
+                <p class="text-sm font-medium">News Info &copy; 2025. 11. 26. Daily Report</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+                <span class="text-3xl mb-2">✂️</span>
+                <h3 class="text-gray-600 font-bold text-sm">HP 구조조정</h3>
+                <p class="text-3xl md:text-4xl font-black text-[#4D96FF] my-1">6,000명</p>
+                <p class="text-xs font-medium">AI 중심 인력 재편</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+                <span class="text-3xl mb-2">⚡</span>
+                <h3 class="text-gray-600 font-bold text-sm">클로드 업무 효율</h3>
+                <p class="text-3xl md:text-4xl font-black text-[#F7D060] my-1">80%</p>
+                <p class="text-xs font-medium">시간 단축 효과</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+                <span class="text-3xl mb-2">🎯</span>
+                <h3 class="text-gray-600 font-bold text-sm">MS 파라-7B</h3>
+                <p class="text-3xl md:text-4xl font-black text-[#6BCB77] my-1">73.5%</p>
+                <p class="text-xs font-medium">작업 성공률 달성</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav sticky top-0 z-50 bg-[#FDF0E0]/90 border-y-2 border-[#1E1E1E] mb-12 py-3">
+        <div class="container mx-auto px-4 max-w-6xl overflow-x-auto">
+            <div class="flex flex-nowrap md:justify-center gap-3 min-w-max">
+                <a href="#infra" class="nav-btn px-4 py-2 rounded font-bold text-sm hover:bg-[#FF6B6B] hover:text-white hover:border-[#FF6B6B] transition-colors">🚀 인프라 전쟁</a>
+                <a href="#agents" class="nav-btn px-4 py-2 rounded font-bold text-sm hover:bg-[#4D96FF] hover:text-white hover:border-[#4D96FF] transition-colors">🧠 모델·에이전트</a>
+                <a href="#industry" class="nav-btn px-4 py-2 rounded font-bold text-sm hover:bg-[#F7D060] hover:text-black hover:border-[#F7D060] transition-colors">⚖️ 산업·사회</a>
+                <a href="#tools" class="nav-btn px-4 py-2 rounded font-bold text-sm hover:bg-[#6BCB77] hover:text-white hover:border-[#6BCB77] transition-colors">🛠️ 실용 도구</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <div class="container mx-auto px-4 max-w-5xl space-y-24 pb-20">
+
+        <!-- Section 1: Infrastructure -->
+        <section id="infra" class="scroll-mt-32">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-[#FF6B6B] border-2 border-black flex items-center justify-center text-2xl mr-4 shadow-[3px_3px_0px_#000]">🚀</div>
+                <div>
+                    <h2 class="text-3xl font-black">인프라 & 칩 전쟁</h2>
+                    <p class="text-gray-600 font-medium">엔비디아 독주에 맞서는 구글·메타 동맹과 서버 시장의 활황</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1 -->
+                <article class="news-card p-6 rounded-xl relative overflow-hidden">
+                    <h3 class="text-xl font-bold mb-3 leading-tight">구글-메타 '반(反)엔비디아' 칩 동맹?</h3>
+                    <p class="text-gray-700 text-sm mb-4 leading-relaxed">
+                        구글이 자사 AI 칩 <b>'TPU'</b>를 메타(Meta)에 대규모로 공급하는 방안을 논의 중입니다. 메타는 엔비디아 GPU 의존도를 낮추기 위해 수십억 달러 규모의 투자를 검토하고 있으며, 이는 AI 인프라 시장의 판도를 흔들 수 있는 빅딜입니다.
+                    </p>
+                    <div class="highlight-box p-3 rounded mb-4">
+                        <p class="text-sm font-bold">💡 포인트: TPU 임대 사업으로 엔비디아 매출 10% 수준 목표</p>
+                    </div>
+                    <p class="text-xs text-gray-500 font-medium bg-gray-100 p-2 rounded inline-block w-full">💡 핵심: 빅테크 간 '적과의 동침'으로 AI 칩 시장 다각화 가속</p>
+                </article>
+
+                <!-- Card 2 + Chart -->
+                <article class="news-card p-6 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3 leading-tight">델(Dell), AI 서버 없어서 못 판다</h3>
+                        <p class="text-gray-700 text-sm mb-4">
+                            엔비디아 칩을 탑재한 델의 AI 서버 주문이 폭주하며, 일부 제품은 수개월 대기가 발생하고 있습니다. 델은 이를 바탕으로 중기 성장 목표를 상향 조정했습니다.
+                        </p>
+                    </div>
+                    <!-- Chart Area -->
+                    <div class="mt-2 pt-4 border-t-2 border-dashed border-gray-300">
+                        <h4 class="text-xs font-bold text-gray-500 mb-2 uppercase text-center">AI 서버 vs 전통 인프라 성장세 (개념도)</h4>
+                        <div class="chart-container" style="height: 180px;">
+                            <canvas id="infraChart"></canvas>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section 2: Models & Agents -->
+        <section id="agents" class="scroll-mt-32">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-[#4D96FF] border-2 border-black flex items-center justify-center text-2xl mr-4 shadow-[3px_3px_0px_#000]">🧠</div>
+                <div>
+                    <h2 class="text-3xl font-black">모델 & 에이전트 진화</h2>
+                    <p class="text-gray-600 font-medium">더 똑똑해진 제미나이 3와 스스로 일하는 에이전트의 등장</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1: Salesforce CEO Quote -->
+                <article class="news-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">세일즈포스 CEO의 '변심'</h3>
+                    <p class="text-gray-700 text-sm mb-4">
+                        마크 베니오프 CEO가 "구글 <b>제미나이 3 프로</b>에 완전히 놀랐다"며 챗GPT 사용 중단을 선언했습니다. 이는 기업용(B2B) 시장에서 모델 선호도가 변화하고 있음을 시사합니다.
+                    </p>
+                    <div class="bg-black text-white p-4 rounded-lg shadow-[4px_4px_0px_#999] mb-4 text-center">
+                        <p class="text-lg font-bold italic">"Gemini 3 Pro is sharper & faster"</p>
+                        <p class="text-xs text-gray-400 mt-1">- Marc Benioff -</p>
+                    </div>
+                    <p class="text-xs text-gray-500 font-medium bg-gray-100 p-2 rounded inline-block w-full">💡 핵심: 엔터프라이즈 시장에서 구글 모델의 경쟁력 재평가</p>
+                </article>
+
+                <!-- Card 2: MS Agent Flow -->
+                <article class="news-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">MS '파라-7B': 내 PC를 조종하는 AI</h3>
+                    <p class="text-gray-700 text-sm mb-4">
+                        화면만 보고 마우스와 키보드를 조작하는 70억 파라미터 경량 모델(sLM)입니다. 데이터를 외부로 보내지 않고 로컬에서 업무를 자동화할 수 있습니다.
+                    </p>
+                    <!-- Flow Diagram -->
+                    <div class="flex flex-col md:flex-row items-center justify-between bg-blue-50 p-3 rounded-lg border border-blue-200 text-xs font-bold text-center gap-2">
+                        <div class="bg-white p-2 rounded border border-black shadow-[2px_2px_0px_#000]">🖥️ 화면 인식<br>(Screenshot)</div>
+                        <div class="arrow-right text-blue-500"></div>
+                        <div class="bg-white p-2 rounded border border-black shadow-[2px_2px_0px_#000]">🧠 파라-7B<br>(Reasoning)</div>
+                        <div class="arrow-right text-blue-500"></div>
+                        <div class="bg-white p-2 rounded border border-black shadow-[2px_2px_0px_#000]">🖱️ 클릭/입력<br>(Action)</div>
+                    </div>
+                    <p class="mt-4 text-xs text-gray-500 font-medium bg-gray-100 p-2 rounded inline-block w-full">💡 핵심: 보안이 중요한 금융·의료 분야 업무 자동화 기대</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section 3: Industry & Society -->
+        <section id="industry" class="scroll-mt-32">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-[#F7D060] border-2 border-black flex items-center justify-center text-2xl mr-4 shadow-[3px_3px_0px_#000]">⚖️</div>
+                <div>
+                    <h2 class="text-3xl font-black">산업 재편 & 사회</h2>
+                    <p class="text-gray-600 font-medium">구조조정의 칼바람과 저작권 합의라는 새로운 질서</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1: HP & Chart -->
+                <article class="news-card p-6 rounded-xl flex flex-col">
+                    <h3 class="text-xl font-bold mb-3">HP, AI로 가기 위한 '고통스러운 감원'</h3>
+                    <p class="text-gray-700 text-sm mb-4">
+                        HP가 2028년까지 최대 6천 명을 감원합니다. PC 수요 둔화에 대응하고, 절감한 비용을 AI PC와 서비스 개발에 재투자하겠다는 '선택과 집중' 전략입니다.
+                    </p>
+                    <div class="w-full flex justify-center mt-auto">
+                        <div class="chart-container" style="height: 200px; width: 200px;">
+                            <canvas id="hpChart"></canvas>
+                        </div>
+                    </div>
+                    <p class="mt-2 text-center text-xs text-gray-500">※ HP 전략 방향성 (개념적 비율)</p>
+                </article>
+
+                <!-- Card 2: Warner & Suno -->
+                <article class="news-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">워너뮤직-Suno, 싸움 끝내고 '파트너'로</h3>
+                    <p class="text-gray-700 text-sm mb-4">
+                        AI 음악 스타트업 Suno와 워너뮤직이 소송을 멈추고 라이선스 계약을 체결했습니다. Suno는 음원을 합법적으로 학습하고, 워너뮤직은 AI 수익 모델을 확보했습니다.
+                    </p>
+                    <div class="border-l-4 border-[#F7D060] pl-4 py-2 bg-yellow-50 my-3">
+                        <p class="text-sm font-bold">🤝 합의의 의미</p>
+                        <p class="text-xs text-gray-600">"무단 학습 논란" → "정당한 대가 지불 & 수익 공유" 모델로 전환</p>
+                    </div>
+                    <p class="text-xs text-gray-500 font-medium bg-gray-100 p-2 rounded inline-block w-full">💡 핵심: AI 창작물 저작권 분쟁의 중요한 선례 마련</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section 4: Practical Tools -->
+        <section id="tools" class="scroll-mt-32">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-[#6BCB77] border-2 border-black flex items-center justify-center text-2xl mr-4 shadow-[3px_3px_0px_#000]">🛠️</div>
+                <div>
+                    <h2 class="text-3xl font-black">실용적 AI 도구</h2>
+                    <p class="text-gray-600 font-medium">PPT 만드는 AI와 공장의 감자 세는 AI</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1: NotebookLM -->
+                <article class="news-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">NotebookLM '슬라이드 덱' 기능</h3>
+                    <p class="text-gray-700 text-sm mb-4">
+                        구글의 NotebookLM이 이제 논문이나 자료를 올리면 발표용 슬라이드(PPT 형태)를 자동 생성합니다. 자료 조사부터 발표 자료 제작까지의 시간을 획기적으로 줄여줍니다.
+                    </p>
+                    <ul class="text-xs space-y-2 bg-green-50 p-3 rounded border border-green-200 font-medium">
+                        <li class="flex items-center">📄 <span class="ml-2">PDF/문서 업로드</span></li>
+                        <li class="flex items-center">⬇️ <span class="ml-2 text-gray-400">AI 분석 & 구조화</span></li>
+                        <li class="flex items-center">📊 <span class="ml-2">디자인된 슬라이드 자동 생성</span></li>
+                    </ul>
+                    <p class="mt-4 text-xs text-gray-500 font-medium bg-gray-100 p-2 rounded inline-block w-full">💡 핵심: 'Source-to-Slides' 워크플로의 완성</p>
+                </article>
+
+                <!-- Card 2: Potato Counter -->
+                <article class="news-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">"거대 로봇 말고, 감자 세는 AI"</h3>
+                    <p class="text-gray-700 text-sm mb-4">
+                        값비싼 장비 없이 저렴한 카메라와 경량 모델로 컨베이어 벨트 위의 감자를 세는 시스템이 화제입니다. 화려한 데모보다 현장의 문제를 해결하는 <b>'실용적 AI'</b>가 주목받고 있습니다.
+                    </p>
+                    <div class="flex items-center justify-between mt-4 border-t-2 border-gray-100 pt-3">
+                        <div class="text-center">
+                            <span class="block text-2xl">🥔</span>
+                            <span class="text-xs font-bold text-gray-500">농가/공장</span>
+                        </div>
+                        <div class="text-xl font-black text-gray-300">+</div>
+                        <div class="text-center">
+                            <span class="block text-2xl">📷</span>
+                            <span class="text-xs font-bold text-gray-500">저가형 비전</span>
+                        </div>
+                        <div class="text-xl font-black text-gray-300">=</div>
+                        <div class="text-center">
+                            <span class="block text-2xl">💰</span>
+                            <span class="text-xs font-bold text-gray-500">비용 절감</span>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-xs text-gray-500 font-medium bg-gray-100 p-2 rounded inline-block w-full">💡 핵심: 중소기업도 도입 가능한 저비용 고효율 AI</p>
+                </article>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#1E1E1E] text-white py-12 border-t-4 border-black">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-bold text-lg mb-2">AI NEWS INFOGRAPHIC</p>
+            <p class="text-gray-400 text-sm">Generated by AI Assistant | Source: TechCrunch, Reuters, AI Times etc.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts for Charts -->
+    <script>
+        // Common Chart Options for Neo-Brutalism look
+        Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+        Chart.defaults.color = '#1E1E1E';
+        
+        // 1. Infra Chart (Bar)
+        const infraCtx = document.getElementById('infraChart');
+        if (infraCtx) {
+            new Chart(infraCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['전통 서버', 'AI 서버(GPU/TPU)'],
+                    datasets: [{
+                        label: '수요 성장세 (개념)',
+                        data: [15, 85],
+                        backgroundColor: ['#d1d5db', '#FF6B6B'],
+                        borderWidth: 2,
+                        borderColor: '#1E1E1E',
+                        borderRadius: 4,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { display: false, grid: { display: false } },
+                        x: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    },
+                    animation: { duration: 1500, easing: 'easeOutQuart' }
+                }
+            });
+        }
+
+        // 2. HP Strategy Chart (Doughnut)
+        const hpCtx = document.getElementById('hpChart');
+        if (hpCtx) {
+            new Chart(hpCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['AI/서비스 투자', '기존 PC/인쇄', '구조조정'],
+                    datasets: [{
+                        data: [45, 30, 25],
+                        backgroundColor: ['#4D96FF', '#FDF0E0', '#1E1E1E'],
+                        borderWidth: 2,
+                        borderColor: '#1E1E1E',
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } }
+                    },
+                    cutout: '60%',
+                    animation: { animateScale: true, animateRotate: true }
+                }
+            });
+        }
+
+        // Smooth Scroll Logic
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

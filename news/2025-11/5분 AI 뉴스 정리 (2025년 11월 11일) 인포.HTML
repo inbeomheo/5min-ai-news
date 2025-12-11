@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 기술 동향 인포그래픽 (2025-11-11)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 기본 스타일 및 레트로/청키 디자인 적용 */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #FDF0E0; /* Light Peach */
+      color: #1E1E1E;
+      scroll-behavior: smooth; /* 부드러운 스크롤 */
+    }
+    .kpi-card {
+      background: #fff;
+      border: 2px solid #1E1E1E;
+      box-shadow: 4px 4px 0 #1E1E1E; /* 굵은 그림자 */
+    }
+    .news-card {
+      background: #fff;
+      border: 2px solid #1E1E1E;
+      box-shadow: 6px 6px 0 #1E1E1E; /* 더 굵은 그림자 */
+      transition: all .2s ease-in-out;
+    }
+    .news-card:hover {
+      transform: translate(2px, 2px); /* 호버 시 입체감 */
+      box-shadow: 4px 4px 0 #1E1E1E;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 1.5rem auto;
+      height: 300px;
+      max-height: 400px;
+    }
+    .chart-container.doughnut {
+      max-width: 400px;
+      height: 300px; /* 도넛 차트는 높이 고정 */
+    }
+    @media (min-width: 768px) {
+      .chart-container { height: 350px; }
+      .chart-container.doughnut { height: 350px; }
+    }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    /* CSS Callout (Big Number) 스타일 */
+    .callout-box {
+      border: 2px solid #1E1E1E;
+      background-color: #fef9c3; /* light yellow */
+    }
+    /* NEW 배지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2">AI·기술 최신 동향 <span class="badge-new">NEW</span></h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 11일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4장 고정)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">핵심 지표 요약</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1: CoreWeave -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">인프라 실적</p>
+          <p class="text-3xl md:text-4xl font-bold">매출 $13.6억</p>
+          <p class="text-sm text-gray-500">코어위브 3분기 (예상 상회)</p>
+        </div>
+        <!-- KPI 2: Anthropic -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">에이전트 비용</p>
+          <p class="text-3xl md:text-4xl font-bold">98.7% 절감</p>
+          <p class="text-sm text-gray-500">앤트로픽 MCP 토큰 비용</p>
+        </div>
+        <!-- KPI 3: Tufts Med School -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 숙련도 (의대생)</p>
+          <p class="text-3xl md:text-4xl font-bold">12%</p>
+          <p class="text-sm text-gray-500">터프츠 의대 '고숙련' 자평</p>
+        </div>
+        <!-- KPI 4: Gamma -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 생산성 도구</p>
+          <p class="text-3xl md:text-4xl font-bold">$21억</p>
+          <p class="text-sm text-gray-500">'감마(Gamma)' 기업 가치</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 탭 고정)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+        <a href="#infra-wars" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라 전쟁</a>
+        <a href="#agents" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🤖 AI 에이전트 진화</a>
+        <a href="#society" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI와 사회</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 산업 적용 가속화</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-20">
+
+      <!-- 1) 인프라 전쟁 -->
+      <section id="infra-wars">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라 전쟁</h2>
+        <p class="mb-8 text-lg text-gray-700">AI의 확장에 따라 칩, 데이터센터, 자금 확보를 위한 인프라 경쟁이 모든 전선에서 격화되고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: CoreWeave -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">코어위브, 3분기 매출 13.6억 달러로 시장 예상 상회</h3>
+            <p class="mb-4">코어위브가 3분기 매출 13.6억 달러를 기록하며 시장 예상치(12.9억 달러)를 웃돌았습니다. 이는 메타, 오픈AI 등 대형 고객사의 수요가 견인한 결과로, 적자도 주당 -0.22달러로 축소되며 AI 인프라 호황을 재확인했습니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 대형 AI 기업들의 투자가 인프라 전문 기업의 실적을 직접적으로 견인하고 있습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 2: China Ban -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">중국, 국가 지원 데이터센터에 '외산 AI 칩' 사용 금지</h3>
+            <p class="mb-4">중국 당국이 국가 자금이 지원되는 데이터센터에서 외국산 AI 칩 사용을 금지했습니다. 이는 자국 반도체 산업에 대한 자신감과 공급망 안보를 고려한 조치로, 엔비디아, AMD 등 미국 칩 제조사에 추가 압박이 될 전망입니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 공급망이 자국 우선주의와 안보 논리에 따라 빠르게 분절되고 있습니다.</p>
+          </article>
+          
+          <!-- 시각화 카드 3: CSS Callout -->
+          <article class="news-card p-6 rounded-xl md:col-span-2">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 text-center">쏟아지는 인프라 투자</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="callout-box rounded-lg p-6 text-center">
+                <span class="text-5xl font-bold">💰</span>
+                <p class="text-3xl font-bold mt-2">1억 달러+</p>
+                <p class="text-gray-600">츠보라이트, AI 칩 사전주문</p>
+              </div>
+              <div class="callout-box rounded-lg p-6 text-center">
+                <span class="text-5xl font-bold">🎓</span>
+                <p class="text-3xl font-bold mt-2">1000+ GPU</p>
+                <p class="text-gray-600">텍사스대 오스틴, 컴퓨팅 허브 2배 증설</p>
+              </div>
+            </div>
+             <p class="mt-4 text-sm">💡 <b>핵심:</b> 신생 칩 스타트업부터 학계까지 AI 컴퓨팅 파워 확보에 사활을 걸고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) AI 에이전트 진화 -->
+      <section id="agents">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#4D96FF] pl-4">🤖 AI 에이전트 진화</h2>
+        <p class="mb-8 text-lg text-gray-700">AI가 단순 Q&A를 넘어, 복잡한 작업을 스스로 계획하고 실행하는 '에이전트'로 빠르게 진화하며 비용 효율을 극대화하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: Anthropic -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">앤트로픽, MCP 코드로 토큰 비용 98.7% 절감</h3>
+            <p class="mb-4">앤트로픽이 MCP(모델 컨텍스트 프로토콜)의 코드 실행 방식을 공개했습니다. 도구 정의를 코드 API로 변환해 모델이 직접 타입스크립트 코드를 작성/실행하게 함으로써, 토큰 사용량을 15만에서 2000으로 98.7%나 절감했습니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 에이전트의 운영 비용과 지연 문제를 획기적으로 개선할 수 있는 기술적 돌파구가 마련되었습니다.</p>
+          </article>
+
+          <!-- 시각화 카드 2: Doughnut Chart -->
+          <div class="news-card p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-3">앤트로픽 MCP 토큰 비용 절감</h4>
+            <div class="chart-container doughnut">
+              <canvas id="agentChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm text-center">💡 <b>핵심:</b> 기존 15만 토큰(100%)이 2천 토큰(1.3%)으로 감소했습니다.</p>
+          </div>
+          
+          <!-- 뉴스 카드 3: Google -->
+          <article class="news-card p-6 rounded-xl md:col-span-2">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">구글, 지도 빌더 에이전트 및 Google TV에 제미니 탑재</h3>
+            <p class="mb-4">구글이 구글 지도용 AI 도구 '빌더 에이전트'를 출시했습니다. 제미니 모델을 통해 대화형으로 지도를 자동 생성하며, 동시에 Google TV 스트리머에도 제미니를 탑재해 어시스턴트를 대체하기 시작했습니다. xAI 또한 Grok 모델과 X API 접근을 제공하는 해커톤을 예고하며 개발자 생태계 확장에 나섰습니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 빅테크 기업들이 자사 핵심 플랫폼(지도, TV, 소셜 미디어)에 AI 에이전트 통합을 가속화하고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) AI와 사회 -->
+      <section id="society">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#F7D060] pl-4">⚖️ AI와 사회</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 기술이 사회 전반에 확산되면서 교육, 고용, 데이터 저작권 등 다양한 분야에서 새로운 규범과 사회적 논의가 촉발되고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: Tufts -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">터프츠 의대 "AI 활용은 하지만 숙련도 낮다"</h3>
+            <p class="mb-4">터프츠 의대가 AI 활용 현황 조사와 교육 로드맵을 발표했습니다. 설문 결과, AI를 고숙련으로 자평하는 비율이 학생 12%, 교원 9%에 불과해 체계적인 교육의 필요성이 제기되었습니다. UVA 다든 경영대학원 역시 전략 과목에 GenAI를 전면 도입하는 등 교육계의 움직임이 빠릅니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 전문직 분야에서도 AI 활용도는 높으나, 실제 숙련도와 교육은 아직 초기 단계에 머물러 있습니다.</p>
+          </article>
+          
+          <!-- 시각화 카드 2: Bar Chart -->
+          <div class="news-card p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-3">터프츠 의대 AI 고숙련도 자평 비율 (%)</h4>
+            <div class="chart-container">
+              <canvas id="societyChart"></canvas>
+            </div>
+             <p class="mt-4 text-sm text-center">💡 <b>핵심:</b> AI 사용 경험과 실제 숙련도 간의 격차 해소가 교육계의 과제로 떠올랐습니다.</p>
+          </div>
+
+          <!-- 뉴스 카드 3: Wikipedia -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">위키피디아, AI 기업에 "스크래핑 중단, 유료 API 사용" 촉구</h3>
+            <p class="mb-4">위키미디어 재단이 AI 기업들을 향해 무단 스크래핑을 중단하고 유료 API를 이용할 것을 권고했습니다. 신뢰성, 확장성, 그리고 공정한 보상 체계를 갖춘 공식 API를 통해 데이터 생태계의 지속가능성을 높여야 한다는 주장입니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 모델 학습에 사용되는 데이터 저작권과 공정 사용료 문제가 본격적인 쟁점이 되고 있습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 4: Unemployment -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">"미국 실업률 10%까지 갈 수도"… AI 일자리 대체 우려</h3>
+            <p class="mb-4">24/7 월스트리트는 현재 4.2%인 미국 실업률이 AI로 인해 추가 800만 개의 일자리가 사라지면 10%에 도달할 수 있다고 분석했습니다. 골드만삭스의 대체 추정 등을 근거로 리테일, 화이트칼라 중심의 고용 구조 변화 충격을 경고했습니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI로 인한 생산성 향상 이면에 고용 충격 가능성이 상존하며 정책적 대비가 요구됩니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) 산업 적용 가속화 -->
+      <section id="apps">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#6BCB77] pl-4">🏭 산업 적용 가속화</h2>
+        <p class="mb-8 text-lg text-gray-700">프레젠테이션 자동화부터 신약 개발, 향수 제조에 이르기까지 AI가 실제 산업 현장의 효율을 높이는 핵심 도구로 자리매김하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: Gamma -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">'감마(Gamma)', 기업가치 21억 달러에 라운드 진행</h3>
+            <p class="mb-4">AI 프레젠테이션 플랫폼 '감마(Gamma)'가 기업가치 21억 달러 수준의 신규 라운드를 진행 중이며, 연간매출(ARR) 1억 달러에 도달했다고 NYT 딜북이 보도했습니다. 생성형 AI를 통한 문서 및 슬라이드 자동화 기능이 시장에서 폭발적인 성장을 이끌었습니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> '파워포인트 대체'를 내세운 AI 기반 생산성 도구가 유니콘 기업으로 빠르게 성장하고 있습니다.</p>
+          </article>
+          
+          <!-- 뉴스 카드 2: Lilly & Insilico -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">일라이 릴리, 인실리코 메디슨과 1억 달러+ 신약발굴 제휴</h3>
+            <p class="mb-4">일라이 릴리가 인실리코 메디슨과 1억 달러 이상 규모의 AI 신약 공동개발 제휴를 발표했습니다. 릴리는 인실리코의 'Pharma.AI' 플랫폼을 자사 전문성과 결합하고, 엔비디아 DGX 슈퍼POD 기반의 'AI 팩토리'에서 모델을 학습시켜 후보물질 발굴 속도를 높일 계획입니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 제약 산업에서 AI 기반 신약 발굴(R&D)이 대규모 계약을 통해 주류로 편입되고 있습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 3: AI Perfume -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">AI 향수의 시대: 48시간 내 시제품 제작</h3>
+            <p class="mb-4">뉴욕타임스 패션 섹션이 AI가 향수 산업을 바꾸고 있다고 조명했습니다. 심라이즈, 지보단 등 대기업들이 AI 도구를 도입했으며, 스타트업 오스모(Osmo)는 48시간 내 시제품 제작을 내세우며 개발 기간을 획기적으로 단축하고 있습니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI가 조향사의 창의성을 보조하며 전통적인 예술의 영역까지 확장되고 있습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 4: Sports -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">스페인 육상 연맹, IBM watsonx로 선수 퍼포먼스 최적화</h3>
+            <p class="mb-4">스페인 육상연맹(RFEA)이 IBM의 AI 플랫폼을 도입하여 훈련 및 경기 데이터 분석을 고도화합니다. watsonx 기반 모델이 생체 및 전술 데이터를 통합해 코치에게 실시간 인사이트를 제공, 엘리트 선수단의 부상 예방과 기록 향상을 목표로 합니다.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 스포츠 산업에서도 AI를 활용한 데이터 기반 의사결정이 경쟁력 강화의 핵심이 되고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8">
+      <p>AI·기술 동향 인포그래픽 | 2025-11-11</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       CHART & SCROLL SCRIPT
+       ========================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // --- Smooth Scroll for Anchor Links ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // sticky nav 높이 고려 (대략 60px)
+            const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // --- Intersection Observer for Chart Loading ---
+      const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const canvasId = entry.target.id;
+            if (canvasId === 'agentChart') {
+              loadAgentChart();
+            } else if (canvasId === 'societyChart') {
+              loadSocietyChart();
+            }
+            observer.unobserve(entry.target); // 한 번 로드되면 관찰 중지
+          }
+        });
+      }, { threshold: 0.5 }); // 50% 보일 때 로드
+
+      const agentChartEl = document.getElementById('agentChart');
+      const societyChartEl = document.getElementById('societyChart');
+
+      if (agentChartEl) chartObserver.observe(agentChartEl);
+      if (societyChartEl) chartObserver.observe(societyChartEl);
+
+      // --- Chart Definitions ---
+
+      // 1. Agent Chart (Doughnut)
+      function loadAgentChart() {
+        const ctx = document.getElementById('agentChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['절감된 토큰 (98.7%)', '소요 토큰 (1.3%)'],
+            datasets: [{
+              label: '토큰 비용',
+              data: [98.7, 1.3],
+              backgroundColor: [
+                '#4D96FF', // Blue
+                '#E0E0E0'  // Gray
+              ],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+              },
+              title: {
+                display: false,
+                text: '앤트로픽 MCP 토큰 비용 절감'
+              }
+            }
+          }
+        });
+      }
+
+      // 2. Society Chart (Bar)
+      function loadSocietyChart() {
+        const ctx = document.getElementById('societyChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['의대생', '교원'],
+            datasets: [{
+              label: 'AI 고숙련 자평 비율 (%)',
+              data: [12, 9],
+              backgroundColor: [
+                '#F7D060', // Yellow
+                '#F7B760'  // Orange
+              ],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y', // 가로 막대 차트
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  callback: function(value) { return value + '%' }
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: false
+              }
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

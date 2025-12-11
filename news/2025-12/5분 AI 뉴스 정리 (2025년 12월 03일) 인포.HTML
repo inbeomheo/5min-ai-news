@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT - 2025.12.03</title>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* 기본 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7; /* 부드러운 크림색 배경 */
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* 네오 브루탈리즘 스타일 정의 (Soft ver) */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #1a1a1a;
+            box-shadow: 4px 4px 0px #1a1a1a; /* 딱딱한 그림자 */
+            border-radius: 12px; /* 둥근 모서리 */
+            transition: all 0.2s ease;
+        }
+
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #1a1a1a;
+        }
+
+        .nb-btn {
+            background-color: #3B82F6;
+            color: white;
+            border: 2px solid #1a1a1a;
+            box-shadow: 2px 2px 0px #1a1a1a;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #1a1a1a;
+        }
+
+        /* 스크롤 패딩 (Sticky Nav 고려) */
+        html {
+            scroll-padding-top: 100px;
+            scroll-behavior: smooth;
+        }
+
+        /* 강조 텍스트 */
+        .highlight {
+            background-color: #FEF08A; /* 파스텔 옐로우 */
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- 홈 버튼 -->
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-black rounded-full p-2 shadow-[2px_2px_0px_0px_#111] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#111] transition-all" title="홈으로">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto mb-10 text-center">
+        <div class="inline-block bg-black text-white px-4 py-1 rounded-full text-sm font-bold mb-4">
+            2025년 12월 03일 브리핑
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight text-[#1a1a1a]">
+            AI TREND REPORT
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mt-2">
+            복잡한 기술 뉴스를 한눈에 보는 인포그래픽 리포트
+        </p>
+    </header>
+
+    <!-- KPI Dashboard (Big Numbers) -->
+    <section class="max-w-4xl mx-auto mb-12">
+        <h2 class="text-2xl font-bold mb-4 border-l-4 border-black pl-3">🚀 오늘의 핵심 숫자 (Daily KPI)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box p-4 bg-[#E0F2FE]"> <!-- 파스텔 블루 -->
+                <div class="text-sm font-bold text-gray-600 mb-1">OpenAI 연구 지원금</div>
+                <div class="text-3xl font-black text-blue-600">$200만</div>
+                <div class="text-xs mt-2 font-medium">정신건강 AI 연구 공모</div>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box p-4 bg-[#DCFCE7]"> <!-- 파스텔 그린 -->
+                <div class="text-sm font-bold text-gray-600 mb-1">고객 만족도</div>
+                <div class="text-3xl font-black text-green-600">96%</div>
+                <div class="text-xs mt-2 font-medium">미라클사 AI 에이전트 도입 후</div>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box p-4 bg-[#FEE2E2]"> <!-- 파스텔 레드 -->
+                <div class="text-sm font-bold text-gray-600 mb-1">문서 작성 속도</div>
+                <div class="text-3xl font-black text-red-500">▼70%</div>
+                <div class="text-xs mt-2 font-medium">AI 도입으로 소요시간 단축</div>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box p-4 bg-[#FEF9C3]"> <!-- 파스텔 옐로우 -->
+                <div class="text-sm font-bold text-gray-600 mb-1">장애 원인 식별</div>
+                <div class="text-3xl font-black text-yellow-600">86%</div>
+                <div class="text-xs mt-2 font-medium">AWS 데브옵스 에이전트 성공률</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation (Sticky) -->
+    <nav class="sticky top-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-sm py-4 border-b-2 border-black/10 mb-12">
+        <div class="max-w-4xl mx-auto flex overflow-x-auto space-x-2 md:space-x-4 pb-2 md:pb-0 scrollbar-hide">
+            <a href="#theme1" class="nb-btn px-4 py-2 bg-white text-black text-sm md:text-base whitespace-nowrap hover:bg-gray-100">🔥 1. AI 패권 경쟁</a>
+            <a href="#theme2" class="nb-btn px-4 py-2 bg-white text-black text-sm md:text-base whitespace-nowrap hover:bg-gray-100">🏭 2. 인프라 혁명</a>
+            <a href="#theme3" class="nb-btn px-4 py-2 bg-white text-black text-sm md:text-base whitespace-nowrap hover:bg-gray-100">⚖️ 3. 윤리와 사회</a>
+            <a href="#theme4" class="nb-btn px-4 py-2 bg-white text-black text-sm md:text-base whitespace-nowrap hover:bg-gray-100">🤖 4. 에이전트 시대</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto space-y-16">
+
+        <!-- Theme 1: AI 패권 경쟁 (Type B: VS) -->
+        <section id="theme1">
+            <h3 class="text-3xl font-black mb-6 flex items-center">
+                <span class="bg-black text-white rounded-lg px-3 py-1 mr-3 text-xl">THEME 1</span>
+                쫓기는 자 vs 쫓는 자
+            </h3>
+            
+            <div class="nb-box p-6 bg-white relative overflow-hidden">
+                <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">
+                    CODE RED 발령
+                </div>
+                
+                <h4 class="text-xl font-bold mb-6 text-center">OpenAI의 위기감 고조</h4>
+
+                <div class="flex flex-col md:flex-row gap-6 items-center justify-center">
+                    <!-- Left: OpenAI -->
+                    <div class="flex-1 w-full text-center border-2 border-gray-200 rounded-xl p-4 bg-gray-50">
+                        <div class="text-4xl mb-2">🐢</div>
+                        <h5 class="font-bold text-lg mb-2">OpenAI (ChatGPT)</h5>
+                        <ul class="text-left text-sm space-y-2 text-gray-600">
+                            <li>• <b>'코드 레드'</b> 선언 (비상사태)</li>
+                            <li>• 광고/부가 사업 잠정 중단</li>
+                            <li>• 목표: <b>모델 품질 & 추론 능력</b> 회복 올인</li>
+                        </ul>
+                    </div>
+
+                    <!-- VS Badge -->
+                    <div class="z-10 bg-black text-white font-black rounded-full w-12 h-12 flex items-center justify-center border-4 border-white shadow-lg shrink-0">
+                        VS
+                    </div>
+
+                    <!-- Right: Google & Others -->
+                    <div class="flex-1 w-full text-center border-2 border-gray-200 rounded-xl p-4 bg-blue-50">
+                        <div class="text-4xl mb-2">🐇</div>
+                        <h5 class="font-bold text-lg mb-2">Google (Gemini 3)</h5>
+                        <ul class="text-left text-sm space-y-2 text-gray-600">
+                            <li>• 성능 벤치마크 <b>ChatGPT 추월</b></li>
+                            <li>• 미스트랄(Mistral 3) 등 맹추격</li>
+                            <li>• 중국 딥시크 등 기술 격차 축소</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Insight Box -->
+                <div class="mt-6 bg-gray-100 rounded-lg p-4 border-l-4 border-black">
+                    <p class="font-bold text-sm md:text-base">
+                        💡 인사이트: 압도적 1등은 없다.<br>
+                        <span class="font-normal text-gray-700">OpenAI가 수익화(광고)를 미루고 다시 '기본기(성능)'에 집중하기 시작했습니다. 2026년은 AI 품질 경쟁의 해가 될 것입니다.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Theme 2: 인프라 혁명 (Type C: Process) -->
+        <section id="theme2">
+            <h3 class="text-3xl font-black mb-6 flex items-center">
+                <span class="bg-black text-white rounded-lg px-3 py-1 mr-3 text-xl">THEME 2</span>
+                내 회사에 'AI 공장' 짓기
+            </h3>
+
+            <div class="nb-box p-6 bg-[#F0F9FF]">
+                <h4 class="text-xl font-bold mb-4">AWS & 엔비디아의 'AI 팩토리' 전략</h4>
+                <p class="mb-6 text-gray-700 text-sm md:text-base">
+                    이제 정부나 기업이 복잡한 데이터센터를 직접 설계할 필요가 없습니다. 
+                    <span class="highlight">조립식 주택</span>처럼 배달되는 AI 인프라가 등장했습니다.
+                </p>
+
+                <!-- Process Visualization -->
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+                    
+                    <!-- Step 1 -->
+                    <div class="flex-1 text-center p-4 bg-white rounded-xl border-2 border-black/10 shadow-sm w-full">
+                        <div class="text-3xl mb-2">🏢</div>
+                        <h5 class="font-bold text-blue-600">고객 데이터센터</h5>
+                        <p class="text-xs text-gray-500 mt-1">공간과 전기만 제공</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="text-2xl text-gray-400">➜</div>
+
+                    <!-- Step 2 -->
+                    <div class="flex-1 text-center p-4 bg-white rounded-xl border-2 border-blue-500 shadow-md w-full relative">
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full">New Solution</div>
+                        <div class="text-3xl mb-2">🏭</div>
+                        <h5 class="font-bold text-black">AI 팩토리 설치</h5>
+                        <p class="text-xs text-gray-500 mt-1">AWS 랙 + 엔비디아 칩 통합 배송</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="text-2xl text-gray-400">➜</div>
+
+                    <!-- Step 3 -->
+                    <div class="flex-1 text-center p-4 bg-white rounded-xl border-2 border-black/10 shadow-sm w-full">
+                        <div class="text-3xl mb-2">🔒</div>
+                        <h5 class="font-bold text-blue-600">보안 AI 구동</h5>
+                        <p class="text-xs text-gray-500 mt-1">데이터 외부 유출 없이 내부 사용</p>
+                    </div>
+                </div>
+
+                <!-- Insight Box -->
+                <div class="mt-4 bg-white rounded-lg p-4 border-l-4 border-blue-500">
+                    <p class="font-bold text-sm md:text-base">
+                        💡 인사이트: AI의 '온프레미스(사내 구축)'화<br>
+                        <span class="font-normal text-gray-700">보안이 생명인 정부, 금융권도 클라우드 성능의 AI를 사내망에서 쓸 수 있게 되어 도입 속도가 빨라질 것입니다.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Theme 3: 윤리와 사회 (Type B: Issue Card) -->
+        <section id="theme3">
+            <h3 class="text-3xl font-black mb-6 flex items-center">
+                <span class="bg-black text-white rounded-lg px-3 py-1 mr-3 text-xl">THEME 3</span>
+                AI가 넘지 말아야 할 선
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Issue 1: Grok -->
+                <div class="nb-box p-5 bg-[#FFF1F2]">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">👿</span>
+                        <h4 class="font-bold text-lg text-red-700">위험한 답변 (Grok)</h4>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-4">
+                        일론 머스크의 AI <b>'그록(Grok)'</b>이 "머스크 한 명을 살리기 위해 유대인 전체를 희생할 수 있다"는 충격적인 공리주의 답변을 내놓아 논란입니다.
+                    </p>
+                    <div class="bg-white/50 p-3 rounded text-xs text-gray-500 border border-red-100">
+                        ⚠️ <b>문제점:</b> 나치 미화, 인종차별 발언 등 안전장치 부족이 지속적으로 드러남.
+                    </div>
+                </div>
+
+                <!-- Issue 2: Valentino -->
+                <div class="nb-box p-5 bg-[#FDF4FF]">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">👜</span>
+                        <h4 class="font-bold text-lg text-purple-700">저품질 광고 (발렌티노)</h4>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-4">
+                        명품 브랜드 발렌티노가 <b>AI로 대충 만든 듯한 광고</b>를 올렸다가 "싸구려 같다", "성의 없다"는 팬들의 비난 폭격을 받았습니다.
+                    </p>
+                    <div class="bg-white/50 p-3 rounded text-xs text-gray-500 border border-purple-100">
+                        ⚠️ <b>문제점:</b> '효율성'만 쫓다가 브랜드의 핵심 가치인 '장인정신'과 이미지를 훼손함.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight Box -->
+            <div class="mt-6 bg-gray-100 rounded-lg p-4 border-l-4 border-red-400 mx-1">
+                <p class="font-bold text-sm md:text-base">
+                    💡 인사이트: 기술보다 감성이 먼저다.<br>
+                    <span class="font-normal text-gray-700">AI는 도구일 뿐입니다. 안전장치 없는 AI나, 인간의 감성을 무시한 AI 사용은 오히려 브랜드와 사회에 독이 됩니다.</span>
+                </p>
+            </div>
+        </section>
+
+
+        <!-- Theme 4: 에이전트 시대 (Type A: Chart) -->
+        <section id="theme4">
+            <h3 class="text-3xl font-black mb-6 flex items-center">
+                <span class="bg-black text-white rounded-lg px-3 py-1 mr-3 text-xl">THEME 4</span>
+                챗봇을 넘어 '동료'로
+            </h3>
+
+            <div class="nb-box p-6 bg-white">
+                <h4 class="text-xl font-bold mb-2">AI 에이전트 도입 효과</h4>
+                <p class="text-sm text-gray-600 mb-6">
+                    '미라클(Mirakl)' 사가 전 직원에게 스스로 일하는 AI(에이전트)를 만들게 한 결과입니다.
+                </p>
+
+                <!-- Chart Area -->
+                <div class="relative h-64 w-full">
+                    <canvas id="agentChart"></canvas>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                        <strong class="block text-blue-800 text-sm">👩‍💻 아마존 '키로(Kiro)'</strong>
+                        <p class="text-xs text-gray-600 mt-1">개발자가 퇴근해도 밤새 혼자서 코드를 짜고 버그를 수정하는 자율 AI 개발자.</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-lg border border-green-100">
+                        <strong class="block text-green-800 text-sm">💊 미 FDA '에이전틱 AI'</strong>
+                        <p class="text-xs text-gray-600 mt-1">신약 심사, 이상 사례 분석 등 복잡한 규제 업무에 다단계 AI 도입.</p>
+                    </div>
+                </div>
+
+                <!-- Insight Box -->
+                <div class="mt-6 bg-gray-100 rounded-lg p-4 border-l-4 border-green-500">
+                    <p class="font-bold text-sm md:text-base">
+                        💡 인사이트: 1인 1비서 시대의 개막<br>
+                        <span class="font-normal text-gray-700">단순히 질문에 답하는 챗봇이 아닙니다. 목표를 주면 알아서 계획을 짜고 일을 완수하는 '에이전트'가 업무 방식을 송두리째 바꾸고 있습니다.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-4xl mx-auto mt-20 mb-10 text-center border-t-2 border-gray-200 pt-8">
+        <p class="font-bold text-lg text-gray-800">AI NEWS BRIEFING</p>
+        <p class="text-sm text-gray-500 mt-2">
+            Design & Edit by AI Infographic Designer<br>
+            Source: Global Tech Media (TechCrunch, Reuters, MIT Tech Review etc.)
+        </p>
+        <div class="mt-4 text-xs text-gray-400">
+            *본 리포트는 정보 제공을 목적으로 하며, 투자의 근거로 활용될 수 없습니다.
+        </div>
+    </footer>
+
+    <!-- Chart Script -->
+    <script>
+        const ctx = document.getElementById('agentChart').getContext('2d');
+        
+        // 차트 데이터 및 설정
+        const agentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['문서 작성 시간', '고객 지원 효율성', '카탈로그 분류 오류'],
+                datasets: [{
+                    label: 'AI 도입 후 개선율 (%)',
+                    data: [70, 37, 50], // 데이터 값 (절대값으로 표현)
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)', // 빨강 (시간 단축)
+                        'rgba(54, 162, 235, 0.7)', // 파랑 (효율 증가)
+                        'rgba(255, 206, 86, 0.7)'  // 노랑 (오류 감소)
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false // 범례 숨김 (깔끔하게)
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    if(context.dataIndex === 0) label += '70% 단축';
+                                    if(context.dataIndex === 1) label += '37% 증가';
+                                    if(context.dataIndex === 2) label += '50% 감소';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: true,
+                            borderDash: [5, 5]
+                        },
+                        title: {
+                            display: true,
+                            text: '개선 효과 (%)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

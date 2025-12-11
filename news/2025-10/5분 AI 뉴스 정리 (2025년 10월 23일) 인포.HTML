@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 동향 인포그래픽 (2025-10-24)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- 
+    Narrative Plan: This infographic for Oct 24, 2025, is structured around four critical themes: 1) The Infrastructure Power Play (highlighting the massive Anthropic-Google TPU deal as a major challenge to Nvidia's dominance and a key move in the AI compute arms race), 2) The Enterprise Knowledge Hub (showcasing OpenAI's 'Company Knowledge' and 'Sky' acquisition as strategic moves to embed AI deeply within corporate workflows and OS environments), 3) The Data Wars (focusing on Reddit's landmark lawsuit against AI scrapers, marking a critical turning point in the battle over data rights for AI training), and 4) AI Everywhere (illustrating the broad integration of AI into diverse sectors like automotive with GM/Gemini and logistics with Amazon's robotics/AI agents). This structure captures the intensifying competition for foundational resources, the battle for enterprise integration, the legal fight over data, and the pervasive spread of AI applications.
+
+    Visualization Choices:
+    - Anthropic-Google TPU Deal: Goal=Inform. Viz=An illustrative HTML/CSS block with a large number callout (1 Million TPUs) and company logos to emphasize the scale and strategic nature of the partnership. Justification=Instantly communicates the magnitude and competitive significance of the deal. Confirmed NO SVG.
+    - OpenAI's 'Company Knowledge': Goal=Organize. Viz=A flow diagram illustrating how internal enterprise apps (Slack, Drive, etc.) connect to ChatGPT to provide contextualized answers. Justification=Visually explains how AI is becoming integrated with proprietary company data. Confirmed NO SVG/Mermaid.
+    - Reddit vs. AI Scrapers Lawsuit: Goal=Inform. Viz=An illustrative HTML/CSS block with a gavel icon versus scraping icons/logos to represent the legal conflict over data scraping. Justification=Creates a strong visual metaphor for a major legal battle with industry-wide implications. Confirmed NO SVG.
+    - Amazon Health Book Analysis: Goal=Compare. Viz=A Doughnut Chart (Chart.js) to starkly visualize the high percentage (82%) of potentially AI-generated health books found on Amazon. Justification=A doughnut chart is perfect for displaying a powerful, attention-grabbing statistic about content authenticity and potential misinformation. Confirmed NO SVG.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDF0E0; /* Light Peach */
+            color: #1E1E1E;
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .news-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 6px 6px 0px #1E1E1E;
+            transition: all 0.2s ease-in-out;
+        }
+        .news-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Adjusted max-width for bar chart */
+            margin: 1.5rem auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        .chart-container.doughnut {
+           max-width: 400px; /* Keep doughnut smaller */
+           height: 300px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+             .chart-container.doughnut {
+                height: 350px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">AI·기술 최신 동향</h1>
+            <p class="text-xl text-gray-700">2025년 10월 24일</p>
+        </header>
+
+        <section id="kpi-overview" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">핵심 지표 요약</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">앤스로픽-구글 계약</p>
+                    <p class="text-5xl font-bold text-[#FF6B6B]">100만 개</p>
+                    <p class="text-sm text-gray-500">(TPU 접근권)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">OpenAI, 기업 지식</p>
+                    <p class="text-5xl font-bold text-[#4D96FF]">연동 시작</p>
+                    <p class="text-sm text-gray-500">(ChatGPT 기능)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">GM, 제미나이 도입</p>
+                    <p class="text-5xl font-bold text-[#F7D060]">전 차종</p>
+                    <p class="text-sm text-gray-500">(2015년식까지)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">아마존 건강 서적</p>
+                    <p class="text-5xl font-bold text-[#6BCB77]">82%</p>
+                    <p class="text-sm text-gray-500">(AI 작성 의심)</p>
+                </div>
+            </div>
+        </section>
+
+        <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-4 mb-12 border-b-2 border-t-2 border-[#1E1E1E]">
+            <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+                <a href="#infrastructure" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라 전쟁</a>
+                <a href="#platform" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🌐 플랫폼 통합</a>
+                <a href="#datawars" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ 데이터 전쟁</a>
+                <a href="#integration" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🚗 AI의 확산</a>
+            </div>
+        </nav>
+
+        <div class="space-y-20">
+            <section id="infrastructure">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라 전쟁: 구글-앤스로픽 동맹, 엔비디아에 도전</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술 패권을 잡기 위한 경쟁이 모델 개발을 넘어 인프라 확보전으로 치닫는 가운데, 구글과 앤스로픽이 엔비디아의 독주에 제동을 걸 강력한 동맹을 맺었습니다. 앤스로픽이 구글로부터 최대 100만 개의 TPU 접근권을 확보하는 초대형 계약은 AI 인프라 시장의 다극화를 예고하는 중대한 사건입니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">앤스로픽, 구글과 TPU 100만 개 초대형 딜 확정</h3>
+                        <p class="mb-4">앤스로픽은 차세대 모델 학습을 위해 구글 클라우드와 수백억 달러 규모의 계약을 맺고, 엔비디아 GPU의 대안으로 떠오른 구글 TPU를 대량 확보했습니다. 이는 AI 모델 기업들이 특정 칩 제조사에 대한 의존도를 낮추고 공급망을 다변화하려는 전략적 움직임이며, AI 칩 시장의 경쟁 구도를 근본적으로 바꿀 잠재력을 지닙니다.</p>
+                        <div class="my-8 p-8 bg-red-50 border-4 border-black rounded-xl">
+                             <h4 class="font-bold text-lg mb-4">AI 인프라 동맹</h4>
+                             <div class="flex items-center justify-center space-x-4 text-center">
+                                <div class="p-4 bg-white border-2 border-black rounded-md">
+                                    <p class="font-bold text-lg">Anthropic (모델)</p>
+                                </div>
+                                <div class="font-bold text-4xl">+</div>
+                                <div class="p-4 bg-white border-2 border-black rounded-md">
+                                     <p class="font-bold text-lg">Google (TPU 100만개)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 인프라 경쟁은 이제 '얼마나 많은 칩을 확보하는가' 뿐만 아니라, '어떤 종류의 칩을, 누구와 손잡고 확보하는가'의 문제로 진화하고 있습니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="platform">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#4D96FF] pl-4">🌐 플랫폼 통합: AI, 기업의 두뇌가 되다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI가 단순한 외부 도구를 넘어 기업의 핵심 시스템과 운영체제(OS) 수준으로 깊숙이 통합되고 있습니다. OpenAI는 ChatGPT가 기업 내부 데이터를 직접 활용하도록 기능을 확장하고, 나아가 Mac OS를 자연어로 제어하는 기술까지 인수하며 AI를 기업 운영의 '중추 신경계'로 만들려는 야심을 드러냈습니다.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI, ChatGPT에 '회사 지식' 연동 기능 출시</h3>
+                        <p class="mb-4">이제 ChatGPT 비즈니스 및 엔터프라이즈 사용자는 Slack, SharePoint, Google Drive 등 내부 앱을 직접 연결하여, 조직의 문서와 데이터를 바탕으로 답변을 얻을 수 있습니다. 답변 시 출처를 명시하고 기존 접근 권한을 존중하여 신뢰성과 보안성을 높였습니다.</p>
+                        <div class="mt-6 p-6 bg-blue-50 border-2 border-black rounded-lg">
+                            <h4 class="font-bold text-lg mb-4 text-center">ChatGPT + 기업 내부 데이터</h4>
+                            <div class="flex items-center justify-center space-x-2 md:space-x-4 text-center text-sm md:text-base">
+                                <div class="p-3 bg-white border-2 border-black rounded-md">Slack, Drive 등 내부 앱</div>
+                                <div class="font-bold text-2xl text-gray-400">→</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-md">ChatGPT (회사 지식 활용)</div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 기업용 AI의 진정한 가치는 외부 정보 검색이 아닌, 조직 내부의 고유한 지식과 맥락을 이해하고 활용하는 능력에서 나옵니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI, Mac OS 제어 AI 에이전트 'Sky' 인수</h3>
+                        <p class="mb-4">OpenAI가 Mac 화면을 보고 앱을 자동으로 제어하는 자연어 인터페이스 'Sky' 개발사를 인수했습니다. 이는 챗봇을 넘어, 사용자의 컴퓨터 환경에 직접 개입하여 작업을 수행하는 'OS 수준 AI 에이전트' 개발을 본격화하겠다는 신호입니다.</p>
+                        <div class="my-8 p-8 bg-blue-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">💻</p>
+                            <p class="text-3xl font-bold">OS + AI Agent</p>
+                            <p class="text-lg mt-2">컴퓨터 제어의 미래</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 미래의 AI는 앱 안에서만 작동하는 것이 아니라, 운영체제와 하나 되어 우리의 모든 디지털 작업을 조율하는 '컨트롤 타워'가 될 것입니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="datawars">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#F7D060] pl-4">⚖️ 데이터 전쟁: '공짜 점심'은 끝났다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 모델 학습에 필수적인 데이터 확보를 둘러싼 법적 분쟁이 격화되고 있습니다. 레딧이 AI 검색 엔진 등을 상대로 제기한 대규모 소송은, '공개된 웹 데이터는 누구나 무료로 사용할 수 있다'는 AI 업계의 오랜 관행에 종지부를 찍고, 데이터 사용에 대한 정당한 대가를 요구하는 새로운 시대의 시작을 알립니다.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">레딧, 퍼플렉시티 등 4개사 상대 '무단 스크래핑' 소송</h3>
+                        <p class="mb-4">레딧은 퍼플렉시티, Oxylabs 등이 자사 데이터를 대규모로 무단 스크래핑하여 AI 모델 학습과 서비스에 부당하게 활용했다며 소송을 제기했습니다. 이미 구글, OpenAI 등과는 유료 라이선스 계약을 맺은 레딧의 이번 조치는 계약을 우회하는 데이터 수집 관행에 대한 강력한 경고입니다.</p>
+                        <div class="my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl flex justify-center items-center gap-8">
+                            <p class="text-5xl font-bold">Reddit</p>
+                            <p class="text-4xl font-bold">vs</p>
+                             <p class="text-5xl font-bold">AI Scrapers</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 데이터는 AI 시대의 '석유'입니다. 이제 그 가치에 대한 정당한 대가를 지불하는 것이 AI 산업의 지속 가능한 발전을 위한 새로운 규칙이 되고 있습니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">아마존 건강 서적 82% 'AI 작성 의심'</h3>
+                        <p class="mb-4">AI 콘텐츠 탐지 기업의 분석 결과, 아마존에서 판매 중인 특정 건강 분야(허브 요법) 서적의 82%가 AI로 작성되었을 가능성이 높은 것으로 나타났습니다. 검증되지 않은 AI 생성 정보가 건강과 직결된 분야에까지 무분별하게 유통되는 현실은 심각한 정보 신뢰도 문제를 야기합니다.</p>
+                         <div class="chart-container doughnut">
+                             <canvas id="amazonBookChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI가 생성한 콘텐츠의 양이 폭발적으로 증가하면서, 그 내용의 진위와 품질을 검증하는 플랫폼의 책임과 사용자의 비판적 사고 능력이 더욱 중요해졌습니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="integration">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#6BCB77] pl-4">🚗 AI의 확산: 자동차에서 물류까지</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술이 자동차, 물류 등 전통 산업의 핵심 운영 시스템으로 빠르게 통합되고 있습니다. GM은 구글의 최신 AI를 전 차종에 탑재하여 '바퀴 달린 스마트폰'으로의 진화를 선언했고, 아마존은 로봇과 AI 에이전트를 결합하여 물류센터 운영의 완전 자동화를 향해 나아가고 있습니다.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">GM, 2026년부터 전 차종에 구글 Gemini 탑재</h3>
+                        <p class="mb-4">GM은 2026년식 신차뿐만 아니라 2015년식 구형 모델까지 포함하는 파격적인 계획을 발표했습니다. 구글 Gemini 기반 AI 비서는 맥락을 이해하는 대화형 인터페이스를 통해 운전 경험을 혁신하고, 자동차를 단순한 이동 수단을 넘어 '지능형 공간'으로 만들 것입니다.</p>
+                         <div class="my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🚗</p>
+                            <p class="text-3xl font-bold">Car + AI Assistant</p>
+                            <p class="text-lg mt-2">모빌리티 경험의 재정의</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 미래 자동차의 경쟁력은 엔진 성능이 아닌, AI 기반의 '소프트웨어 경험'에 의해 결정될 것입니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">아마존, 물류 자동화 로봇·AI 에이전트 공개</h3>
+                        <p class="mb-4">아마존은 다관절 로봇 'Blue Jay'와 물류 운영 최적화 AI 에이전트 'Eluna'를 공개했습니다. Blue Jay는 다양한 상품을 처리하고, Eluna는 실시간 데이터 분석으로 병목 현상을 예측하고 해결책을 제시합니다. 이는 로봇과 AI가 결합하여 물류 효율성을 극대화하는 미래를 보여줍니다.</p>
+                         <div class="my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">📦</p>
+                            <p class="text-3xl font-bold">Robotics + AI Agent</p>
+                            <p class="text-lg mt-2">물류 자동화의 미래</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI는 단순히 인간의 작업을 대체하는 것을 넘어, 로봇과 협력하여 물리적 세계의 운영 방식을 근본적으로 혁신하고 있습니다.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const chartColors = {
+            red: '#FF6B6B',
+            blue: '#4D96FF',
+            yellow: '#F7D060',
+            green: '#6BCB77',
+            grey: '#C0C0C0'
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const amazonBookData = {
+            labels: ['AI 작성 의심 서적', '기타 서적'],
+            datasets: [{
+                data: [82, 18],
+                backgroundColor: [chartColors.yellow, chartColors.grey],
+                borderColor: '#FDF0E0',
+                borderWidth: 4
+            }]
+        };
+
+        const amazonBookConfig = {
+            type: 'doughnut',
+            data: amazonBookData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: { display: true, text: '아마존 건강 서적 AI 작성 의심 비율 (%)', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                cutout: '50%'
+            }
+        };
+
+        let bookChart;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'amazonBookChart' && !bookChart) {
+                        bookChart = new Chart(entry.target, amazonBookConfig);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.getElementById('amazonBookChart'));
+
+    </script>
+
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>

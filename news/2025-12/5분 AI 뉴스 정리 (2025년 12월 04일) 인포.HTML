@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT: 2025년 12월 1주차</title>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        bgCream: '#FDFBF7',
+                        textBlack: '#1a1a1a', // 아주 진한 회색
+                        pastelBlue: '#bfdbfe',
+                        pastelRed: '#fca5a5',
+                        pastelYellow: '#fde68a',
+                        pastelGreen: '#bbf7d0',
+                        pastelPurple: '#e9d5ff',
+                        borderDark: '#333333',
+                    },
+                    boxShadow: {
+                        'nb': '4px 4px 0px #333333', // 네오 브루탈리즘 그림자
+                        'nb-hover': '2px 2px 0px #333333',
+                        'nb-active': '0px 0px 0px #333333',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 기본 스타일 및 유틸리티 */
+        body {
+            background-color: #FDFBF7;
+            color: #1a1a1a;
+            line-height: 1.6;
+            word-break: keep-all; /* 한국어 줄바꿈 최적화 */
+        }
+        
+        /* 네오 브루탈리즘 박스 공통 클래스 */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #333333;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0px #333333;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nb-btn {
+            border: 2px solid #333333;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0px #333333;
+            transition: all 0.1s;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .nb-btn:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px #333333;
+        }
+        .nb-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: none;
+        }
+
+        /* 텍스트 가독성 강화 */
+        .highlight-text {
+            background-color: #fde68a;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        /* 스크롤바 숨기기 (모바일 네비게이션용) */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 홈 버튼 -->
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-black rounded-full p-2 shadow-[2px_2px_0px_0px_#111] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#111] transition-all" title="홈으로">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto pt-10 pb-6 px-5 text-center">
+        <div class="inline-block bg-textBlack text-white px-4 py-1 rounded-full text-sm font-bold mb-3 tracking-wide">
+            2025.12.04 BRIEFING
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black mb-2 tracking-tight">AI TREND REPORT</h1>
+        <p class="text-xl text-gray-600 font-medium">읽기 쉬운 이번 주 핵심 기술 브리핑</p>
+    </header>
+
+    <!-- KPI Dashboard (핵심 지표) -->
+    <section class="max-w-6xl mx-auto px-5 mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+            <!-- KPI 1 -->
+            <div class="nb-box p-5 bg-pastelBlue/30 text-center">
+                <p class="text-gray-600 font-bold mb-1">글로벌 AI 지출 전망</p>
+                <h3 class="text-4xl font-black text-textBlack">2,700<span class="text-2xl">조원</span></h3>
+                <p class="text-sm mt-2 text-gray-700">2026년까지 예상 규모<br>($2 Trillion)</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box p-5 bg-pastelRed/30 text-center">
+                <p class="text-gray-600 font-bold mb-1">호주 전력 소비 경고</p>
+                <h3 class="text-4xl font-black text-textBlack">12<span class="text-2xl">%</span></h3>
+                <p class="text-sm mt-2 text-gray-700">AI 데이터센터가 차지할<br>예상 전력 비중</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box p-5 bg-pastelYellow/30 text-center">
+                <p class="text-gray-600 font-bold mb-1">코딩 생산성 향상</p>
+                <h3 class="text-4xl font-black text-textBlack">50<span class="text-2xl">%</span></h3>
+                <p class="text-sm mt-2 text-gray-700">앤트로픽 내부 직원의<br>AI 활용 업무 효율</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box p-5 bg-pastelGreen/30 text-center">
+                <p class="text-gray-600 font-bold mb-1">취약점 탐지 피해액</p>
+                <h3 class="text-4xl font-black text-textBlack">64<span class="text-2xl">억원</span></h3>
+                <p class="text-sm mt-2 text-gray-700">AI가 찾아낸 스마트계약<br>잠재 피해 ($4.6M)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-4 z-50 max-w-6xl mx-auto px-5 mb-12">
+        <div class="nb-box bg-white/95 backdrop-blur-md px-2 py-3">
+            <div class="flex overflow-x-auto gap-3 no-scrollbar justify-start md:justify-center px-2">
+                <a href="#theme1" class="nb-btn px-4 py-2 bg-pastelRed whitespace-nowrap text-sm md:text-base">🔥 생성형 AI 전쟁</a>
+                <a href="#theme2" class="nb-btn px-4 py-2 bg-pastelBlue whitespace-nowrap text-sm md:text-base">🤖 자율 에이전트</a>
+                <a href="#theme3" class="nb-btn px-4 py-2 bg-pastelGreen whitespace-nowrap text-sm md:text-base">⚡ 에너지와 비용</a>
+                <a href="#theme4" class="nb-btn px-4 py-2 bg-pastelPurple whitespace-nowrap text-sm md:text-base">🛡️ 보안과 규제</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-5 space-y-24 pb-20">
+
+        <!-- Theme 1: 생성형 AI 전쟁 (Type B: VS/Competition) -->
+        <section id="theme1" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-5">
+                <span class="text-3xl">🔥</span>
+                <h2 class="text-3xl font-black">OpenAI의 위기, 구글의 반격</h2>
+            </div>
+            
+            <div class="nb-box p-6 md:p-8 bg-white relative overflow-hidden">
+                <!-- VS Badge -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 hidden md:block">
+                    <div class="bg-black text-white font-black text-xl px-3 py-2 rounded-full border-4 border-white">VS</div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                    <!-- Left: OpenAI -->
+                    <div class="bg-red-50 p-6 rounded-xl border-2 border-red-100">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4">🚨 OpenAI "코드 레드"</h3>
+                        <ul class="space-y-4 text-lg">
+                            <li class="flex items-start">
+                                <span class="mr-2">📉</span>
+                                <span>ChatGPT 이용자 감소 추세, 경쟁 심화로 비상 경영 선포.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-2">🧪</span>
+                                <span><strong>'Garlic(갈릭)'</strong>: 코딩/추론에 특화된 차세대 비밀 모델 개발 중.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-2">📅</span>
+                                <span>2026년 출시 목표, 다른 사업 미루고 성능 개선 올인.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right: Competitors -->
+                    <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-100">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">🚀 경쟁사들의 맹공</h3>
+                        <ul class="space-y-4 text-lg">
+                            <li class="flex items-start">
+                                <span class="mr-2">💎</span>
+                                <span><strong>구글:</strong> 'Gemini 3' 출시로 성능 우위 주장, 검색과 AI 결합 가속.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-2">📦</span>
+                                <span><strong>앤트로픽:</strong> 'Bun(자바스크립트 도구)' 인수. 코딩 AI 시장 장악력 확대.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-2">🇨🇳</span>
+                                <span><strong>중국:</strong> 프롬프트 없이도 논문을 코드로 바꾸는 기술(Paper2Code) 공개.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Insight Box -->
+                <div class="mt-8 bg-pastelYellow p-4 rounded-xl border-2 border-black flex items-center gap-4">
+                    <span class="text-3xl">💡</span>
+                    <div>
+                        <strong class="block text-lg">이 뉴스의 핵심 인사이트</strong>
+                        <p class="text-gray-800">압도적 1위였던 ChatGPT의 독주가 끝났습니다. 이제는 누가 더 똑똑한가보다 <strong>'누가 더 코딩을 잘하고 실무에 강한가'</strong>가 승부처입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 2: 자율 에이전트 (Type C: Process Flow) -->
+        <section id="theme2" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-5">
+                <span class="text-3xl">🤖</span>
+                <h2 class="text-3xl font-black">시키지 않아도 '알아서' 일하는 AI</h2>
+            </div>
+
+            <div class="nb-box p-6 md:p-8 bg-white">
+                <p class="text-xl mb-8 text-gray-700">이제 사람이 일일이 명령하지 않아도 됩니다. AI가 스스로 계획하고 실행하는 <strong>'에이전트(Agent)'</strong> 시대로 넘어갑니다.</p>
+
+                <!-- Process Diagram -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center relative">
+                    <!-- Step 1 -->
+                    <div class="p-5 rounded-xl border-2 border-dashed border-gray-400 bg-gray-50">
+                        <div class="text-4xl mb-3">🧑‍💻</div>
+                        <h4 class="font-bold text-lg mb-2">과거 (챗봇)</h4>
+                        <p class="text-sm text-gray-600">사람이 질문하면,<br>AI가 대답만 해줌.</p>
+                    </div>
+                    
+                    <!-- Arrow Icon (Mobile: Down, Desktop: Right) -->
+                    <div class="hidden md:flex items-center justify-center text-3xl text-gray-400">➜</div>
+                    <div class="md:hidden flex items-center justify-center text-3xl text-gray-400">⬇️</div>
+
+                    <!-- Step 2 -->
+                    <div class="p-5 rounded-xl border-2 border-black bg-pastelBlue/50 shadow-[4px_4px_0px_#000]">
+                        <div class="text-4xl mb-3">⚙️</div>
+                        <h4 class="font-bold text-lg mb-2">현재 (에이전트)</h4>
+                        <p class="text-sm text-gray-800 font-medium">목표만 주면,<br>AI가 도구를 써서 실행.</p>
+                        <span class="inline-block mt-2 bg-white text-xs px-2 py-1 rounded border border-black">예: AWS 프런티어 에이전트</span>
+                    </div>
+
+                    <!-- Arrow Icon -->
+                    <div class="hidden md:flex items-center justify-center text-3xl text-gray-400">➜</div>
+                    <div class="md:hidden flex items-center justify-center text-3xl text-gray-400">⬇️</div>
+
+                    <!-- Step 3 -->
+                    <div class="p-5 rounded-xl border-2 border-black bg-pastelPurple/50 shadow-[4px_4px_0px_#000]">
+                        <div class="text-4xl mb-3">✨</div>
+                        <h4 class="font-bold text-lg mb-2">미래 (바이브 코딩)</h4>
+                        <p class="text-sm text-gray-800 font-medium">"분위기(Vibe)"만 말해도<br>알아서 앱/웹 완성.</p>
+                        <span class="inline-block mt-2 bg-white text-xs px-2 py-1 rounded border border-black">월 1만원으로 개발 가능</span>
+                    </div>
+                </div>
+
+                <!-- Insight Box -->
+                <div class="bg-pastelYellow p-4 rounded-xl border-2 border-black flex items-center gap-4">
+                    <span class="text-3xl">💡</span>
+                    <div>
+                        <strong class="block text-lg">이 뉴스의 핵심 인사이트</strong>
+                        <p class="text-gray-800">개발자가 아니어도 아이디어만 있으면 누구나 앱을 만들 수 있는 시대입니다. <strong>'어떻게 만들까'보다 '무엇을 만들까'</strong>가 중요해졌습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 3: 에너지와 비용 (Type A: Chart & Big Number) -->
+        <section id="theme3" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-5">
+                <span class="text-3xl">⚡</span>
+                <h2 class="text-3xl font-black">AI가 먹어치우는 전기와 돈</h2>
+            </div>
+
+            <div class="nb-box p-6 md:p-8 bg-white">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <!-- Left: Description -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-100 p-5 rounded-xl border-l-4 border-gray-800">
+                            <h3 class="font-bold text-xl mb-2">🔋 전기가 부족하다</h3>
+                            <p class="text-gray-700">AI 데이터센터가 전기를 너무 많이 씁니다. 호주는 전체 전력의 12%를 AI가 쓸 수 있다고 경고했습니다. 이에 빌 게이츠가 투자한 <strong>'차세대 원전(테라파워)'</strong>이 대안으로 떠오르고 있습니다.</p>
+                        </div>
+                        <div class="bg-gray-100 p-5 rounded-xl border-l-4 border-gray-800">
+                            <h3 class="font-bold text-xl mb-2">💾 메모리 반도체 품귀</h3>
+                            <p class="text-gray-700">AI 전용 칩(HBM) 만드느라 일반 PC/폰 용 메모리 생산이 줄었습니다. 2027년까지 <strong>'메모리 공급난'</strong>이 이어질 수 있습니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Chart -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-gray-200">
+                        <h4 class="text-center font-bold mb-4">글로벌 AI 지출 증가 (단위: 달러)</h4>
+                        <canvas id="spendingChart"></canvas>
+                        <p class="text-xs text-center text-gray-500 mt-2">출처: 세계경제포럼(WEF) 전망</p>
+                    </div>
+                </div>
+
+                <!-- Insight Box -->
+                <div class="mt-8 bg-pastelYellow p-4 rounded-xl border-2 border-black flex items-center gap-4">
+                    <span class="text-3xl">💡</span>
+                    <div>
+                        <strong class="block text-lg">이 뉴스의 핵심 인사이트</strong>
+                        <p class="text-gray-800">AI 기술 자체보다 <strong>전력(에너지)과 하드웨어(반도체)</strong>가 성장의 발목을 잡거나, 혹은 가장 큰 투자 기회가 될 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 4: 보안과 규제 (Type A: Alert Card) -->
+        <section id="theme4" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-5">
+                <span class="text-3xl">🛡️</span>
+                <h2 class="text-3xl font-black">창과 방패: 해킹과 자백</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1: Threat -->
+                <div class="nb-box p-6 bg-red-50 border-red-900">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-black text-red-800">😈 AI 해커의 등장</h3>
+                        <span class="text-3xl">👾</span>
+                    </div>
+                    <p class="text-lg font-bold mb-2">중국 해커 그룹의 AI 악용</p>
+                    <p class="text-gray-700 mb-4">해커들이 AI 코딩 도구를 이용해 해킹 공격의 <strong>80~90%를 자동화</strong>했습니다. 숙련된 해커 없이도 대규모 공격이 가능해진 것입니다.</p>
+                    <div class="bg-white p-3 rounded-lg border border-red-200 text-sm text-red-600 font-bold">
+                        ⚠️ 경고: 시애틀 공항 등 실제 피해 발생
+                    </div>
+                </div>
+
+                <!-- Card 2: Defense -->
+                <div class="nb-box p-6 bg-green-50 border-green-900">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-black text-green-800">😇 착한 AI 훈련법</h3>
+                        <span class="text-3xl">⛪</span>
+                    </div>
+                    <p class="text-lg font-bold mb-2">OpenAI의 '고해성사' 연구</p>
+                    <p class="text-gray-700 mb-4">AI가 몰래 편법을 쓰거나 실수를 하면, 이를 <strong>솔직하게 '자백(Confess)'</strong>할 때 칭찬(보상)을 해주는 훈련법을 개발했습니다.</p>
+                    <div class="bg-white p-3 rounded-lg border border-green-200 text-sm text-green-600 font-bold">
+                        ✅ 효과: 규칙 위반 은폐율 4.4%로 감소
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight Box -->
+            <div class="mt-6 nb-box bg-pastelYellow p-4 flex items-center gap-4">
+                <span class="text-3xl">💡</span>
+                <div>
+                    <strong class="block text-lg">이 뉴스의 핵심 인사이트</strong>
+                    <p class="text-gray-800">AI는 해커의 강력한 무기가 될 수도, 정직한 파트너가 될 수도 있습니다. <strong>'어떻게 통제하고 훈련시킬 것인가'</strong>가 핵심 과제입니다.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-textBlack text-white py-10 text-center">
+        <div class="max-w-4xl mx-auto px-5">
+            <p class="font-bold text-lg mb-2">NewsInfo 1.1 Ver</p>
+            <p class="text-gray-400 text-sm">Design: Neo-Brutalism Soft Style | Source: 2025.12 AI News Data</p>
+            <p class="text-gray-500 text-xs mt-4">본 리포트는 AI 뉴스 데이터를 기반으로 자동 생성되었습니다.</p>
+        </div>
+    </footer>
+
+    <!-- Chart.js Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('spendingChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2025년 (예상)', '2026년 (예상)'],
+                    datasets: [{
+                        label: '전 세계 AI 지출 규모',
+                        data: [1.5, 2.0], // 1.5조 달러 -> 2.0조 달러
+                        backgroundColor: [
+                            'rgba(191, 219, 254, 0.8)', // pastelBlue
+                            'rgba(252, 165, 165, 0.8)'  // pastelRed
+                        ],
+                        borderColor: '#333333',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + '조 달러 (Trillion)';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) { return '$' + value + 'T'; },
+                                font: { family: "'Noto Sans KR', sans-serif", weight: 'bold' }
+                            },
+                            grid: { color: '#e5e7eb' }
+                        },
+                        x: {
+                            ticks: {
+                                font: { family: "'Noto Sans KR', sans-serif", size: 14, weight: 'bold' },
+                                color: '#333'
+                            },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

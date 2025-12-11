@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 | 2025-11-08</title>
+    
+    <!-- 
+      Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) 
+    -->
+    <!-- 
+      Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. 
+    -->
+    <!-- 
+      Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. 
+    -->
+    <!-- 
+      CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
+    -->
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Noto Sans KR 글꼴 적용 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 모달 트랜지션 스타일 */
+        #news-modal {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        #news-modal .modal-panel {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* NEW 뱃지 스타일 */
+        .badge-new {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255,71,87,0.4);
+            letter-spacing: 0.5px;
+            animation: pulse 2s ease-in-out infinite;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1);} 50% { transform: scale(1.05);} }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- ===== 1. 헤더 (Header) ===== -->
+    <header class="sticky top-0 z-30 w-full bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <h1 class="text-2xl font-bold text-slate-800">
+                    AI 뉴스 대시보드
+                    <span class="badge-new">NEW</span>
+                </h1>
+                <span class="text-sm font-medium text-slate-500">
+                    2025년 11월 08일
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== 2. 메인 콘텐츠 영역 ===== -->
+    <main id="content-area" class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-12">
+        
+        <!-- 2.1. 주요 데이터 하이라이트 (JavaScript로 렌더링됨) -->
+        <section id="key-numbers-section"></section>
+        
+        <!-- 2.2. Top 5 뉴스 (JavaScript로 렌더링됨) -->
+        <section id="top-5-section"></section>
+        
+        <!-- 2.3. 주제별 상세 뉴스 (JavaScript로 렌더링됨) -->
+        <section id="thematic-sections" class="space-y-12"></section>
+
+    </main>
+
+    <!-- ===== 3. 모달 (Modal) ===== -->
+    <div id="news-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 opacity-0 invisible" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        
+        <!-- 모달 배경 (클릭 시 닫기) -->
+        <div id="modal-bg-close" class="absolute inset-0"></div>
+
+        <!-- 모달 패널 -->
+        <div class="modal-panel relative w-full max-w-3xl max-h-[90vh] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col transform scale-95">
+            
+            <!-- 모달 헤더 -->
+            <div class="flex items-start justify-between p-5 border-b border-slate-200">
+                <h2 id="modal-title" class="text-xl font-bold text-slate-900">
+                    <!-- JavaScript로 제목이 채워집니다 -->
+                </h2>
+                <button id="modal-close-btn" type="button" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 모달 본문 (스크롤) -->
+            <div id="modal-content" class="p-6 overflow-y-auto space-y-4 text-base text-slate-700 leading-relaxed">
+                <!-- JavaScript로 본문이 채워집니다 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 4. JavaScript ===== -->
+    <script>
+        // ----- 4.1. 데이터베이스 -----
+        // 제공된 모든 뉴스 항목을 파싱하고 5개의 대주제로 분류합니다.
+        const reportData = [
+            // --- Top 5 News ---
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈AI",
+                title: "올트먼, “2026년 AI 연구 인턴, 2028년 완전 자동화 연구자” 목표 밝혀",
+                isTop5: true,
+                details: "샘 올트먼 오픈AI CEO가 10월 29일 X에서 2026년 9월까지 AI 연구 인턴을, 2028년 3월까지 완전 자동화 연구자를 준비하겠다는 내부 목표를 공개했다. 그는 이 시스템이 수십만 개 GPU에서 돌아가도록 설계될 것이라고 설명하며, 달성 실패 가능성도 인정했다. 이 발표로 연구 자동화가 빨라질 수 있다는 기대와 안전성·검증 논쟁이 동시에 커지고 있다. (TechRadar)\n\n이번 발언은 오픈AI가 회사 재편과 함께 대규모 인프라 확장을 예고해 온 흐름과 맞물린다. 올트먼은 라이브스트림에서 “our goal is by March 2028 to have a true automated AI researcher”라고 말하며 구체 일정을 제시했다. 오픈AI는 2025년 말까지 GPU 100만 개 이상 가동을 목표로 밝힌 바 있어, 대규모 연산 자원과 안전 연구 성과가 실제 달성 여부를 가를 전망이다. (TechRadar)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글 딥마인드",
+                title: "구글 딥마인드, Gemini API에 File Search Tool 공개",
+                isTop5: true,
+                details: "AI 뉴스 계정 ‘@ai_for_success’가 11월 7일 X에서 구글 딥마인드의 Gemini API 신규 File Search Tool 공개 소식을 전했다. 이 도구는 완전 관리형 RAG로 저장·청킹·임베딩 생성과 컨텍스트 주입을 자동 처리해, 기업과 개발자가 자신들의 데이터로 모델을 쉽게 연결하게 한다. 이에 따라 RAG 구축 간소화와 비용 절감 기대가 커졌고, 초기 실험과 배포 속도가 빨라질 것으로 보인다. (X (formerly Twitter))\n\n구글 공식 블로그에 따르면 저장·쿼리 임베딩 무료 정책을 적용하고, 초기 색인 임베딩만 백만 토큰당 0.15달러로 과금한다. 블로그는 이를 “a fully managed RAG system built directly into the Gemini API”라고 소개했으며, 지원 모델은 Gemini 2.5 Pro와 2.5 Flash이고 응답에 출처 인용을 자동 포함한다고 설명했다. 구글 AI 스튜디오 데모와 개발 문서가 마련돼 있어, 관련 앱의 출시 주기가 단축되고 자체 벡터DB 운영 부담이 줄어들 가능성이 크다. (blog.google)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "오픈AI",
+                title: "게리 마커스, “오픈AI가 연방 보증 요구” 주장… 10월 27일 백악관 서한 근거 제시",
+                isTop5: true,
+                details: "AI 연구자 게리 마커스가 11월 7일 X에서 오픈AI가 10월 27일 백악관에 보낸 서한을 근거로 연방 보증을 이미 요청했다고 밝혔다. 해당 서한은 행정관리예산국 산하 과학기술정책실(OSTP)에 제출된 문서로, 공급망·전력망 확충을 위해 대출 보증 등 연방 지원을 제안한다. 이 주장은 오픈AI가 “데이터센터에 대한 보증은 원치 않는다”는 최근 해명과 엇갈리면서, 회사의 자금조달 전략에 대한 신뢰성 논란을 키우고 있다. (X (formerly Twitter))\n\n배경으로, 오픈AI는 Stargate 프로젝트 등을 통해 향후 8년간 약 1.4조 달러 규모의 인프라 투자를 검토하고 있으며, 연간 전력 100GW 증설 같은 국가적 목표를 촉구해 왔다. 서한에는 “grants, cost-sharing agreements, loans, or loan guarantees” 같은 수단이 명시돼 있고, 한편 사라 프라이어 CFO의 ‘연방 백스톱’ 발언은 곧바로 정정됐다. 업계와 정책권의 검증이 이어질 전망으로, 추가 자료 공개와 정부 입장 표명이 논란의 향배를 가를 것으로 보인다. (OpenAI)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "문샷AI",
+                title: "문샷AI, 오픈소스 ‘Kimi K2 Thinking’ 공개… HLE·BrowseComp SOTA 기록",
+                isTop5: true,
+                details: "문샷AI의 Kimi.ai 계정이 2025년 11월 7일 X에서 오픈소스 Kimi K2 Thinking 공개를 알리며 **HLE 44.9%**와 BrowseComp 60.2% 성적을 발표했다. 회사 설명에 따르면 이 모델은 단계적 추론과 도구 사용을 결합한 ‘생각하는 에이전트’로 설계됐다. 발표 직후 오픈소스 진영의 최상위 성능 경쟁이 가속화되고, 실제 업무 적용에 대한 기대가 커지고 있다. (X (formerly Twitter))\n\n배경으로, Kimi K2 계열은 1조 파라미터 MoE 구조에 320억 파라미터 활성화를 채택했고(기술 보고 및 저장소 공개), 대규모 데이터로 안정적 학습을 마쳤다. Kimi는 X에서 “SOTA on HLE 44.9% and BrowseComp 60.2%”라고 알렸고, 모델 카드에는 256k 컨텍스트에서 200~300회 도구 호출 등 사용 조건이 제시돼 있다. 체크포인트는 허깅페이스에서 열려 있으며, API와 Vercel AI Gateway 지원이 있어 배포가 쉬워질 전망으로, 곧 에이전트 모드 업데이트도 예고됐다. (github.com)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "퍼플렉시티",
+                title: "퍼플렉시티 ‘코멧’ 에이전트 대형 업그레이드 공개",
+                isTop5: true,
+                details: "AI 소식 계정 TestingCatalog가 11월 7일 X에서 퍼플렉시티의 코멧 브라우저가 에이전트 기능을 크게 강화하는 업그레이드를 배포했다고 전했다. 공지에 따르면 코멧 어시스턴트가 더 오래, 더 복잡한 작업을 더 큰 범위로 처리하도록 조정됐다. 이로 인해 사용자 작업 자동화 성능 향상과 함께 경쟁 제품과의 에이전트 전쟁이 본격화될 전망이다. (X (formerly Twitter))\n\n앞서 코멧은 안드로이드 베타 테스트와 프라이버시 스냅샷 같은 설정 통합 개선을 통해 사용성도 넓혀왔다. 업계에선 브라우징·검색·업무 자동화를 한 곳에서 다루는 흐름이 빨라지고 있어, 향후 데이터 사용 투명성과 플랫폼 간 정책 충돌이 주요 쟁점이 될 것으로 보인다. (Digital Watch Observatory)"
+            },
+
+            // --- Thematic News ---
+            {
+                theme: "AI 인프라 및 투자",
+                category: "구글",
+                title: "순다르 피차이, “TPU ‘Ironwood’ GA” 발표… v5p 대비 10배 피크 성능",
+                isTop5: false,
+                details: "구글 CEO 순다르 피차이가 11월 6일(현지) X에서 7세대 TPU Ironwood의 **일반 제공(GA)**을 알렸다. 그는 v5p 대비 피크 성능 10배, v6e(Trillium) 대비 칩당 성능 4배 이상 개선과, 자사 Gemini 등 프런티어 모델 학습·서빙에 쓰고 있다고 밝혔다. 고객 입장에선 고성능 AI 연산 접근성이 넓어지며 학습·추론 비용 구조 변화가 예상된다. (X (formerly Twitter))\n\n기술 자료에 따르면 Ironwood는 최대 9,216칩까지 포드 확장이 가능하고, 광 회로 스위칭과 고대역 ICC로 다중 포드 클러스터를 구성한다. 외신과 전문 매체는 구체 수치를 재확인하며 경쟁 대비 FP8 ExaFLOPS 우위를 거론했다. GA 이후 실제 워크로드에서의 가격·성능 지표와 클라우드 제공 지역 확대가 관전 포인트다. (TestingCatalog)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글",
+                title: "“LaTeX 업그레이드가 게임 체인저” — 구글 조시 우드워드, 개선 사례 공유",
+                isTop5: false,
+                details: "구글의 조시 우드워드가 11월 7일 X에서 “LaTeX 업그레이드가 모든 것을 바꿨다”는 사용기 글을 소개하며, 수식 렌더링과 PDF 내보내기가 실제 작업 시간을 절약한다고 전했다. 그는 “It. Just. Worked.”라는 소감을 인용하며 수학·공학 문서 작성에서 지연·깨짐 문제가 줄었다고 했다. (X (formerly Twitter))\n\n구글은 최근 ‘Gemini Drops’와 워크스페이스 업데이트를 통해 캔버스 통합, 클립보드 호환, PDF 생성 등 LaTeX 흐름을 한곳에 모았다고 설명했다. 교육·연구 현장에선 수식 편집 난이도가 낮아질 것으로 보이며, 향후 모바일 앱 렌더링 안정화와 장문 수식 지원 범위가 추가 관건이다. (Gemini)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈AI",
+                title: "“ChatGPT에 상품 통합 가능” — 알렉스 그로버먼, 즉시 결제 시대 강조",
+                isTop5: false,
+                details: "컨설턴트 알렉스 그로버먼이 11월 7일 X에서 “이제 상품을 ChatGPT에 통합해 실시간 가격·재고로 노출하고 구매까지 이어질 수 있다”고 정리했다. 이는 오픈AI가 발표한 Instant Checkout과 에이전트 상거래 프로토콜에 따른 변화로, 대화형 검색에서 구매 전환까지 바로 이어지는 흐름을 뜻한다. (X (formerly Twitter))\n\n오픈AI는 9월 말 공지를 통해 인앱 결제 흐름을 소개했고, 머천트 신청 페이지로 파트너 온보딩을 받고 있다. 로이터·AP는 쇼핑 기능 확대와 유통 파트너십을 잇달아 보도했고, 업계는 제품 피드 관리와 순위 노출 기준을 새 과제로 지목한다. (OpenAI)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글 AI 스튜디오",
+                title: "구글 AI 스튜디오, Gemini API ‘File Search Tool’ 공개… 색인 $0.15/백만 토큰",
+                isTop5: false,
+                details: "구글 AI Studio가 11월 7일 X에서 Gemini API의 File Search Tool 출시를 알렸다. 완전 관리형 RAG로 파일 저장·청킹·임베딩 생성과 컨텍스트 주입을 자동화해, 스토리지·쿼리 임베딩 무료에 색인 시에만 비용을 부과한다. 이에 따라 자체 데이터로 모델을 근거 기반으로 연결하는 개발 작업의 비용·복잡도 급감이 예상된다. (X (formerly Twitter))\n\n배경으로 구글은 11월 6일자 변경 이력에서 퍼블릭 프리뷰 개시를 공지했으며, 공식 블로그는 이 도구를 “a fully managed RAG system built directly into the Gemini API”라고 설명했다. 문서는 가격을 색인용 임베딩 기준 백만 토큰당 $0.15로 명시하고, 응답에 출처 인용 자동 포함과 PDF·DOCX·TXT 등 형식 지원을 안내한다. 향후 실제 워크로드에서의 품질·비용 지표와 사용 사례 축적이 확산 속도를 좌우할 전망이다. (Google AI for Developers)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈라우터",
+                title: "오픈라우터, ‘Polaris Alpha’ 공개… 256k 컨텍스트 탑재한 스텔스 모델",
+                isTop5: false,
+                details: "오픈라우터(OpenRouter)가 11월 6일 자사 플랫폼에 Polaris Alpha를 출시했다. 이 모델은 커뮤니티 피드백을 모으기 위한 ‘클로크드(cloaked)’ 형식으로 소개됐고, 256k 컨텍스트와 범용 작업 대응을 내세웠다. 가격 표기는 현재 입력·출력 모두 $0로 표시돼 초기 테스트 허들이 낮지만, 제공자 측의 로그 수집 안내가 명시돼 있어 개인정보·기밀 취급 주의가 요구된다. (OpenRouter)\n\n배경으로 오픈라우터 페이지에는 “커뮤니티 피드백을 위해 제공되는 cloaked 모델”이라는 설명과 생성일(2025년 11월 6일), 컨텍스트 길이, 임시 가격 정보가 함께 기재돼 있다. 커뮤니티 채널과 개발자 포럼에선 “코딩·툴콜링에서 강하다”는 반응과 함께 통합 이슈 보고 등 초기 사용기가 이어지고 있으며, X의 소식 계정들도 등재 사실을 전했다. 향후 모델 제공자 정보와 정식 요금, 개인정보 처리 기준이 추가 공개될지가 확산 속도를 좌우할 전망이다. (OpenRouter)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "오픈AI",
+                title: "오픈AI, 프롬프트 인젝션 경고… 사용자 보호 방안 공개",
+                isTop5: false,
+                details: "오픈AI 개발자 계정이 11월 7일 X에서 자사 블로그의 프롬프트 인젝션 안내 글을 공유하고, 최신 에이전트 기능 확산에 따른 보안 위험과 대응책을 밝혔다. 글은 웹 탐색·앱 연동 중 모델이 악성 지시문에 휘말릴 수 있어 다층 방어(안전 훈련, 모니터링, 보안 보호, 사용자 확인 절차)를 적용한다고 설명했다. 이에 따라 기업·개발자는 권한 최소 부여, 민감 작업 전 확인 같은 기본 수칙 준수가 즉각 요구된다. (OpenAI)\n\n배경으로 오픈AI는 올해 Model Spec 업데이트를 통해 모델 행위를 규정하고 사용자 통제·투명성을 강화해 왔으며, 이번 글에서는 레드팀·버그바운티와 같은 운영 절차를 재확인했다. 회사는 프롬프트 인젝션 탐지·완화 연구를 지속하고, 인터넷 통신 중 대화 정보가 전송될 수 있는지 판단하는 추가 보고서 공개도 예고했다. 향후 에이전트 상용화 속도가 빨라질수록 개발 단계에서의 보안 설계와 사후 모니터링이 경쟁력을 좌우할 전망이다. (OpenAI)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "오픈AI",
+                title: "오픈AI, 프롬프트 인젝션 대응 지침 공개… 에이전트 확산 속 다층 방어 강조",
+                isTop5: false,
+                details: "오픈AI 개발자 계정이 11월 7일 X에서 프롬프트 인젝션 위험과 대응책을 정리한 새 블로그를 안내했다. 글은 웹·앱 연동형 에이전트가 제3자 콘텐츠의 악성 지시문에 노출되는 구조를 설명하고, 안전 훈련·모니터링·보안 보호·사용자 확인 등 다층 방어를 제시했다. 회사는 에이전트 상용화가 빨라지는 만큼 사용자와 기업이 권한 최소화·확인 절차를 지키지 않으면 데이터 오남용 위험이 커진다고 경고했다. (X (formerly Twitter))\n\n배경으로 오픈AI는 Atlas 브라우저와 에이전트 기능을 확장해 오며 모델 사양 업데이트와 레드팀·버그바운티를 운영해 왔다. 블로그는 민감 작업 전 사용자 승인, 링크 접근 시 경고 같은 제품 내 보안 보호와 에이전트 감시 모드 등 구체 기능을 제시했다. 회사는 인터넷 통신 중 대화 전송 여부 탐지 보고서 공개를 예고하며, 향후 공격 고도화에 맞춰 방어 기법을 계속 업데이트하겠다고 밝혔다. (OpenAI)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "구글 인디아",
+                title: "구글 인디아, Jio 5G 청년층에 Google AI Pro 18개월 무료 홍보",
+                isTop5: false,
+                details: "구글 인디아가 11월 7일 X에서 Jio 무제한 5G 요금제 이용자(만 18~25세) 대상 Google AI Pro 18개월 무료 혜택을 안내했다. 이 프로모션은 구글과 릴라이언스 Jio의 협력으로, 정가 ₹35,100 상당 구독을 조기 제공하며 마이Jio 앱에서 등록 후 활성화한다. 이에 따라 젊은층의 Gemini 2.5 Pro 접근성이 넓어지고 생성형 AI 사용 진입 비용이 낮아질 전망이다. (X (formerly Twitter))\n\n로이터와 현지 매체는 혜택이 2TB 클라우드 저장공간과 이미지·영상 생성 도구 등 프리미엄 번들을 포함한다고 전했다. Jio 공식 페이지는 대상 요금제를 ₹349 이상으로 명시하고, “Jio 사용자 18~25세 조기 접근”을 조건으로 제시했다. 초기 청년층 제공 후 전 이용자 확대가 예고돼 통신·클라우드 연계형 AI 구독 경쟁이 본격화될 전망이다. (reuters.com)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "패러럴",
+                title: "패러럴, AI 에이전트용 Parallel Search API 출시… 독자 웹 인덱스 기반",
+                isTop5: false,
+                details: "웹 데이터 기업 패러럴(Parallel Web Systems)이 11월 6일 X 계정(@p0)에서 Parallel Search API 출시를 알리고, 블로그로 세부를 공개했다. 이 서비스는 독자 웹 인덱스와 압축 발췌를 결합해 AI 에이전트에 맞춘 가장 정확한 웹 검색을 표방한다. 회사는 HLE·BrowseComp 같은 난도 높은 벤치마크에서 경쟁 대비 높은 정확도를 주장하며, 호출 수와 지연을 줄여 비용 효율을 높인다고 설명했다. (X (formerly Twitter))\n\n패러럴은 사람 중심 검색처럼 클릭을 노린 링크 순위화가 아니라, 모델 추론을 위한 토큰 최적화와 정보 밀도를 우선한다고 배경을 밝혔다. 블로그는 “사람이 클릭할 URL을 고르는 게 아니라, 모델이 추론하도록 컨텍스트와 토큰을 최적화한다”라고 적었다. 현재 공개 GA로 제공되며 가격은 $0.005/요청(10개 결과 기준)으로 안내됐다; 성능 주장의 외부 검증과 주요 에이전트 프레임워크 연동이 확산의 관건이 될 전망이다. (병렬 웹 시스템)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "산업 동향",
+                title: "실리콘밸리, AI 전환 속 정리해고 확산…기업 재편 가속",
+                isTop5: false,
+                details: "미국 테크 업계가 11월 7일을 전후해 비용 절감·AI 중심 재편을 이유로 추가 감원을 단행했다. 인사관리 소프트웨어 기업 워크데이가 1,750명(8.5%) 감원, 교육 플랫폼 체그가 **45% 감원(388명)**을 발표하는 등 구조조정이 실리콘밸리·전미로 번지고 있다. 단기적으로 사업 포트폴리오 축소와 인력 재배치가 뒤따르고, 지역 고용에도 부담이 커지고 있다. (Reuters)\n\n팬데믹 이후 과잉 채용과 생성형 AI 도입 가속이 맞물리며 ‘효율 우선’ 전략이 굳어졌다는 평가다. 일부 기업은 핵심 AI·반도체 영역 집중을 명확히 하며 비핵심부문을 정리하고 있고, 업계 전반으론 추가 감원 가능성도 거론된다. 향후 매출 반등·투자 확대가 뒤따르지 못하면 2026년 상반기까지 구조조정 장기화가 불가피하다는 관측이다. (Newsweek)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "마이크로소프트",
+                title: "마이크로소프트, ‘휴머니스트 슈퍼인텔리전스’팀 신설",
+                isTop5: false,
+                details: "마이크로소프트가 11월 6일(현지) 무스타파 술레이만(Microsoft AI CEO) 주도로 **‘MAI 슈퍼인텔리전스 팀’**을 신설한다고 밝혔다. 회사는 **“인류에 봉사하는 실용적 초지능”**을 지향하며, 통제 가능성과 인간 중심 설계를 최우선 가치로 내세웠다. 이로써 도메인 특화형 AI 개발과 책임성·안전성 프레임 강화가 본격화될 전망이다. (Computerworld)\n\n술레이만은 블로그에서 **“경쟁적 AGI 레이스를 거부”**하고 **지속적 정렬·봉쇄(Containment)**를 병행해야 한다고 강조했다. 의료·개인 도우미·청정에너지 등 구체 과제 해결형 AI를 우선하겠다는 입장도 밝혔다. 향후 연구 거버넌스와 국제 협력 규범 구축이 병행되지 않으면 기술·윤리 리스크가 커질 수 있다는 경고다. (Microsoft AI)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "코카콜라",
+                title: "코카콜라, AI 크리스마스 광고 공개…반응 엇갈림",
+                isTop5: false,
+                details: "코카콜라가 11월 초 생성형 AI로 제작한 연말 광고를 공개하며 온라인에서 호불호 논란을 다시 불렀다. 광고는 상징인 ‘Holidays Are Coming’ 트럭과 동물 캐릭터를 내세웠지만, 시청자들은 장면 불일치·위화감 등을 지적했다. 브랜드는 혁신 의지를 내세우며 캠페인을 유지하고, 효율성·속도 향상을 강조했다. (The Verge)\n\n작년 유사 캠페인 때의 진정성 논란이 재점화된 가운데, 일부 평가는 감정 호소력은 높다고도 본다(예: System1 5.9점). 제작에는 실버사이드·시크릿 레벨 등 파트너가 참여했고, 업계에선 AI 영상의 일관성·시간축 안정성이 핵심 과제로 지목된다. 코카콜라는 전통·혁신 병행을 내세웠지만, 장기적으로 브랜드 이미지가 시험대에 올랐다는 분석이다. (Business Insider)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안",
+                title: "‘랜드폴’ 스파이웨어, 제로데이로 삼성 갤럭시 노려…DNG 이미지 악용",
+                isTop5: false,
+                details: "팔로알토네트웍스 유닛42가 11월 7일, 안드로이드 스파이웨어 **‘랜드폴(Landfall)’**이 CVE-2025-21042 제로데이를 이용해 삼성 갤럭시 기기를 수개월간 표적 공격했다고 밝혔다. 악성 DNG 이미지를 메시징 앱으로 전송해 감염시키는 방식이며, 삼성은 2025년 4월 보안 패치를 배포했다. 이번 공개로 패치 이전 기기 노출 실태가 처음 드러났다. (TechCrunch)\n\n연구진은 활동 무대가 중동 지역으로 보이며 마이크·위치·사진·연락처 등 광범위 수집이 가능하다고 분석했다. 일부 인프라가 과거 상업용 스파이웨어 조직과 겹치지만 최종 배후는 미확정이다. 전문가들은 제로클릭 유사 기법이 이어지는 만큼 최신 업데이트 유지와 의심 이미지 차단을 당부했다. (Unit 42)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "문샷AI",
+                title: "문샷AI, 오픈소스 ‘Kimi K2 Thinking’ 공개…HLE 44.9%·BrowseComp 60.2%",
+                isTop5: false,
+                details: "문샷AI가 11월 7일 **오픈소스 추론 모델 ‘Kimi K2 Thinking’**을 공개하고, HLE 44.9%·BrowseComp 60.2% 등 성적을 발표했다. 모델은 200~300단계 도구 호출을 전제로 설계돼 검색·코딩·실행을 연쇄 처리하며, 공개 즉시 상용 활용 허용 조건을 제시했다. 회사는 에이전트형 작업에서의 실전 성능을 강조했다. (AI타임스)\n\n구조는 1조 파라미터 MoE(활성 320억)이며, 토큰 요금은 입력 캐시 히트 $0.15/백만·미스 $0.60/백만, 출력 $2.50/백만으로 제시됐다. 문샷AI는 이전 모델 대비 추론 속도 개선과 INT4 양자화를 내세웠고, 경쟁 대비 가격 효율을 주장했다. 커뮤니티 검증과 대형 에이전트 프레임워크 연동이 확산의 관건이다. (AI타임스)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "구글",
+                title: "구글, 호주 크리스마스섬 AI 데이터센터 추진…전략 거점 논의 본격화",
+                isTop5: false,
+                details: "구글이 11월 6일(현지) 호주 크리스마스섬에 대규모 AI 데이터센터를 짓는 방안을 현지 정부와 협의 중인 것으로 확인됐다. 올해 초 호주 국방부와의 클라우드 협약 뒤 본격화된 계획으로, 공항 인근 부지 임대와 현지 광산업체와의 전력 조달 협력이 논의되고 있다. 추진 시 지역 인프라·일자리 기대와 함께 군사화 우려가 함께 제기되고 있다. (Reuters)\n\n크리스마스섬은 인도양의 요충지로, 일부 전문가들은 AI 기반 지휘·감시 체계 지원 가능성을 거론한다. 구글은 다윈 연결 해저케이블도 검토 중인 것으로 전해졌으며, 규모·비용은 아직 비공개다. 향후 환경영향평가·주민 협의가 사업 성패를 가를 전망이다. (Reuters)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "구글 클라우드",
+                title: "구글 클라우드, 아이언우드 TPU·악시온 CPU로 AI 인프라 강화",
+                isTop5: false,
+                details: "구글 클라우드가 11월 초 7세대 ‘아이언우드’ TPU와 ARM 기반 ‘악시온’ CPU로 구성된 차세대 인스턴스를 공개했다. 핵심은 대규모 추론·학습 동시 지원과 광 회로 스위칭을 통한 장애 우회로, 구글은 이를 하나의 AI 하이퍼컴퓨터로 통합 운영한다. 업계에선 엔비디아 의존 완화와 고객의 비용·성능 개선을 예상한다. (AI타임스)\n\n사양은 아이언우드 FP8 4,614 TFLOPS·HBM3E 192GB(칩당)로, 9,216칩 포드 기준 42.5 EFLOPS까지 확장된다. 악시온은 Neoverse V2 기반으로 x86 대비 최대 50% 성능·60% 효율 우위를 내세우며, 초기 고객사로 앤트로픽 등이 거론된다. 실제 효과는 워크로드·가격에 달려 있어 벤치마크·고객 사례가 관전 포인트다. (Tom's Hardware)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈AI",
+                title: "오픈AI ‘소라’, 안드로이드 첫날 47만 건 설치…iOS의 4배",
+                isTop5: false,
+                details: "오픈AI의 영상 앱 **‘소라(Sora)’**가 11월 6일(현지) 안드로이드 출시 첫날 약 47만 건 설치를 기록했다. 집계는 Appfigures 추정치로, 미국·한국 등 7개국 플레이스토어 출시 효과가 컸다. 이에 따라 AI 영상 대중화가 더 빨라질 전망이다. (TechCrunch)\n\n소라는 iOS에서 누적 흥행 후 안드로이드로 확대됐으며, 틱톡형 피드와 ‘카메오’ 기능(사용자 얼굴 삽입)을 제공한다. 일부 국가는 초대코드가 필요하며, 저작권·딥페이크 우려도 함께 제기된다. 지역 확대와 콘텐츠 안전장치가 향후 성장을 좌우할 전망이다. (The Verge)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "거버넌스",
+                title: "찰스 3세, 엔비디아 젠슨 황에 AI 위험 경고 전달",
+                isTop5: false,
+                details: "영국 찰스 3세 국왕이 11월 6일(현지) 런던 세인트 제임스 궁에서 열린 엘리자베스 여왕 공학상 행사에서 엔비디아 젠슨 황 CEO에게 AI 안전 경고 메시지를 전했다. 현장에서 국왕은 대화 필요성을 강조했고, 황 CEO는 “I need to talk to you라는 말을 들었다”고 전했다. 이번 메시지는 AI 개발 속도와 규제 균형 논의를 다시 끌어올렸다. (uk.news.yahoo.com)\n\n해당 시상식에서 엔비디아의 황·빌 댈리가 수상했으며, 국왕은 2023년 AI 세이프티 서밋 이후 줄곧 위험 관리를 촉구해 왔다. 구체 제안 내용은 공개되지 않았지만, 정부-업계 협력과 윤리·안전 기준 강화가 과제로 지목된다. (NVIDIA Blog)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "테슬라",
+                title: "테슬라, 자체 AI 칩 팹 검토…인텔 협력 가능성 언급",
+                isTop5: false,
+                details: "일론 머스크는 11월 7일(현지) 주주총회에서 테슬라가 **“초대형 칩 팹”**을 지어 자체 AI 칩을 만들 가능성이 높다고 밝혔다. 그는 인텔과의 협력 가능성을 시사하면서도 TSMC·삼성과의 파트너십은 계속된다고 했다. 이 계획이 현실화되면 공급망 안정·원가 절감과 엔비디아 의존 완화가 기대된다. (Reuters)\n\n테슬라는 5세대 AI 칩을 개발 중이며, 2026년 제한 생산·2027년 양산을 목표로 한다는 로드맵이 소개됐다. 실제 투자 규모, 공장 입지, 정부 보조금 여부가 관건이며, 로보택시·FSD 전략과 맞물려 성패가 갈릴 전망이다. (Reuters)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "교육",
+                title: "듀크대 교무부총장, AI 거버넌스 논란 해명…교수 우려에 답변",
+                isTop5: false,
+                details: "듀크대 앨릭 갤리모어 교무부총장이 11월 7일(현지) 학내 대화 자리에서 인공지능(ΑI) 추진 방향을 설명하고, 의사결정 과정에 대한 교수진의 우려에 대해 입장을 밝혔다. 갤리모어는 교무부총장 AI 이니셔티브가 교수들의 도구 도입을 돕는 **‘지원 네트워크’**를 만들고 모범 사례를 찾는 데 초점을 둔다고 밝혔다. 이번 설명은 올가을 제기된 공유 거버넌스·투명성 논란을 가라앉히려는 시도로 해석된다. (dukechronicle.com)\n\n듀크대는 6월 AI 이니셔티브를 공식화하며 ‘DukeGPT’와 무제한 ChatGPT-4o 접근을 소개했고, 윤리·보건 등 현안 논의를 확대해 왔다. 갤리모어는 앞서 “We are actively shaping its future”라고 말하며 대학이 AI 변화를 주도하겠다고 강조했다. 학교 측은 지역 행사를 포함한 지속적 포럼과 지원 체계를 통해 논의를 이어가겠다는 방침이다. (dukechronicle.com)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "EU",
+                title: "EU, AI법 일부 시행 ‘일시 중단’ 검토…미국·빅테크 압박 속 조정 모색",
+                isTop5: false,
+                details: "유럽연합(EU) 집행위가 11월 7일(현지) AI법(AI Act) 일부 조항의 시행 일시 중단을 검토 중이라고 파이낸셜타임스(FT)를 인용해 로이터가 전했다. 검토 배경에는 메타·알파벳 등 빅테크와 미국 정부의 압박이 있으며, 집행위의 디지털 규제 ‘간소화 패키지’ 채택 일정(11월 19일)이 거론됐다. 이 조정은 즉각적인 규제부담을 누그러뜨리지만, 최종 집행 일정에는 변동 가능성이 생겼다. (Reuters)\n\nAI법은 2024년 8월 발효됐고, 단계적 적용 조항이 앞으로 순차 시행될 예정이다. 집행위 대변인은 일부 표적 영역의 시행 지연 가능성을 검토 중이라면서도 법의 목표에는 변함이 없다고 밝혔다. 향후 11월 중 간소화 방안 채택과 함께 미국과의 정책 공조·마찰 관리가 계속될 전망이다. (Reuters)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "ChatGPT",
+                title: "ChatGPT ‘지능형 뉴스 요약’ GPT 등장…맞춤형 뉴스 요약 봇 확산",
+                isTop5: false,
+                details: "ChatGPT 플랫폼에 맞춤형 GPT인 ‘지능형 뉴스 요약’ 페이지가 공개돼, 사용자가 설정한 형식으로 최신 뉴스 요약을 받을 수 있게 됐다. 이 서비스는 오픈AI가 제공하는 GPTs 기능을 활용해 특정 업무에 특화된 사용자 맞춤형 챗봇을 만들고 공유하는 방식이다. 이용 확산 시 개인·언론·기업의 요약 워크플로 표준화가 빨라질 수 있다. (ChatGPT)\n\n오픈AI는 2024년 GPT 스토어를 열고, 지침·지식·도구를 조합해 GPT를 만들 수 있도록 했다. 공식 설명에 따르면 “GPTs are custom versions of ChatGPT that users can tailor for specific tasks”라는 개념으로 운영된다. 최근 릴리스 노트에선 개인화·업무용 기능이 개선되는 등 지속 업데이트가 이어지고 있어 활용 영역이 더 넓어질 전망이다. (OpenAI)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "엔비디아",
+                title: "엔비디아, 중국 리스크 재부상에 주간 7%↓…AI 투자 둔화 우려 겹쳐",
+                isTop5: false,
+                details: "엔비디아 주가는 11월 7일(현지) 프리마켓에서 1.1% 하락해 186.01달러를 기록, 전일 3.7% 하락에 이어 주간 7% 이상 밀렸다. 중국 매출 전망 악화와 함께, 초대형 투자 계획을 둘러싼 AI 인프라 지출 둔화 우려가 겹친 영향으로 풀이된다. 동반 약세 속에서도 엔비디아의 **연초 대비 상승률은 약 40%**를 유지했다. (Barron's)\n\n배경에는 대중 수출 제한과 블랙웰 칩의 중국 판매 불가 방침이 자리한다. 업계는 미국 내 데이터센터 투자가 일부 상쇄하겠지만, 중국향 분기 20~50억 달러 매출 공백 가능성을 주시한다. 향후 전망은 미국 빅테크의 설비투자(CapEx) 집행과 중국 규제 환경에 좌우될 것으로 보인다. (Reuters)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "사법",
+                title: "캘리포니아 네바다 카운티 검사, AI 쓰다 가짜 판례 인용…형사사건서 파장",
+                isTop5: false,
+                details: "사크라멘토비는 11월 7~8일(현지) 네바다 카운티의 한 검사가 형사사건 서면 작성에 AI를 사용했고, 이 과정에서 허위 법률 인용이 발생했다고 전했다. 피고 측 변호인은 문서의 오류가 ‘AI 환각’(hallucination)의 전형적 양상이라며 문제를 제기했다. 이번 사건은 기소·재판 절차 신뢰를 흔들 수 있어 파장이 크다. (sacbee.com)\n\n미 전역에선 AI가 만든 허위 인용으로 변호사가 제재를 받는 사례가 잇따르고, 캘리포니아에선 1만 달러 벌금 판결도 나왔다. 한 판사는 “the use of artificial intelligence must be accompanied by the application of actual intelligence”라고 경고했다. 전문가들은 법원 공개 의무·내부 가이드라인 강화 등 추가 조치를 전망한다. (CalMatters)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "헬스케어",
+                title: "피부과 AI, “보조는 하되 최종 판단은 인간”",
+                isTop5: false,
+                details: "리나타 블록(MMS, PA-C)가 11월 미국 텍사스 SDPA 가을 학회에서 피부과 AI·머신러닝 활용법을 강연했다. 그는 FDA 승인 여부와 의도된 사용을 먼저 확인하고, AI는 의사결정 보조 도구로 쓰되 표준 진료(병력·더마토스코프)를 우선하라고 말했다. 이에 따라 의심 병변의 트리아지·생검 판단이 더 체계화되고 진료 워크플로 개선이 기대된다. (hcplive.com)\n\n학계에선 피부과 AI의 잠재력과 한계를 두고 논쟁이 이어졌고, 이번 세션은 임상 안전장치와 교육을 강조했다. 블록은 “AI는 내 결정을 대체하지 않고 보강한다”면서 “뇌를 먼저 쓰고 도구는 객관적 렌즈로 활용하라”고 했다. 그는 규제 이해와 근거기반 도입이 확산되면 일선 PA·클리니션의 채택이 빨라질 것으로 내다봤다. (hcplive.com)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "오픈AI",
+                title: "알트먼, “미국 Chips Act 세액공제 확대” 촉구",
+                isTop5: false,
+                details: "오픈AI CEO 샘 알트먼이 11월 7일(현지) 미국에서 **AMIC(첨단제조 투자 세액공제)**를 AI 서버·데이터센터·전력망 부품까지 확대하라고 촉구했다. 그는 X에서 **“전면적 재산업화”**가 산업 전반을 돕는다고 하면서, 세액공제는 대출보증과 다르다고 선을 그었다. 알트먼은 향후 8년 1.4조 달러 지출 계획을 재확인했지만, 백악관 데이비드 색스는 연방 구제금융 불가 입장을 밝히며 논쟁이 이어졌다. (Reuters)\n\nAMIC는 본래 국내 반도체 제조 활성화가 목적이며, 오픈AI는 10월 27일 백악관 OSTP에 적용 확대 서한을 보냈다. 알트먼은 “미국의 전 스택 재산업화가 모두를 돕는다”는 메시지를 거듭 냈다. 세액공제 범위 조정 여부가 데이터센터·전력설비 투자의 속도와 규모를 가를 전망이며, 재정 부담 논의도 계속될 것이다. (Reuters)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "오픈AI",
+                title: "“오픈AI, AI CEO가 운영하는 첫 대기업 될 것”",
+                isTop5: false,
+                details: "AI타임스는 11월 8일 샘 알트먼이 오픈AI를 ‘AI CEO’가 운영하는 첫 대기업으로 만들겠다는 구상을 밝혔다고 보도했다. 그는 최고경영 기능에 AI 통합을 통해 의사결정 속도·일관성을 높이겠다는 취지를 내놨다. 해당 발언은 법·책임·감사 체계를 포함한 기업지배구조 논쟁을 촉발했다. (AI타임스)\n\n최근 기업들은 에이전틱(Agentic) AI와 자동화를 경영 전반에 시도하고 있으며, 최고경영 단계 적용 가능성도 탐색 중이다. 보도에 따르면 알트먼은 “오픈AI는 AI CEO가 운영하는 첫 대기업이 돼야 한다”고 말했다. 실제 도입에는 이사회 감독·규제 해석 정비가 필요하며, 업계의 파일럿 실험과 사회적 논의가 이어질 것으로 보인다. (AI타임스)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "금융",
+                title: "분데스방크 총재, 연설 매파-비둘기파 균형 AI로 점검",
+                isTop5: false,
+                details: "요아힘 나겔 독일 분데스방크 총재가 11월 7일 프랑크푸르트 행사에서 연설의 매파·비둘기파 톤을 자체 AI 도구로 점검하고 있다고 밝혔다. 시장에 미칠 의도치 않은 신호를 줄이고 지각된 톤을 사전에 파악하려는 목적이다. 중앙은행의 AI 활용이 확산 조짐을 보이며, 그는 은행감독 등 추가 분야 적용 가능성도 언급했다. (Reuters)\n\n이미 투자은행들은 LLM 기반 도구로 연설·인터뷰 톤을 분석해 정책 변화 예측에 활용 중이며, UBS는 20년 넘는 데이터셋을 구축했다고 밝혔다. 나겔은 “연설은 AI가 쓰지 않지만, AI로 점검한다”며 표현 하나가 시장에 영향을 미칠 수 있어 주의가 필요하다고 했다. ECB는 6월 이후 동결 기조를 유지 중이고, 시장은 추가 인하 가능성 낮음을 반영해 점진적 커뮤니케이션 관리가 이어질 전망이다. (Reuters)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "산업",
+                title: "베인, 에이전틱 AI가 ERP 전환의 분기점 될 수 있다",
+                isTop5: false,
+                details: "베인앤드컴퍼니는 11월 발표한 보고서에서 에이전틱 AI가 ERP 전환을 스케일링할 분기점이 될 수 있다고 평가했다. 생성형 AI가 마이그레이션을 빠르게 하지만, 핵심은 에이전트가 전 과정을 자동화하는 터치리스 플랫폼이라고 제시했다. 베인 조사에 따르면 ERP 전환의 80% 이상이 예산·일정·가치 목표를 놓치고, **IT 리더 78%**는 3년 내 ERP 일부가 에이전틱 AI로 대체·보강될 것으로 본다. (Bain)\n\n많은 조직이 조직모델 부재·도구 미성숙·데이터 품질·벤더 종속·ROI 불확실성으로 파일럿 단계에 머문다. 베인은 CIO에게 무엇이 필요한가·빌드/바이/파트너·파트너의 역할·미실행 위험 등 4가지 질문으로 스케일 전략을 설계하라고 권고했다. 워크플로 전반 스케일한 선도 기업은 EBITDA 10~25% 개선을 보고하고 있어, 지연 시 비용·종속 리스크가 커질 전망이다. (Bain)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "EU",
+                title: "EU, AI법 일부 시행 유예 검토…트럼프 행정부·빅테크 압박 속 고심",
+                isTop5: false,
+                details: "유럽연합 집행위원회가 11월 7일 브뤼셀에서 AI법(Artificial Intelligence Act) 일부 시행 유예를 검토 중이라고 확인했다. 기업·트럼프 행정부 압박 속에 고위험 AI 1년 유예 및 투명성 규정 벌칙 2027년까지 연기 방안이 논의되고 있다. 완화 시 빅테크·생성형 AI의 부담이 줄 수 있지만, 일부 의원들은 법적 불확실성·권리 보호 약화를 우려한다. (가디언)\n\nAI법은 2024년 8월 발효했지만 다수 조항은 2026~2027년에 적용되며, 유예안은 회원국·의회 동의가 필요하다. 집행위 토마 뢰니에 대변인은 “유예 검토는 여전히 진행 중”이라며 EU의 입법 주권을 강조했고, 유럽 기업 다수는 2년 유예를 요구하는 공개서한을 냈다. 11월 19일 공개될 가능성이 거론되는 초안이 나오면 EU-미국 간 기술 규제 줄다리기가 재점화될 수 있다. (가디언)"
+            },
+            // --- (중복된 텍스트 블록 시작) ---
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈AI",
+                title: "올트먼, “2026년 AI 연구 인턴, 2028년 완전 자동화 연구자” 목표 밝혀",
+                isTop5: false, // 원본 데이터의 두 번째 블록이므로 Top5가 아님
+                details: "샘 올트먼 오픈AI CEO가 10월 29일 X에서 2026년 9월까지 AI 연구 인턴을, 2028년 3월까지 완전 자동화 연구자를 준비하겠다는 내부 목표를 공개했다. 그는 이 시스템이 수십만 개 GPU에서 돌아가도록 설계될 것이라고 설명하며, 달성 실패 가능성도 인정했다. 이 발표로 연구 자동화가 빨라질 수 있다는 기대와 안전성·검증 논쟁이 동시에 커지고 있다. (TechRadar)\n\n이번 발언은 오픈AI가 회사 재편과 함께 대규모 인프라 확장을 예고해 온 흐름과 맞물린다. 올트먼은 라이브스트림에서 “our goal is by March 2028 to have a true automated AI researcher”라고 말하며 구체 일정을 제시했다. 오픈AI는 2025년 말까지 GPU 100만 개 이상 가동을 목표로 밝힌 바 있어, 대규모 연산 자원과 안전 연구 성과가 실제 달성 여부를 가를 전망이다. (TechRadar)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글 딥마인드",
+                title: "구글 딥마인드, Gemini API에 File Search Tool 공개",
+                isTop5: false,
+                details: "AI 뉴스 계정 ‘@ai_for_success’가 11월 7일 X에서 구글 딥마인드의 Gemini API 신규 File Search Tool 공개 소식을 전했다. 이 도구는 완전 관리형 RAG로 저장·청킹·임베딩 생성과 컨텍스트 주입을 자동 처리해, 기업과 개발자가 자신들의 데이터로 모델을 쉽게 연결하게 한다. 이에 따라 RAG 구축 간소화와 비용 절감 기대가 커졌고, 초기 실험과 배포 속도가 빨라질 것으로 보인다. (X (formerly Twitter))\n\n구글 공식 블로그에 따르면 저장·쿼리 임베딩 무료 정책을 적용하고, 초기 색인 임베딩만 백만 토큰당 0.15달러로 과금한다. 블로그는 이를 “a fully managed RAG system built directly into the Gemini API”라고 소개했으며, 지원 모델은 Gemini 2.5 Pro와 2.5 Flash이고 응답에 출처 인용을 자동 포함한다고 설명했다. 구글 AI 스튜디오 데모와 개발 문서가 마련돼 있어, 관련 앱의 출시 주기가 단축되고 자체 벡터DB 운영 부담이 줄어들 가능성이 크다. (blog.google)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "오픈AI",
+                title: "게리 마커스, “오픈AI가 연방 보증 요구” 주장… 10월 27일 백악관 서한 근거 제시",
+                isTop5: false,
+                details: "AI 연구자 게리 마커스가 11월 7일 X에서 오픈AI가 10월 27일 백악관에 보낸 서한을 근거로 연방 보증을 이미 요청했다고 밝혔다. 해당 서한은 행정관리예산국 산하 과학기술정책실(OSTP)에 제출된 문서로, 공급망·전력망 확충을 위해 대출 보증 등 연방 지원을 제안한다. 이 주장은 오픈AI가 “데이터센터에 대한 보증은 원치 않는다”는 최근 해명과 엇갈리면서, 회사의 자금조달 전략에 대한 신뢰성 논란을 키우고 있다. (X (formerly Twitter))\n\n배경으로, 오픈AI는 Stargate 프로젝트 등을 통해 향후 8년간 약 1.4조 달러 규모의 인프라 투자를 검토하고 있으며, 연간 전력 100GW 증설 같은 국가적 목표를 촉구해 왔다. 서한에는 “grants, cost-sharing agreements, loans, or loan guarantees” 같은 수단이 명시돼 있고, 한편 사라 프라이어 CFO의 ‘연방 백스톱’ 발언은 곧바로 정정됐다. 업계와 정책권의 검증이 이어질 전망으로, 추가 자료 공개와 정부 입장 표명이 논란의 향배를 가를 것으로 보인다. (OpenAI)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "문샷AI",
+                title: "문샷AI, 오픈소스 ‘Kimi K2 Thinking’ 공개… HLE·BrowseComp SOTA 기록",
+                isTop5: false,
+                details: "문샷AI의 Kimi.ai 계정이 2025년 11월 7일 X에서 오픈소스 Kimi K2 Thinking 공개를 알리며 **HLE 44.9%**와 BrowseComp 60.2% 성적을 발표했다. 회사 설명에 따르면 이 모델은 단계적 추론과 도구 사용을 결합한 ‘생각하는 에이전트’로 설계됐다. 발표 직후 오픈소스 진영의 최상위 성능 경쟁이 가속화되고, 실제 업무 적용에 대한 기대가 커지고 있다. (X (formerly Twitter))\n\n배경으로, Kimi K2 계열은 1조 파라미터 MoE 구조에 320억 파라미터 활성화를 채택했고(기술 보고 및 저장소 공개), 대규모 데이터로 안정적 학습을 마쳤다. Kimi는 X에서 “SOTA on HLE 44.9% and BrowseComp 60.2%”라고 알렸고, 모델 카드에는 256k 컨텍스트에서 200~300회 도구 호출 등 사용 조건이 제시돼 있다. 체크포인트는 허깅페이스에서 열려 있으며, API와 Vercel AI Gateway 지원이 있어 배포가 쉬워질 전망으로, 곧 에이전트 모드 업데이트도 예고됐다. (github.com)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "퍼플렉시티",
+                title: "퍼플렉시티 ‘코멧’ 에이전트 대형 업그레이드 공개",
+                isTop5: false,
+                details: "AI 소식 계정 TestingCatalog가 11월 7일 X에서 퍼플렉시티의 코멧 브라우저가 에이전트 기능을 크게 강화하는 업그레이드를 배포했다고 전했다. 공지에 따르면 코멧 어시스턴트가 더 오래, 더 복잡한 작업을 더 큰 범위로 처리하도록 조정됐다. 이로 인해 사용자 작업 자동화 성능 향상과 함께 경쟁 제품과의 에이전트 전쟁이 본격화될 전망이다. (X (formerly Twitter))\n\n앞서 코멧은 안드로이드 베타 테스트와 프라이버시 스냅샷 같은 설정 통합 개선을 통해 사용성도 넓혀왔다. 업계에선 브라우징·검색·업무 자동화를 한 곳에서 다루는 흐름이 빨라지고 있어, 향후 데이터 사용 투명성과 플랫폼 간 정책 충돌이 주요 쟁점이 될 것으로 보인다. (Digital Watch Observatory)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "구글",
+                title: "순다르 피차이, “TPU ‘Ironwood’ GA” 발표… v5p 대비 10배 피크 성능",
+                isTop5: false,
+                details: "구글 CEO 순다르 피차이가 11월 6일(현지) X에서 7세대 TPU Ironwood의 **일반 제공(GA)**을 알렸다. 그는 v5p 대비 피크 성능 10배, v6e(Trillium) 대비 칩당 성능 4배 이상 개선과, 자사 Gemini 등 프런티어 모델 학습·서빙에 쓰고 있다고 밝혔다. 고객 입장에선 고성능 AI 연산 접근성이 넓어지며 학습·추론 비용 구조 변화가 예상된다. (X (formerly Twitter))\n\n기술 자료에 따르면 Ironwood는 최대 9,216칩까지 포드 확장이 가능하고, 광 회로 스위칭과 고대역 ICC로 다중 포드 클러스터를 구성한다. 외신과 전문 매체는 구체 수치를 재확인하며 경쟁 대비 FP8 ExaFLOPS 우위를 거론했다. GA 이후 실제 워크로드에서의 가격·성능 지표와 클라우드 제공 지역 확대가 관전 포인트다. (TestingCatalog)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글",
+                title: "“LaTeX 업그레이드가 게임 체인저” — 구글 조시 우드워드, 개선 사례 공유",
+                isTop5: false,
+                details: "구글의 조시 우드워드가 11월 7일 X에서 “LaTeX 업그레이드가 모든 것을 바꿨다”는 사용기 글을 소개하며, 수식 렌더링과 PDF 내보내기가 실제 작업 시간을 절약한다고 전했다. 그는 “It. Just. Worked.”라는 소감을 인용하며 수학·공학 문서 작성에서 지연·깨짐 문제가 줄었다고 했다. (X (formerly Twitter))\n\n구글은 최근 ‘Gemini Drops’와 워크스페이스 업데이트를 통해 캔버스 통합, 클립보드 호환, PDF 생성 등 LaTeX 흐름을 한곳에 모았다고 설명했다. 교육·연구 현장에선 수식 편집 난이도가 낮아질 것으로 보이며, 향후 모바일 앱 렌더링 안정화와 장문 수식 지원 범위가 추가 관건이다. (Gemini)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈AI",
+                title: "“ChatGPT에 상품 통합 가능” — 알렉스 그로버먼, 즉시 결제 시대 강조",
+                isTop5: false,
+                details: "컨설턴트 알렉스 그로버먼이 11월 7일 X에서 “이제 상품을 ChatGPT에 통합해 실시간 가격·재고로 노출하고 구매까지 이어질 수 있다”고 정리했다. 이는 오픈AI가 발표한 Instant Checkout과 에이전트 상거래 프로토콜에 따른 변화로, 대화형 검색에서 구매 전환까지 바로 이어지는 흐름을 뜻한다. (X (formerly Twitter))\n\n오픈AI는 9월 말 공지를 통해 인앱 결제 흐름을 소개했고, 머천트 신청 페이지로 파트너 온보딩을 받고 있다. 로이터·AP는 쇼핑 기능 확대와 유통 파트너십을 잇달아 보도했고, 업계는 제품 피드 관리와 순위 노출 기준을 새 과제로 지목한다. (OpenAI)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글 AI 스튜디오",
+                title: "구글 AI 스튜디오, Gemini API ‘File Search Tool’ 공개… 색인 $0.15/백만 토큰",
+                isTop5: false,
+                details: "구글 AI Studio가 11월 7일 X에서 Gemini API의 File Search Tool 출시를 알렸다. 완전 관리형 RAG로 파일 저장·청킹·임베딩 생성과 컨텍스트 주입을 자동화해, 스토리지·쿼리 임베딩 무료에 색인 시에만 비용을 부과한다. 이에 따라 자체 데이터로 모델을 근거 기반으로 연결하는 개발 작업의 비용·복잡도 급감이 예상된다. (X (formerly Twitter))\n\n배경으로 구글은 11월 6일자 변경 이력에서 퍼블릭 프리뷰 개시를 공지했으며, 공식 블로그는 이 도구를 “a fully managed RAG system built directly into the Gemini API”라고 설명했다. 문서는 가격을 색인용 임베딩 기준 백만 토큰당 $0.15로 명시하고, 응답에 출처 인용 자동 포함과 PDF·DOCX·TXT 등 형식 지원을 안내한다. 향후 실제 워크로드에서의 품질·비용 지표와 사용 사례 축적이 확산 속도를 좌우할 전망이다. (Google AI for Developers)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈라우터",
+                title: "오픈라우터, ‘Polaris Alpha’ 공개… 256k 컨텍스트 탑재한 스텔스 모델",
+                isTop5: false,
+                details: "오픈라우터(OpenRouter)가 11월 6일 자사 플랫폼에 Polaris Alpha를 출시했다. 이 모델은 커뮤니티 피드백을 모으기 위한 ‘클로크드(cloaked)’ 형식으로 소개됐고, 256k 컨텍스트와 범용 작업 대응을 내세웠다. 가격 표기는 현재 입력·출력 모두 $0로 표시돼 초기 테스트 허들이 낮지만, 제공자 측의 로그 수집 안내가 명시돼 있어 개인정보·기밀 취급 주의가 요구된다. (OpenRouter)\n\n배경으로 오픈라우터 페이지에는 “커뮤니티 피드백을 위해 제공되는 cloaked 모델”이라는 설명과 생성일(2025년 11월 6일), 컨텍스트 길이, 임시 가격 정보가 함께 기재돼 있다. 커뮤니티 채널과 개발자 포럼에선 “코딩·툴콜링에서 강하다”는 반응과 함께 통합 이슈 보고 등 초기 사용기가 이어지고 있으며, X의 소식 계정들도 등재 사실을 전했다. 향후 모델 제공자 정보와 정식 요금, 개인정보 처리 기준이 추가 공개될지가 확산 속도를 좌우할 전망이다. (OpenRouter)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "오픈AI",
+                title: "오픈AI, 프롬프트 인젝션 경고… 사용자 보호 방안 공개",
+                isTop5: false,
+                details: "오픈AI 개발자 계정이 11월 7일 X에서 자사 블로그의 프롬프트 인젝션 안내 글을 공유하고, 최신 에이전트 기능 확산에 따른 보안 위험과 대응책을 밝혔다. 글은 웹 탐색·앱 연동 중 모델이 악성 지시문에 휘말릴 수 있어 다층 방어(안전 훈련, 모니터링, 보안 보호, 사용자 확인 절차)를 적용한다고 설명했다. 이에 따라 기업·개발자는 권한 최소 부여, 민감 작업 전 확인 같은 기본 수칙 준수가 즉각 요구된다. (OpenAI)\n\n배경으로 오픈AI는 올해 Model Spec 업데이트를 통해 모델 행위를 규정하고 사용자 통제·투명성을 강화해 왔으며, 이번 글에서는 레드팀·버그바운티와 같은 운영 절차를 재확인했다. 회사는 프롬프트 인젝션 탐지·완화 연구를 지속하고, 인터넷 통신 중 대화 정보가 전송될 수 있는지 판단하는 추가 보고서 공개도 예고했다. 향후 에이전트 상용화 속도가 빨라질수록 개발 단계에서의 보안 설계와 사후 모니터링이 경쟁력을 좌우할 전망이다. (OpenAI)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "오픈AI",
+                title: "오픈AI, 프롬프트 인젝션 대응 지침 공개… 에이전트 확산 속 다층 방어 강조",
+                isTop5: false,
+                details: "오픈AI 개발자 계정이 11월 7일 X에서 프롬프트 인젝션 위험과 대응책을 정리한 새 블로그를 안내했다. 글은 웹·앱 연동형 에이전트가 제3자 콘텐츠의 악성 지시문에 노출되는 구조를 설명하고, 안전 훈련·모니터링·보안 보호·사용자 확인 등 다층 방어를 제시했다. 회사는 에이전트 상용화가 빨라지는 만큼 사용자와 기업이 권한 최소화·확인 절차를 지키지 않으면 데이터 오남용 위험이 커진다고 경고했다. (X (formerly Twitter))\n\n배경으로 오픈AI는 Atlas 브라우저와 에이전트 기능을 확장해 오며 모델 사양 업데이트와 레드팀·버그바운티를 운영해 왔다. 블로그는 민감 작업 전 사용자 승인, 링크 접근 시 경고 같은 제품 내 보안 보호와 에이전트 감시 모드 등 구체 기능을 제시했다. 회사는 인터넷 통신 중 대화 전송 여부 탐지 보고서 공개를 예고하며, 향후 공격 고도화에 맞춰 방어 기법을 계속 업데이트하겠다고 밝혔다. (OpenAI)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "구글 인디아",
+                title: "구글 인디아, Jio 5G 청년층에 Google AI Pro 18개월 무료 홍보",
+                isTop5: false,
+                details: "구글 인디아가 11월 7일 X에서 Jio 무제한 5G 요금제 이용자(만 18~25세) 대상 Google AI Pro 18개월 무료 혜택을 안내했다. 이 프로모션은 구글과 릴라이언스 Jio의 협력으로, 정가 ₹35,100 상당 구독을 조기 제공하며 마이Jio 앱에서 등록 후 활성화한다. 이에 따라 젊은층의 Gemini 2.5 Pro 접근성이 넓어지고 생성형 AI 사용 진입 비용이 낮아질 전망이다. (X (formerly Twitter))\n\n로이터와 현지 매체는 혜택이 2TB 클라우드 저장공간과 이미지·영상 생성 도구 등 프리미엄 번들을 포함한다고 전했다. Jio 공식 페이지는 대상 요금제를 ₹349 이상으로 명시하고, “Jio 사용자 18~25세 조기 접근”을 조건으로 제시했다. 초기 청년층 제공 후 전 이용자 확대가 예고돼 통신·클라우드 연계형 AI 구독 경쟁이 본격화될 전망이다. (reuters.com)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "패러럴",
+                title: "패러럴, AI 에이전트용 Parallel Search API 출시… 독자 웹 인덱스 기반",
+                isTop5: false,
+                details: "웹 데이터 기업 패러럴(Parallel Web Systems)이 11월 6일 X 계정(@p0)에서 Parallel Search API 출시를 알리고, 블로그로 세부를 공개했다. 이 서비스는 독자 웹 인덱스와 압축 발췌를 결합해 AI 에이전트에 맞춘 가장 정확한 웹 검색을 표방한다. 회사는 HLE·BrowseComp 같은 난도 높은 벤치마크에서 경쟁 대비 높은 정확도를 주장하며, 호출 수와 지연을 줄여 비용 효율을 높인다고 설명했다. (X (formerly Twitter))\n\n패러럴은 사람 중심 검색처럼 클릭을 노린 링크 순위화가 아니라, 모델 추론을 위한 토큰 최적화와 정보 밀도를 우선한다고 배경을 밝혔다. 블로그는 “사람이 클릭할 URL을 고르는 게 아니라, 모델이 추론하도록 컨텍스트와 토큰을 최적화한다”라고 적었다. 현재 공개 GA로 제공되며 가격은 $0.005/요청(10개 결과 기준)으로 안내됐다; 성능 주장의 외부 검증과 주요 에이전트 프레임워크 연동이 확산의 관건이 될 전망이다. (병렬 웹 시스템)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "산업 동향",
+                title: "실리콘밸리, AI 전환 속 정리해고 확산…기업 재편 가속",
+                isTop5: false,
+                details: "미국 테크 업계가 11월 7일을 전후해 비용 절감·AI 중심 재편을 이유로 추가 감원을 단행했다. 인사관리 소프트웨어 기업 워크데이가 1,750명(8.5%) 감원, 교육 플랫폼 체그가 **45% 감원(388명)**을 발표하는 등 구조조정이 실리콘밸리·전미로 번지고 있다. 단기적으로 사업 포트폴리오 축소와 인력 재배치가 뒤따르고, 지역 고용에도 부담이 커지고 있다. (Reuters)\n\n팬데믹 이후 과잉 채용과 생성형 AI 도입 가속이 맞물리며 ‘효율 우선’ 전략이 굳어졌다는 평가다. 일부 기업은 핵심 AI·반도체 영역 집중을 명확히 하며 비핵심부문을 정리하고 있고, 업계 전반으론 추가 감원 가능성도 거론된다. 향후 매출 반등·투자 확대가 뒤따르지 못하면 2026년 상반기까지 구조조정 장기화가 불가피하다는 관측이다. (Newsweek)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "마이크로소프트",
+                title: "마이크로소프트, ‘휴머니스트 슈퍼인텔리전스’팀 신설",
+                isTop5: false,
+                details: "마이크로소프트가 11월 6일(현지) 무스타파 술레이만(Microsoft AI CEO) 주도로 **‘MAI 슈퍼인텔리전스 팀’**을 신설한다고 밝혔다. 회사는 **“인류에 봉사하는 실용적 초지능”**을 지향하며, 통제 가능성과 인간 중심 설계를 최우선 가치로 내세웠다. 이로써 도메인 특화형 AI 개발과 책임성·안전성 프레임 강화가 본격화될 전망이다. (Computerworld)\n\n술레이만은 블로그에서 **“경쟁적 AGI 레이스를 거부”**하고 **지속적 정렬·봉쇄(Containment)**를 병행해야 한다고 강조했다. 의료·개인 도우미·청정에너지 등 구체 과제 해결형 AI를 우선하겠다는 입장도 밝혔다. 향후 연구 거버넌스와 국제 협력 규범 구축이 병행되지 않으면 기술·윤리 리스크가 커질 수 있다는 경고다. (Microsoft AI)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "코카콜라",
+                title: "코카콜라, AI 크리스마스 광고 공개…반응 엇갈림",
+                isTop5: false,
+                details: "코카콜라가 11월 초 생성형 AI로 제작한 연말 광고를 공개하며 온라인에서 호불호 논란을 다시 불렀다. 광고는 상징인 ‘Holidays Are Coming’ 트럭과 동물 캐릭터를 내세웠지만, 시청자들은 장면 불일치·위화감 등을 지적했다. 브랜드는 혁신 의지를 내세우며 캠페인을 유지하고, 효율성·속도 향상을 강조했다. (The Verge)\n\n작년 유사 캠페인 때의 진정성 논란이 재점화된 가운데, 일부 평가는 감정 호소력은 높다고도 본다(예: System1 5.9점). 제작에는 실버사이드·시크릿 레벨 등 파트너가 참여했고, 업계에선 AI 영상의 일관성·시간축 안정성이 핵심 과제로 지목된다. 코카콜라는 전통·혁신 병행을 내세웠지만, 장기적으로 브랜드 이미지가 시험대에 올랐다는 분석이다. (Business Insider)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안",
+                title: "‘랜드폴’ 스파이웨어, 제로데이로 삼성 갤럭시 노려…DNG 이미지 악용",
+                isTop5: false,
+                details: "팔로알토네트웍스 유닛42가 11월 7일, 안드로이드 스파이웨어 **‘랜드폴(Landfall)’**이 CVE-2025-21042 제로데이를 이용해 삼성 갤럭시 기기를 수개월간 표적 공격했다고 밝혔다. 악성 DNG 이미지를 메시징 앱으로 전송해 감염시키는 방식이며, 삼성은 2025년 4월 보안 패치를 배포했다. 이번 공개로 패치 이전 기기 노출 실태가 처음 드러났다. (TechCrunch)\n\n연구진은 활동 무대가 중동 지역으로 보이며 마이크·위치·사진·연락처 등 광범위 수집이 가능하다고 분석했다. 일부 인프라가 과거 상업용 스파이웨어 조직과 겹치지만 최종 배후는 미확정이다. 전문가들은 제로클릭 유사 기법이 이어지는 만큼 최신 업데이트 유지와 의심 이미지 차단을 당부했다. (Unit 42)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "문샷AI",
+                title: "문샷AI, 오픈소스 ‘Kimi K2 Thinking’ 공개…HLE 44.9%·BrowseComp 60.2%",
+                isTop5: false,
+                details: "문샷AI가 11월 7일 **오픈소스 추론 모델 ‘Kimi K2 Thinking’**을 공개하고, HLE 44.9%·BrowseComp 60.2% 등 성적을 발표했다. 모델은 200~300단계 도구 호출을 전제로 설계돼 검색·코딩·실행을 연쇄 처리하며, 공개 즉시 상용 활용 허용 조건을 제시했다. 회사는 에이전트형 작업에서의 실전 성능을 강조했다. (AI타임스)\n\n구조는 1조 파라미터 MoE(활성 320억)이며, 토큰 요금은 입력 캐시 히트 $0.15/백만·미스 $0.60/백만, 출력 $2.50/백만으로 제시됐다. 문샷AI는 이전 모델 대비 추론 속도 개선과 INT4 양자화를 내세웠고, 경쟁 대비 가격 효율을 주장했다. 커뮤니티 검증과 대형 에이전트 프레임워크 연동이 확산의 관건이다. (AI타임스)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "구글",
+                title: "구글, 호주 크리스마스섬 AI 데이터센터 추진…전략 거점 논의 본격화",
+                isTop5: false,
+                details: "구글이 11월 6일(현지) 호주 크리스마스섬에 대규모 AI 데이터센터를 짓는 방안을 현지 정부와 협의 중인 것으로 확인됐다. 올해 초 호주 국방부와의 클라우드 협약 뒤 본격화된 계획으로, 공항 인근 부지 임대와 현지 광산업체와의 전력 조달 협력이 논의되고 있다. 추진 시 지역 인프라·일자리 기대와 함께 군사화 우려가 함께 제기되고 있다. (Reuters)\n\n크리스마스섬은 인도양의 요충지로, 일부 전문가들은 AI 기반 지휘·감시 체계 지원 가능성을 거론한다. 구글은 다윈 연결 해저케이블도 검토 중인 것으로 전해졌으며, 규모·비용은 아직 비공개다. 향후 환경영향평가·주민 협의가 사업 성패를 가를 전망이다. (Reuters)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "구글 클라우드",
+                title: "구글 클라우드, 아이언우드 TPU·악시온 CPU로 AI 인프라 강화",
+                isTop5: false,
+                details: "구글 클라우드가 11월 초 7세대 ‘아이언우드’ TPU와 ARM 기반 ‘악시온’ CPU로 구성된 차세대 인스턴스를 공개했다. 핵심은 대규모 추론·학습 동시 지원과 광 회로 스위칭을 통한 장애 우회로, 구글은 이를 하나의 AI 하이퍼컴퓨터로 통합 운영한다. 업계에선 엔비디아 의존 완화와 고객의 비용·성능 개선을 예상한다. (AI타임스)\n\n사양은 아이언우드 FP8 4,614 TFLOPS·HBM3E 192GB(칩당)로, 9,216칩 포드 기준 42.5 EFLOPS까지 확장된다. 악시온은 Neoverse V2 기반으로 x86 대비 최대 50% 성능·60% 효율 우위를 내세우며, 초기 고객사로 앤트로픽 등이 거론된다. 실제 효과는 워크로드·가격에 달려 있어 벤치마크·고객 사례가 관전 포인트다. (Tom's Hardware)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈AI",
+                title: "오픈AI ‘소라’, 안드로이드 첫날 47만 건 설치…iOS의 4배",
+                isTop5: false,
+                details: "오픈AI의 영상 앱 **‘소라(Sora)’**가 11월 6일(현지) 안드로이드 출시 첫날 약 47만 건 설치를 기록했다. 집계는 Appfigures 추정치로, 미국·한국 등 7개국 플레이스토어 출시 효과가 컸다. 이에 따라 AI 영상 대중화가 더 빨라질 전망이다. (TechCrunch)\n\n소라는 iOS에서 누적 흥행 후 안드로이드로 확대됐으며, 틱톡형 피드와 ‘카메오’ 기능(사용자 얼굴 삽입)을 제공한다. 일부 국가는 초대코드가 필요하며, 저작권·딥페이크 우려도 함께 제기된다. 지역 확대와 콘텐츠 안전장치가 향후 성장을 좌우할 전망이다. (The Verge)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "거버넌스",
+                title: "찰스 3세, 엔비디아 젠슨 황에 AI 위험 경고 전달",
+                isTop5: false,
+                details: "영국 찰스 3세 국왕이 11월 6일(현지) 런던 세인트 제임스 궁에서 열린 엘리자베스 여왕 공학상 행사에서 엔비디아 젠슨 황 CEO에게 AI 안전 경고 메시지를 전했다. 현장에서 국왕은 대화 필요성을 강조했고, 황 CEO는 “I need to talk to you라는 말을 들었다”고 전했다. 이번 메시지는 AI 개발 속도와 규제 균형 논의를 다시 끌어올렸다. (uk.news.yahoo.com)\n\n해당 시상식에서 엔비디아의 황·빌 댈리가 수상했으며, 국왕은 2023년 AI 세이프티 서밋 이후 줄곧 위험 관리를 촉구해 왔다. 구체 제안 내용은 공개되지 않았지만, 정부-업계 협력과 윤리·안전 기준 강화가 과제로 지목된다. (NVIDIA Blog)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "테슬라",
+                title: "테슬라, 자체 AI 칩 팹 검토…인텔 협력 가능성 언급",
+                isTop5: false,
+                details: "일론 머스크는 11월 7일(현지) 주주총회에서 테슬라가 **“초대형 칩 팹”**을 지어 자체 AI 칩을 만들 가능성이 높다고 밝혔다. 그는 인텔과의 협력 가능성을 시사하면서도 TSMC·삼성과의 파트너십은 계속된다고 했다. 이 계획이 현실화되면 공급망 안정·원가 절감과 엔비디아 의존 완화가 기대된다. (Reuters)\n\n테슬라는 5세대 AI 칩을 개발 중이며, 2026년 제한 생산·2027년 양산을 목표로 한다는 로드맵이 소개됐다. 실제 투자 규모, 공장 입지, 정부 보조금 여부가 관건이며, 로보택시·FSD 전략과 맞물려 성패가 갈릴 전망이다. (Reuters)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "교육",
+                title: "듀크대 교무부총장, AI 거버넌스 논란 해명…교수 우려에 답변",
+                isTop5: false,
+                details: "듀크대 앨릭 갤리모어 교무부총장이 11월 7일(현지) 학내 대화 자리에서 인공지능(ΑI) 추진 방향을 설명하고, 의사결정 과정에 대한 교수진의 우려에 대해 입장을 밝혔다. 갤리모어는 교무부총장 AI 이니셔티브가 교수들의 도구 도입을 돕는 **‘지원 네트워크’**를 만들고 모범 사례를 찾는 데 초점을 둔다고 밝혔다. 이번 설명은 올가을 제기된 공유 거버넌스·투명성 논란을 가라앉히려는 시도로 해석된다. (dukechronicle.com)\n\n듀크대는 6월 AI 이니셔티브를 공식화하며 ‘DukeGPT’와 무제한 ChatGPT-4o 접근을 소개했고, 윤리·보건 등 현안 논의를 확대해 왔다. 갤리모어는 앞서 “We are actively shaping its future”라고 말하며 대학이 AI 변화를 주도하겠다고 강조했다. 학교 측은 지역 행사를 포함한 지속적 포럼과 지원 체계를 통해 논의를 이어가겠다는 방침이다. (dukechronicle.com)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "EU",
+                title: "EU, AI법 일부 시행 ‘일시 중단’ 검토…미국·빅테크 압박 속 조정 모색",
+                isTop5: false,
+                details: "유럽연합(EU) 집행위가 11월 7일(현지) AI법(AI Act) 일부 조항의 시행 일시 중단을 검토 중이라고 파이낸셜타임스(FT)를 인용해 로이터가 전했다. 검토 배경에는 메타·알파벳 등 빅테크와 미국 정부의 압박이 있으며, 집행위의 디지털 규제 ‘간소화 패키지’ 채택 일정(11월 19일)이 거론됐다. 이 조정은 즉각적인 규제부담을 누그러뜨리지만, 최종 집행 일정에는 변동 가능성이 생겼다. (Reuters)\n\nAI법은 2024년 8월 발효됐고, 단계적 적용 조항이 앞으로 순차 시행될 예정이다. 집행위 대변인은 일부 표적 영역의 시행 지연 가능성을 검토 중이라면서도 법의 목표에는 변함이 없다고 밝혔다. 향후 11월 중 간소화 방안 채택과 함께 미국과의 정책 공조·마찰 관리가 계속될 전망이다. (Reuters)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "ChatGPT",
+                title: "ChatGPT ‘지능형 뉴스 요약’ GPT 등장…맞춤형 뉴스 요약 봇 확산",
+                isTop5: false,
+                details: "ChatGPT 플랫폼에 맞춤형 GPT인 ‘지능형 뉴스 요약’ 페이지가 공개돼, 사용자가 설정한 형식으로 최신 뉴스 요약을 받을 수 있게 됐다. 이 서비스는 오픈AI가 제공하는 GPTs 기능을 활용해 특정 업무에 특화된 사용자 맞춤형 챗봇을 만들고 공유하는 방식이다. 이용 확산 시 개인·언론·기업의 요약 워크플로 표준화가 빨라질 수 있다. (ChatGPT)\n\n오픈AI는 2024년 GPT 스토어를 열고, 지침·지식·도구를 조합해 GPT를 만들 수 있도록 했다. 공식 설명에 따르면 “GPTs are custom versions of ChatGPT that users can tailor for specific tasks”라는 개념으로 운영된다. 최근 릴리스 노트에선 개인화·업무용 기능이 개선되는 등 지속 업데이트가 이어지고 있어 활용 영역이 더 넓어질 전망이다. (OpenAI)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "엔비디아",
+                title: "엔비디아, 중국 리스크 재부상에 주간 7%↓…AI 투자 둔화 우려 겹쳐",
+                isTop5: false,
+                details: "엔비디아 주가는 11월 7일(현지) 프리마켓에서 1.1% 하락해 186.01달러를 기록, 전일 3.7% 하락에 이어 주간 7% 이상 밀렸다. 중국 매출 전망 악화와 함께, 초대형 투자 계획을 둘러싼 AI 인프라 지출 둔화 우려가 겹친 영향으로 풀이된다. 동반 약세 속에서도 엔비디아의 **연초 대비 상승률은 약 40%**를 유지했다. (Barron's)\n\n배경에는 대중 수출 제한과 블랙웰 칩의 중국 판매 불가 방침이 자리한다. 업계는 미국 내 데이터센터 투자가 일부 상쇄하겠지만, 중국향 분기 20~50억 달러 매출 공백 가능성을 주시한다. 향후 전망은 미국 빅테크의 설비투자(CapEx) 집행과 중국 규제 환경에 좌우될 것으로 보인다. (Reuters)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "사법",
+                title: "캘리포니아 네바다 카운티 검사, AI 쓰다 가짜 판례 인용…형사사건서 파장",
+                isTop5: false,
+                details: "사크라멘토비는 11월 7~8일(현지) 네바다 카운티의 한 검사가 형사사건 서면 작성에 AI를 사용했고, 이 과정에서 허위 법률 인용이 발생했다고 전했다. 피고 측 변호인은 문서의 오류가 ‘AI 환각’(hallucination)의 전형적 양상이라며 문제를 제기했다. 이번 사건은 기소·재판 절차 신뢰를 흔들 수 있어 파장이 크다. (sacbee.com)\n\n미 전역에선 AI가 만든 허위 인용으로 변호사가 제재를 받는 사례가 잇따르고, 캘리포니아에선 1만 달러 벌금 판결도 나왔다. 한 판사는 “the use of artificial intelligence must be accompanied by the application of actual intelligence”라고 경고했다. 전문가들은 법원 공개 의무·내부 가이드라인 강화 등 추가 조치를 전망한다. (CalMatters)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "헬스케어",
+                title: "피부과 AI, “보조는 하되 최종 판단은 인간”",
+                isTop5: false,
+                details: "리나타 블록(MMS, PA-C)가 11월 미국 텍사스 SDPA 가을 학회에서 피부과 AI·머신러닝 활용법을 강연했다. 그는 FDA 승인 여부와 의도된 사용을 먼저 확인하고, AI는 의사결정 보조 도구로 쓰되 표준 진료(병력·더마토스코프)를 우선하라고 말했다. 이에 따라 의심 병변의 트리아지·생검 판단이 더 체계화되고 진료 워크플로 개선이 기대된다. (hcplive.com)\n\n학계에선 피부과 AI의 잠재력과 한계를 두고 논쟁이 이어졌고, 이번 세션은 임상 안전장치와 교육을 강조했다. 블록은 “AI는 내 결정을 대체하지 않고 보강한다”면서 “뇌를 먼저 쓰고 도구는 객관적 렌즈로 활용하라”고 했다. 그는 규제 이해와 근거기반 도입이 확산되면 일선 PA·클리니션의 채택이 빨라질 것으로 내다봤다. (hcplive.com)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "오픈AI",
+                title: "알트먼, “미국 Chips Act 세액공제 확대” 촉구",
+                isTop5: false,
+                details: "오픈AI CEO 샘 알트먼이 11월 7일(현지) 미국에서 **AMIC(첨단제조 투자 세액공제)**를 AI 서버·데이터센터·전력망 부품까지 확대하라고 촉구했다. 그는 X에서 **“전면적 재산업화”**가 산업 전반을 돕는다고 하면서, 세액공제는 대출보증과 다르다고 선을 그었다. 알트먼은 향후 8년 1.4조 달러 지출 계획을 재확인했지만, 백악관 데이비드 색스는 연방 구제금융 불가 입장을 밝히며 논쟁이 이어졌다. (Reuters)\n\nAMIC는 본래 국내 반도체 제조 활성화가 목적이며, 오픈AI는 10월 27일 백악관 OSTP에 적용 확대 서한을 보냈다. 알트먼은 “미국의 전 스택 재산업화가 모두를 돕는다”는 메시지를 거듭 냈다. 세액공제 범위 조정 여부가 데이터센터·전력설비 투자의 속도와 규모를 가를 전망이며, 재정 부담 논의도 계속될 것이다. (Reuters)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "오픈AI",
+                title: "“오픈AI, AI CEO가 운영하는 첫 대기업 될 것”",
+                isTop5: false,
+                details: "AI타임스는 11월 8일 샘 알트먼이 오픈AI를 ‘AI CEO’가 운영하는 첫 대기업으로 만들겠다는 구상을 밝혔다고 보도했다. 그는 최고경영 기능에 AI 통합을 통해 의사결정 속도·일관성을 높이겠다는 취지를 내놨다. 해당 발언은 법·책임·감사 체계를 포함한 기업지배구조 논쟁을 촉발했다. (AI타임스)\n\n최근 기업들은 에이전틱(Agentic) AI와 자동화를 경영 전반에 시도하고 있으며, 최고경영 단계 적용 가능성도 탐색 중이다. 보도에 따르면 알트먼은 “오픈AI는 AI CEO가 운영하는 첫 대기업이 돼야 한다”고 말했다. 실제 도입에는 이사회 감독·규제 해석 정비가 필요하며, 업계의 파일럿 실험과 사회적 논의가 이어질 것으로 보인다. (AI타임스)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "금융",
+                title: "분데스방크 총재, 연설 매파-비둘기파 균형 AI로 점검",
+                isTop5: false,
+                details: "요아힘 나겔 독일 분데스방크 총재가 11월 7일 프랑크푸르트 행사에서 연설의 매파·비둘기파 톤을 자체 AI 도구로 점검하고 있다고 밝혔다. 시장에 미칠 의도치 않은 신호를 줄이고 지각된 톤을 사전에 파악하려는 목적이다. 중앙은행의 AI 활용이 확산 조짐을 보이며, 그는 은행감독 등 추가 분야 적용 가능성도 언급했다. (Reuters)\n\n이미 투자은행들은 LLM 기반 도구로 연설·인터뷰 톤을 분석해 정책 변화 예측에 활용 중이며, UBS는 20년 넘는 데이터셋을 구축했다고 밝혔다. 나겔은 “연설은 AI가 쓰지 않지만, AI로 점검한다”며 표현 하나가 시장에 영향을 미칠 수 있어 주의가 필요하다고 했다. ECB는 6월 이후 동결 기조를 유지 중이고, 시장은 추가 인하 가능성 낮음을 반영해 점진적 커뮤니케이션 관리가 이어질 전망이다. (Reuters)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "산업",
+                title: "베인, 에이전틱 AI가 ERP 전환의 분기점 될 수 있다",
+                isTop5: false,
+                details: "베인앤드컴퍼니는 11월 발표한 보고서에서 에이전틱 AI가 ERP 전환을 스케일링할 분기점이 될 수 있다고 평가했다. 생성형 AI가 마이그레이션을 빠르게 하지만, 핵심은 에이전트가 전 과정을 자동화하는 터치리스 플랫폼이라고 제시했다. 베인 조사에 따르면 ERP 전환의 80% 이상이 예산·일정·가치 목표를 놓치고, **IT 리더 78%**는 3년 내 ERP 일부가 에이전틱 AI로 대체·보강될 것으로 본다. (Bain)\n\n많은 조직이 조직모델 부재·도구 미성숙·데이터 품질·벤더 종속·ROI 불확실성으로 파일럿 단계에 머문다. 베인은 CIO에게 무엇이 필요한가·빌드/바이/파트너·파트너의 역할·미실행 위험 등 4가지 질문으로 스케일 전략을 설계하라고 권고했다. 워크플로 전반 스케일한 선도 기업은 EBITDA 10~25% 개선을 보고하고 있어, 지연 시 비용·종속 리스크가 커질 전망이다. (Bain)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "EU",
+                title: "EU, AI법 일부 시행 유예 검토…트럼프 행정부·빅테크 압박 속 고심",
+                isTop5: false,
+                details: "유럽연합 집행위원회가 11월 7일 브뤼셀에서 AI법(Artificial Intelligence Act) 일부 시행 유예를 검토 중이라고 확인했다. 기업·트럼프 행정부 압박 속에 고위험 AI 1년 유예 및 투명성 규정 벌칙 2027년까지 연기 방안이 논의되고 있다. 완화 시 빅테크·생성형 AI의 부담이 줄 수 있지만, 일부 의원들은 법적 불확실성·권리 보호 약화를 우려한다. (가디언)\n\nAI법은 2024년 8월 발효했지만 다수 조항은 2026~2027년에 적용되며, 유예안은 회원국·의회 동의가 필요하다. 집행위 토마 뢰니에 대변인은 “유예 검토는 여전히 진행 중”이라며 EU의 입법 주권을 강조했고, 유럽 기업 다수는 2년 유예를 요구하는 공개서한을 냈다. 11월 19일 공개될 가능성이 거론되는 초안이 나오면 EU-미국 간 기술 규제 줄다리기가 재점화될 수 있다. (가디언)"
+            }
+        ];
+
+
+        // 보고서에서 추출한 4가지 주요 수치
+        const keyNumbersData = [
+            { label: "문샷AI HLE 벤치마크", value: "44.9%", color: "text-amber-600" },
+            { label: "문샷AI BrowseComp 벤치마크", value: "60.2%", color: "text-amber-600" },
+            { label: "구글 TPU Ironwood 성능 (v5p 대비)", value: "10배", color: "text-blue-600" },
+            { label: "OpenAI Sora (Android) 첫날 설치", value: "47만 건", color: "text-emerald-600" }
+        ];
+
+        // 5가지 대주제 정의
+        const THEMES = [
+            { name: "AI 인프라 및 투자", color: "border-t-blue-500" },
+            { name: "플랫폼, 제품 및 에이전트", color: "border-t-purple-500" },
+            { name: "산업별 AI 적용", color: "border-t-emerald-500" },
+            { name: "법률, 규제 및 거버넌스", color: "border-t-red-500" },
+            { name: "AI와 사회 (활용, 심리, 노동)", color: "border-t-sky-500" }
+        ];
+
+        // ----- 4.2. DOM 요소 가져오기 -----
+        const keyNumbersContainer = document.getElementById('key-numbers-section');
+        const top5Container = document.getElementById('top-5-section');
+        const thematicContainer = document.getElementById('thematic-sections');
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalBgClose = document.getElementById('modal-bg-close');
+
+        // ----- 4.3. 렌더링 함수 -----
+
+        /**
+         * 1. 주요 데이터 하이라이트 섹션 생성
+         */
+        function createKeyNumbersSection() {
+            let html = `
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">주요 데이터 하이라이트</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            `;
+            
+            keyNumbersData.forEach(item => {
+                html += `
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                        <div class="text-sm font-medium text-slate-500 mb-1">${item.label}</div>
+                        <div class="text-3xl font-bold ${item.color}">${item.value}</div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            keyNumbersContainer.innerHTML = html;
+        }
+
+        /**
+         * 2. Top 5 뉴스 섹션 렌더링
+         */
+        function renderTop5Section() {
+            const top5News = reportData.filter(item => item.isTop5);
+            
+            let html = `
+                <h2 class="text-2xl font-bold text-slate-900 mb-4 border-t pt-8">Top 5 뉴스</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            `;
+            
+            top5News.forEach(item => {
+                const index = reportData.indexOf(item);
+                html += createNewsCard(item, index);
+            });
+
+            html += `</div>`;
+            top5Container.innerHTML = html;
+        }
+
+        /**
+         * 3. 주제별 상세 뉴스 섹션 렌더링
+         */
+        function renderThematicSections() {
+            let html = '';
+
+            THEMES.forEach(theme => {
+                const themeNews = reportData.filter(item => !item.isTop5 && item.theme === theme.name);
+                
+                if (themeNews.length > 0) {
+                    html += `
+                        <section>
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4 border-t pt-8">${theme.name}</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    `;
+                    
+                    themeNews.forEach(item => {
+                        const index = reportData.indexOf(item);
+                        html += createNewsCard(item, index);
+                    });
+
+                    html += `</div></section>`;
+                }
+            });
+
+            thematicContainer.innerHTML = html;
+        }
+
+
+        /**
+         * 4. 개별 뉴스 카드 HTML 생성 (헬퍼 함수)
+         * @param {object} item - 뉴스 데이터 객체
+         * @param {number} index - reportData 배열에서의 인덱스
+         * @returns {string} - 뉴스 카드 HTML
+         */
+        function createNewsCard(item, index) {
+            // 60자가 넘는 제목을 축약합니다. '—' 또는 ':' 기준으로 먼저 자릅니다.
+            let displayTitle = item.title;
+            const maxLen = 60;
+            if (displayTitle.length > maxLen) {
+                const splitChar = displayTitle.includes('—') ? '—' : (displayTitle.includes(':') ? ':' : null);
+                if (splitChar) {
+                    let firstPart = displayTitle.split(splitChar)[0];
+                    if (firstPart.length < maxLen) {
+                        displayTitle = firstPart;
+                    } else {
+                         displayTitle = displayTitle.substring(0, maxLen) + '...';
+                    }
+                } else {
+                    displayTitle = displayTitle.substring(0, maxLen) + '...';
+                }
+            }
+
+            // 테마 색상 찾기
+            const themeInfo = THEMES.find(t => t.name === item.theme) || { color: "border-t-slate-300" };
+
+            return `
+                <div data-index="${index}" class="flex flex-col bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ${themeInfo.color} border-t-4 overflow-hidden">
+                    <div class="p-5 flex-grow">
+                        <span class="inline-block bg-slate-100 text-slate-600 text-xs font-medium px-2 py-0.5 rounded-full mb-3">
+                            ${item.category}
+                        </span>
+                        <h3 class="text-lg font-bold text-slate-800 leading-snug">
+                            ${displayTitle}
+                        </h3>
+                    </div>
+                    <div class="px-5 pb-4 mt-auto">
+                        <span class="text-sm font-medium text-blue-600 hover:text-blue-800">
+                            상세보기 &rarr;
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ----- 4.4. 모달 상호작용 함수 -----
+
+        /**
+         * 모달 열기
+         * @param {number} index - reportData 배열의 인덱스
+         */
+        function showModal(index) {
+            const item = reportData[index];
+            if (!item) return;
+
+            // 모달 내용 채우기
+            modalTitle.textContent = item.title; // 전체 원본 제목 사용
+            
+            // \n을 <br> 태그로 변환하여 줄바꿈 표시
+            modalContent.innerHTML = item.details
+                .replace(/\n/g, '<br />')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // 마크다운 볼드체 간단 변환
+
+            // 모달 보이기
+            modal.classList.remove('opacity-0', 'invisible');
+            modal.querySelector('.modal-panel').classList.remove('scale-95');
+        }
+
+        /**
+         * 모달 닫기
+         */
+        function hideModal() {
+            modal.classList.add('opacity-0');
+            modal.querySelector('.modal-panel').classList.add('scale-95');
+            
+            // 트랜지션 후 invisible 추가
+            setTimeout(() => {
+                modal.classList.add('invisible');
+                // 모달 내용 비우기
+                modalTitle.textContent = '';
+                modalContent.innerHTML = '';
+            }, 300); // 트랜지션 시간과 일치
+        }
+
+
+        // ----- 4.5. 이벤트 리스너 -----
+
+        // DOM 로드 완료 시 앱 렌더링
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+        // 뉴스 카드 클릭 시 모달 열기 (이벤트 위임)
+        document.getElementById('content-area').addEventListener('click', (e) => {
+            const card = e.target.closest('[data-index]');
+            if (card) {
+                const index = card.getAttribute('data-index');
+                showModal(index);
+            }
+        });
+
+        // 모달 닫기 버튼
+        modalCloseBtn.addEventListener('click', hideModal);
+
+        // 모달 배경 클릭
+        modalBgClose.addEventListener('click', hideModal);
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('invisible')) {
+                hideModal();
+            }
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>

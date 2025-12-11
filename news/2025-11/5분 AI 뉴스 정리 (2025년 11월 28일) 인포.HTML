@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 뉴스 인포그래픽 - 뉴스인포</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 기본 스타일 설정 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach */
+      color: #1E1E1E; 
+    }
+
+    /* 네오 브루탈리즘 카드 스타일 */
+    .kpi-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0 #1E1E1E; 
+    }
+    
+    .news-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0 #1E1E1E; 
+      transition: all 0.2s ease-in-out; 
+    }
+    
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0 #1E1E1E; 
+    }
+
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      height: 250px; 
+    }
+    
+    @media (min-width: 768px) { 
+      .chart-container { height: 300px; } 
+    }
+
+    /* 네비게이션 스타일 */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+    }
+
+    /* 스무스 스크롤 */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* 강조 텍스트 하이라이트 */
+    .highlight-marker {
+      background: linear-gradient(120deg, #FFfd8d 0%, #FFfd8d 100%);
+      background-repeat: no-repeat;
+      background-size: 100% 40%;
+      background-position: 0 88%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+    <!-- =========================
+         HEADER
+         ========================= -->
+    <header class="text-center my-10 space-y-2">
+      <div class="inline-block px-4 py-1 bg-black text-white font-bold rounded-full text-sm mb-2">DAILY BRIEFING</div>
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">AI·기술 트렌드 리포트</h1>
+      <p class="text-xl text-gray-700 font-medium" id="report-date">2024년 5월 28일 (화)</p>
+      <p class="text-sm text-gray-500 mt-2">큐레이션 by 뉴스인포</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (핵심 지표)
+         ========================= -->
+    <section id="kpi-overview" class="mb-14">
+      <div class="flex items-center gap-2 mb-6 justify-center md:justify-start">
+        <span class="text-2xl">📊</span>
+        <h2 class="text-2xl md:text-3xl font-bold">오늘의 숫자 (KPI)</h2>
+      </div>
+      
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- KPI 1 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">AI 에이전트 수행률</p>
+          <p class="text-3xl md:text-5xl font-black text-blue-600">95%</p>
+          <p class="text-xs md:text-sm text-gray-500 mt-2">복합 추론 작업 성공률<br>(▲12%p 상승)</p>
+        </div>
+        <!-- KPI 2 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">신규 데이터센터</p>
+          <p class="text-3xl md:text-5xl font-black text-red-500">1GW</p>
+          <p class="text-xs md:text-sm text-gray-500 mt-2">글로벌 전력 계약 체결<br>(원전 1기 규모)</p>
+        </div>
+        <!-- KPI 3 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">영상 생성 속도</p>
+          <p class="text-3xl md:text-5xl font-black text-green-600">50x</p>
+          <p class="text-xs md:text-sm text-gray-500 mt-2">이전 모델 대비 가속<br>(실시간 렌더링 근접)</p>
+        </div>
+        <!-- KPI 4 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">안전성 평가</p>
+          <p class="text-3xl md:text-5xl font-black text-purple-600">Grade A</p>
+          <p class="text-xs md:text-sm text-gray-500 mt-2">주요 모델 레드팀 통과<br>(최초 달성)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (테마 앵커)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/90 backdrop-blur-md py-4 mb-12 border-y-2 border-[#1E1E1E]">
+      <div class="flex justify-between md:justify-center overflow-x-auto gap-3 px-2 no-scrollbar">
+        <a href="#theme1" class="whitespace-nowrap font-bold text-sm md:text-base py-2 px-4 rounded-lg border-2 border-transparent hover:border-[#1E1E1E] hover:bg-[#4D96FF] hover:text-white transition-all">🤖 AI 에이전트 전쟁</a>
+        <a href="#theme2" class="whitespace-nowrap font-bold text-sm md:text-base py-2 px-4 rounded-lg border-2 border-transparent hover:border-[#1E1E1E] hover:bg-[#FF6B6B] hover:text-white transition-all">⚡ 인프라 & 칩</a>
+        <a href="#theme3" class="whitespace-nowrap font-bold text-sm md:text-base py-2 px-4 rounded-lg border-2 border-transparent hover:border-[#1E1E1E] hover:bg-[#6BCB77] hover:text-white transition-all">🛠️ 도구의 진화</a>
+        <a href="#theme4" class="whitespace-nowrap font-bold text-sm md:text-base py-2 px-4 rounded-lg border-2 border-transparent hover:border-[#1E1E1E] hover:bg-[#F7D060] hover:text-white transition-all">⚖️ 규제와 사회</a>
+      </div>
+    </nav>
+
+    <div class="space-y-20">
+
+      <!-- THEME 1: AI 에이전트 -->
+      <section id="theme1">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-[#4D96FF] border-2 border-black rounded-full text-2xl shadow-[3px_3px_0_black]">🤖</div>
+          <div>
+            <h2 class="text-3xl font-bold">AI 에이전트 전쟁</h2>
+            <p class="text-gray-600">단순 챗봇을 넘어 스스로 계획하고 실행하는 '행동형 AI'의 시대</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 기사 1: 시각화(Flow Diagram) 포함 -->
+          <article class="news-card p-6 rounded-xl flex flex-col h-full">
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold mb-3 leading-tight">OpenAI 'Operator' 공개 임박: "컴퓨터 제어의 끝판왕"</h3>
+              <p class="mb-4 text-gray-800 text-sm md:text-base leading-relaxed">
+                OpenAI가 사용자를 대신해 코딩, 여행 예약, 문서 작성을 수행하는 자율 에이전트 'Operator'를 곧 출시합니다. 기존 챗봇과 달리 <strong>브라우저를 직접 제어</strong>하며 복잡한 태스크를 완수합니다.
+              </p>
+              
+              <!-- 시각화: CSS Flow Diagram -->
+              <div class="bg-blue-50 border-2 border-black p-4 rounded-lg mb-4">
+                <p class="text-xs font-bold text-center mb-2 uppercase tracking-wide text-blue-800">Agent Workflow</p>
+                <div class="flex items-center justify-between text-xs md:text-sm font-bold text-center gap-1">
+                  <div class="bg-white border border-black p-2 rounded shadow-[2px_2px_0_black] flex-1">명령<br>입력</div>
+                  <span class="text-xl">→</span>
+                  <div class="bg-white border border-black p-2 rounded shadow-[2px_2px_0_black] flex-1">계획<br>수립</div>
+                  <span class="text-xl">→</span>
+                  <div class="bg-blue-200 border border-black p-2 rounded shadow-[2px_2px_0_black] flex-1">도구<br>사용</div>
+                  <span class="text-xl">→</span>
+                  <div class="bg-white border border-black p-2 rounded shadow-[2px_2px_0_black] flex-1">임무<br>완수</div>
+                </div>
+              </div>
+            </div>
+            <p class="mt-2 text-sm bg-gray-100 p-2 rounded border-l-4 border-[#4D96FF]">
+              💡 <b>핵심:</b> "읽는 AI"에서 "행동하는 AI"로의 전환점, 2025년은 에이전트의 해가 될 것.
+            </p>
+          </article>
+
+          <!-- 기사 2: 일반 텍스트 -->
+          <article class="news-card p-6 rounded-xl flex flex-col h-full">
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold mb-3 leading-tight">Google 'Project Astra' 모바일 탑재 가속화</h3>
+              <p class="mb-4 text-gray-800 text-sm md:text-base leading-relaxed">
+                구글이 I/O에서 공개했던 멀티모달 에이전트 'Astra'가 안드로이드 15 핵심 기능으로 통합됩니다. 카메라로 주변을 비추면 물건의 위치를 기억하거나 실시간 정보를 제공합니다.
+              </p>
+              <ul class="list-disc pl-5 mb-4 text-sm text-gray-700 space-y-1">
+                <li><span class="font-bold highlight-marker">Vision 인식</span>: 안경 찾기, 코드 해석</li>
+                <li><span class="font-bold highlight-marker">음성 대화</span>: 지연 시간 0.5초 미만</li>
+              </ul>
+            </div>
+            <p class="mt-2 text-sm bg-gray-100 p-2 rounded border-l-4 border-[#4D96FF]">
+              💡 <b>핵심:</b> 스마트폰이 진정한 '개인 비서'로 진화하며 OS 경쟁력의 핵심이 AI로 이동.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- THEME 2: 인프라 & 칩 -->
+      <section id="theme2">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-[#FF6B6B] border-2 border-black rounded-full text-2xl shadow-[3px_3px_0_black]">⚡</div>
+          <div>
+            <h2 class="text-3xl font-bold">인프라 전쟁</h2>
+            <p class="text-gray-600">폭증하는 전력 수요와 특화 반도체 개발 경쟁</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 기사 1: 차트 포함 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">빅테크, '원자력'에 올인하다</h3>
+            <p class="mb-4 text-gray-800 text-sm md:text-base">
+              MS와 AWS가 데이터센터 전력 공급을 위해 소형모듈원전(SMR) 기업과 대규모 계약을 잇따라 체결했습니다. AI 구동에 필요한 전력이 기하급수적으로 늘어나며 에너지가 병목이 되고 있습니다.
+            </p>
+            <!-- 차트 영역 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-2 mb-2">
+              <h4 class="text-xs font-bold text-center text-gray-500 mb-2">데이터센터 전력 소비 전망 (TWh)</h4>
+              <div class="chart-container" style="height: 200px;">
+                <canvas id="infraChart"></canvas>
+              </div>
+            </div>
+            <p class="mt-2 text-sm bg-gray-100 p-2 rounded border-l-4 border-[#FF6B6B]">
+              💡 <b>핵심:</b> "전기가 곧 컴퓨팅", 에너지 확보가 AI 패권의 새로운 전제조건.
+            </p>
+          </article>
+
+          <!-- 기사 2: Callout 스타일 -->
+          <article class="news-card p-6 rounded-xl flex flex-col h-full">
+            <h3 class="text-xl font-bold mb-3">엔비디아, 차세대 칩 'Blackwell Ultra' 로드맵 앞당겨</h3>
+            <p class="mb-4 text-gray-800 text-sm md:text-base">
+              엔비디아가 HBM4 메모리를 탑재한 차세대 AI 가속기 출시를 6개월 앞당깁니다. 추론 비용을 획기적으로 낮추는 데 초점을 맞추고 있습니다.
+            </p>
+            <div class="bg-[#FF6B6B] border-2 border-black p-4 rounded-lg text-center my-auto shadow-[4px_4px_0_rgba(0,0,0,0.2)]">
+              <p class="text-white font-bold text-sm">추론 성능 향상</p>
+              <p class="text-white font-black text-4xl mt-1">30배 ▲</p>
+              <p class="text-white/90 text-xs mt-1">vs H100 (에너지 효율 기준)</p>
+            </div>
+            <p class="mt-4 text-sm bg-gray-100 p-2 rounded border-l-4 border-[#FF6B6B]">
+              💡 <b>핵심:</b> 학습(Training) 시장에서 추론(Inference) 시장으로 칩 경쟁의 축이 이동 중.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- THEME 3: 도구의 진화 -->
+      <section id="theme3">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-[#6BCB77] border-2 border-black rounded-full text-2xl shadow-[3px_3px_0_black]">🛠️</div>
+          <div>
+            <h2 class="text-3xl font-bold">AI 도구의 진화</h2>
+            <p class="text-gray-600">창작의 장벽을 허무는 멀티모달 생성형 AI</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">유튜브 쇼츠에도 'AI 배경 생성' 도입</h3>
+            <p class="mb-4 text-gray-800 text-sm md:text-base">
+              구글이 유튜브 쇼츠 크리에이터를 위한 'Veo' 기반 비디오 생성 기능을 배포했습니다. 텍스트 프롬프트만으로 6초 분량의 고화질 배경 영상을 즉시 생성합니다.
+            </p>
+            <div class="grid grid-cols-2 gap-2 text-center text-sm font-bold mb-4">
+              <div class="bg-green-100 p-2 rounded border border-green-300">Text-to-Video</div>
+              <div class="bg-green-100 p-2 rounded border border-green-300">Image-to-Video</div>
+            </div>
+            <p class="mt-auto text-sm bg-gray-100 p-2 rounded border-l-4 border-[#6BCB77]">
+              💡 <b>핵심:</b> 전문 장비 없는 1인 크리에이터의 영상 제작 퀄리티가 비약적으로 상승.
+            </p>
+          </article>
+
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">코딩 AI 'Cursor', 개발자 점유율 40% 돌파 위협</h3>
+            <p class="mb-4 text-gray-800 text-sm md:text-base">
+              VS Code 포크 버전인 AI 에디터 Cursor가 "탭(Tab)만 누르면 개발 끝"이라는 평가를 받으며 급성장 중입니다. 전체 코드베이스를 이해하고 수정하는 문맥(Context) 파악 능력이 탁월합니다.
+            </p>
+             <div class="bg-gray-900 text-green-400 p-3 rounded-md font-mono text-xs mb-4 shadow-inner">
+              > User: "장바구니 기능 추가해줘"<br>
+              > AI: 전체 파일 스캔 중... (Done)<br>
+              > AI: Cart.js, App.js 수정 완료.
+            </div>
+            <p class="mt-auto text-sm bg-gray-100 p-2 rounded border-l-4 border-[#6BCB77]">
+              💡 <b>핵심:</b> 소프트웨어 개발의 진입장벽 붕괴, '자연어 프로그래밍' 시대 개막.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- THEME 4: 규제와 사회 -->
+      <section id="theme4">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 flex items-center justify-center bg-[#F7D060] border-2 border-black rounded-full text-2xl shadow-[3px_3px_0_black]">⚖️</div>
+          <div>
+            <h2 class="text-3xl font-bold">AI와 사회</h2>
+            <p class="text-gray-600">저작권, 딥페이크, 그리고 규제의 구체화</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 기사 1: 도넛 차트 포함 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">글로벌 AI 안전 정상회의 "딥페이크 워터마크 의무화"</h3>
+            <p class="mb-4 text-gray-800 text-sm md:text-base">
+              주요 7개국(G7)이 AI 생성 콘텐츠에 식별 가능한 워터마크 삽입을 의무화하는 합의안을 도출했습니다. 선거철을 앞두고 가짜 뉴스 확산을 막기 위한 조치입니다.
+            </p>
+            <div class="flex items-center gap-4">
+               <div class="chart-container" style="width: 140px; height: 140px; margin: 0 auto;">
+                <canvas id="regulationChart"></canvas>
+              </div>
+              <div class="text-sm text-gray-600 flex-1">
+                <p><strong>시민 설문조사:</strong><br>AI 규제 찬성 여론이 압도적으로 높게 나타났습니다.</p>
+              </div>
+            </div>
+            <p class="mt-4 text-sm bg-gray-100 p-2 rounded border-l-4 border-[#F7D060]">
+              💡 <b>핵심:</b> 기술 발전 속도에 맞춰 '최소한의 안전장치'를 법제화하려는 글로벌 공조 시작.
+            </p>
+          </article>
+
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">미국 법원, "AI 학습용 데이터 공정 이용 인정" 판결</h3>
+            <p class="mb-4 text-gray-800 text-sm md:text-base">
+              주요 언론사와 AI 기업 간의 소송에서 법원이 AI 기업의 손을 들어주는 1심 판결이 나왔습니다. "변형적 이용"에 해당한다는 논리이나, 항소가 예상됩니다.
+            </p>
+            <div class="p-4 bg-yellow-50 border-2 border-dashed border-[#F7D060] rounded-lg">
+               <p class="text-sm font-bold text-yellow-800">🗣️ 판결 요지</p>
+               <p class="text-xs text-gray-700 mt-1">"AI 학습은 인간이 책을 읽고 배우는 것과 유사하며, 원작물의 시장 가치를 직접 침해하지 않는 한 공정 이용이다."</p>
+            </div>
+            <p class="mt-4 text-sm bg-gray-100 p-2 rounded border-l-4 border-[#F7D060]">
+              💡 <b>핵심:</b> AI 산업의 불확실성이 일부 해소되었으나, 창작자 보상 문제는 여전히 과제.
+            </p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center mt-20 mb-10 text-gray-500 text-sm">
+      <div class="w-16 h-1 bg-gray-300 mx-auto mb-6 rounded"></div>
+      <p>본 인포그래픽은 AI 기술 동향 파악을 위해 생성되었습니다.</p>
+      <p class="mt-1">© 2024 NewsInfo AI Assistant. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPTS (Charts)
+       ========================= -->
+  <script>
+    // 1. 인프라 막대 차트
+    const infraCtx = document.getElementById('infraChart');
+    if (infraCtx) {
+      new Chart(infraCtx, {
+        type: 'bar',
+        data: {
+          labels: ['2022', '2024', '2026(E)', '2028(E)'],
+          datasets: [{
+            label: '전력 소비량',
+            data: [460, 680, 1050, 1580],
+            backgroundColor: [
+              'rgba(255, 107, 107, 0.4)',
+              'rgba(255, 107, 107, 0.6)',
+              'rgba(255, 107, 107, 0.8)',
+              'rgba(255, 107, 107, 1)'
+            ],
+            borderColor: '#1E1E1E',
+            borderWidth: 2,
+            borderRadius: 4,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: '#e5e5e5' }
+            },
+            x: {
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    // 2. 규제 도넛 차트
+    const regCtx = document.getElementById('regulationChart');
+    if (regCtx) {
+      new Chart(regCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['찬성', '반대', '모름'],
+          datasets: [{
+            data: [72, 18, 10],
+            backgroundColor: ['#F7D060', '#1E1E1E', '#E5E5E5'],
+            borderColor: '#1E1E1E',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '60%',
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    // Intersection Observer for animation trigger (Optional polish)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-4');
+        }
+      });
+    });
+
+    document.querySelectorAll('.news-card').forEach(card => {
+      card.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700');
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>

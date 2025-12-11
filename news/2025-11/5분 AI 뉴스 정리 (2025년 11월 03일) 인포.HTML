@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 기술 동향 인포그래픽 (2025-11-03)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Noto Sans KR 폰트 적용 및 기본 스타일 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach 배경색 */
+      color: #1E1E1E; /* 기본 글자색 */
+    }
+    /* KPI 및 뉴스 카드 스타일 (레트로/입체) */
+    .kpi-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; /* 굵은 그림자 */
+    }
+    .news-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; /* 더 굵은 그림자 */
+      transition: all .2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    /* 차트 컨테이너 크기 조절 */
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      max-width: 600px; 
+      margin: 1.5rem auto; 
+      height: 250px; /* 모바일 높이 */
+      max-height: 350px;
+    }
+    .chart-container.doughnut { 
+      max-width: 350px; 
+    }
+    @media (min-width: 768px) { 
+      .chart-container { 
+        height: 300px; /* 데스크탑 높이 */
+      } 
+      .chart-container.doughnut { 
+        height: 300px; 
+      } 
+    }
+    /* 스티키 네비게이션 스타일 */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+    }
+    /* 포인트 박스 스타일 (테마별) */
+    .point-box {
+      padding: 1rem;
+      border: 2px solid #1E1E1E;
+      border-radius: 0.5rem;
+      font-weight: 500;
+    }
+    .point-box.infra { background-color: #FFF5F5; border-color: #FF6B6B; }
+    .point-box.platform { background-color: #F0F6FF; border-color: #4D96FF; }
+    .point-box.data { background-color: #FFFBEB; border-color: #F7D060; }
+    .point-box.apps { background-color: #F0FFF4; border-color: #6BCB77; }
+    /* NEW 뱃지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2">
+        AI·기술 최신 동향
+        
+      </h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 03일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4가지 핵심)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">오늘의 핵심 지표</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1: 인프라 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">OpenAI 스타게이트</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#FF6B6B]">8GW</p>
+          <p class="text-sm text-gray-500">3년간 4,500억 달러 규모</p>
+        </div>
+        <!-- KPI 2: 플랫폼 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">LLM 감성 지능</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#4D96FF]">82%</p>
+          <p class="text-sm text-gray-500">인간 평균(56%) 상회</p>
+        </div>
+        <!-- KPI 3: 거버넌스 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">中, AI 규범 주도</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#F7D060]">WAICO</p>
+          <p class="text-sm text-gray-500">'세계 AI 협력기구' 설립 제안</p>
+        </div>
+        <!-- KPI 4: 현장 적용 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 스킬 급여</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#6BCB77]">+28%</p>
+          <p class="text-sm text-gray-500">관련 채용 공고 급여 평균</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 테마)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라</a>
+        <a href="#platform" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🧠 플랫폼·에이전트</a>
+        <a href="#data" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ 데이터·거버넌스</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 현장 적용</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-20">
+
+      <!-- 1) 인프라 -->
+      <section id="infra">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 경쟁의 축이 칩에서 전력, 데이터센터 등 물리적 인프라 확보전으로 이동하고 있습니다. MS, 오픈AI 등이 천문학적 투자를 예고했습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: MS -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">MS CEO "AI 병목은 칩 아닌 전력"</h3>
+            <p class="mb-4 text-gray-800">사티아 나델라 MS CEO가 AI 인프라의 가장 큰 병목은 GPU가 아닌 전력과 데이터센터 공간이라고 밝혔습니다. 그는 "GPU 재고가 있어도 전력 부족으로 설치를 못하는 것이 현실"이라며, 경쟁의 축이 물리적 인프라 확보전으로 이동했음을 시사했습니다.</p>
+            <div class="point-box infra mt-auto">
+              <p class="text-sm md:text-base"><b>⚡ AI 병목 현상</b><br> GPU 재고 (X) ➡️ 전력/데이터센터 공간 (O)</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 서비스 가동 지연 가능성, 전력/냉각 설비 투자가 최우선 과제로 부상.</p>
+          </article>
+
+          <!-- 뉴스 카드 2: OpenAI -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI '스타게이트', 8GW·4,500억$ 규모로 확장</h3>
+            <p class="mb-4 text-gray-800">오픈AI의 '스타게이트' 데이터센터 7번째 부지로 미시간이 확정되며, 총 계획 용량 8GW(목표 10GW), 3년간 4,500억 달러의 거대 규모가 확인되었습니다. 1GW급 부지는 2026년 착공 예정입니다.</p>
+            <div class="point-box infra mt-auto">
+              <p class="text-sm md:text-base"><b>💰 스타게이트 프로젝트 규모</b><br> 계획 용량 8GW, 3년간 4,500억 달러 이상 투자</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 차세대 모델 훈련을 위한 전력 인접 대형 캠퍼스 확보가 AI 패권의 핵심임을 증명.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) 플랫폼·에이전트 -->
+      <section id="platform">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 border-l-8 border-[#4D96FF] pl-4">🧠 플랫폼·에이전트</h2>
+        <p class="mb-8 text-lg text-gray-700">LLM이 로봇, 에이전트 등과 결합하며 현실 세계로 확장되고 있으나, '말'과 '일'의 성능 간극은 여전합니다. 한편 감성 지능에선 인간을 앞섰습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 3: 로봇 -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">LLM 탑재 로봇, "실성능은 인간의 절반 이하"</h3>
+            <p class="mb-4 text-gray-800">LLM을 로봇에 '체화'하여 물리적 과제를 수행하게 한 결과, 재치 있는 대화는 가능했으나 실제 성능은 벤치마크 최고 40%에 그쳐 인간(95%)의 절반에 미치지 못했습니다. '말 잘하는 AI'와 '일하는 로봇' 사이의 간극이 명확히 확인되었습니다.</p>
+            <div class="point-box platform">
+              <p class="text-sm md:text-base"><b>🤖 로봇 실성능 비교</b><br> LLM 로봇 (40%) vs 인간 (95%)</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 현 LLM 단독 탑재는 오작동 위험, 안전장치와 계층형 아키텍처가 필요.</p>
+          </article>
+
+          <!-- 차트 카드 1: 감성 지능 -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">LLM, 인간의 감성 지능 추월</h3>
+            <p class="mb-4 text-gray-800">스위스 제네바 대학 연구팀이 6개 LLM의 감성 지능(EI) 테스트를 진행한 결과, 평균 82%의 정답률로 인간 평균(56%)을 크게 상회했습니다.</p>
+            <div class="chart-container">
+              <canvas id="platformChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> LLM이 감정 인지, 이해 등 '능력 기반 감성 지능'에서 인간 평균을 넘어섰음을 의미.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) 데이터·거버넌스 -->
+      <section id="data">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 border-l-8 border-[#F7D060] pl-4">⚖️ 데이터·거버넌스</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 기술 패권 경쟁이 국제 규범과 표준을 선점하려는 '제도 설계' 영역으로 확장 중입니다. 동시에 AI 생성물의 책임 소재도 핵심 이슈로 부상했습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 5: 중국 -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">中, APEC서 '세계 AI 협력기구' 설립 제안</h3>
+            <p class="mb-4 text-gray-800">시진핑 주석이 APEC에서 '세계 인공지능 협력기구(WAICO)' 설립을 공식 제안했습니다. AI를 '글로벌 공공재'로 규정하며 국제 표준과 윤리 규범 선점을 시도하는 의도로 풀이됩니다.</p>
+            <div class="point-box data">
+              <p class="text-sm md:text-base"><b>🌏 中 제안: '세계 인공지능 협력기구(WAICO)'</b></p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 거버넌스 주도권을 둘러싼 미·중 기술 패권 경쟁이 '제도 설계'로 확장.</p>
+          </article>
+          
+          <!-- 뉴스 카드 6: 구글 -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">구글, '허위사실 생성' 지적에 Gemma 임시 중단</h3>
+            <p class="mb-4 text-gray-800">구글이 AI 스튜디오에서 'Gemma' 모델 접근을 임시 중단했습니다. 미 상원의원이 Gemma가 실존 인물(자신)에 대해 '허위 성범죄 혐의'를 생성했다고 지적한 데 따른 조치입니다.</p>
+            <div class="point-box data">
+              <p class="text-sm md:text-base"><b>🚫 문제: AI가 '허위 성범죄 혐의' 생성</b></p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 생성물의 법적 책임 소재와 안전장치(가드레일) 기준이 플랫폼의 핵심 경쟁력임을 시사.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) 현장 적용 -->
+      <section id="apps">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 border-l-8 border-[#6BCB77] pl-4">🏭 현장 적용</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 스킬이 채용 시장에서 높은 급여 프리미엄을 형성하고 있으며, 일상 속에서도 AI 도구 사용이 '생활 인프라' 수준으로 보편화되고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 7: AI 스킬 -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">AI 스킬 채용 공고, 급여 평균 28% 높아</h3>
+            <p class="mb-4 text-gray-800">AI 관련 스킬을 1개 이상 명시한 채용 공고는 그렇지 않은 공고보다 급여가 평균 28% 높았으며, 2개 이상일 경우 43%까지 상승했습니다. 기업의 AI 인력 수요가 급증하며 높은 보상으로 이어진 결과입니다.</p>
+            <div class="point-box apps">
+              <p class="text-sm md:text-base"><b>💸 AI 스킬 급여 프리미엄</b><br> 1개 이상: +28% / 2개 이상: +43%</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 기업 내 재교육 필요성과 개인의 스킬 습득 ROI가 모두 높아지고 있음.</p>
+          </article>
+
+          <!-- 차트 카드 2: 뉴요커 -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">뉴요커 3명 중 1명, ChatGPT 사용 경험</h3>
+            <p class="mb-4 text-gray-800">미국 성인의 34%가 ChatGPT 사용 경험이 있다는 퓨 리서치 센터의 설문조사 결과와 같이, AI가 시민들의 '생활 인프라'로 자리 잡고 있습니다.</p>
+            <div class="chart-container doughnut">
+              <canvas id="appsChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 공공기관, 학교 등에서의 사용 가이드라인 및 프라이버시 정책 정비 필요성 대두.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8">
+      <p>데이터 출처: 5분 AI 뉴스 정리 (2025.11.03)</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPTS
+       ========================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- 1. 부드러운 스크롤 (Smooth Scroll) ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start' // 섹션 상단으로 스크롤
+            });
+          }
+        });
+      });
+
+      // --- 2. 차트 옵저버 (Intersection Observer) ---
+      // 차트 생성 함수를 저장할 객체
+      const chartLoaders = {};
+      
+      const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const canvasId = entry.target.id;
+            if (typeof chartLoaders[canvasId] === 'function') {
+              // 차트가 화면에 보일 때 생성 함수 실행
+              chartLoaders[canvasId]();
+              observer.unobserve(entry.target); // 한 번 실행 후 관찰 중지
+              delete chartLoaders[canvasId]; // 함수 삭제
+            }
+          }
+        });
+      }, {
+        threshold: 0.5 // 캔버스가 50% 보일 때
+      });
+
+      // --- 3. 차트 정의 ---
+
+      // 차트 1: 플랫폼 (막대 차트)
+      const platformCanvas = document.getElementById('platformChart');
+      if (platformCanvas) {
+        chartLoaders['platformChart'] = () => {
+          new Chart(platformCanvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+              labels: ['인간 평균', 'LLM 평균'],
+              datasets: [{
+                label: '감성 지능 정답률',
+                data: [56, 82],
+                backgroundColor: ['#9DBFF9', '#4D96FF'], // 연한 파랑, 진한 파랑
+                borderColor: '#1E1E1E',
+                borderWidth: 2
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                title: { display: true, text: '감성 지능(EI) 테스트 정답률 (%)', font: { size: 14 } }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  max: 100,
+                  ticks: { font: { weight: 'bold' } },
+                  grid: { drawOnChartArea: false }
+                },
+                x: {
+                  ticks: { font: { weight: 'bold', size: 14 } }
+                }
+              }
+            }
+          });
+        };
+        chartObserver.observe(platformCanvas); // 캔버스 관찰 시작
+      }
+
+      // 차트 2: 현장 적용 (도넛 차트)
+      const appsCanvas = document.getElementById('appsChart');
+      if (appsCanvas) {
+        chartLoaders['appsChart'] = () => {
+          new Chart(appsCanvas.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+              labels: ['ChatGPT 사용 경험 (34%)', '기타 (66%)'],
+              datasets: [{
+                label: 'ChatGPT 사용 경험',
+                data: [34, 66],
+                backgroundColor: ['#6BCB77', '#E0E0E0'], // 테마색(녹색), 회색
+                borderColor: '#1E1E1E',
+                borderWidth: 2,
+                hoverOffset: 4
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { 
+                  position: 'bottom',
+                  labels: { font: { weight: 'bold' } }
+                },
+                title: { 
+                  display: true, 
+                  text: '미국 성인 ChatGPT 사용 경험', 
+                  font: { size: 14, weight: 'bold' },
+                  padding: { bottom: 15 }
+                }
+              },
+              cutout: '60%' // 도넛 두께
+            }
+          });
+        };
+        chartObserver.observe(appsCanvas); // 캔버스 관찰 시작
+      }
+    });
+  </script>
+  <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 방문자 추적 스크립트 -->
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT 2025.12.05</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* 기본 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f4f4f5; /* Cool Gray */
+            color: #09090b;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Modern Neo-Brutalism */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0px 0px #000;
+            border-radius: 8px; /* 둥글기 축소 */
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #000;
+        }
+
+        .nb-card-header {
+            border-bottom: 2px solid #000;
+            padding: 0.75rem 1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* Trendy Pop Colors */
+        .bg-pop-lime { background-color: #ccff00; }
+        .bg-pop-cyan { background-color: #00ffff; }
+        .bg-pop-pink { background-color: #ff99cc; }
+        .bg-pop-purple { background-color: #d8b4fe; }
+        
+        /* Badges */
+        .tag-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border: 1px solid #000;
+            background: #fff;
+            font-weight: 700;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        /* Navigation Active State */
+        .nav-item {
+            border: 2px solid transparent;
+            font-weight: 700;
+            color: #555;
+        }
+        .nav-active {
+            background-color: #000 !important;
+            color: #ccff00 !important;
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.2) !important;
+            border: 2px solid #000 !important;
+            transform: rotate(-1deg);
+        }
+
+        /* Typography Adjustments */
+        h1 { letter-spacing: -0.05em; }
+        h3 { letter-spacing: -0.03em; }
+        p { font-size: 1rem; color: #333; }
+        .big-number { font-size: 2.5rem; font-weight: 900; letter-spacing: -0.05em; }
+    </style>
+</head>
+<body class="pb-20 antialiased">
+
+    <!-- 홈 버튼 -->
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-black rounded-full p-2 shadow-[2px_2px_0px_0px_#111] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#111] transition-all" title="홈으로">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="max-w-5xl mx-auto pt-16 pb-10 px-4">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 border-b-4 border-black pb-6">
+            <div>
+                <div class="inline-flex items-center gap-2 mb-2">
+                    <span class="bg-black text-[#ccff00] px-3 py-1 text-sm font-mono font-bold rounded-sm">DAILY REPORT</span>
+                    <span class="font-mono font-bold text-sm">2025.12.05</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-black leading-none">AI TREND<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">INSI.GHT</span></h1>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="font-mono text-sm text-gray-500">Curated by AI Editor</p>
+                <p class="font-bold text-xl">오늘의 핵심 이슈 4</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- KPI Dashboard -->
+    <section class="max-w-5xl mx-auto px-4 mb-16">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box bg-white p-5 hover:bg-pop-cyan transition-colors group">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-mono text-xs font-bold text-gray-500 group-hover:text-black">KOREA RANK</span>
+                    <span class="text-xl">🇰🇷</span>
+                </div>
+                <div class="big-number">No.1</div>
+                <p class="text-sm font-bold leading-tight mt-1 text-gray-600 group-hover:text-black">
+                    인구 대비 챗GPT<br>유료 사용 비율 세계 1위
+                </p>
+            </div>
+
+            <!-- KPI 2 -->
+            <div class="nb-box bg-white p-5 hover:bg-pop-lime transition-colors group">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-mono text-xs font-bold text-gray-500 group-hover:text-black">DEV WORKLOAD</span>
+                    <span class="text-xl">👨‍💻</span>
+                </div>
+                <div class="big-number">60%</div>
+                <p class="text-sm font-bold leading-tight mt-1 text-gray-600 group-hover:text-black">
+                    앤트로픽 엔지니어 업무<br>AI 점유율 (전년대비 2배↑)
+                </p>
+            </div>
+
+            <!-- KPI 3 -->
+            <div class="nb-box bg-white p-5 hover:bg-pop-pink transition-colors group">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-mono text-xs font-bold text-gray-500 group-hover:text-black">NVIDIA SPEED</span>
+                    <span class="text-xl">🚀</span>
+                </div>
+                <div class="big-number">10x</div>
+                <p class="text-sm font-bold leading-tight mt-1 text-gray-600 group-hover:text-black">
+                    블랙웰 서버 기반<br>추론 속도 향상
+                </p>
+            </div>
+
+            <!-- KPI 4 -->
+            <div class="nb-box bg-white p-5 hover:bg-pop-purple transition-colors group">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-mono text-xs font-bold text-gray-500 group-hover:text-black">APP USAGE</span>
+                    <span class="text-xl">📈</span>
+                </div>
+                <div class="big-number">High</div>
+                <p class="text-sm font-bold leading-tight mt-1 text-gray-600 group-hover:text-black">
+                    11월 국내 생성형 AI 앱<br>MAU 역대 최고치 경신
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navbar -->
+    <nav class="sticky top-4 z-50 max-w-5xl mx-auto px-4 mb-12">
+        <div class="bg-white/90 backdrop-blur border-2 border-black p-2 rounded-lg shadow-lg flex overflow-x-auto gap-2">
+            <a href="#theme1" class="nav-item px-4 py-2 rounded font-mono text-sm whitespace-nowrap hover:bg-gray-100" onclick="setActive(this)">01.WORKFLOW</a>
+            <a href="#theme2" class="nav-item px-4 py-2 rounded font-mono text-sm whitespace-nowrap hover:bg-gray-100" onclick="setActive(this)">02.MODEL_WAR</a>
+            <a href="#theme3" class="nav-item px-4 py-2 rounded font-mono text-sm whitespace-nowrap hover:bg-gray-100" onclick="setActive(this)">03.UX_TREND</a>
+            <a href="#theme4" class="nav-item px-4 py-2 rounded font-mono text-sm whitespace-nowrap hover:bg-gray-100" onclick="setActive(this)">04.REGULATION</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 space-y-20">
+
+        <!-- Theme 1 -->
+        <section id="theme1" class="scroll-mt-32">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-black text-2xl rounded">01</div>
+                <h3 class="text-3xl font-black">WORKFLOW SHIFT</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <article class="nb-box">
+                    <div class="nb-card-header bg-gray-50">
+                        <span>ANTHROPIC REPORT</span>
+                        <span class="tag-badge text-blue-600">INSIGHT</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-3">"코딩은 AI가, 사람은 지휘를"</h4>
+                        <p class="text-sm text-gray-600 mb-6">
+                            앤트로픽 내부 연구: 엔지니어 업무의 60%를 'Claude'가 수행. 생산성은 50% 올랐지만, 주니어들의 '맨땅에 헤딩'식 학습 기회가 사라지고 있다는 우려도 공존.
+                        </p>
+                        
+                        <!-- Visual Element -->
+                        <div class="bg-gray-100 p-4 rounded border border-gray-300">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Human Role</span>
+                                <span>AI Role</span>
+                            </div>
+                            <div class="flex h-4 rounded-full overflow-hidden border border-black">
+                                <div class="bg-black w-[40%]"></div>
+                                <div class="bg-pop-lime w-[60%]"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1 text-gray-500 font-mono">
+                                <span>Architecture / Review</span>
+                                <span>Coding / Debugging</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="nb-box">
+                    <div class="nb-card-header bg-gray-50">
+                        <span>EXPERT WARNING</span>
+                        <span class="tag-badge text-red-600">RISK</span>
+                    </div>
+                    <div class="p-6 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xl font-bold mb-3">AI 코딩의 역설</h4>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="flex-1 text-center bg-blue-50 p-3 rounded border border-blue-200">
+                                    <div class="text-2xl">⚡️</div>
+                                    <div class="font-bold text-sm">속도 증가</div>
+                                </div>
+                                <div class="font-black text-xl text-gray-300">VS</div>
+                                <div class="flex-1 text-center bg-red-50 p-3 rounded border border-red-200">
+                                    <div class="text-2xl">🧩</div>
+                                    <div class="font-bold text-sm">이해력 감소</div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">
+                                "바이브 코딩(Vibe Coding)"의 위험성: 코드가 어떻게 돌아가는지 모르고 결과만 얻으려다간, 디버깅 불가능한 '준(準)개발자'만 양산될 수 있습니다.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-dashed border-gray-300">
+                            <span class="text-xs font-bold bg-black text-white px-2 py-1">KEY TAKEAWAY</span>
+                            <span class="text-sm ml-2 font-medium">편리함 뒤에 숨겨진 '기초 체력 저하'를 경계해야 함.</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Theme 2 -->
+        <section id="theme2" class="scroll-mt-32">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-black text-2xl rounded">02</div>
+                <h3 class="text-3xl font-black">MODEL WARS</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Main Chart Card -->
+                <article class="nb-box lg:col-span-2 border-black">
+                    <div class="nb-card-header bg-pop-lime">
+                        <span>PERFORMANCE ARENA</span>
+                        <span class="tag-badge">DATA</span>
+                    </div>
+                    <!-- Chart Container with explicit height -->
+                    <div class="p-6 relative">
+                         <!-- 차트가 부모 요소의 높이를 넘지 않도록 relative div와 h-64 클래스로 감쌉니다 -->
+                        <div class="relative h-64 w-full">
+                            <canvas id="modelChart"></canvas>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-2 text-center text-xs font-mono">
+                            <div class="bg-gray-50 p-2 rounded">
+                                <strong class="block text-purple-600">Anthropic</strong>
+                                Opus 4.5
+                            </div>
+                            <div class="bg-gray-50 p-2 rounded">
+                                <strong class="block text-blue-600">Google</strong>
+                                Gemini 3 Deep Think
+                            </div>
+                            <div class="bg-gray-50 p-2 rounded">
+                                <strong class="block text-green-600">Kling</strong>
+                                Video 2.6
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sub Card -->
+                <article class="nb-box">
+                    <div class="nb-card-header bg-white">
+                        <span>VIDEO GENERATION</span>
+                        <span class="tag-badge text-green-600">NEW</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-bold mb-2">Kling AI 2.6 출시</h4>
+                        <p class="text-sm text-gray-600 mb-4">
+                            이제 영상과 사운드(효과음, 대사)를 동시에 생성합니다.
+                        </p>
+                        <div class="bg-black text-white p-4 rounded text-center">
+                            <div class="text-xs text-gray-400 mb-1">PROCESS</div>
+                            <div class="font-bold flex items-center justify-center gap-2">
+                                <span>Text</span>
+                                <span>➜</span>
+                                <span class="text-pop-lime">Video + Audio</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Theme 3 -->
+        <section id="theme3" class="scroll-mt-32">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-black text-2xl rounded">03</div>
+                <h3 class="text-3xl font-black">UX EVOLUTION</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article class="nb-box bg-white">
+                    <div class="nb-card-header bg-white">
+                        <span>KOREA MARKET</span>
+                        <span class="tag-badge">REPORT</span>
+                    </div>
+                    <div class="p-6 relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 text-9xl opacity-5">🇰🇷</div>
+                        <h4 class="text-xl font-bold mb-4">"한국은 AI를 일에 쓴다"</h4>
+                        <ul class="space-y-3 text-sm font-medium">
+                            <li class="flex items-center gap-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                업무 산출물 제작 (29%)
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-2 h-2 bg-blue-300 rounded-full"></span>
+                                업무 방법 자문 (21%)
+                            </li>
+                        </ul>
+                        <p class="mt-4 text-xs text-gray-500 border-t pt-3">
+                            * 글로벌 평균 대비 '업무 목적' 사용 비중이 압도적으로 높음.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="nb-box bg-pop-purple border-black">
+                    <div class="nb-card-header bg-white/50 backdrop-blur">
+                        <span>MS COPILOT</span>
+                        <span class="tag-badge">INTERACTION</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">아바타 'Mico' 등장</h4>
+                        <p class="text-sm font-semibold mb-4">채팅창을 넘어선 교감형 AI</p>
+                        <div class="bg-white border-2 border-black p-3 rounded-lg shadow-sm flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 to-pink-500 border-2 border-black"></div>
+                            <div class="text-xs font-mono">
+                                "사용자의 말에 반응해<br>색과 표정이 바뀝니다."
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Theme 4 -->
+        <section id="theme4" class="scroll-mt-32">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-black text-2xl rounded">04</div>
+                <h3 class="text-3xl font-black">REGULATION</h3>
+            </div>
+
+            <div class="nb-box bg-red-50 border-red-900">
+                <div class="nb-card-header bg-white border-red-900">
+                    <span class="text-red-600">WARNING & ACTION</span>
+                    <span class="tag-badge bg-red-100 text-red-600 border-red-600">HOT ISSUE</span>
+                </div>
+                <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Issue 1 -->
+                    <div>
+                        <h4 class="text-lg font-bold flex items-center gap-2 mb-2">
+                            <span class="text-red-500">●</span> Grok의 신상털기 논란
+                        </h4>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            일론 머스크의 xAI 'Grok'이 일반인의 주소를 너무 쉽게 노출해 논란입니다. 챗GPT나 클로드가 방어하는 것과 달리, Grok은 '스토킹 도구'가 될 위험이 제기되었습니다.
+                        </p>
+                    </div>
+                    <!-- Issue 2 -->
+                    <div class="md:border-l md:border-red-200 md:pl-8">
+                        <h4 class="text-lg font-bold flex items-center gap-2 mb-2">
+                            <span class="text-blue-500">●</span> EU vs Meta
+                        </h4>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            EU가 왓츠앱(WhatsApp)의 AI 정책에 대해 반독점 조사를 시작했습니다. 자사 AI만 끼워팔고 경쟁사를 배제하는 행위에 대해 강력한 제동을 걸었습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-5xl mx-auto mt-24 py-12 border-t-4 border-black text-center">
+        <h2 class="text-2xl font-black mb-4">AI TREND INSI.GHT</h2>
+        <div class="flex justify-center gap-4 text-sm font-mono font-bold text-gray-500 mb-8">
+            <span>#TECH</span>
+            <span>#BUSINESS</span>
+            <span>#FUTURE</span>
+        </div>
+        <p class="text-xs text-gray-400">
+            © 2025 AI News Info. All rights reserved.<br>
+            Designed with Neo-Brutalism Style.
+        </p>
+    </footer>
+
+    <!-- Chart Script -->
+    <script>
+        // 네비게이션 로직
+        function setActive(element) {
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('nav-active');
+            });
+            element.classList.add('nav-active');
+        }
+
+        // 초기 활성화
+        document.querySelector('.nav-item').classList.add('nav-active');
+
+        // 차트 설정
+        const ctx = document.getElementById('modelChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Opus 4.5', 'Gemini 3', 'GPT-4o', 'Flux.2'],
+                datasets: [{
+                    label: 'Benchmark Score',
+                    data: [98, 95, 92, 88],
+                    backgroundColor: [
+                        '#d8b4fe', // Purple
+                        '#60a5fa', // Blue
+                        '#9ca3af', // Gray
+                        '#ccff00'  // Lime
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#000',
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, // 이제 부모 div 높이를 따릅니다
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#000',
+                        titleFont: { family: 'JetBrains Mono' },
+                        bodyFont: { family: 'JetBrains Mono' },
+                        padding: 10,
+                        cornerRadius: 4,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 80,
+                        grid: { color: '#e5e7eb', drawBorder: false },
+                        ticks: { font: { family: 'JetBrains Mono' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'JetBrains Mono', weight: 'bold' } }
+                    }
+                },
+                animation: { duration: 1000 }
+            }
+        });
+    </script>
+</body>
+</html>

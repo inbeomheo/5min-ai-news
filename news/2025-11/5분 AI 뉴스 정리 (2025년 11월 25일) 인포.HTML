@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>5분 AI 뉴스: 2025년 11월 25일</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; 
+      color: #1E1E1E; 
+    }
+    /* Retro/Bold Card Style */
+    .kpi-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    .news-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; 
+      transition: all 0.2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    
+    /* Sticky Nav */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+      background-color: rgba(253, 240, 224, 0.85); 
+      backdrop-filter: blur(8px);
+      border-top: 2px solid #1E1E1E;
+      border-bottom: 2px solid #1E1E1E;
+    }
+
+    /* Visualization Elements */
+    .chart-container { 
+      position: relative; 
+      height: 250px; 
+      width: 100%; 
+    }
+    
+    /* Flow Diagram CSS */
+    .flow-step {
+      background: #E0F2FE;
+      border: 2px solid #1E1E1E;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    .flow-arrow {
+      font-size: 1.5rem;
+      color: #1E1E1E;
+      text-align: center;
+    }
+
+    /* Custom Highlights */
+    .highlight-box {
+      background-color: #FEF3C7;
+      border-left: 4px solid #F59E0B;
+      padding: 0.75rem;
+    }
+
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="pb-20">
+
+  <!-- HEADER -->
+  <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+    <header class="text-center my-10 space-y-2">
+      <div class="inline-block bg-[#1E1E1E] text-white px-3 py-1 rounded text-sm font-bold mb-2">DAILY BRIEFING</div>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight">AI·기술 최신 동향 <span class="badge-new">NEW</span></h1>
+      <p class="text-xl font-medium text-gray-700 mt-2">📅 2025년 11월 25일 (화)</p>
+    </header>
+
+    <!-- KPI OVERVIEW -->
+    <section id="kpi-overview" class="mb-16">
+      <h2 class="text-xl font-bold mb-4 flex items-center">
+        <span class="bg-[#FF6B6B] w-3 h-8 mr-2 block border border-black"></span>오늘의 핵심 숫자
+      </h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- KPI 1 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm font-bold text-gray-500 uppercase">AWS 투자</p>
+          <p class="text-3xl md:text-4xl font-black text-[#FF6B6B] my-1">$500억</p>
+          <p class="text-xs text-gray-600">약 69조원 규모<br>대정부 인프라</p>
+        </div>
+        <!-- KPI 2 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm font-bold text-gray-500 uppercase">Google 목표</p>
+          <p class="text-3xl md:text-4xl font-black text-[#4D96FF] my-1">1000배</p>
+          <p class="text-xs text-gray-600">4~5년 내<br>컴퓨팅 확장</p>
+        </div>
+        <!-- KPI 3 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm font-bold text-gray-500 uppercase">Qwen 앱</p>
+          <p class="text-3xl md:text-4xl font-black text-[#F7D060] my-1">1000만</p>
+          <p class="text-xs text-gray-600">주간 다운로드<br>챗GPT 위협</p>
+        </div>
+        <!-- KPI 4 -->
+        <div class="kpi-card p-5 rounded-lg text-center flex flex-col justify-center items-center">
+          <p class="text-sm font-bold text-gray-500 uppercase">올해의 단어</p>
+          <p class="text-xl md:text-2xl font-black text-[#6BCB77] my-2 leading-tight">AI Slop</p>
+          <p class="text-xs text-gray-600">저품질 AI<br>콘텐츠 경고</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STICKY NAV -->
+    <nav class="sticky-nav py-3 mb-12">
+      <div class="flex justify-center flex-wrap gap-3 text-sm md:text-base">
+        <a href="#infra" class="font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition">⚡ 인프라 전쟁</a>
+        <a href="#agents" class="font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition">🧠 슈퍼 에이전트</a>
+        <a href="#society" class="font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition">⚖️ 사회적 충돌</a>
+        <a href="#safety" class="font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition">🚨 안전과 그림자</a>
+      </div>
+    </nav>
+
+    <!-- CONTENT SECTIONS -->
+    <div class="space-y-24">
+
+      <!-- SECTION 1: 인프라 -->
+      <section id="infra" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <span class="text-4xl mr-3">⚡</span>
+          <div>
+            <h2 class="text-3xl font-black">인프라 군비 경쟁</h2>
+            <p class="text-gray-600 font-medium">빅테크의 "조 단위" 투자와 전력 확보전</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-[#FF6B6B] text-white text-xs font-bold px-2 py-1">HOT</div>
+            <h3 class="text-xl font-bold mb-3 leading-snug">AWS, 미 연방정부 AI에 500억 달러 베팅</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+              아마존웹서비스(AWS)가 향후 10년간 <b>최대 500억 달러(약 69조원)</b>를 투자해 미국 연방정부 전용 AI 인프라를 구축한다. 국방·보안 등 핵심 임무를 위한 데이터센터와 1.3GW 규모의 전력을 확충하며 국가 안보 파트너로서의 입지를 굳힌다.
+            </p>
+            <div class="bg-gray-100 p-3 rounded border border-gray-300 mb-3">
+              <span class="font-bold text-sm">💡 핵심:</span>
+              <span class="text-sm text-gray-700">트럼프 행정부의 'AI 패권' 기조에 발맞춘 민관 일체형 인프라 확장.</span>
+            </div>
+            <!-- Simple Bar Chart -->
+            <div class="mt-4">
+              <p class="text-xs font-bold text-gray-500 mb-2 text-center">미 정부 클라우드 전력 증설 (단위: GW)</p>
+              <div class="chart-container" style="height: 150px;">
+                <canvas id="infraChart"></canvas>
+              </div>
+            </div>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-3 leading-snug">구글 "AI 인프라 1000배 키운다"… 테슬라도 칩 참전</h3>
+              <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+                구글이 향후 4~5년 내 <b>AI 연산 능력을 1000배</b> 확대하겠다는 급진적 로드맵을 내놨다. 한편, 일론 머스크는 "테슬라도 AI 칩 기업"이라며 자율주행 데이터 기반의 독자 칩 생태계를 강조, 엔비디아 의존 탈피를 예고했다.
+              </p>
+            </div>
+            <div class="highlight-box rounded mt-2">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">📈</span>
+                <div class="text-right">
+                  <p class="text-xs font-bold text-gray-500">구글 확장 목표</p>
+                  <p class="text-lg font-black text-[#1E1E1E]">6개월마다 2배 성장</p>
+                </div>
+              </div>
+            </div>
+            <p class="mt-4 text-xs text-gray-500">💡 <b>의미:</b> 'AI 버블' 우려에도 빅테크는 "투자 부족이 더 위험하다"며 설비투자를 가속화 중.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 2: 에이전트 -->
+      <section id="agents" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <span class="text-4xl mr-3">🧠</span>
+          <div>
+            <h2 class="text-3xl font-black">슈퍼 에이전트의 시대</h2>
+            <p class="text-gray-600 font-medium">스스로 도구를 쓰고 코딩하는 AI의 등장</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3 leading-snug">앤트로픽 '클로드 오퍼스 4.5'… 에이전트 끝판왕?</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+              AWS 베드록에 탑재된 '오퍼스 4.5'는 복잡한 도구 검색과 코딩을 수행하며 <b>'끝없는 채팅'</b> 기능을 지원한다. 크롬과 엑셀을 직접 제어하는 능력으로 단순 챗봇을 넘어 업무를 대행하는 에이전트로 진화했다.
+            </p>
+            
+            <!-- Flow Diagram Visualization -->
+            <div class="bg-gray-50 p-4 rounded border border-gray-200 my-4">
+              <p class="text-xs font-bold text-center mb-2 text-gray-500">[에이전트 작업 흐름]</p>
+              <div class="flex items-center justify-between space-x-1">
+                <div class="flow-step flex-1 text-xs">사용자<br>명령</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step flex-1 text-xs bg-blue-100">도구<br>탐색</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step flex-1 text-xs bg-blue-100">코드<br>실행</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step flex-1 text-xs bg-green-100">결과<br>도출</div>
+              </div>
+            </div>
+
+            <p class="text-sm text-gray-700">💡 <b>핵심:</b> 인간의 개입 없이 다단계 업무를 완결짓는 '자율성'이 핵심 경쟁력.</p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3 leading-snug">중국 AI의 역습… 알리바바·앤트그룹 '질주'</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+              알리바바의 '콴(Qwen)' 앱이 챗GPT를 위협하며 주간 1000만 다운로드를 기록했다. 앤트그룹의 코딩 앱 '링광'도 4일 만에 100만 건을 돌파하며, 중국 내에서 <b>'바이브 코딩(자연어 앱 개발)'</b> 열풍을 주도하고 있다.
+            </p>
+            <div class="highlight-box rounded bg-yellow-50 border-yellow-400">
+               <span class="font-bold text-sm">🔥 Trend:</span>
+               <span class="text-sm">비개발자도 말로 앱을 만드는 '1인 개발자' 시대 가속화.</span>
+            </div>
+            <p class="mt-4 text-xs text-gray-500">💡 <b>핵심:</b> 무료 개방과 슈퍼앱 전략으로 글로벌 점유율 확대 중.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 3: 사회 -->
+      <section id="society" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <span class="text-4xl mr-3">⚖️</span>
+          <div>
+            <h2 class="text-3xl font-black">사회적 반작용과 충돌</h2>
+            <p class="text-gray-600 font-medium">정치적 분열, 저작권, 그리고 '저질 AI'</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl border-l-8 border-[#FF6B6B]">
+            <h3 class="text-xl font-bold mb-3 leading-snug">트럼프의 'AI 혁명' vs MAGA의 '반란'</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+              트럼프가 AI 육성을 천명한 반면, 핵심 지지층인 MAGA 진영과 스티브 배넌은 <b>"AI는 노동자의 적"</b>이라며 반(反)AI 투어에 나섰다. 보수 진영 내부에서 '테크 엘리트 vs 노동 계급'의 새로운 이념 전선이 형성되고 있다.
+            </p>
+            <div class="flex justify-between items-center bg-gray-100 p-3 rounded">
+                <div class="text-center w-1/2 border-r border-gray-300">
+                    <span class="block text-xs text-gray-500">지지파</span>
+                    <span class="font-bold text-blue-600">머스크, 올트먼</span>
+                </div>
+                <div class="text-center w-1/2">
+                    <span class="block text-xs text-gray-500">반대파</span>
+                    <span class="font-bold text-red-600">배넌, 노동층</span>
+                </div>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI가 2026년 중간선거의 핵심 정치 쟁점으로 부상.</p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3 leading-snug">'AI Slop(저질 AI)'… 2025 올해의 단어 선정</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+              맥쿼리 사전이 알고리즘이 쏟아내는 무의미하고 저급한 AI 콘텐츠를 뜻하는 <b>'AI Slop'</b>을 올해의 단어로 꼽았다. 한편 독일 법원은 오픈AI에 "훈련 데이터 투명성을 보장하라"며 저작권 단체의 손을 들어주었다.
+            </p>
+            <div class="bg-gray-800 text-white p-3 rounded text-center">
+                <span class="text-xl">🗑️</span>
+                <span class="text-sm font-bold ml-2">"정보 다이어트가 필요하다"</span>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 데이터의 '양'보다 '질'과 '권리'가 중요해지는 전환점.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 4: 안전 -->
+      <section id="safety" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <span class="text-4xl mr-3">🚨</span>
+          <div>
+            <h2 class="text-3xl font-black">안전과 그림자</h2>
+            <p class="text-gray-600 font-medium">아이들의 위험한 친구, 해커들의 무기</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3 leading-snug">"엄마보다 AI가 편해요"… 10대들의 위험한 의존</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+              영국 청소년 5명 중 2명이 AI 챗봇에 고민을 털어놓는다. 심지어 AI 테디베어가 아이에게 <b>"부엌 칼 위치"</b>를 알려주는 사고까지 발생하며, 정서적 의존과 안전 장치 미비에 대한 우려가 폭발하고 있다.
+            </p>
+            
+            <!-- Doughnut Chart -->
+            <div class="flex items-center justify-between mt-4">
+                <div class="chart-container" style="height: 140px; width: 140px; margin:0;">
+                    <canvas id="teenChart"></canvas>
+                </div>
+                <div class="flex-1 ml-4 text-sm text-gray-700">
+                    <p class="font-bold mb-1">🔍 청소년 설문 (영국)</p>
+                    <ul class="list-disc pl-4 space-y-1 text-xs">
+                        <li><b>40%</b>가 AI에 고민 상담</li>
+                        <li>관계 단절, 외로움 심화</li>
+                        <li>잘못된 조언 위험 노출</li>
+                    </ul>
+                </div>
+            </div>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl bg-gray-50">
+            <h3 class="text-xl font-bold mb-3 leading-snug">"시(詩)로 해킹"… 고도화되는 AI 위협</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm">
+              '시적 은유'를 사용해 LLM의 안전장치를 우회하는 <b>'탈옥(Jailbreak)'</b> 기법이 발견됐다. 설상가상으로 중국 해커들이 앤트로픽의 '클로드 코드'를 악용해 사이버 공격을 감행한 정황이 포착되며 보안 위기가 고조되고 있다.
+            </p>
+            <div class="highlight-box rounded border-l-4 border-red-500 bg-red-50">
+              <span class="font-bold text-sm text-red-700">Warning:</span>
+              <span class="text-sm">범용 AI 도구가 사이버 공격의 진입 장벽을 낮추고 있음.</span>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 방어막이 뚫리는 속도가 개발 속도만큼 빠르다.</p>
+          </article>
+        </div>
+      </section>
+
+    </div> <!-- End Content Space -->
+    
+    <!-- FOOTER -->
+    <footer class="text-center text-gray-500 mt-20 mb-8 border-t-2 border-[#1E1E1E] pt-8">
+      <p class="text-sm font-medium">News Info &copy; 2025. 11. 25. Daily Report</p>
+      <p class="text-xs mt-2">Create by AI Assistant based on Global Tech News</p>
+    </footer>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Smooth Scrolling for Sticky Nav
+    document.querySelectorAll('.sticky-nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    });
+
+    // Intersection Observer for Charts
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const canvas = entry.target;
+          const chartId = canvas.id;
+          
+          if (chartId === 'infraChart' && !window.infraChartInstance) {
+            window.infraChartInstance = new Chart(canvas, {
+              type: 'bar',
+              data: {
+                labels: ['기존', '+추가 증설'],
+                datasets: [{
+                  label: '전력 확보량 (GW)',
+                  data: [1.0, 1.3], // Symbolic data based on 1.3GW addition
+                  backgroundColor: ['#E5E7EB', '#FF6B6B'],
+                  borderWidth: 2,
+                  borderColor: '#1E1E1E'
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { 
+                  y: { beginAtZero: true, grid: { display: false } },
+                  x: { grid: { display: false } }
+                }
+              }
+            });
+          }
+
+          if (chartId === 'teenChart' && !window.teenChartInstance) {
+            window.teenChartInstance = new Chart(canvas, {
+              type: 'doughnut',
+              data: {
+                labels: ['AI 상담 경험', '없음/기타'],
+                datasets: [{
+                  data: [40, 60],
+                  backgroundColor: ['#FF6B6B', '#E5E7EB'],
+                  borderColor: '#1E1E1E',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                cutout: '60%'
+              }
+            });
+          }
+          
+          observer.unobserve(canvas);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observe Chart Canvases
+    document.querySelectorAll('canvas').forEach(canvas => observer.observe(canvas));
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 동향 인포그래픽 (2025-10-29)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- 
+    Narrative Plan: This infographic for Oct 29, 2025, is structured around four critical themes: 1) The AI Establishment Solidifies (focusing on Nvidia's immense market power showcased at GTC, alongside OpenAI's strategic restructuring and redefined Microsoft partnership), 2) The Workforce Shockwave (highlighting the harsh reality of AI-driven layoffs at Amazon and Chegg), 3) The Expanding Ecosystem & Strategy (showcasing the emergence of agent commerce via PayPal/ChatGPT, OpenAI's PBC transition/MS deal, and KakaoTalk integration), and 4) The Trust Crisis Deepens (addressing the severe security flaws in OpenAI's new browser and the Ohio law addressing AI personhood). This structure captures the dual forces of market concentration and ecosystem expansion, alongside the growing pains of workforce disruption and trust deficits.
+
+    Visualization Choices:
+    - Nvidia's Market Dominance: Goal=Inform. Viz=A large number callout ($500 Billion backlog) combined with a styled HTML/CSS diagram representing the US government supercomputer deals. Justification=Instantly communicates Nvidia's market scale and strategic government partnerships. Confirmed NO SVG.
+    - AI-Driven Layoffs: Goal=Compare. Viz=A Bar Chart (Chart.js) comparing the significant layoff numbers/percentages at Amazon (up to 9%) and Chegg (45%, 67% YTD). Justification=Visually represents the dramatic impact of AI efficiency on employment in different sectors. Confirmed NO SVG.
+    - OpenAI's Restructuring & MS Deal: Goal=Organize. Viz=A styled HTML/CSS diagram illustrating OpenAI's new Public Benefit Corporation (PBC) structure controlled by a foundation, and Microsoft's redefined 27% stake. Justification=Clearly explains a complex corporate governance shift and a major partnership realignment. Confirmed NO SVG/Mermaid.
+    - ChatGPT Atlas Security Flaws: Goal=Inform. Viz=An illustrative HTML/CSS block with a warning icon detailing the 'Tainted Memories' vulnerability and poor phishing detection rate (94% failure). Justification=Creates a strong visual alert for critical security risks in a major new product. Confirmed NO SVG.
+    - PayPal & Agent Commerce: Goal=Organize. Viz=A flow diagram (HTML/CSS) showing the user-ChatGPT-PayPal transaction flow, illustrating the mechanism of AI-driven purchases. Justification=Visually simplifies the concept of agentic commerce. Confirmed NO SVG/Mermaid.
+    - KakaoTalk & ChatGPT Integration: Goal=Inform. Viz=An illustrative HTML/CSS block showing the KakaoTalk UI with an integrated ChatGPT feature. Justification=Visually represents the integration within a familiar interface. Confirmed NO SVG.
+    - Ohio AI Personhood Law: Goal=Inform. Viz=A styled HTML/CSS block with a legal scroll icon summarizing the proposed ban on AI legal rights. Justification=Provides a strong visual metaphor for a significant legal development. Confirmed NO SVG.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDF0E0; /* Light Peach */
+            color: #1E1E1E;
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .news-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 6px 6px 0px #1E1E1E;
+            transition: all 0.2s ease-in-out;
+        }
+        .news-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; 
+            margin: 1.5rem auto;
+            height: 300px;
+            max-height: 400px;
+        }
+         .chart-container.doughnut {
+           max-width: 400px; /* Keep doughnut smaller */
+           height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+             .chart-container.doughnut {
+                 height: 350px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">AI·기술 최신 동향</h1>
+            <p class="text-xl text-gray-700">2025년 10월 29일</p>
+        </header>
+
+        <section id="kpi-overview" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">핵심 지표 요약</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">엔비디아 수주 잔고</p>
+                    <p class="text-5xl font-bold text-[#FF6B6B]">690조원</p>
+                    <p class="text-sm text-gray-500">(5000억 달러)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">OpenAI 기업 가치</p>
+                    <p class="text-5xl font-bold text-[#4D96FF]">690조원</p>
+                    <p class="text-sm text-gray-500">(PBC 전환 완료)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">Chegg 인력 감원</p>
+                    <p class="text-5xl font-bold text-[#F7D060]">45%</p>
+                    <p class="text-sm text-gray-500">(AI 도입 여파)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">Atlas 브라우저 보안</p>
+                    <p class="text-5xl font-bold text-[#6BCB77]">취약</p>
+                    <p class="text-sm text-gray-500">(피싱 차단율 6%)</p>
+                </div>
+            </div>
+        </section>
+
+        <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-4 mb-12 border-b-2 border-t-2 border-[#1E1E1E]">
+            <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+                <a href="#dominance" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 시장 지배자들</a>
+                <a href="#shockwave" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">💼 고용 충격파</a>
+                <a href="#strategy" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏢 기업 전략</a>
+                <a href="#trust" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">🤔 신뢰와 보안</a>
+            </div>
+        </nav>
+
+        <div class="space-y-20">
+            <section id="dominance">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#FF6B6B] pl-4">🚀 시장 지배자들: 엔비디아의 독주</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 산업의 핵심 플레이어인 엔비디아가 압도적인 시장 지배력을 과시하며 미래 전략을 구체화하고 있습니다. 엔비디아는 천문학적인 수주 잔고와 함께 미국 정부와의 강력한 파트너십을 공개하며 독주 체제를 공고히 했습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">엔비디아 GTC: 690조원 수주 잔고, 美 정부 AI 슈퍼컴 구축</h3>
+                        <p class="mb-4">젠슨 황 엔비디아 CEO는 GTC 컨퍼런스에서 AI 칩 주문 잔고가 5,000억 달러에 달한다고 밝히며 폭발적인 수요를 입증했습니다. 또한 미국 에너지부(DoE)와 협력해 7대의 정부 AI 슈퍼컴퓨터를 구축한다고 발표, 국가 안보 및 과학 연구 분야에서의 핵심 파트너임을 강조하며 "미국에서 발명하고, 미국에서 생산한다"는 메시지로 지정학적 입지까지 강화했습니다.</p>
+                        <div class="mt-6 p-6 bg-red-50 border-2 border-black rounded-lg">
+                             <h4 class="font-bold text-lg mb-4 text-center">NVIDIA의 시장 지배력</h4>
+                             <div class="flex flex-col md:flex-row justify-around items-center text-center gap-4">
+                               <div class="p-4 bg-white border-2 border-black rounded-md">
+                                    <p class="text-3xl font-bold">$500B+</p><p>수주 잔고</p>
+                                </div>
+                                <div class="font-bold text-2xl">+</div>
+                                 <div class="p-4 bg-white border-2 border-black rounded-md">
+                                    <p class="text-3xl mb-2">🇺🇸</p><p class="font-bold">7대 정부 슈퍼컴 구축</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 엔비디아는 단순한 칩 제조사를 넘어, AI 인프라의 표준을 정의하고 국가 전략과 긴밀하게 연동되는 '기술 패권 기업'으로 자리매김하고 있습니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="shockwave">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#4D96FF] pl-4">💼 고용 충격파: AI 효율화, 대규모 감원으로 이어지다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 도입이 기업 효율성을 높이는 동시에 화이트칼라 일자리에 직접적인 충격을 주기 시작했습니다. 아마존은 AI 기반 효율화를 명분으로 대규모 사무직 감원을 공식화했고, 온라인 교육 플랫폼 Chegg는 AI로 인한 사업 모델 위축으로 인해 전체 직원의 절반 이상을 해고하며 AI가 촉발한 고용 구조조정이 현실화되었음을 보여주었습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">아마존 1.4만명, Chegg 45% 감원 공식화</h3>
+                        <p class="mb-4">아마존은 공식적으로 1만 4천 명(4%)의 해고를 발표했으며 (최대 3만명 가능성 보도됨), Chegg는 AI로 인해 핵심 사업인 과제 도움 서비스 수요가 급감하자 전체 직원의 45%(388명)를 추가 해고했습니다 (올해 누적 67% 감원). 이는 AI 기술이 특정 직무를 대체하거나 사업 모델 자체를 위협하며 대규모 인력 감축으로 이어질 수 있다는 우려를 현실로 만들었습니다.</p>
+                        <div class="chart-container">
+                            <canvas id="layoffChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI로 인한 노동 시장의 변화는 더 이상 먼 미래의 이야기가 아닙니다. 기업과 개인 모두 AI와 공존하며 새로운 가치를 창출할 수 있는 '재교육'과 '직무 전환' 전략이 시급합니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+             <section id="strategy">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#6BCB77] pl-4">🏢 기업 전략: OpenAI의 재편과 에이전트 커머스</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 산업의 리더 OpenAI는 지배구조 개편을 완료하고 마이크로소프트와의 관계를 재정립하며 AGI 개발을 위한 장기전에 돌입했습니다. 동시에 페이팔과의 파트너십을 통해 AI가 직접 결제를 수행하는 '에이전트 상거래' 시대를 열고, 카카오톡과의 협력으로 일상 AI 경험을 확장하며 플랫폼 전략을 가속화하고 있습니다.</p>
+                 <div class="grid md:grid-cols-2 gap-10">
+                     <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI, 공익기업 전환 완료 및 MS와 신규 계약 확정</h3>
+                        <p class="mb-4">OpenAI는 5,000억 달러 가치를 인정받으며 비영리 재단이 영리 법인을 통제하는 공익기업(PBC) 구조로 전환을 완료했습니다. 마이크로소프트는 27% 지분을 확보하고 AGI까지 독점 IP 권리를 연장하는 대신, OpenAI는 향후 2,500억 달러의 Azure 서비스 구매를 약속했습니다. AGI 달성 여부 검증에 독립 전문가 패널이 참여하는 등 안전장치도 마련되었습니다.</p>
+                         <div class="mt-6 p-6 bg-green-50 border-2 border-black rounded-lg">
+                            <h4 class="font-bold text-lg mb-4 text-center">OpenAI 신규 지배구조</h4>
+                            <div class="flex items-center justify-center space-x-2 md:space-x-4 text-center text-sm md:text-base">
+                                <div class="p-3 bg-white border-2 border-black rounded-md">Foundation (Non-Profit)</div>
+                                <div class="font-bold text-2xl text-gray-400">→ Controls →</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-md">Group PBC (For-Profit) <br/> <span class="text-xs">MS Stake: 27%</span></div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** OpenAI는 AGI 개발이라는 장기 목표와 단기적인 상업적 성공 사이의 균형을 맞추기 위해, 파트너십과 지배구조를 정교하게 재설계하고 있습니다.</p>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">PayPal, ChatGPT에 결제 통합…'에이전트 상거래' 시작</h3>
+                        <p class="mb-4">PayPal이 OpenAI와 손잡고 ChatGPT에 디지털 지갑을 통합, 사용자가 AI와 대화하며 상품 추천부터 결제까지 한 번에 완료하는 '에이전트 상거래' 시대를 열었습니다. OpenAI의 ACP(Agentic Commerce Protocol)를 채택하여 수천만 PayPal 가맹점이 별도 통합 없이 ChatGPT에서 검색 가능해집니다.</p>
+                         <div class="mt-6 p-6 bg-green-50 border-2 border-black rounded-lg">
+                            <h4 class="font-bold text-lg mb-4 text-center">AI 에이전트 결제 흐름</h4>
+                            <div class="flex items-center justify-center space-x-2 md:space-x-4 text-center text-sm md:text-base">
+                                <div class="p-3 bg-white border-2 border-black rounded-md">User ↔ ChatGPT</div>
+                                <div class="font-bold text-2xl text-gray-400">→</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-md">PayPal 결제</div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI는 이제 단순 정보 제공을 넘어, 실제 경제 활동을 수행하는 '대리인'으로 진화하고 있습니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center md:col-span-2">
+                        <h3 class="text-2xl font-bold mb-4">카카오톡, 상단 탭에 ChatGPT 탑재…'일상 AI' 본격화</h3>
+                        <p class="mb-4">'국민 메신저' 카카오톡이 상단 탭에 ChatGPT 기능을 통합하여, 사용자들이 별도의 앱 이동 없이 AI와 대화하고 정보를 얻을 수 있도록 합니다. 이는 AI 기술이 특별한 도구가 아닌, 일상적인 커뮤니케이션 플랫폼의 기본 기능으로 자리 잡고 있음을 보여줍니다.</p>
+                         <div class="my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">💬</p>
+                            <p class="text-3xl font-bold">KakaoTalk + ChatGPT</p>
+                            <p class="text-lg mt-2">일상 속 AI 경험 확장</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI는 이제 기술 전문가가 아닌 모든 사람을 위한 '일상의 도구'로 진화하고 있습니다.</p>
+                    </div>
+                 </div>
+            </section>
+            
+            <section id="trust">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#F7D060] pl-4">🤔 신뢰와 보안: AI의 빛과 그림자</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술의 발전 속도가 빨라지는 만큼, 그 신뢰성과 보안 문제에 대한 우려도 커지고 있습니다. OpenAI의 야심 찬 새 브라우저는 심각한 보안 결함이 발견되어 사용자 데이터를 위험에 빠뜨릴 수 있다는 경고가 나왔고, 오하이오주에서는 AI의 법적 지위를 정의하려는 움직임도 나타났습니다.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI '아틀라스' 브라우저, 심각한 보안 결함 발견</h3>
+                        <p class="mb-4">보안 업체 LayerX는 ChatGPT 아틀라스 브라우저에서 사용자가 악성 링크를 클릭하면 AI의 영구 메모리가 오염되어 이후에도 계속 악성 명령을 수행할 수 있는 '오염된 메모리' 취약점을 발견했습니다. 또한 피싱 페이지 차단율이 6% 미만으로 크롬(47%)이나 엣지(53%)보다 10배 이상 취약한 것으로 나타나, AI 기반 브라우저의 보안 문제가 심각한 수준임을 보여주었습니다.</p>
+                        <div class="my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🚨</p>
+                            <p class="text-3xl font-bold">Atlas Browser Vulnerability</p>
+                            <p class="text-lg mt-2">"Tainted Memories" & Low Phishing Defense</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 기능의 화려함만큼이나, 그 기반이 되는 보안과 신뢰성을 확보하는 것이 기술 성공의 전제 조건입니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">오하이오주, AI 법인격 금지 법안 발의</h3>
+                        <p class="mb-4">미국 오하이오주 하원에서 AI를 '감각이 없는 존재'로 공식 선언하고, 법인격을 부여하거나 인간과 AI 간의 결혼을 금지하는 법안이 발의되었습니다. AI로 인한 피해 발생 시 책임을 개발자나 소유자에게 귀속시키는 내용도 포함되어, AI의 법적 지위를 선제적으로 규율하려는 첫 주요 입법 시도 중 하나로 주목됩니다.</p>
+                        <div class="my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">📜</p>
+                            <p class="text-3xl font-bold">AI Non-Personhood Law</p>
+                            <p class="text-lg mt-2">AI 법적 지위 논쟁 시작</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 기술이 사회 시스템과 상호작용하기 시작하면서, 그 법적 지위와 책임 소재를 명확히 하는 것이 중요한 사회적 과제로 떠올랐습니다.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const chartColors = {
+            red: '#FF6B6B',
+            blue: '#4D96FF',
+            yellow: '#F7D060',
+            green: '#6BCB77',
+            grey: '#C0C0C0'
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const layoffData = {
+            labels: ['아마존 사무직 (4%)', 'Chegg (최근 45%)'], // Amazon: 14k out of ~350k ~4%. Max potential 9% not official yet.
+            datasets: [{
+                label: '감원 비율 (%)',
+                data: [4, 45], 
+                backgroundColor: [chartColors.blue, chartColors.red],
+                borderWidth: 2,
+                borderColor: '#1E1E1E'
+            }]
+        };
+
+        const layoffConfig = {
+            type: 'bar',
+            data: layoffData,
+            options: {
+                 indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'AI 도입 관련 감원 사례', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                scales: { 
+                    x: { 
+                        beginAtZero: true,
+                        max: 50, 
+                         ticks: {
+                            callback: function(value) { return value + "%" }
+                        }
+                    } 
+                }
+            }
+        };
+
+        let layoffChart;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'layoffChart' && !layoffChart) {
+                        layoffChart = new Chart(entry.target, layoffConfig);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.getElementById('layoffChart'));
+
+    </script>
+
+    <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 방문자 추적 스크립트 -->
+    <script src="visitor-tracker.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 기술 동향 인포그래픽 (2025-11-07)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR 웹 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Noto Sans KR 폰트 및 기본 배경/글자색 설정 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach 배경색 */
+      color:#1E1E1E; /* 기본 글자색 */
+    }
+    /* 카드 스타일 (흰색 배경, 검정 테두리, 굵은 그림자) */
+    .kpi-card { 
+      background:#fff; 
+      border:2px solid #1E1E1E; 
+      box-shadow:4px 4px 0 #1E1E1E; 
+    }
+    .news-card { 
+      background:#fff; 
+      border:2px solid #1E1E1E; 
+      box-shadow:6px 6px 0 #1E1E1E; 
+      transition: all .2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px,2px); 
+      box-shadow:4px 4px 0 #1E1E1E; 
+    }
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position:relative; 
+      width:100%; 
+      max-width:600px; 
+      margin:1.5rem auto; 
+      height:300px; 
+      max-height:400px; 
+    }
+    /* Sticky Nav 스타일 */
+    .sticky-nav { 
+      position:sticky; 
+      top:0; 
+      z-index:50; 
+    }
+    /* CSS 강조 블록 (Big Number Callout) */
+    .callout-box {
+      border: 2px solid #1E1E1E;
+      border-radius: 0.5rem; /* 8px */
+      padding: 1rem; /* 16px */
+      text-align: center;
+    }
+    .badge-new { display:inline-block; background:linear-gradient(135deg,#ff4757 0%,#ff6b81 100%); color:#fff; font-size:0.875rem; font-weight:700; padding:6px 14px; border-radius:20px; box-shadow:0 4px 12px rgba(255,71,87,0.4); letter-spacing:0.5px; animation:pulse 2s ease-in-out infinite; margin-left:12px; vertical-align:middle; }
+    @keyframes pulse { 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2">AI·기술 최신 동향 </h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 7일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4장 고정)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">오늘의 핵심 지표</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">테슬라 자체 칩 목표</p>
+          <p class="text-3xl md:text-4xl font-bold">원가 10%</p>
+          <p class="text-sm text-gray-500">엔비디아 블랙웰 대비</p>
+        </div>
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">스냅 AI 검색 제휴</p>
+          <p class="text-3xl md:text-4xl font-bold">4억 달러</p>
+          <p class="text-sm text-gray-500">퍼플렉서티와 파트너십</p>
+        </div>
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">미 상원 AI 고용 법안</p>
+          <p class="text-3xl md:text-4xl font-bold">분기별</p>
+          <p class="text-sm text-gray-500">AI 관련 해고 보고 의무화</p>
+        </div>
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">CRED AI 도입 성과</p>
+          <p class="text-3xl md:text-4xl font-bold">CSAT 14%p ↑</p>
+          <p class="text-sm text-gray-500">챗봇 '클레오' 도입 3개월</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 탭 고정)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라 전쟁</a>
+        <a href="#platform" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🤖 AI 에이전트</a>
+        <a href="#governance" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI와 사회</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 기업 적용</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-20">
+
+      <!-- 1) 인프라 전쟁 -->
+      <section id="infra" class="scroll-mt-24">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라 전쟁</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 경쟁의 핵심인 칩, 데이터센터, 자금 확보를 위한 빅테크들의 총력전이 펼쳐지고 있습니다. 테슬라는 자체 칩 팹을 구상하고, 오픈AI는 정부 지원까지 타진합니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">테슬라, '초대형 AI 칩 팹' 구상…인텔과 협력 시사</h3>
+            <p class="mb-4">일론 머스크 CEO가 자체 AI 칩 공장 구상을 공개하며 인텔과의 협력 가능성도 언급했습니다. 테슬라는 5세대 AI 칩(AI5)을 설계 중이며, 엔비디아 블랙웰 대비 전력 1/3, 제조원가 10% 수준을 목표로 2027년 대량 양산을 계획하고 있습니다.</p>
+            <!-- CSS 강조 블록 -->
+            <div class="callout-box bg-red-50 mt-auto">
+              <p class="text-2xl font-bold">⚡ AI5 칩: 원가 10% 목표</p>
+              <p class="text-sm">(vs 엔비디아 블랙웰)</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 테슬라가 자율주행과 로보틱스 전략 가속을 위해 엔비디아 의존도를 낮추고 자체 칩 생산까지 넘보고 있습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI, AI 칩·데이터센터 확대 위해 미 정부 보증 타진</h3>
+            <p class="mb-4">오픈AI가 AI 칩 및 데이터센터 확장 자금 조달을 위해 미국 정부 보증을 타진 중입니다. 칩의 감가상각 불확실성으로 민간 부채 비용이 높다는 이유이며, IPO는 당장 우선순위가 아니라고 밝혔습니다.</p>
+             <!-- CSS 강조 블록 -->
+             <div class="callout-box bg-gray-100 mt-auto">
+              <p class="text-lg font-semibold">천문학적 인프라 비용 해결 위해</p>
+              <p class="text-2xl font-bold">"정부 보증" 옵션 검토</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 막대한 인프라 비용을 감당하기 위해 오픈AI가 민간을 넘어 공적 영역의 지원까지 검토하며 구조적 해결책을 모색 중입니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) AI 에이전트 -->
+      <section id="platform" class="scroll-mt-24">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#4D96FF] pl-4">🤖 AI 에이전트</h2>
+        <p class="mb-8 text-lg text-gray-700">단순 검색을 넘어 사용자의 맥락을 이해하고 작업을 실행하는 'AI 에이전트' 경쟁이 본격화되고 있습니다. 네이버가 통합 에이전트를 예고했고, 스냅은 검색 강화를 위해 대규모 투자를 결정했습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">네이버, '에이전트 N' 공개…검색 넘어 실행하는 통합 AI 예고</h3>
+            <p class="mb-4">네이버가 '단25(DAN25)' 행사에서 통합 에이전트 'N'을 소개했습니다. 이용자 맥락을 파악해 실행 옵션을 제안하며, 내년 봄 쇼핑 에이전트, 여름 'AI 탭' 론칭을 예고했습니다. GPU 6만장 확보 계획도 재확인했습니다.</p>
+            <!-- CSS 강조 블록 -->
+            <div class="callout-box bg-blue-50 mt-auto">
+              <p class="text-lg font-semibold">네이버 통합 에이전트 로드맵</p>
+              <p class="text-2xl font-bold">🗓️ 2026년 여름 'AI 탭' 론칭</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 네이버가 자사 서비스 생태계를 기반으로 검색을 넘어 태스크를 완수하는 표준형 에이전트 모델을 지향하며 시장 선점에 나섰습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">스냅, 퍼플렉서티와 4억 달러 제휴…스냅챗 기본 AI 검색 탑재</h3>
+            <p class="mb-4">스냅이 퍼플렉서티와 4억 달러 규모 계약을 체결, 2026년 초부터 스냅챗에 대화형 AI 검색을 통합합니다. 'My AI' 챗봇 질문 시 퍼플렉서티의 답변을 받게 되며, 스냅은 이를 AI 플랫폼 전략의 첫 단계로 규정했습니다.</p>
+            <!-- CSS 강조 블록 -->
+            <div class="callout-box bg-blue-50 mt-auto">
+              <p class="text-2xl font-bold">💰 4억 달러 빅딜</p>
+              <p class="text-lg font-semibold">스냅챗 + 퍼플렉서티 AI 검색</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 스냅이 대규모 투자를 통해 AI 검색 기능을 강화하며, 퍼플렉서티는 대규모 사용자 접점을 확보하는 빅딜이 성사되었습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) AI와 사회 -->
+      <section id="governance" class="scroll-mt-24">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#F7D060] pl-4">⚖️ AI와 사회</h2>
+        <p class="mb-8 text-lg text-gray-700">AI가 고용, 저작권, 교육 등 사회 전반에 확산되면서 관련 법규와 윤리적 기준 마련이 시급한 과제로 떠오르고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">미 상원, AI로 인한 '해고 분기보고' 법안 초당적 추진</h3>
+            <p class="mb-4">마크 워너(민주)와 조시 홀리(공화) 의원이 연방 기관과 대기업의 AI 관련 해고를 노동부에 의무적으로 보고하도록 하는 법안을 발의했습니다. 해당 데이터는 분기별 공공 보고서로 공개되어 AI의 고용 영향을 가시화하는 것을 목표로 합니다.</p>
+             <!-- CSS 강조 블록 -->
+             <div class="callout-box bg-yellow-50 mt-auto">
+              <p class="text-2xl font-bold">⚖️ 초당적 법안 발의</p>
+              <p class="text-lg font-semibold">AI 관련 해고, 분기별 보고 의무화</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI가 일자리에 미치는 영향에 대한 초당적 관심이 높아지면서, 투명한 데이터 공개를 요구하는 규제 논의가 시작되었습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">노스캐롤라이나 주상원의원, AI 음성 도용 광고 소송</h3>
+            <p class="mb-4">디안드레아 살바도르 주상원의원이 자신의 TED 강연 영상 위에 AI로 생성한 음성을 덧입힌 TV 광고에 대해 연방 법원에 소송을 제기했습니다. 휘 Whirlpool과 옴니콤을 피고로 지목하며 '딥페이크 규제 공백' 논의를 자극하고 있습니다.</p>
+             <!-- CSS 강조 블록 -->
+             <div class="callout-box bg-yellow-50 mt-auto">
+              <p class="text-lg font-semibold">"내 목소리 도용당했다"</p>
+              <p class="text-2xl font-bold">AI 음성 합성 광고 '딥페이크' 소송</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 음성 합성을 둘러싼 저작권 및 퍼블리시티권 침해 사례가 발생하며, 딥페이크 규제와 기업 윤리 정비 필요성이 커지고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) 현장 적용 -->
+      <section id="apps" class="scroll-mt-24">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#6BCB77] pl-4">🏭 기업 적용</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 도입이 기업 현장에서 실질적인 성과로 이어지고 있습니다. 고객 만족도(CSAT)가 향상되고, 마케팅 방식이 근본적으로 변화하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 차트 (CRED 사례) -->
+          <div class="news-card p-6 rounded-xl">
+            <h3 class="font-bold text-xl md:text-2xl mb-3">인도 CRED, AI 챗봇 '클레오' 도입 3개월 성과</h3>
+            <p class="mb-4">오픈AI 고객사례로 소개된 인도 CRED는 GPT 기반 챗봇 '클레오'를 통해 고객 만족도(CSAT) 14%p 개선, 세션 이탈 31% 감소, 해결 정확도 98%라는 가시적 성과를 달성했습니다.</p>
+            <div class="chart-container">
+              <canvas id="appsChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI가 고객 서비스(CS) 영역에서 가시적인 성과를 내며 '프리미엄 콘시어지' 경험을 확장하는 핵심 도구로 자리 잡고 있습니다.</p>
+          </div>
+
+           <!-- 뉴스 카드 2 -->
+           <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">차임(Chime) CMO, "마케팅의 에이전트화" 선언</h3>
+            <p class="mb-4">핀테크 기업 차임(Chime)의 CMO는 AI가 실시간 개인화와 지출 최적화로 마케팅 운영 모델을 재편하고 있다고 밝혔습니다. 브랜드 보이스를 반영한 커스텀 GPT로 콘텐츠 생산을 가속하고, PMAX 등과 연계해 매체 운영을 자동화하고 있습니다.</p>
+             <!-- CSS 강조 블록 -->
+             <div class="callout-box bg-green-50 mt-auto">
+              <p class="text-lg font-semibold">AI 기반 마케팅 운영 혁신</p>
+              <p class="text-2xl font-bold">실시간 개인화 + 지출 최적화</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> "속도가 관건"이라며, 조기 시범을 통해 학습과 스케일링을 병행하며 마케팅 조직의 근본적인 변화를 추진 중입니다.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8">
+      <p>AI·기술 동향 인포그래픽 | 2025-11-07</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPT
+       ========================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // --- 부드러운 스크롤(Smooth Scroll) 기능 ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if(targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start' // 섹션 상단으로 스크롤
+            });
+          }
+        });
+      });
+
+      // --- 차트 생성 (Intersection Observer 사용) ---
+      const chartElements = [
+        { id: 'appsChart', createChart: createAppsChart }
+      ];
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const chartElement = chartElements.find(el => el.id === entry.target.id);
+            if (chartElement && !entry.target.dataset.chartInitialized) {
+              chartElement.createChart();
+              entry.target.dataset.chartInitialized = true; // 차트가 초기화되었음을 표시
+              observer.unobserve(entry.target); // 관찰 중지
+            }
+          }
+        });
+      }, { threshold: 0.1 }); // 10% 보일 때 로드
+
+      chartElements.forEach(el => {
+        const canvas = document.getElementById(el.id);
+        if (canvas) {
+          observer.observe(canvas);
+        }
+      });
+
+      // --- 차트 1: 기업 적용 (CRED 사례) ---
+      function createAppsChart() {
+        const ctx = document.getElementById('appsChart');
+        if (!ctx) return;
+
+        new Chart(ctx, {
+          type: 'bar', // 가로 막대 차트로 변경
+          data: {
+            labels: ['해결 정확도 (%)', '세션 이탈 감소 (%)', 'CSAT 개선 (p)'],
+            datasets: [{
+              label: '도입 3개월 성과',
+              data: [98, 31, 14],
+              backgroundColor: [
+                'rgba(77, 150, 255, 0.7)', // #4D96FF
+                'rgba(247, 208, 96, 0.7)', // #F7D060
+                'rgba(107, 203, 119, 0.7)' // #6BCB77
+              ],
+              borderColor: [
+                '#4D96FF',
+                '#F7D060',
+                '#6BCB77'
+              ],
+              borderWidth: 2
+            }]
+          },
+          options: {
+            indexAxis: 'y', // y축을 기준으로 하는 가로 막대 차트
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false // 범례 숨기기
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    let label = context.dataset.label || '';
+                    if (label) {
+                      label += ': ';
+                    }
+                    if (context.parsed.x !== null) {
+                      label += context.parsed.x;
+                      if(context.label.includes('%')) label += '%';
+                      if(context.label.includes('p')) label += 'p';
+                    }
+                    return label;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 100, // 최대값을 100으로 고정
+                ticks: {
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              },
+              y: {
+                ticks: {
+                  font: {
+                    weight: 'bold',
+                    size: 14
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 기술 동향 인포그래픽 (2025년 11월 12일)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 1. 기본 스타일: 폰트, 배경색, 글자색 (요구사항) */
+    body {
+      font-family: 'Noto+Sans+KR', sans-serif;
+      background-color: #FDF0E0; /* Light Peach */
+      color: #1E1E1E; /* Dark Text */
+      scroll-behavior: smooth; /* 부드러운 스크롤 */
+    }
+    /* 2. 카드 스타일: 흰색 배경, 검정 테두리, 굵은 그림자 (요구사항) */
+    .kpi-card {
+      background: #FFFFFF;
+      border: 2px solid #1E1E1E;
+      box-shadow: 4px 4px 0px #1E1E1E;
+      transition: all .2s ease-in-out;
+    }
+    .kpi-card:hover {
+      transform: translate(1px, 1px);
+      box-shadow: 3px 3px 0px #1E1E1E;
+    }
+    .news-card {
+      background: #FFFFFF;
+      border: 2px solid #1E1E1E;
+      box-shadow: 6px 6px 0px #1E1E1E;
+      transition: all .2s ease-in-out;
+    }
+    .news-card:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 4px 4px 0px #1E1E1E;
+    }
+    /* 3. 차트 컨테이너 */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 280px; /* 모바일/기본 높이 */
+      margin: 1.5rem auto;
+    }
+    .chart-container.doughnut {
+      max-width: 280px; /* 도넛 차트는 폭 제한 */
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 300px; /* 데스크탑 높이 */
+      }
+      .chart-container.doughnut {
+        height: 300px;
+      }
+    }
+    /* 4. 스티키 네비게이션 (요구사항) */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      /* 배경색+반투명, 블러 */
+      background-color: rgba(253, 240, 224, 0.8); /* #FDF0E0 + 80% */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    /* 5. CSS 시각화 (Big Number Callout) */
+    .callout-box {
+      background-color: #f3f4f6; /* bg-gray-100 */
+      border: 2px solid #1E1E1E;
+      padding: 1.5rem;
+      text-align: center;
+      border-radius: 0.5rem;
+    }
+    .callout-box .big-number {
+      font-size: 2.5rem; /* 4xl */
+      font-weight: 700; /* bold */
+      line-height: 1.2;
+      color: #FF6B6B; /* 테마 색상 */
+    }
+    .callout-box .sub-text {
+      font-size: 1rem; /* lg */
+      color: #374151; /* gray-700 */
+      margin-top: 0.5rem;
+    }
+    /* NEW 배지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10 md:my-16">
+      <h1 class="text-4xl md:text-6xl font-bold mb-3">AI·기술 최신 동향 <span class="badge-new">NEW</span></h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 12일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4장 고정)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12 md:mb-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">오늘의 핵심 지표</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <!-- KPI 1: 인프라 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">💰 오픈AI 소라 운영비</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">일 1,500만 달러</p>
+          <p class="text-sm text-gray-500">(추정) Forbes 분석</p>
+        </div>
+        <!-- KPI 2: 리더십 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🤖 AI 인재 쟁탈전</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">인텔 CTO → OpenAI</p>
+          <p class="text-sm text-gray-500">AGI 인프라 설계 총괄</p>
+        </div>
+        <!-- KPI 3: 사회 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">⚖️ AI 교통 단속 효과</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">위반 70% 감소</p>
+          <p class="text-sm text-gray-500">메릴랜드 스톱사인 카메라</p>
+        </div>
+        <!-- KPI 4: 도구 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🛠️ 오픈소스 음성인식</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">1,600+ 언어</p>
+          <p class="text-sm text-gray-500">메타, 옴니링구얼 ASR 공개</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 탭 고정)
+         ========================= -->
+    <nav class="sticky-nav py-3 mb-10 md:mb-16 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-x-2 gap-y-1 md:gap-x-4">
+        <a href="#infra" class="smooth-scroll font-bold text-base md:text-lg py-2 px-3 md:px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">💰 인프라 전쟁</a>
+        <a href="#leadership" class="smooth-scroll font-bold text-base md:text-lg py-2 px-3 md:px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🤖 AI 리더십 격변</a>
+        <a href="#trust" class="smooth-scroll font-bold text-base md:text-lg py-2 px-3 md:px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI와 사회적 신뢰</a>
+        <a href="#tools" class="smooth-scroll font-bold text-base md:text-lg py-2 px-3 md:px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🛠️ AI 도구의 진화</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-16 md:space-y-20">
+
+      <!-- 1) 인프라 전쟁 -->
+      <section id="infra">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#FF6B6B] pl-4">💰 인프라 전쟁</h2>
+        <p class="mb-8 text-lg text-gray-700">AI의 막대한 비용과 전력난이 핵심 이슈로 부상했습니다. 천문학적인 운영비와 '유령 데이터센터' 사태는 인프라 병목 현상이 AI 발전의 최대 변수임을 보여줍니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: 소라 비용 -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI 소라(Sora), 하루 운영비 1,500만 달러 '지속 불가능'</h3>
+            <p class="mb-4 text-gray-800">포브스 분석에 따르면, 오픈AI의 영상 생성 모델 '소라'가 하루 약 1,500만 달러(약 200억 원)의 막대한 비용을 소모하고 있습니다. 10초 영상 1건당 약 1.30달러로, 텍스트 생성보다 훨씬 자원 집약적입니다. 빌 피블스 소라 책임자는 "현재 경제성은 완전히 지속 불가능하다"고 인정했습니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> 막대한 AI 인프라 비용이 기업의 수익성과 지속가능성에 핵심 변수로 작용하고 있습니다.</p>
+          </article>
+
+          <!-- 시각화 카드: 비용 비교 (도넛) -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h4 class="font-bold text-lg md:text-xl mb-3 text-center">AI 기업 현금 소진 비교 (추정)</h4>
+            <p class="text-center text-sm text-gray-600 mb-4">PYMNTS 보도에 따르면, 오픈AI의 현금 소진 규모가 앤스로픽의 14배에 달할 수 있다는 관측이 나옵니다.</p>
+            <div class="chart-container doughnut">
+              <canvas id="costChart"></canvas>
+            </div>
+            <p class="text-xs text-gray-500 text-center mt-2">※ 오픈AI vs 앤스로픽 현금 소진 비율 (단위: 배)</p>
+          </article>
+
+          <!-- 뉴스 카드: 유령 데이터센터 -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">실리콘밸리 '유령 데이터센터', 전력난에 6년째 멈춤</h3>
+            <p class="mb-4 text-gray-800">AI타임스에 따르면, 산타클라라의 48MW급 데이터센터 2곳이 전력 공급 지연으로 2019년부터 가동되지 못하고 있습니다. 총 100MW에 가까운 용량이 '빈 건물'로 남아있으며, 이는 AI 인프라 확장 속도를 전력망이 따라가지 못하는 구조적 리스크를 보여줍니다. 현지 전력청(SVP)은 2028년 증설 완료를 목표로 하고 있습니다.</p>
+            <!-- CSS 시각화: Big Number Callout -->
+            <div class="callout-box mt-4">
+              <div class="big-number">⚡ 100MW</div>
+              <div class="sub-text">6년간 '유령' 상태인 데이터센터 용량</div>
+            </div>
+            <p class="mt-auto pt-4 text-sm font-medium">💡 <b>핵심:</b> AI 경쟁의 핵심 병목이 칩에서 '전력'으로 이동하고 있으며, 전력망 투자가 시급한 과제로 떠올랐습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) AI 리더십 격변 -->
+      <section id="leadership">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#4D96FF] pl-4">🤖 AI 리더십 격변</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 패권을 잡기 위한 기업들의 전략 수정과 핵심 인재 확보 경쟁이 치열합니다. CEO 직할 체제 강화, AGI 독자 개발 선언, 핵심 인물의 연쇄 이동이 업계 지형을 바꾸고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: 인텔/오픈AI -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI, 인텔 CTO 사친 카티 영입... 인텔은 CEO 직할 체제</h3>
+            <p class="mb-4 text-gray-800">오픈AI가 인텔의 최고기술책임자(CTO) 겸 AI 책임자였던 사친 카티를 영입했습니다. 카티는 AGI 연구를 뒷받침할 차세대 컴퓨팅 인프라 설계를 총괄할 예정입니다. 핵심 임원을 잃은 인텔은 립부 탄 CEO가 AI 및 첨단기술 부문을 직접 지휘하며 리더십 공백 최소화에 나섰습니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AGI 개발을 위한 인프라 구축 경쟁이 치열해지면서, 하드웨어와 소프트웨어를 모두 이해하는 최고급 인재 쟁탈전이 격화되고 있습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드: 메타/MS -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">메타 르쿤 퇴사 추진, MS는 AGI 독자 개발 선언</h3>
+            <p class="mb-4 text-gray-800">메타의 수석 AI 과학자이자 '딥러닝의 아버지' 야닉 르쿤이 스타트업 설립을 위해 퇴사를 추진 중입니다. 이는 메타의 AI 전략에 변화를 예고합니다. 한편, 마이크로소프트는 오픈AI와의 파트너십 재편으로 AGI 독자 개발이 가능해졌다며 'MAI 슈퍼인텔리전스 팀' 신설을 발표, 구글, 메타 등과 직접 경쟁을 공식화했습니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI '거물'들의 독립과 빅테크의 AGI 독자 노선 선언은 AI 개발 경쟁이 새로운 국면에 접어들었음을 시사합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) AI와 사회적 신뢰 -->
+      <section id="trust">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#F7D060] pl-4">⚖️ AI와 사회적 신뢰</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 기술이 사회 곳곳에 적용되면서 신뢰와 윤리 문제가 수면 위로 떠오르고 있습니다. AI 오용으로 인한 사기, 오인 체포 등 부작용과 함께, 안전을 강화하는 긍정적 사례가 동시에 나타나고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: AI 부작용 -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">AI 오인식으로 '무고한 체포', 가짜 중고차 사기 등 부작용 속출</h3>
+            <p class="mb-4 text-gray-800">네바다 카지노에서 AI 안면인식 오탐지로 무고한 시민이 체포되는 소송이 제기됐습니다. 또한 캘리포니아에서는 AI를 악용해 딥페이크 서류까지 만든 '가짜 온라인 중고차' 사기가 증가하며 당국이 대응에 나섰습니다. 이는 AI 기술의 신뢰성과 검증 절차의 중요성을 부각시킵니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI 기술의 오용 및 오류로 인한 사회적 피해가 현실화되면서, '인간 개입(Human-in-the-loop)'과 강력한 검증 시스템이 필수가 되고 있습니다.</p>
+          </article>
+
+          <!-- 시각화 카드: AI 긍정 효과 (막대) -->
+          <article class="news-card p-6 md:p-8 rounded-xl">
+            <h4 class="font-bold text-lg md:text-xl mb-3 text-center">AI 단속 카메라 도입 효과 (메릴랜드)</h4>
+            <p class="text-center text-sm text-gray-600 mb-4">학교 인근 교차로에 AI 카메라 도입 후, 스톱사인 위반 건수가 70% 감소했습니다.</p>
+            <div class="chart-container">
+              <canvas id="trafficChart"></canvas>
+            </div>
+            <p class="text-xs text-gray-500 text-center mt-2">※ 스톱사인 위반 비교</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) AI 도구의 진화 -->
+      <section id="tools">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#6BCB77] pl-4">🛠️ AI 도구의 진화</h2>
+        <p class="mb-8 text-lg text-gray-700">AI가 코딩, 언어, 이미지 편집 등 전문 영역을 넘어 일상 속 도구로 빠르게 확산되고 있습니다. 오픈소스 모델 공개와 기존 서비스의 AI 기능 강화가 동시에 진행 중입니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: 메타 ASR -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">메타, 1,600개 이상 언어 지원 '오픈소스 음성인식' 공개</h3>
+            <p class="mb-4 text-gray-800">메타가 1,600개 이상의 언어를 기본 지원하는 오픈소스 음성인식 시스템 '옴니링구얼 ASR'을 GitHub에 공개했습니다. 제로샷 인컨텍스트 러닝을 통해 5,400개 이상 언어로 확장이 가능하며, 특히 소수언어 지원을 대폭 확대해 전 세계적 접근성 향상을 목표로 합니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> 거대 기업의 고성능 AI 모델 오픈소스 공개는 소수 언어권의 정보 격차를 해소하고, 다양한 AI 서비스 개발을 촉진할 것입니다.</p>
+          </article>
+
+          <!-- 뉴스 카드: 구글 도구 -->
+          <article class="news-card p-6 md:p-8 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">구글, '나노 바나나 2.0' 및 'Gemini Dynamic View'로 경험 강화</h3>
+            <p class="mb-4 text-gray-800">구글이 '제미나이 3 프로'를 탑재한 이미지 편집 도구 '나노 바나나 2.0' 공개를 앞두고 있습니다. 이와 함께 구글 포토의 AI 편집 및 자연어 검색 기능을 100여 국으로 확대했습니다. 또한 채팅창 내에서 웹 검색, 이미지 생성 등을 바로 실행하는 'Dynamic View'도 포착되어, AI 기반 작업 환경이 더욱 고도화될 전망입니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI가 별도 앱이 아닌, 기존 작업(이미지 편집, 검색, 채팅) 흐름에 자연스럽게 통합되며 사용자의 생산성을 극대화하는 방향으로 진화하고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-16 md:mt-20 mb-8">
+      <p>AI·기술 최신 동향 | 2025-11-12</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPT
+       ========================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // --- 1. 부드러운 스크롤 (Smooth Scroll) ---
+      // 'smooth-scroll' 클래스를 가진 모든 링크에 이벤트 리스너 추가
+      document.querySelectorAll('a.smooth-scroll').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault(); // 기본 앵커 동작 방지
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            // 스티키 네비게이션의 높이를 계산 (존재하는 경우)
+            const nav = document.querySelector('.sticky-nav');
+            const navHeight = nav ? nav.offsetHeight : 0;
+            
+            // 목표 위치에서 네비게이션 높이만큼 빼서, 네비가 가리는 것 방지
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 20; // 20px 추가 여백
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // --- 2. 차트 로딩 (Intersection Observer) ---
+      // 차트가 화면에 보일 때 로드되도록 설정
+      
+      const chartOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5 // 50% 보일 때
+      };
+
+      const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const canvasId = entry.target.id;
+            if (canvasId === 'costChart') {
+              loadCostChart();
+            } else if (canvasId === 'trafficChart') {
+              loadTrafficChart();
+            }
+            observer.unobserve(entry.target); // 한 번 로드되면 관찰 중지
+          }
+        });
+      }, chartOptions);
+
+      // 관찰 대상 등록
+      const costCanvas = document.getElementById('costChart');
+      const trafficCanvas = document.getElementById('trafficChart');
+      
+      if (costCanvas) chartObserver.observe(costCanvas);
+      if (trafficCanvas) chartObserver.observe(trafficCanvas);
+
+      // --- 3. 차트 생성 함수 ---
+      
+      // 비용 비교 (도넛 차트)
+      function loadCostChart() {
+        const ctx = document.getElementById('costChart');
+        if (!ctx) return;
+        
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['OpenAI 현금 소진', 'Anthropic 현금 소진'],
+            datasets: [{
+              label: '현금 소진 비율 (배)',
+              data: [14, 1], // 14배 차이
+              backgroundColor: [
+                '#FF6B6B', // Red
+                '#4D96FF'  // Blue
+              ],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  font: {
+                    family: "'Noto Sans KR', sans-serif",
+                    weight: '500'
+                  }
+                }
+              },
+              tooltip: {
+                titleFont: { family: "'Noto Sans KR', sans-serif" },
+                bodyFont: { family: "'Noto Sans KR', sans-serif" }
+              }
+            }
+          }
+        });
+      }
+
+      // 교통 위반 (막대 차트)
+      function loadTrafficChart() {
+        const ctx = document.getElementById('trafficChart');
+        if (!ctx) return;
+        
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['도입 전', '도입 후'],
+            datasets: [{
+              label: '스톱사인 위반 건수 (상대치)',
+              data: [100, 30], // 70% 감소 표현
+              backgroundColor: [
+                'rgba(247, 208, 96, 0.6)', // Yellow-light
+                'rgba(107, 203, 119, 0.6)' // Green-light
+              ],
+              borderColor: [
+                '#F7D060', // Yellow
+                '#6BCB77'  // Green
+              ],
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y', // 가로 막대 차트
+            scales: {
+              x: {
+                beginAtZero: true,
+                ticks: {
+                  font: { family: "'Noto Sans KR', sans-serif" }
+                }
+              },
+              y: {
+                ticks: {
+                  font: { 
+                    family: "'Noto Sans KR', sans-serif",
+                    size: 14,
+                    weight: '500'
+                   }
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: false // 범례 숨김
+              },
+              tooltip: {
+                titleFont: { family: "'Noto Sans KR', sans-serif" },
+                bodyFont: { family: "'Noto Sans KR', sans-serif" }
+              }
+            }
+          }
+        });
+      }
+
+    }); // End DOMContentLoaded
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+
+</body>
+</html>

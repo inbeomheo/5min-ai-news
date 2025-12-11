@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: 2025년 12월 5일 AI 브리핑</title>
+    
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections. -->
+    <!-- Top 5 Selection Logic:
+         1. OpenAI Korea Report (High relevance to local audience)
+         2. Google Gemini 3 Deep Think (Major model release)
+         3. Nvidia Blackwell Speedup (Major infrastructure breakthrough)
+         4. Anthropic Dev Usage (Significant shift in work culture)
+         5. EU Antitrust Probe (Major regulatory impact)
+    -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased relative">
+
+    <!-- 홈 버튼 -->
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-lg hover:bg-slate-100 hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-amber-500 rounded-full"></div>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">뉴스대시 <span class="text-slate-400 font-normal">| 2025.12.05</span></h1>
+            </div>
+            <div class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full hidden sm:block">
+                Daily AI Intelligence
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Key Data Highlights Section -->
+        <section id="highlights-container">
+            <div class="flex justify-between items-end mb-4">
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Daily Key Figures</h2>
+                <span class="text-xs text-amber-600 font-medium bg-amber-50 px-2 py-1 rounded">Editor's Pick</span>
+            </div>
+            <div id="key-metrics" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Dynamically Inserted -->
+            </div>
+        </section>
+
+        <!-- Top 5 News Section -->
+        <section>
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2 bg-slate-800 rounded-lg text-white shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">오늘의 핵심 이슈 Top 5</h2>
+                    <p class="text-sm text-slate-500 mt-1">AI 산업에서 가장 파급력이 큰 뉴스를 엄선했습니다.</p>
+                </div>
+            </div>
+            <div id="top5-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically Inserted -->
+            </div>
+        </section>
+
+        <!-- Thematic Sections -->
+        <div id="thematic-container" class="space-y-12">
+            <!-- Dynamically Inserted Sections -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+            <p>&copy; 2025 뉴스대시 AI Briefing. Curated by AI Architect.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Template -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0 translate-y-4 duration-300 ease-out" id="modal-backdrop"></div>
+
+        <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl opacity-0 translate-y-4 duration-300 ease-out scale-95" id="modal-panel">
+                
+                <div class="bg-slate-50 px-4 py-3 sm:px-6 flex justify-between items-start border-b border-slate-100">
+                    <div>
+                        <span id="modal-tag" class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20 mb-2">Category</span>
+                        <h3 class="text-lg font-bold leading-6 text-slate-900" id="modal-title">News Title</h3>
+                    </div>
+                    <button type="button" id="modal-close-btn" class="rounded-md bg-white text-slate-400 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="px-4 py-5 sm:p-6 max-h-[70vh] overflow-y-auto modal-scroll">
+                    <div class="prose prose-sm prose-slate max-w-none text-slate-600 leading-relaxed whitespace-pre-line" id="modal-content"></div>
+                </div>
+
+                <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" id="modal-close-btn-bottom" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // --- 1. Data Processing ---
+        // Top 5 have been manually curated based on global impact and local relevance.
+        const reportData = [
+            // [Top 5 Selection]
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Local Insight",
+                title: "오픈AI 코리아 “한국, 챗GPT 업무 활용도 가장 높아…기업 AX 수요 폭증”",
+                isTop5: true, // Selected: High relevance to Korean audience
+                details: "오픈AI 코리아는 12월 4일 서울 중구 웨스틴조선호텔에서 기자간담회를 열고, 국내에서 챗GPT의 업무 활용도가 특히 높아 기업들의 ‘AI 전환(AX)’ 수요가 빠르게 늘고 있다고 밝혔다.\n\n김경훈 오픈AI 코리아 총괄 대표는 챗GPT 출시 3년 동안의 도입 현황을 소개하며, 국내 사용자의 29%가 번역·문서·이메일 작성 등 업무 산출물 생산에, 21%가 업무 수행 방법 자문에 챗GPT를 활용하고 있다고 설명했다. 그는 이러한 패턴이 운동·생활·학습 조언 등 개인적 용도가 많은 글로벌 평균과 대조적이라며, 한국이 “생산성 향상을 위해 AI를 가장 적극적으로 쓰는 나라”라고 평가했다.\n\n김 대표는 전 세계 기준으로 챗GPT 일일 메시지가 2024년 6월 4억5천만 건에서 2025년 6월 26억3천만 건으로 약 6배 증가했으며, 인구 대비 유료 이용자 비율도 한국이 세계 1위 수준이라고 소개했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Major Tech",
+                title: "구글, Ultra 유료 구독자 대상 ‘Gemini 3 Deep Think’ 모드 공식 출시",
+                isTop5: true, // Selected: Major model update
+                details: "구글이 12월 4일(현지시간) 자사 프리미엄 요금제인 Google AI Ultra 구독자를 대상으로, 고급 추론 기능을 탑재한 ‘Gemini 3 Deep Think’ 모드의 정식 출시를 발표했다.\n\n이 모드는 여러 가설을 동시에 탐색하는 병렬 추론과 확장된 ‘생각 시간’ 그리고 강화학습 기법을 활용해, 기존 모델도 어려워하던 복잡한 수학·과학·논리 문제를 단계적으로 풀도록 설계됐다. 구글은 Deep Think 모드가 ‘Humanity’s Last Exam’와 ARC-AGI-2, GPQA Diamond 등 최상위 난도 벤치마크에서 선도적 성능을 기록하고 있다며, Humanity’s Last Exam에서 약 41% 정답률로 다른 선도 모델들을 앞섰다고 설명했다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Infrastructure",
+                title: "엔비디아, 블랙웰 서버서 MoE 추론 속도 10배 향상 주장",
+                isTop5: true, // Selected: Core Infrastructure news
+                details: "엔비디아는 3일(현지시각) 발표를 통해 차세대 ‘블랙웰(Blackwell)’ 기반 AI 서버에서 전문가 혼합(MoE) 방식의 주요 오픈소스 모델이 기존 대비 최대 10배 빠른 추론 성능을 달성했다고 밝혔다.\n\n회사는 새 서버 아키텍처와 통합 소프트웨어 스택을 통해, 대규모 파라미터를 가진 MoE 모델에서도 지연 시간을 줄이면서 처리량을 크게 높여 클라우드·엔터프라이즈용 AI 서비스를 효율적으로 운영할 수 있다고 설명했다. AI 산업의 무게중심이 초거대 모델 학습에서 상용 서비스용 추론 경쟁으로 옮겨가는 상황에서, 엔비디아는 이번 발표를 계기로 경쟁사 대비 기술 우위를 다시 한번 과시했다는 평가다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Future of Work",
+                title: "앤트로픽, 내부 연구로 드러난 ‘클로드’의 개발 조직 재편 효과",
+                isTop5: true, // Selected: Significant industry/workplace trend
+                details: "앤트로픽은 2025년 8월 자사 엔지니어 132명을 대상으로 한 내부 연구에서 생성형 AI 도구 ‘클로드’가 일일 엔지니어링 업무의 약 60%에 사용되고 있으며 이는 1년 전 28%에서 두 배 이상 증가한 수준이라고 3일(현지시간) 밝혔다.\n\n이번 연구에 따르면 직원들이 체감하는 생산성 향상도 평균 20%에서 50% 수준으로 급등했으며, 이는 디버깅·코드 이해·리팩터링 등 다양한 개발 작업에 AI를 폭넓게 투입한 결과로 분석됐다. 보고서는 개발자들이 점차 ‘코드를 직접 치는 전문가’에서 여러 AI 에이전트를 조율하는 관리자·오케스트레이터 역할로 이동하고 있다고 진단했다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Regulation/EU",
+                title: "EU, 메타 왓츠앱 AI 정책에 반독점 조사 착수…경쟁사 차별 여부 쟁점",
+                isTop5: true, // Selected: Major geopolitical/regulatory news
+                details: "12월 4일(현지시각) 유럽연합(EU) 집행위원회는 미국 빅테크 기업 메타플랫폼스의 왓츠앱(WhatsApp) 내 AI 제공 정책이 경쟁사를 차별할 소지가 있다며, 본격적인 반독점 조사에 착수했다고 밝혔다.\n\n조사 대상은 2026년 1월 적용 예정인 새 정책으로, 메타가 자사 ‘메타 AI’는 왓츠앱에서 계속 제공하면서도 외부 AI 제공업체가 왓츠앱을 통해 유럽 사용자에게 서비스를 제공하는 경로를 제한할 수 있다는 점이 문제로 지적됐다. 이번 조사는 EU ‘디지털 시장법(DMA)’ 시행 이후 메이저 플랫폼의 AI 전략에 처음으로 정면 제동이 걸린 사례로 주목받고 있다."
+            },
+
+            // [Remainder of News - Categorized]
+            // Theme: AI 인프라 및 투자
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Business Strategy",
+                title: "SK AX, 조직 개편·임원 인사 단행…‘글로벌 AX 서비스’ 체제 구축 가속",
+                isTop5: false,
+                details: "12월 4일 SK그룹의 IT·AI 서비스 계열사 SK AX가 중장기 성장을 위해 조직 개편과 임원 인사를 단행하며, 그룹 및 외부 고객의 ‘AI 전환(AX)’ 사업체계 고도화에 나선다고 밝혔다. 회사는 소형언어모델(sLM) 등 선행 AI 기술 연구를 총괄하는 최고AI책임자(CAIO) 직책을 CEO 직속으로 신설하고, 조직 전반을 ‘AI 중심 구조’로 재편해 연구·상품·사업 조직 간 연계를 강화했다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Partnership",
+                title: "Anthropic, 스노우플레이크와 2억달러 규모 AI 에이전트 파트너십 체결",
+                isTop5: false,
+                details: "생성형 AI 기업 앤트로픽(Anthropic)과 클라우드 데이터 플랫폼 기업 스노우플레이크(Snowflake)는 12월 3일(현지시간) 다년간 총 2억달러 규모의 전략적 파트너십 확대를 발표하고, Claude 계열 모델을 스노우플레이크 AI 데이터 클라우드에 본격 통합하기로 했다. 이번 2억달러 투자는 규제 산업을 포함한 글로벌 기업 환경에 ‘에이전틱 AI’를 본격 확산시키는 분수령이 될 전망이다."
+            },
+
+            // Theme: 플랫폼, 제품 및 에이전트
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Google Workspace",
+                title: "구글, 몇 분 만에 AI 에이전트 만드는 ‘워크스페이스 스튜디오’ 정식 출시",
+                isTop5: false,
+                details: "구글은 4일(현지시간) 지메일·캘린더·드라이브 등과 연동되는 새 플랫폼 ‘구글 워크스페이스 스튜디오’를 정식 공개했다. 이 도구는 ‘제미니 3’ 모델을 기반으로 자연어 지시만으로 워크플로를 설계·배포할 수 있어, 개발 경험이 없는 일반 직원도 일상 업무용 에이전트를 손쉽게 만들 수 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Microsoft Copilot",
+                title: "마이크로소프트 코파일럿, 아바타 ‘Mico’에 미국 한정 액세서리·색상 컨트롤 제공",
+                isTop5: false,
+                details: "마이크로소프트는 올가을 업데이트에서 생성형 AI 비서 ‘코파일럿’에 시각형 아바타 ‘Mico(마이코)’를 도입했다. 일부 사용자에게는 Mico의 색상과 외형을 세밀하게 조정할 수 있는 기능이 제공되며, 이는 AI 비서를 단순 채팅창이 아닌 ‘동반형’ 인터페이스로 진화시키려는 전략으로 평가된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Google NotebookLM",
+                title: "NotebookLM, Gemini 3 기반으로 ‘연구 에이전트’ 수준으로 도약 전망",
+                isTop5: false,
+                details: "구글의 NotebookLM이 Gemini 3 계열 모델을 탑재하면서 성능이 크게 강화됐다. 이제 최대 100만 토큰 컨텍스트를 지원하여 방대한 자료를 분석하고 심층 리포트, 인포그래픽 등을 자동 생성하는 ‘연구용 에이전트’로서의 가치가 높아졌다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic Model",
+                title: "Claude Opus 4.5, Pro 사용자를 위한 최고급 코딩 모델로 Claude Code에 탑재",
+                isTop5: false,
+                details: "앤트로픽은 최상위 모델인 Claude Opus 4.5를 Claude Code 환경에서 제공하기 시작했다. Opus 4.5는 에이전트 코딩 벤치마크에서 80.9%를 기록하며 경쟁 모델을 앞섰으며, 특히 장기적인 에이전트 코딩 및 도구 사용 과제에서 두각을 나타낸다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "OpenAI Feature",
+                title: "OpenAI, ChatGPT에 ‘Memory Search’ 시험 도입…개인 메모리 직접 검색",
+                isTop5: false,
+                details: "OpenAI가 ChatGPT에서 사용자가 저장된 메모리를 직접 검색할 수 있는 'Memory Search' 모드를 테스트 중이다. 이는 대량의 기억 정보를 효율적으로 관리하고 재사용할 수 있게 하여, 개인 지식베이스로서의 활용도를 높이려는 시도다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Image Gen",
+                title: "LM Arena 이미지 리더보드, FLUX.2 시리즈 텍스트-이미지·편집 모두 톱10 진입",
+                isTop5: false,
+                details: "LM Arena의 최신 이미지 리더보드에서 Black Forest Labs의 FLUX.2 Flex와 Pro 모델이 상위권에 진입했다. 이는 구글 Gemini 계열과 경쟁하며 실사용 기준 대등한 대안으로 자리 잡았음을 보여준다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Gemini Feature",
+                title: "구글 제미니, 예약 작업 전용 ‘Scheduled Actions Manager’ 탭 시험 도입",
+                isTop5: false,
+                details: "구글이 제미니 앱에 예약된 프롬프트를 관리할 수 있는 전용 탭을 시험 적용 중이다. 사용자는 매일 브리핑이나 뉴스 다이제스트 같은 반복 작업을 손쉽게 생성하고 관리할 수 있게 된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Platform Ecosystem",
+                title: "ChatGPT 앱 제출 흐름 최초 포착…MCP 기반 규제형 생태계 윤곽",
+                isTop5: false,
+                details: "OpenAI의 ChatGPT 앱 디렉토리 제출 화면이 공개되었다. 이는 MCP(Model Context Protocol) 기반으로 동작하며, 앱의 외부 연동 정보와 테스트 시나리오를 사전에 제출받아 검수하는 체계를 갖추고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Video Gen",
+                title: "Kling AI, 네이티브 오디오 탑재한 VIDEO 2.6 공개…영상·음성 동시 생성",
+                isTop5: false,
+                details: "중국 Kling AI가 오디오 기능을 내장한 VIDEO 2.6 모델을 공개했다. 영상 프레임 생성과 동시에 자연스러운 음성 및 효과음을 동기화하여 생성할 수 있어, 크리에이터의 작업 공정을 크게 단축시킬 것으로 기대된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Google Search",
+                title: "구글 2025 ‘이어 인 서치’…최고 트렌딩 검색어는 AI 챗봇 ‘제미나이’",
+                isTop5: false,
+                details: "구글이 발표한 2025년 '이어 인 서치' 보고서에서 전 세계 가장 큰 검색 증가세를 보인 키워드는 '제미나이'였다. 이는 검색 행위가 질문에서 대화형 AI로 이동하고 있음을 보여주는 신호다."
+            },
+
+            // Theme: 산업별 AI 적용
+            {
+                theme: "산업별 AI 적용",
+                category: "Bio/Pharma",
+                title: "스페인 mAbxience·HP, 바이오의약품 생산 최적화 AI 디지털 트윈 개발",
+                isTop5: false,
+                details: "스페인 바이오 기업 마브시아와 HP가 항체 치료제 생산 최적화를 위한 AI 디지털 트윈 솔루션을 공동 개발한다. 공장 전체를 가상으로 모사하여 생산 효율성을 높이고 비용을 절감하는 것을 목표로 한다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Supply Chain",
+                title: "“20분 만에 공급망 앱 구축” 튜토리얼…스트림릿 활용한 분석 민주화",
+                isTop5: false,
+                details: "공급망 분석 전문가가 파이썬과 스트림릿을 활용해 20분 만에 재고 시뮬레이션 앱을 만드는 방법을 공개했다. 이는 현업 사용자가 복잡한 코딩 없이도 데이터 분석 도구를 직접 만들어 쓸 수 있는 '분석 민주화'의 사례다."
+            },
+
+            // Theme: 법률, 규제 및 거버넌스
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Policy Report",
+                title: "NIA, ‘AI 환각’ 첫 정책 리포트 발간…위험·대응 전략 체계화",
+                isTop5: false,
+                details: "한국지능정보사회진흥원(NIA)이 AI 환각 현상을 집중 분석한 정책 리포트를 발간했다. 보고서는 환각을 단순 오류가 아닌 구조적 위험으로 규정하고, 기술적 완화 대책과 거버넌스 수립을 제안했다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Privacy/Security",
+                title: "퓨처리즘 “머스크의 그록, 일반인 집 주소까지 ‘독싱’…스토커 도구 우려”",
+                isTop5: false,
+                details: "xAI의 챗봇 ‘그록’이 일반인의 자택 주소와 연락처를 무분별하게 노출해 논란이 되고 있다. 다른 챗봇들이 개인정보 제공을 거부하는 것과 달리, 그록은 안전장치가 미흡해 악용될 소지가 있다는 지적이다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Safety/Ethics",
+                title: "웨이모, 로보택시 소프트웨어 ‘공격적 주행’으로 재조정…안전성 논란",
+                isTop5: false,
+                details: "웨이모가 로보택시의 주행 알고리즘을 더 인간에 가까운 ‘공격적 주행’으로 변경했다. 교통 흐름 개선을 위한 조치였으나, 신호 위반 의심 사례 등이 목격되면서 안전성에 대한 우려가 제기되고 있다."
+            },
+
+            // Theme: AI와 사회
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Tech Opinion",
+                title: "“AI 코드 도구, 초보자 학습·기존 개발자 기술 퇴화 초래” 경고",
+                isTop5: false,
+                details: "AI 교육 전문가 이 로빈슨은 AI 코딩 도구 확산이 개발자들의 기초 역량 저하를 초래할 수 있다고 경고했다. 코드 구조 이해 없이 AI에 의존하는 ‘바이브 코딩’이 장기적으로는 기술 부채가 될 수 있다는 지적이다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Tech Report",
+                title: "앤트로픽, 내부 조사로 드러난 ‘AI와 함께 일하는 개발자’의 현재와 고민",
+                isTop5: false,
+                details: "앤트로픽의 내부 보고서에 따르면 AI 도입으로 생산성은 높아졌지만, 멘토링 기회가 줄어들고 장기적인 커리어 불확실성에 대한 우려도 커지고 있다. 이는 AI 시대 개발 문화의 변화를 보여준다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Market Stats",
+                title: "챗GPT 등 AI 앱, 11월 국내 역대 최대 MAU…생성형 AI 대중화 본격화",
+                isTop5: false,
+                details: "11월 국내 주요 생성형 AI 앱의 월간활성이용자(MAU)가 역대 최대치를 기록했다. 챗GPT뿐만 아니라 퍼플렉시티, 클로드 등 다양한 서비스의 사용량이 급증하며 AI 대중화가 가속화되고 있다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Visualization",
+                title: "플로잉데이터, 11월 데이터 시각화 도구·자료 ‘라운드업’ 뉴스레터 공개",
+                isTop5: false,
+                details: "데이터 시각화 사이트 플로잉데이터가 11월의 유용한 시각화 도구와 자료를 정리한 뉴스레터를 발행했다. 실무에 바로 적용 가능한 팁과 툴을 큐레이션하여 제공한다."
+            }
+        ];
+
+        // Key Highlights Data (Consolidated from Report)
+        const keyStats = [
+            { label: "Korea AI Usage", value: "#1", desc: "인구 대비 유료 사용자 비율" },
+            { label: "Anthropic Productivity", value: "+50%", desc: "엔지니어 체감 생산성 향상" },
+            { label: "Nvidia Blackwell", value: "10x", desc: "MoE 모델 추론 속도 향상" },
+            { label: "ChatGPT Forecast", value: "26억", desc: "2025년 일일 메시지 수" }
+        ];
+
+        // Theme Ordering
+        const themeOrder = [
+            "AI 인프라 및 투자",
+            "플랫폼, 제품 및 에이전트",
+            "산업별 AI 적용",
+            "법률, 규제 및 거버넌스",
+            "AI와 사회 (활용, 심리, 노동)"
+        ];
+
+        // --- 2. Helper Functions (Rendering) ---
+        function getDisplayTitle(title) {
+            const maxLength = 58;
+            if (title.length <= maxLength) return title;
+            // Split strategy
+            const delimiters = [' - ', ' – ', ': ', '...'];
+            for (const d of delimiters) {
+                if (title.includes(d)) {
+                    const parts = title.split(d);
+                    if (parts[0].length > 15) return parts[0] + '...';
+                }
+            }
+            return title.substring(0, maxLength) + '...';
+        }
+
+        function createCardHTML(item, index, isTop5Section = false) {
+            const displayTitle = getDisplayTitle(item.title);
+            const cardClasses = isTop5Section 
+                ? "bg-white border-l-4 border-l-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1" 
+                : "bg-white border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5";
+            
+            const badgeClasses = isTop5Section
+                ? "text-white bg-slate-800"
+                : "text-amber-700 bg-amber-50 group-hover:bg-amber-100";
+
+            return `
+                <div data-index="${index}" class="${cardClasses} rounded-r-lg p-6 cursor-pointer transition-all duration-300 flex flex-col h-full group" onclick="showModal(${index})">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide transition-colors ${badgeClasses}">${item.category}</span>
+                        ${isTop5Section ? '<span class="text-xs font-bold text-red-500 animate-pulse">HOT</span>' : ''}
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2 leading-snug group-hover:text-blue-900 transition-colors">${displayTitle}</h3>
+                    <p class="text-sm text-slate-500 line-clamp-3 leading-relaxed mt-auto">${item.details}</p>
+                </div>
+            `;
+        }
+
+        function createStatHTML(stat) {
+            return `
+                <div class="bg-white p-4 rounded-lg border border-slate-100 shadow-sm text-center group hover:border-amber-200 transition-colors">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase mb-1 tracking-widest">${stat.label}</p>
+                    <p class="text-3xl font-black text-slate-800 tracking-tighter group-hover:text-amber-500 transition-colors">${stat.value}</p>
+                    <p class="text-xs text-slate-500 mt-1 font-medium">${stat.desc}</p>
+                </div>
+            `;
+        }
+
+        // --- 3. Modal Logic ---
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalTag = document.getElementById('modal-tag');
+        const modalContent = document.getElementById('modal-content');
+        
+        function showModal(index) {
+            const item = reportData[index];
+            modalTitle.textContent = item.title;
+            modalTag.textContent = item.category;
+            modalContent.innerHTML = item.details.replace(/\n/g, '<br>'); // Preserve formatting
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0', 'translate-y-4');
+                modalPanel.classList.remove('opacity-0', 'translate-y-4', 'scale-95');
+                modalBackdrop.classList.add('opacity-100');
+                modalPanel.classList.add('opacity-100', 'scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0', 'translate-y-4');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'scale-95');
+            modalBackdrop.classList.remove('opacity-100');
+            modalPanel.classList.remove('opacity-100', 'scale-100');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-close-btn-bottom').addEventListener('click', closeModal);
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => { if(e.key === "Escape") closeModal(); });
+
+
+        // --- 4. Main Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Highlights
+            document.getElementById('key-metrics').innerHTML = keyStats.map(createStatHTML).join('');
+
+            // Top 5
+            const top5Container = document.getElementById('top5-grid');
+            const top5Items = reportData.filter(item => item.isTop5);
+            top5Container.innerHTML = top5Items.map(item => {
+                const originalIndex = reportData.indexOf(item);
+                return createCardHTML(item, originalIndex, true);
+            }).join('');
+
+            // Thematic Sections
+            const thematicContainer = document.getElementById('thematic-container');
+            const otherItems = reportData.filter(item => !item.isTop5);
+
+            themeOrder.forEach(theme => {
+                const itemsInTheme = otherItems.filter(item => item.theme === theme);
+                if (itemsInTheme.length > 0) {
+                    const section = document.createElement('section');
+                    section.className = "pt-8 border-t border-slate-200";
+                    
+                    const gridHTML = itemsInTheme.map(item => {
+                        const originalIndex = reportData.indexOf(item);
+                        return createCardHTML(item, originalIndex, false);
+                    }).join('');
+
+                    section.innerHTML = `
+                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-500 text-sm font-bold">#</span>
+                            ${theme}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${gridHTML}
+                        </div>
+                    `;
+                    thematicContainer.appendChild(section);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

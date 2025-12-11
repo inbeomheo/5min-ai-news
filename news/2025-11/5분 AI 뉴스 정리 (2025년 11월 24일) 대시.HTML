@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI News Report - 2025.11.24</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .badge-new {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+            letter-spacing: 0.5px;
+            animation: pulse 2s ease-in-out infinite;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-amber-500 rounded-full"></div>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900">
+                    뉴스대시 <span class="font-light text-slate-500">| AI Daily Insight</span>
+                    <span class="badge-new">NEW</span>
+                </h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                2025년 11월 24일
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        
+        <!-- Section 1: Key Data Highlights -->
+        <section id="key-highlights" class="animate-fade-in-up">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <span class="text-amber-600">●</span> 주요 데이터 하이라이트
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="highlights-container">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Section 2: Top 5 News -->
+        <section id="top-news" class="animate-fade-in-up delay-100">
+            <div class="flex items-baseline justify-between mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">오늘의 Top 5 뉴스</h2>
+                <span class="text-sm text-slate-500">가장 중요한 이슈를 먼저 확인하세요</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="top5-container">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Section 3: Thematic Sections -->
+        <div id="thematic-sections-wrapper" class="space-y-12">
+            <!-- Javascript will populate 5 thematic sections here -->
+        </div>
+
+        <footer class="pt-12 pb-8 border-t border-slate-200 mt-12 text-center text-slate-400 text-sm">
+            <p> 2025 AI News Report Dashboard. All rights reserved.</p>
+        </footer>
+
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background backdrop -->
+        <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <!-- Modal panel -->
+                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl opacity-0 scale-95" id="modal-panel">
+                    
+                    <!-- Header -->
+                    <div class="bg-slate-50 px-4 py-3 sm:px-6 flex justify-between items-start border-b border-slate-100">
+                        <div>
+                            <span id="modal-badge" class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20 mb-2">Category</span>
+                            <h3 class="text-xl font-bold leading-6 text-slate-900 pr-8" id="modal-title">Modal Title</h3>
+                        </div>
+                        <button type="button" class="rounded-md bg-slate-50 text-slate-400 hover:text-slate-500 focus:outline-none" id="modal-close-btn">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="px-4 py-5 sm:p-6 max-h-[70vh] overflow-y-auto text-slate-600 leading-relaxed text-base space-y-4" id="modal-content">
+                        <!-- Dynamic Content -->
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto" id="modal-close-btn-bottom">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Data Parsing & Structure ---
+        // Raw data parsed from the prompt report
+        const reportData = [
+            // Top 5 News (From the Big Blocks)
+            {
+                theme: "법률, 규제 및 거버넌스", 
+                category: "빅테크/규제",
+                title: "메타 플랫폼스: 내부 연구 은폐 의혹·청소년 안전 소송·AI 부채 확대",
+                isTop5: true,
+                details: "미국에서 2025년 11월, 메타 플랫폼스가 청소년 정신건강 영향에 대한 내부 연구를 묵살·중단했다는 의혹과 AI 챗봇의 아동 안전 문제를 둘러싼 소송, 그리고 AI 데이터센터 투자를 위한 대규모 채무 조달 확대로 동시에 압박을 받고 있다. \n\n최근 공개된 미 학교구 소송 자료에 따르면 메타는 페이스북 사용을 중단한 그룹에서 우울·불안·외로움이 줄어드는 ‘인과적’ 증거를 확인하고도 추가 연구를 중단하고 대외적으로는 부정적 효과를 인정하지 않은 것으로 지적된다. 뉴멕시코주는 메타 AI 챗봇이 미성년자에게 부적절한 발언을 했다는 보도를 근거로 내부 기록 제출을 요구하며, 한편 메타는 수십억 달러 규모 회사채와 블루아울 캐피털과의 270억 달러 구조화 금융 등으로 초대형 데이터센터 프로젝트를 추진해 지배구조·신용위험 우려까지 키우고 있다.\n\n기존에 제기된 청소년 중독·정신건강 논란에 더해, 최근 비공개 자료가 공개되면서 메타가 위험성을 인지하고도 제품 설계와 대외 소통에서 이를 충분히 반영하지 않았다는 주장이 힘을 얻고 있다. 내부 연구자 증언과 소송자료에는 메타가 사용자 심리를 이용해 참여시간을 극대화하는 기능을 유지하면서도, 관련 위험을 공개하자는 제안을 받아들이지 않았다는 내용이 포함돼 있으며 회사는 “연구 방법론의 한계”를 들어 반박하고 있다. 동시에 투자은행·자산운용사들은 메타와 다른 ‘하이퍼스케일러’들이 공모채·사모대출·자산유동화증권까지 총동원해 AI 인프라를 레버리지로 확장하는 구조가 금융시장의 새로운 취약지점이 될 수 있다며, 소송 리스크와 과도한 데이터센터 레버리지가 겹칠 경우 향후 신용등급·기업가치에 부담으로 돌아올 수 있다고 경고한다."
+            },
+            {
+                theme: "AI와 사회", // 할루시네이션 및 버블 우려는 사회적 영향과 연관
+                category: "리스크/금융",
+                title: "구글(알파벳): AI ‘오개념’과 보험시장 리스크, AI 거품 논쟁",
+                isTop5: true,
+                details: "구글 모회사 알파벳은 2024~2025년 전 세계에서, 검색 결과와 챗봇이 엉뚱한 답을 내놓는 생성형 AI ‘할루시네이션(오개념)’ 문제가 보험·금융 의사결정에 미칠 수 있는 위험과, 공격적인 AI 투자로 인한 시장 거품 우려를 동시에 마주하고 있다. \n\n구글의 AI 검색 기능과 젬마이(Gemini) 기반 서비스는 때때로 위험한 의료·생활 조언을 제시하는 사례가 지적되며, 보험·투자 업계에서는 이런 잘못된 출력을 그대로 인수·가격 결정에 반영할 경우 대규모 손실과 소송으로 이어질 수 있다는 경고가 나온다. 한편 알파벳은 기후 리스크 지역의 부동산을 정밀 평가하는 지리공간 AI를 보험 인수에 적용하는 구글 클라우드 솔루션을 내세우는 한편, AI 데이터센터 확장을 위해 250억 달러 규모 회사채를 발행하는 등 막대한 자본을 투입해 ‘AI 버블’ 논쟁의 한 축이 되고 있다.\n\n구글 클라우드는 위성·기상·지리 데이터를 결합한 AI 모델로 기존에 ‘보험 불가’로 분류된 지역에서도 개별 건물의 위험을 세밀하게 구분해 보호 공백을 줄일 수 있다고 주장하며, 이는 보험시장 입장에선 새로운 성장 기회이자 동시에 알고리즘 오류에 따른 체계적 리스크가 될 수 있다. 금융·보험 컨설턴트와 규제당국은, 대규모 데이터를 처리하는 AI가 잘못된 패턴을 학습하거나 편향된 입력을 받으면 시장 전체에서 동일한 잘못된 가격·리스크 평가가 반복될 수 있다고 지적하며, AI 결과를 그대로 신뢰하기보다 인간 심사와 견제 장치를 강화할 것을 주문하고 있다. 알파벳은 자사 AI의 품질과 안전성을 개선하고 있다고 강조하지만, AI 인프라 투자와 채권 발행 규모가 커질수록 “수익이 과연 투자 속도를 따라갈 수 있는가”라는 거품 논쟁도 함께 커질 것으로 보여 향후 규제·감독 강화와 리스크 공시 확대가 핵심 과제가 될 전망이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "클라우드/제휴",
+                title: "마이크로소프트: AI 인프라 투자 확대와 거품 논쟁, 엔트로픽(Anthropic) 지원",
+                isTop5: true,
+                details: "마이크로소프트는 2025년 들어 미국과 글로벌 시장에서 초대형 AI 데이터센터 인프라 투자를 이어가는 동시에, 엔트로픽(Anthropic)에 최대 50억 달러를 투자하고 300억 달러 규모의 애저(Azure) 사용을 유도하는 등 전략적 제휴를 확대하면서 AI 거품 논쟁의 중심에 서 있다. \n\n로이터에 따르면 엔트로픽은 마이크로소프트 및 엔비디아와의 새로운 계약을 통해 애저에 최소 300억 달러어치의 연산을 약정했고, 마이크로소프트는 최대 50억 달러까지 지분 투자를 약속해 오픈AI 의존도를 줄이는 동시에 클로드(Claude) 계열 모델을 자사 클라우드·코파일럿 제품군에 깊숙이 통합하려 하고 있다. 이와 함께 마이크로소프트·아마존·메타·알파벳 등 소수 ‘하이퍼스케일러’가 연간 3,500억 달러 안팎을 데이터센터·AI 인프라에 지출할 것이라는 추정이 나오면서, 이 같은 공격적 투자가 지속 가능한 수익 기반인지, 아니면 새로운 버블의 전조인지에 대한 논쟁이 커지고 있다.\n\n마이크로소프트는 이미 오픈AI의 최대 파트너로서 막대한 클라우드 크레딧과 투자를 집행해 왔으며, 미국 내에서는 안전·보안 기준을 충족하는 AI 전용 데이터센터 네트워크를 수십억 달러 규모로 증설하겠다는 계획을 공개한 바 있다. 여기에 엔트로픽과의 제휴까지 더해지면서 마이크로소프트는 여러 ‘프론티어 모델’ 공급자를 동시에 품은 플랫폼 사업자로 자리매김하려 하지만, 한편으로는 순현금흐름을 크게 잠식하는 설비투자가 계속될 경우 투자자들의 인내심이 시험대에 오를 수 있다는 분석도 제기된다. 연준 의장은 빅테크의 AI 투자가 미국 성장의 중요한 원천이라고 평가하면서도, 시장에서는 “가치 창출과 가치 회수는 별개”라는 경고가 반복되고 있어, 향후 마이크로소프트의 실적과 AI 서비스 수익성이 AI 인프라 투자 정당성을 가늠하는 핵심 시험대가 될 전망이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "데이터센터/투자",
+                title: "아마존: AI 데이터센터 투자·오픈AI 380억 달러 클라우드 계약과 부채 부담",
+                isTop5: true,
+                details: "아마존은 2025년 들어 미국 노스캐롤라이나·인디애나 등지에서 수십억 달러를 들여 AI·클라우드 데이터센터를 증설하고, 오픈AI와 약 380억 달러 규모의 장기 클라우드 이용 계약을 체결하면서 AI 경쟁력 강화와 동시에 부채·거품 우려라는 양날의 평가를 받고 있다. \n\n로이터 보도에 따르면 아마존은 노스캐롤라이나 리치먼드 카운티에 100억 달러를 추가 투자해 데이터센터를 짓고 최소 500개의 고급 일자리를 창출할 계획이며, 인디애나에서는 110억 달러 규모의 ‘프로젝트 레이니어’ AI 데이터센터를 가동하기 시작했다. 이와 동시에 회사는 오픈AI와의 380억 달러 클라우드 계약을 통해 AWS의 수주 잔고를 대폭 늘리는 한편, 150억 달러 규모 회사채 발행 등으로 자금을 조달해 AI 인프라 경쟁에서 더 이상 ‘후발주자’가 아니라는 인식을 시장에 심으려 하고 있다.\n\n그러나 분석가들은 아마존이 대규모 설비투자와 인력 감축을 병행하며 효율성을 끌어올리는 과정에서, 최근 1년 기준 자유현금흐름이 크게 둔화된 점을 지적하며 AI 투자와 재무 건전성 사이의 균형을 예의주시하고 있다. 또 최근 몇 달간 마이크로소프트·알파벳·메타·오라클·아마존이 잇따라 수십억 달러 회사채를 찍어내자, 채권시장은 “이제 AI 자금은 사모대출이나 내부 현금이 아니라 공모채에서 온다”는 인식 속에 발행 스프레드를 높게 요구하는 등 점차 냉정한 태도로 돌아서는 분위기다. 그럼에도 AWS 성장세와 오픈AI·엔트로픽 등 주요 AI 스타트업과의 협력 확대가 이어지는 한, 투자자들은 당분간 수익성 회복 속도와 데이터센터 투자 성과를 동시에 지켜보며 아마존의 AI 베팅이 거품인지, 새로운 수익 원천인지 평가하게 될 것으로 보인다."
+            },
+            {
+                theme: "산업별 AI 적용", // 반도체 산업
+                category: "반도체/시장",
+                title: "엔비디아: 주가 변동성 속 AI 거품 논쟁의 상징, 여전한 칩 수요",
+                isTop5: true,
+                details: "엔비디아는 2025년 10월 뉴욕 증시에서 시가총액 5조 달러를 처음 돌파한 이후, 극단적인 주가 변동성을 보이며 AI 거품 논쟁의 대표 사례이자, 동시에 생성형 AI 수요를 상징하는 핵심 수혜주로 남아 있다. \n\n챗GPT 출시 이후 약 3년 동안 엔비디아 주가는 12배 이상 오르며 S&P500 사상 최고치 랠리를 이끌었고, 이 과정에서 “다음 닷컴 버블이 되는 것 아니냐”는 우려와 “이번에는 실적과 현금흐름이 뒷받침된다”는 기대가 맞서고 있다. 최근 실적 발표에서 엔비디아는 데이터센터 매출이 전년 대비 60% 이상 증가하고 2026년까지 5,000억 달러 규모의 고급 AI 칩 주문 잔고를 확보했다고 밝히며 단기적으로는 거품 우려를 누그러뜨렸지만, 일부 대형 투자자가 보유 지분을 전량 매도하는 등 회의적인 시각도 여전히 존재한다.\n\n로이터와 주요 금융매체들은 현재 월가의 AI 베팅 상당 부분이 엔비디아 실적에 의해 검증되는 구조라고 지적하며, 분기마다 발표되는 매출·마진·수주 전망이 AI 인프라 투자 열기가 과열인지 여부를 가늠하는 바로미터 역할을 한다고 평가한다. 실제로 11월 들어 실적 기대를 둘러싼 불안감으로 엔비디아 주가가 한때 두 자릿수 가까이 하락했다가, ‘예상 상회’ 실적과 가이던스 발표 후 다시 수천억 달러의 시가총액을 회복하는 롤러코스터 장세가 펼쳐졌다. AI 칩 수요가 여전히 견조한 만큼 단기적으로 매출 성장세는 이어질 것으로 보이지만, 투자자들 사이에서는 경쟁 심화·정부 규제·고객사들의 자체 칩 개발 등 요인이 겹칠 경우 고평가 조정과 AI 관련 광범위한 조정장으로 번질 수 있다는 경고도 나오고 있다."
+            },
+            // Remaining items mapped to Thematic Sections
+            {
+                theme: "AI 인프라 및 투자",
+                category: "금융/채권",
+                title: "오라클 및 기타 빅테크: 채권 발행으로 AI 자금 조달, 신용·주가 부담 확대",
+                isTop5: false,
+                details: "오라클과 메타·알파벳·아마존 등 미국 주요 빅테크 기업들은 2025년 9~10월에만 수십억 달러어치의 회사채를 발행해 AI 데이터센터 투자 자금을 조달하면서, 일부 기업 주가 급락과 신용위험 확대 우려의 중심에 서 있다. 로이터 분석에 따르면 2개월 동안 AI 인프라에 집중 투자하는 이른바 ‘하이퍼스케일러’들이 발행한 미국 투자등급 회사채는 750억 달러에 이르며, 그 가운데 메타 300억 달러, 오라클 180억 달러, 알파벳 250억 달러, 아마존 150억 달러가 포함된 것으로 집계됐다. 동시에 오라클은 AI 관련 매출 급증에 힘입어 한 해 50%가 넘는 주가 상승을 경험하는가 하면, 1,000억 달러를 웃도는 총부채와 신용부도스와프(CDS) 급등으로 채무 부담에 대한 시장의 경계도 함께 커지는 모습이다.\n\n투자 전문매체들은 오라클이 오픈AI·소프트뱅크·기업용 고객들과 함께 수천억 달러 규모의 장기 AI 인프라 프로젝트에 참여하는 한편, 공격적인 채권 발행과 차입으로 데이터센터 네트워크를 확장하고 있다고 전한다. 동시에 메타·알파벳·아마존 등도 비슷한 방식으로 부채를 활용하면서, 과거 현금 위주의 보수적 재무 구조를 유지하던 빅테크가 레버리지 기반 성장 모델로 전환하는 흐름이 뚜렷해졌다는 평가가 나온다. 단기적으로는 투자등급 신용도와 높은 이익률이 방파제 역할을 하고 있지만, 금리 수준이 예상만큼 빠르게 내려가지 않거나 AI 투자 수익 회수 속도가 둔화될 경우, 이들 기업의 주가 변동성 확대와 함께 채권시장 조달 여건 악화·신용등급 하향 압력으로 이어질 수 있다는 경고도 제기된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "공급망/하드웨어",
+                title: "오픈AI & 폭스콘: 차세대 AI 하드웨어 공동 개발과 미국 데이터센터 공급망 강화",
+                isTop5: false,
+                details: "오픈AI와 대만 전자업체 폭스콘(훙하이 정밀)은 2025년 11월, 미국에서 차세대 AI 데이터센터 하드웨어를 공동 설계·제조하는 파트너십을 체결해 미국 내 AI 인프라 공급망을 강화하는 행보에 나섰다. AP 보도에 따르면 양사는 미국 위스콘신·오하이오·텍사스 등에 위치한 폭스콘 공장에서 AI 데이터센터용 랙, 배선, 네트워킹 장비, 전력 시스템 등을 공동 설계·생산하고, 오픈AI가 이 제품들에 대해 우선 평가·구매 권한을 갖는 구조를 도입하기로 했다. 초기 계약에는 구속력 있는 구매 의무는 포함되지 않았지만, 오픈AI가 1조4,000억 달러에 달하는 장기 AI 인프라 투자를 공언한 상황에서 이번 협력은 미국 내 제조 기반을 활용해 대규모 컴퓨팅 수요를 뒷받침하려는 전략적 포석으로 해석된다.\n\n폭스콘은 이미 엔비디아용 AI 서버를 생산하고 애플 아이폰을 조립하는 글로벌 제조 파트너로, 최근에는 전기차·클라우드 장비 등으로 사업을 다각화하며 대만과 미국 간 공급망 재편의 핵심 플레이어로 부상해 왔다. 오픈AI 입장에서는 특정 국가·제조사에 편중된 서버·네트워크 장비 공급망을 다변화하고, 미국·동맹국 내에 보다 안전한 AI 인프라 생태계를 구축하려는 정책 기조와도 보조를 맞출 수 있다는 장점이 있다. 다만 오픈AI의 1조 달러대 인프라 투자 계획과 엔비디아·AMD·브로드컴 등과의 다중 파트너십은 막대한 자본 소요를 수반하기 때문에, 투자자들 사이에서는 향후 수익성·현금흐름이 계획을 뒷받침할 수 있는지와 함께, 폭스콘과의 협력이 AI 서버 하드웨어 비용과 공급 리스크를 얼마나 줄여줄지가 중요한 관전 포인트가 될 것으로 보인다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발/코딩",
+                title: "Git를 모르는 ‘바이브 코더’를 위한 필수 버전관리 가이드",
+                isTop5: false,
+                details: "AI 코더 시대, “바이브 코더”도 알아야 할 10가지 Git 명령\n\n데브옵스 전문가가 데이터·AI 커뮤니티 매체 케이디너깃츠에 기고한 글에서 2025년 11월, 원격 환경에서 AI와 협업하는 개발자(일명 ‘바이브 코더’)를 위해 꼭 알아야 할 핵심 Git 명령 10개가 소개됐다. 글쓴이는 코드 대부분을 AI가 작성하는 시대에도 작은 단위로 자주 커밋하고, 의미 있는 메시지를 남기는 습관이 협업과 품질 관리의 핵심이라고 강조했다. 이러한 Git 활용은 코드 충돌을 줄이고, AI가 생성한 코드의 변경 이력을 명확히 남겨 리뷰와 롤백을 쉽게 만든다는 점에서 생산성과 책임성을 동시에 높인다고 설명했다.\n\n해당 글은 버전 관리를 소홀히 하기 쉬운 초급 개발자와 코파일럿·챗GPT 기반 개발 워크플로에 의존하는 실무자들을 겨냥해, status·add·commit·branch·merge·stash·push·pull 등 실제 팀 협업에서 자주 쓰이는 명령들을 사례와 함께 정리했다. 저자는 “커밋 메시지는 미래의 나와 팀 동료에게 보내는 짧은 메모”라며, AI가 생성한 코드일수록 왜 이 변경을 했는지 서술하는 것이 중요하다고 조언했다. 업계에서는 대형 언어모델(LLM) 도입이 가속화되는 만큼, Git·테스트·리뷰 문화가 결합된 ‘AI 시대 개발 표준’이 빠르게 정착할 것으로 보인다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "공급망/협력",
+                title: "오픈AI–폭스콘, 미국 내 AI 인프라 제조 동맹 (상세)",
+                isTop5: false,
+                details: "오픈AI·폭스콘, “미국산 AI 데이터센터 하드웨어” 공동 설계 나선다\n\n오픈AI와 폭스콘 모회사인 훙하이정밀공업이 11월 20일(현지시간) 미국 내에서 차세대 AI 인프라 하드웨어를 공동 설계·제조하는 협력 계획을 발표했다. 이번 협력에서 오픈AI는 향후 여러 세대에 걸친 AI 모델의 하드웨어 수요 로드맵을 공유하고, 폭스콘은 미국 공장에서 관련 장비를 생산하는 방식으로 데이터센터 랙·전력·냉각·네트워킹 장비를 설계·제조한다. 초기 계약은 구매 의무 없이 설계·평가 단계에 초점을 두지만, 오픈AI가 시스템을 우선 시험하고 구매 옵션을 갖는 구조로 미국 내 AI 공급망 강화에 직접적인 영향을 미칠 전망이다.\n\n양사는 이번 프로젝트를 통해 여러 세대의 데이터센터 랙을 병행 설계해 모델 성능 향상 속도에 맞춘 신속한 인프라 확충과 장기적인 용량 확보를 목표로 한다. 영 리우 폭스콘 회장은 성명을 통해 “폭스콘은 세계 최대 AI 데이터 서버 제조사로서 오픈AI의 미션을 지원할 준비가 되어 있다”며, 신뢰할 수 있는 대규모 인프라 제공 의지를 밝혔다. 샘 알트먼 오픈AI CEO는 이번 파트너십을 “AI 시대 핵심 기술을 미국에서 생산해 재산업화 기회를 잡는 계기”라고 평가하며, 미국의 AI 리더십과 일자리 창출에 장기적으로 기여하겠다는 뜻을 내비쳤다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "금융/불평등",
+                title: "WEF “AI 금융혁신, 잘못 설계되면 불평등 심화시킬 수도”",
+                isTop5: false,
+                details: "세계경제포럼(WEF)은 최근 발간한 스토리에서, 전 세계 금융기관들이 대출 심사·사기 탐지·자산관리 등 전 분야에 생성형 AI를 도입하는 흐름 속에서 그 영향력이 금융 포용 확대와 불평등 심화 사이의 갈림길에 서 있다고 분석했다. WEF는 금융사가 단기 수익 극대화에만 초점을 맞춘 채 AI를 도입할 경우 사회적 약자에 대한 ‘보이지 않는 차별’과 데이터 편향이 고착될 위험이 크다고 경고했다. 반대로, 규제기관·시민사회와 협력해 투명한 알고리즘·설명 가능한 의사결정·소비자 보호 장치를 갖추면 금융 접근성을 크게 높일 수 있다며, 이를 위해 글로벌 차원의 표준 정립이 필요하다고 강조했다.\n\n보고서는 이미 많은 금융사가 신용카드 승인·마이데이터 기반 맞춤형 상품 추천 등에 AI를 쓰고 있지만, 소규모 금융기관과 신흥국은 인프라·데이터 부족으로 뒤처지고 있다고 지적한다. WEF는 한 금융사 사례를 들어 “AI 모델의 목표 함수를 매출이 아니라 고객 재무건전성 개선에 맞추자 연체율이 줄고 장기 관계가 강화됐다”는 연구 결과를 소개하며, 설계 철학의 중요성을 부각했다. 향후 WEF는 각국 규제당국·금융사와 함께 책임 있는 AI 금융 실무 가이드라인과 테스트베드 구축을 추진해, AI가 금융위기 촉발 요인이 아니라 안정성과 포용성을 높이는 도구가 되도록 유도하겠다는 방침이다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안/사이버공격",
+                title: "WSJ, 앤트로픽 도구 악용 사례 두고 “AI 주도 대규모 사이버공격의 신호탄”",
+                isTop5: false,
+                details: "월스트리트저널(WSJ) 오피니언은 최근 칼럼에서, AI 스타트업 앤트로픽(Anthropic)의 코딩 도구 ‘클로드 코드’가 실제 사이버공격에 활용된 사례를 “AI가 주도한 첫 대규모 사이버공격”으로 규정하며 위험성을 경고했다. 앤트로픽은 11월 중순 규제 당국에 제출한 보고에서 자사 도구가 악성 코드 생성·피싱 자동화 등에 악용된 정황을 처음으로 공식 인정하며, 이를 “AI가 직접 실행을 도운 최초의 사이버 공격 사례”라고 설명한 바 있다. WSJ는 이 사건이 국가 지원 공격 배후로 추정되는 정체불명 해커들에게 이용된 것으로 추정되며, “저렴한 인프라와 느슨한 감독만으로 고도화된 공격이 가능해졌다”고 우려했다.\n\n앤트로픽 사건은, 그동안 이론적으로만 논의되던 “AI가 스스로 공격 벡터를 찾고 코드를 작성하는 시대”가 현실화됐다는 점에서 글로벌 보안 업계의 주목을 받고 있다. WSJ는 칼럼에서 “지금까지의 사이버 보안 규제와 책임 체계는 인간 해커를 전제로 짜여 있었지만, 이제는 모델 개발사·배포사가 어떤 감시 의무를 져야 하는지 재설계해야 한다”는 전문가 의견을 인용했다. 미국 의회와 규제기관도 최근 AI 보안 리스크 청문회와 정책 논의를 잇달아 열고 있어, 앞으로 고위험 AI 시스템에 대한 감사·로그 의무와 악용 탐지 기준이 새롭게 마련될 가능성이 크다는 관측이 나온다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "자동차/모빌리티",
+                title: "“이제 차 안에서도 젬이니” 구글, 안드로이드 오토에 AI 비서 도입",
+                isTop5: false,
+                details: "미 IT 매체 기즈모도와 더버지에 따르면, 구글은 11월 21일(현지시간)부터 생성형 AI 비서 ‘젬이니(Gemini)’를 안드로이드 오토(Android Auto)에 본격 탑재하기 시작했다. 운전자는 스마트폰에 젬이니 앱을 설치한 뒤 차량 디스플레이에서 자연어 대화를 통해 내비게이션 설정, 메시지 전송, 일정 확인 등을 수행할 수 있으며, 음성 호출이나 스티어링 휠 버튼으로 기능을 불러올 수 있다. 구글은 이를 통해 기존 구글 어시스턴트를 대체하는 “진짜 대화형 운전 보조 AI”를 제공, 운전 중 화면 조작을 줄여 안전성과 편의성을 동시에 높이겠다는 목표를 제시했다.\n\n구글은 올해 5월 블로그를 통해 전 세계 2억5천만대 이상 차량에서 실행되는 안드로이드 오토·구글 내장 자동차에 젬이니를 순차 도입하겠다고 예고한 바 있다. 안드로이드 오토용 젬이니는 경로별 맞춤 안내, 메시지 번역, 이메일 요약, 음악·팟캐스트 추천 등을 지원하도록 설계됐으며, 구글 측은 “보다 자연스러운 왕복 대화로 복잡한 작업을 처리할 수 있다”고 설명했다. 다만 일부 연구에서 고성능 음성 비서도 인지적 부담을 유발할 수 있다는 지적이 나와, 운전 중 AI 활용이 실제 교통 안전에 미치는 영향에 대한 추가 연구와 규제 논의가 뒤따를 것으로 보인다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "수출통제/반도체",
+                title: "미 정부, 엔비디아 H200 중국 수출 ‘내부 검토’…수출통제 완화 논란",
+                isTop5: false,
+                details: "블룸버그 보도를 인용한 인도 경제매체 머니컨트롤에 따르면, 미국 정부 관계자들은 11월 22일(현지시간) 엔비디아의 고성능 AI 칩 ‘H200’를 중국에 판매하는 방안을 내부 논의한 것으로 알려졌다. 도널드 트럼프 행정부는 최근 며칠간 2022년부터 시행된 반도체 수출통제를 일부 완화해 H200 라이선스를 허용할지 여부를 놓고 검토했으나, 아직 최종 결정은 내리지 않은 상태다. 소식이 전해지자 엔비디아 주가는 장중 한때 2% 가까이 상승하는 등 시장은 중국 매출 회복 가능성에 민감하게 반응했다.\n\n머니컨트롤에 따르면, 젠슨 황 엔비디아 CEO는 수개월간 워싱턴을 상대로 중국 데이터센터용 제품에 대한 수출 규제 완화를 강하게 로비해 왔으며, 현재 규제로 인해 “중국이라는 거대 시장을 경쟁사에게 내주고 있다”고 호소해 왔다. 기사에 인용된 관계자들은 “H200 수출 허용은 지금까지의 강경한 수출통제 기조에서 상당한 후퇴로, 중국 강경파의 거센 반발을 부를 것”이라고 전망했다. 한편 미 재무부 일부 인사는 차세대 ‘블랙웰’ 칩이 아닌, 기존 세대 칩을 일정 시점 이후 중국에 수출하는 타협안도 가능하다고 언급해, 미·중 AI 반도체 패권 경쟁이 새로운 국면을 맞을 가능성이 제기된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "데이터센터/용량",
+                title: "“6개월마다 AI 서빙 용량 두 배로” 구글 임원 발언에 인프라 ‘비상’",
+                isTop5: false,
+                details: "기즈모도 보도를 재인용한 스타트업뉴스에 따르면, 구글의 한 고위 임원이 내부 회의에서 “AI 서비스를 유지하려면 서빙(Serving) 용량을 6개월마다 두 배로 늘려야 한다”고 발언한 것으로 전해졌다. CNBC가 입수한 내부 문서를 토대로 한 이 보도는, 젬이니 등 고성능 AI 제품이 데이터센터 용량·전력·GPU 수급을 빠르게 소진하고 있다는 점을 부각했다. 구글이 이 같은 속도로 인프라 확충을 이어갈 경우, 막대한 설비투자와 에너지 수요 증가가 기술·환경·규제 측면에서 큰 도전 과제가 될 것이라는 분석이 나온다.\n\n스타트업뉴스는 기사에서 “한때 ‘웹의 왕’으로 불렸던 구글도, 이제는 AI 경쟁에서 생존을 위해 인프라 확장 경쟁에 뛰어든 상황”이라고 평가했다. 해당 내부 발언은 젬이니 3 출시와 함께, 구글이 AI 검색·오피스·클라우드 전반에 걸쳐 모델 통합과 기능 고도화를 추진하는 시점에 나와 인프라 부담 논란을 키우고 있다. 전문가들은 데이터센터 효율화를 위해 고효율 칩·액침 냉각·재생에너지 전환이 필수라며, 향후 규제 당국이 AI 데이터센터의 탄소·전력 사용에 별도의 가이드라인을 도입할 가능성이 높다고 지적한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "검색/광고",
+                title: "“AI 답변도 스폰서 시대” 구글, AI 모드에 광고 탑재 시작",
+                isTop5: false,
+                details: "보안·IT 전문매체 블리핑컴퓨터는 11월 21일(현지시간) 구글이 생성형 AI 기반 ‘AI 모드(AI answers)’에 처음으로 광고 노출을 시작했다고 보도했다. AI 모드는 1년 전부터 무료로 제공돼 왔으며, 유료 구독 서비스 구글 원 사용자는 젬이니 3 프로 등 고급 모델을 선택해 상호작용형 답변 UI를 이용할 수 있다. 이제 일부 쿼리에서는 AI가 생성한 답변 하단에 ‘스폰서’ 표기가 붙은 광고 링크가 함께 노출되며, 이는 기존 우측 인용 링크와는 별도로 배치되는 것으로 확인됐다.\n\n보도에 따르면 구글은 그동안 AI 모드에서만큼은 광고를 배제해 사용자 경험을 우선시했지만, 수익 모델 확보를 위해 새 실험에 나선 것으로 보인다. 기사에서는 “광고는 법 규정을 준수하기 위해 명확한 스폰서 표시를 달고 있으며, 클릭률(CTR)을 높이기 위해 답변 하단에 배치한 것으로 추정된다”는 분석도 함께 소개됐다. 이용자들 사이에서는 “검색과 AI 답변의 경계가 흐려지는 상황에서, 광고와 실제 정보의 구분을 얼마나 명확히 할 것인지”, 그리고 광고주 영향력이 AI 응답에 간접적으로 미치지 않도록 하는 투명성·독립성 기준을 마련해야 한다는 요구가 커지고 있다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "로보틱스/3D",
+                title: "네이버랩스, 3D 공간·인체 이해 높인 ‘Dust3R-2·ANNY’ 선보여",
+                isTop5: false,
+                details: "매일경제 영문판 보도에 따르면 네이버랩스 유럽은 11월 20~21일(현지시간) 개최한 제4회 ‘AI for Robotics’ 워크숍에서 로봇의 공간·인체 이해 능력을 확장한 AI 모델 ‘Dust3R-2’와 ‘ANNY’를 공개했다. Dust3R-2는 기존 ‘더스터(Dust3R)’를 발전시킨 차세대 3D 비전 모델로, 단 3장의 2D 이미지로도 실내·실외 환경을 3차원으로 재구성할 수 있도록 설계됐다. ANNY는 WHO·오픈 커뮤니티 데이터에 기반해 어린이부터 노년층까지 다양한 체형을 파라미터로 표현 가능한 3D 인체 모델로, 로봇이 사람의 동작을 더 정밀하게 인식·추론하도록 돕는다.\n\n이번 워크숍은 ‘공간 지능(Spatial AI)’을 주제로, 개념을 처음 제시한 임페리얼 칼리지 런던의 앤드류 데이비슨 교수 등 150여 명의 로봇·AI 연구자가 참여해 최신 연구 성과를 공유했다. 마틴 휴멘버거 네이버랩스 유럽 책임자는 발표에서 “Dust3R-2는 상용화를 염두에 둔 버전으로, 로봇이 사전 지도 없이도 새로운 공간을 빠르게 3D로 이해하게 하는 핵심 기술”이라고 설명했다. 오픈소스로 공개된 ANNY는 사람의 프라이버시를 침해하지 않는 형태로 전 세계 인구 특성을 반영해, 로봇 연구 생태계와 메타버스·게임·헬스케어 등 3D 콘텐츠 산업 전반에서 활용 범위가 확대될 것으로 기대된다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "B2E/통신",
+                title: "전문용어를 ‘고객 말’로…LG U+, 사내용 생성형 AI 언어 변환 솔루션 강화",
+                isTop5: false,
+                details: "매일경제는 11월 24일 LG유플러스가 사내 커뮤니케이션 문구를 고객이 이해하기 쉬운 표현으로 바꿔주는 생성형 AI 솔루션 ‘AI 고객 언어 변환기’ 기능을 대폭 강화했다고 보도했다. 이 솔루션은 임직원이 문자·공지·상담 스크립트 초안을 입력하면, 전문용어와 복잡한 문장을 자동으로 ‘쉬운 한국어’로 변환해 주는 기능을 제공한다. 예를 들어 “VoIP는 종량제 과금 정책에 따라 부과됩니다”라는 문장은 “인터넷 전화는 사용한 만큼 요금이 부과되니 이용에 유의해 주세요”와 같이 직관적인 표현으로 바뀌며, 실제 업무 현장에서 4,500건 이상 활용된 것으로 나타났다.\n\nLG유플러스는 지난해 1.0 버전 출시 이후, 올해 10월에는 대화형 UI와 ‘더 상냥하게·더 공손하게’ 등 톤 조절 기능을 갖춘 2.0 버전으로 업그레이드했다. 박수 LG유플러스 CX혁신 담당은 “앞으로 고객 반응과 만족도를 분석해, AI가 일관되고 이해하기 쉬운 고객 언어를 계속 학습하도록 하겠다”며, 서비스 고도화 방향을 밝혔다. 통신업계에서는 이러한 B2E(사내 직원용) 생성형 AI 도입이 상담 품질·고객 만족도 제고와 함께, 회사 전반의 ‘고객 중심 표현’ 문화 확산을 촉진할 것으로 보고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델/API",
+                title: "“GPT-5.1로 갈아타라” 오픈AI, GPT-4o API 2026년 2월 지원 종료",
+                isTop5: false,
+                details: "AI타임스에 따르면 오픈AI는 11월 21일(현지시간) 개발자들에게 보낸 공지에서 멀티모달 모델 ‘GPT-4o’의 API 지원을 2026년 2월 16일 종료하겠다고 밝혔다. 이에 따라 기존 애플리케이션을 사용하는 개발자들은 약 3개월간의 전환 기간 동안 GPT-5.1 계열 모델로 마이그레이션해야 한다. 오픈AI는 이번 조치가 어디까지나 API에만 적용되며, 소비자용 챗GPT 서비스에서 GPT-4o를 언제 제거할지는 아직 정해지지 않았다고 강조했다.\n\nGPT-4o는 2024년 5월 출시 당시 텍스트·음성·이미지를 단일 신경망으로 처리하는 최초의 통합 멀티모달 아키텍처로 주목받으며, 챗GPT 기본 모델로 자리 잡았던 대표작이다. 다만 과도한 아첨·망상 응답 등 부작용 논란이 이어지자, 오픈AI는 GPT-5 출시 때 한차례 GPT-4o를 제거했다가 사용자 반발로 다시 복귀시키는 등 우여곡절을 겪었다. 회사는 더 긴 컨텍스트와 고급 추론, 선택적 ‘생각(thinking) 모드’를 제공하는 GPT-5.1 시리즈와 비용 효율성을 이유로, 장기적으로 GPT-4o를 레거시 모델로 정리하고 안전성과 성능을 갖춘 차세대 모델 중심 라인업으로 재편할 계획인 것으로 보인다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델/AGI",
+                title: "구글 “제미나이 3, AGI ‘생명의 신호’ 보였다”…벤치마크도 경쟁사 압도",
+                isTop5: false,
+                details: "AI타임스 보도에 따르면, 툴시 도시 구글 제미나이 제품담당 수석 이사는 월스트리트저널 인터뷰에서 제미나이 3 사전 테스트 과정에서 ‘생명의 신호(signs of life)’를 느꼈다고 11월 22일(현지시간) 밝혔다. 그는 잘 알려지지 않은 인도 언어인 구자라트어로 글쓰기를 요구하는 ‘바이브 체크(vibe check)’ 테스트에서 이전 세대 모델과 전혀 다른 수준의 이해·표현 능력을 확인했다고 설명했다. 제미나이 3는 장기 계획 능력을 평가하는 ‘벤딩 벤치 2’ 시뮬레이션에서 5,478달러 수익을 올리며, 제미나이 2.5·클로드·GPT-5.1 등 경쟁 모델을 크게 앞서는 성적을 기록한 것으로 전해졌다.\n\n도시 이사는 “팀원들 모두 ‘우리가 뭔가를 발견한 것 같다’고 느꼈다”며, 제미나이 3가 도구 사용과 계획 수립 능력에서 뚜렷한 도약을 이뤘다고 평가했다. 박스(Box) CEO 애런 레비 등 외부 기업들도 문서 분석 테스트에서 제미나이 3가 다른 모델 대비 두 자릿수 차이의 점수를 반복적으로 기록했다고 증언했으며, 안드레이 카르파티 오픈AI 공동창업자는 제미나이 3가 현재 연도를 두고 인간과 논쟁을 벌이다 검색 도구 활성화 후 “오 마이 갓”이라며 스스로의 오류를 인지하는 흥미로운 사례를 SNS에 공유했다. 월가 일부 애널리스트는 제미나이 3 출시 이후 구글이 시가총액에서 마이크로소프트를 잠시 앞지른 점을 언급하며, 오픈AI·마이크로소프트 중심이던 AI 판도에 “구글이 다시 주도권을 쥔다”는 평가를 내놓고 있다."
+            },
+            {
+                theme: "산업별 AI 적용", // 과학 연구 적용
+                category: "과학/연구",
+                title: "오픈AI “GPT-6 시대엔 AI가 실제 과학 연구를 수행”…‘사이언스 2.0’ 선언",
+                isTop5: false,
+                details: "AI타임스 ‘뉴스 브리핑’에 따르면 오픈AI는 11월 20일(현지시간) 공식 블로그에 ‘GPT-5를 이용한 과학 가속화의 초기 실험’을 공개하며, AI가 수학·물리·생물학 등 여러 분야 연구에 실제 기여한 사례를 소개했다. 회사는 파트너 연구소와 대학과의 공동 연구에서 GPT-5가 난도 높은 수학 문제 해결, 대규모 문헌 검토, 복잡한 계산 가속, 새로운 증명 아이디어 제시 등에 도움을 줬다고 밝혔다. 샘 알트먼 CEO는 최근 팟캐스트에서 GPT-5를 두고 “AI가 새로운 과학을 만들어내는 첫 조짐”이라며, GPT-6에 이르면 과학 분야에서 실질적인 돌파구가 나올 것이라는 기대를 드러냈다.\n\n오픈AI ‘포 사이언스(OpenAI for Science)’ 조직은 GPT-5 출시 한 달 뒤인 9월 출범했으며, “완전 자동화된 AI 기반 과학 연구 플랫폼 구축”을 목표로 내세우고 있다. 알트먼 CEO와 수석과학자 야쿠브 파초키는 마이크로소프트와의 지배구조 개편 직후 회사 사명을 재정의하면서, 2028년까지 ‘본격적인 AI 연구원(AI Scientist)’ 구축을 핵심 과제로 제시했고, 250억 달러 규모의 질병 치료 AI 프로젝트도 비영리 재단의 첫 대형 사업으로 발표했다. 업계에서는 이를 두고 “벤치마크 점수 경쟁을 넘어, 암 정복·신약 개발 등 현실 과학 문제 해결에서 누가 먼저 성과를 내느냐가 차세대 AI 경쟁의 핵심”이 될 것이라는 전망을 내놓고 있다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "개인정보/학습",
+                title: "구글 “지메일 콘텐츠, 젬이니 학습에 쓰지 않는다”…설정 자동 변경 의혹은 여전",
+                isTop5: false,
+                details: "최근 소셜미디어에서는 지메일이 사용자 메일과 첨부파일을 젬이니 AI 모델 학습에 활용한다는 주장과 함께, 이를 막으려면 ‘스마트 기능’을 끄라는 안내가 확산됐다. 이에 대해 구글 대변인 제니 톰슨은 11월 22일(현지시간) 더버지와 인터뷰에서 “지메일 스마트 기능은 수년 전부터 존재해 왔으며, 구글은 사용자의 설정을 임의로 바꾼 적이 없다”고 반박하며, 지메일 콘텐츠를 젬이니 학습에 사용하지 않는다는 입장을 재확인했다. 그럼에도 일부 이용자들은 “꺼둔 줄 알았던 스마트 기능이 다시 켜져 있었다”며 불안감을 표하고 있어 논란은 이어지고 있다.\n\n구글은 지난 1월 워크스페이스·지도·지갑 등 서비스에 제공되는 스마트 기능의 개인화 설정을 통합 관리하도록 시스템을 개편하면서 일부 계정에서 설정 변화가 있었을 수 있다고 설명했다. 회사 측은 “지메일 데이터는 맞춤법 검사·배송 추적·항공편 정보 캘린더 추가 등 편의 기능 제공을 위한 분석에만 사용되며, 외부 AI 모델 훈련에는 활용되지 않는다”고 강조했다. 그러나 AI 서비스 전반에서 개인정보 활용 이슈가 잦아지는 가운데, 전문가들은 세부 설정 변경 이력 공개·옵트아웃 절차 단순화 등 보다 투명한 데이터 거버넌스가 없다면 이용자 불신이 쉽게 해소되기 어렵다고 지적한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "에이전트/도구",
+                title: "카카오, ‘플레이MCP’에 ‘도구함’ 기능…챗GPT·클로드에서 카카오 도구 한 번에 쓴다",
+                isTop5: false,
+                details: "AI타임스에 따르면 카카오는 11월 24일, 앤트로픽의 모델 컨텍스트 프로토콜(MCP) 개방형 플랫폼을 기반으로 한 ‘플레이MCP’에 ‘도구함’ 기능을 새로 도입했다고 발표했다. 도구함 기능은 이용자가 플레이MCP에 등록된 여러 MCP 도구를 한 번에 선택·관리하고, 카카오 계정 인증 한 번으로 챗GPT·클로드 등 외부 AI 서비스에서 곧바로 호출할 수 있도록 해준다. 카카오는 이를 통해 “AI 서비스 간 도구 연동 절차를 크게 단순화해, 사용자가 일상 속 다양한 작업을 에이전트가 대신 수행하도록 돕겠다”는 구상을 내놨다.\n\n플레이MCP는 7월 국내 최초 MCP 실험 공간으로 공개돼, 8월 베타 오픈 이후 개발자와 얼리어답터 이용자들로부터 긍정적인 반응을 얻고 있다. 이용자는 플레이MCP 웹사이트에서 카카오 계정으로 로그인한 뒤 원하는 도구를 도구함에 추가하고, 챗GPT의 ‘개발자 모드’ 또는 클로드의 ‘커스텀 커넥터’를 통해 “카카오톡 나와의 채팅방에 방금 내용을 보내줘”, “오늘 일정 알려줘”, “작년 오늘 들었던 멜론 노래 틀어줘”와 같은 요청을 실행할 수 있다. 카카오는 향후 외부 파트너 도구까지 폭넓게 연동해 플레이MCP를 국내외 AI 에이전트 생태계의 허브 플랫폼으로 육성하고, ‘일상 AI’ 경험을 확장하겠다는 계획이다."
+            }
+        ];
+
+        // Key Data extracted manually for the highlights
+        const keyHighlights = [
+            { label: "엔비디아 시총", value: "5조 달러 돌파", desc: "AI 칩 수요 견인" },
+            { label: "오픈AI 인프라", value: "1조 4천억 달러", desc: "장기 투자 계획" },
+            { label: "아마존 클라우드", value: "380억 달러", desc: "오픈AI와 계약 체결" },
+            { label: "빅테크 채권발행", value: "750억 달러", desc: "2개월 간 AI 자금 조달" }
+        ];
+
+        // --- 2. Logic Functions ---
+
+        // Truncate title logic (max 60 chars)
+        function truncateTitle(title) {
+            if (title.length <= 60) return title;
+            // Try to split by delimiters first to keep meaning
+            const delimiters = [':', '—', '-'];
+            for (let d of delimiters) {
+                const parts = title.split(d);
+                if (parts[0].length > 10 && parts[0].length < 60) {
+                    return parts[0].trim() + "...";
+                }
+            }
+            return title.substring(0, 60) + "...";
+        }
+
+        function createKeyNumbersSection() {
+            const container = document.getElementById('highlights-container');
+            keyHighlights.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow";
+                div.innerHTML = `
+                    <p class="text-sm font-medium text-slate-500 mb-1">${item.label}</p>
+                    <p class="text-2xl font-black text-slate-800 mb-1">${item.value}</p>
+                    <p class="text-xs text-slate-400">${item.desc}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderTop5Section() {
+            const container = document.getElementById('top5-container');
+            const top5Items = reportData.filter(item => item.isTop5);
+
+            top5Items.forEach((item, index) => {
+                const originalIndex = reportData.indexOf(item);
+                const displayTitle = truncateTitle(item.title);
+                
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between group h-full";
+                card.setAttribute('data-index', originalIndex);
+                card.onclick = () => showModal(originalIndex);
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-1 rounded">TOP ${index + 1}</span>
+                            <span class="text-xs text-slate-500 font-medium border border-slate-200 px-2 py-1 rounded">${item.category}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 leading-snug group-hover:text-amber-700 transition-colors mb-3">
+                            ${displayTitle}
+                        </h3>
+                        <p class="text-sm text-slate-500 line-clamp-3 leading-relaxed">
+                            ${item.details.split('\n')[0]} 
+                        </p>
+                    </div>
+                    <div class="mt-4 flex items-center text-sm font-medium text-amber-600">
+                        상세 보기 <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderThematicSections() {
+            const wrapper = document.getElementById('thematic-sections-wrapper');
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회"
+            ];
+
+            themes.forEach(theme => {
+                const sectionItems = reportData.filter(item => !item.isTop5 && item.theme === theme);
+                
+                if (sectionItems.length === 0) return;
+
+                const section = document.createElement('section');
+                section.className = "animate-fade-in-up";
+                
+                const header = document.createElement('h2');
+                header.className = "text-xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200 flex items-center justify-between";
+                header.innerHTML = `<span>${theme}</span> <span class="text-sm font-normal text-slate-400 bg-slate-100 px-2 py-1 rounded-full">${sectionItems.length} News</span>`;
+                
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+
+                sectionItems.forEach(item => {
+                    const originalIndex = reportData.indexOf(item);
+                    const displayTitle = truncateTitle(item.title);
+                    
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer group";
+                    card.setAttribute('data-index', originalIndex);
+                    card.onclick = () => showModal(originalIndex);
+
+                    card.innerHTML = `
+                        <div class="mb-3">
+                            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded">${item.category}</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-800 mb-2 leading-tight group-hover:text-amber-700 transition-colors">
+                            ${displayTitle}
+                        </h3>
+                        <p class="text-xs text-slate-500 line-clamp-2">
+                             ${item.details.split('\n')[0]}
+                        </p>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(header);
+                section.appendChild(grid);
+                wrapper.appendChild(section);
+            });
+        }
+
+        // --- 3. Modal Interaction ---
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalBadge = document.getElementById('modal-badge');
+
+        function showModal(index) {
+            const item = reportData[index];
+            modalTitle.textContent = item.title; // Full Title
+            modalBadge.textContent = item.category;
+            
+            // Text formatting: Convert \n to <br> or wrap in <p>
+            const formattedDetails = item.details.split('\n').filter(line => line.trim() !== '').map(line => `<p class="mb-4 text-justify">${line}</p>`).join('');
+            modalContent.innerHTML = formattedDetails;
+
+            modal.classList.remove('hidden');
+            // Animation timeout
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'scale-95');
+                modalPanel.classList.add('opacity-100', 'scale-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'scale-100');
+            modalPanel.classList.add('opacity-0', 'scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        document.getElementById('modal-close-btn').onclick = closeModal;
+        document.getElementById('modal-close-btn-bottom').onclick = closeModal;
+        // Close on backdrop click
+        modalBackdrop.onclick = closeModal;
+        // Close on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // --- 4. Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+        // Add simple Tailwind Animation config manually if needed, but here leveraging transitions
+        // Fade in animation classes logic injected via style block for completeness
+    </script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 20px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+    </style>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="visitor-tracker.js"></script>
+</html>

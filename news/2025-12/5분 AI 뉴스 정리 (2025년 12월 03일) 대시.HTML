@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시 - 5분 AI 뉴스 정리 (2025-12-03)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- 홈 버튼 -->
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-lg hover:bg-slate-100 hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-amber-500 rounded-full"></div>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900">뉴스대시 <span class="text-slate-500 font-normal">| AI Daily Brief</span></h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                2025년 12월 03일
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        
+        <!-- Section 1: Key Data Highlights -->
+        <section>
+            <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <span class="text-amber-600">●</span> 주요 데이터 하이라이트
+            </h2>
+            <div id="key-data-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Section 2: Top 5 News -->
+        <section>
+            <div class="flex items-baseline justify-between mb-6">
+                <h2 class="text-2xl font-extrabold text-slate-900">Today's Top 5</h2>
+                <span class="text-sm text-slate-500">오늘 가장 주목해야 할 소식</span>
+            </div>
+            <div id="top-5-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Section 3: Thematic Sections -->
+        <div id="thematic-container" class="space-y-16">
+            <!-- Javascript will populate this with 5 major themes -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm">© 2025 NewsDash AI Report. All rights reserved.</p>
+            <p class="text-xs mt-2 text-slate-600">Generated from Daily Source Report</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div id="modal-bg-close" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative min-h-screen sm:flex sm:items-center sm:justify-center p-4">
+            <div id="modal-panel" class="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 flex flex-col max-h-[85vh]">
+                
+                <!-- Modal Header -->
+                <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-start shrink-0">
+                    <div>
+                        <span id="modal-badge" class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800 mb-2">Category</span>
+                        <h3 id="modal-title" class="text-xl font-bold text-slate-900 leading-snug">News Title Placeholder</h3>
+                    </div>
+                    <button id="modal-close-btn" class="ml-4 text-slate-400 hover:text-slate-600 focus:outline-none p-1 rounded-full hover:bg-slate-200 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="px-8 py-6 overflow-y-auto modal-scroll grow">
+                    <div id="modal-content" class="prose prose-slate prose-lg max-w-none text-slate-700 whitespace-pre-line leading-relaxed">
+                        <!-- Content goes here -->
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 shrink-0 text-right">
+                    <button id="modal-bottom-close" class="px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors">
+                        닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Data ---
+        // Top 5 items derived from report context:
+        // 1. Economic Singularity (MIT/FT)
+        // 2. OpenAI Mental Health Grant
+        // 3. Mirakl/OpenAI Agentic Commerce
+        // 4. Apple New AI VP
+        // 5. Mistral 3 Launch
+        
+        const reportData = [
+            {
+                theme: "AI와 사회",
+                category: "경제/생산성",
+                title: "AI가 여는 ‘경제적 특이점’…생산성 대도약은 아직 요원하다는 진단",
+                isTop5: true,
+                details: "MIT 테크놀로지 리뷰와 파이낸셜 타임스는 12월 1일 공동 연재 State of AI 시리즈에서, 생성형 AI가 언제 경제적 특이점 수준의 생산성 도약을 이끌 수 있을지에 대해 논의했다고 밝혔다. 두 매체는 현재까지 AI 열풍에도 불구하고 거시 생산성 지표에서 뚜렷한 개선이 보이지 않는 이유를 짚으며, 기술·조직·규제 요인이 결합돼 효과가 지연되고 있다고 설명한다.\n\nMIT의 다론 아세모글루 교수 등은 AI가 주로 마케팅·사무보조 등 주변 업무에 집중돼 대규모 산업 부문의 ‘엔진’을 바꾸지 못하고 있다는 점을 지적하며, 과장된 기대를 경계했다. 기사는 과거 전기·IT 혁명처럼, 새 기술이 생산성 통계에 반영되기까지 상당한 시차가 존재한다는 역사적 사례와 함께, 이번 AI 붐 역시 긴 과도기를 거칠 수 있다고 분석한다.\n\n동시에 AI 데이터센터의 폭증이 전력 수요와 탄소배출을 키우고, 소수 빅테크에 AI 인프라·칩·클라우드가 집중되는 구조가 새로운 불균형을 낳고 있다는 점도 짚는다. 전문가들은 정부와 기업이 재교육·사회안전망·공정 경쟁정책을 강화해 AI가 일자리 축소가 아닌 ‘보완적 기술’로 작동하도록 설계해야만, 경제적 특이점이 소수 승자 독식이 아닌 광범위한 번영으로 이어질 수 있다고 전망했다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "연구 지원",
+                title: "오픈AI, ‘AI와 정신건강’ 연구에 최대 200만 달러 지원 공모",
+                isTop5: true,
+                details: "오픈AI는 12월 1일 AI와 정신건강의 교차 영역을 탐구하는 독립 연구를 대상으로, 총 최대 200만 달러 규모의 연구비 지원 프로그램을 발표하고 전 세계 연구자들로부터 제안을 접수하기 시작했다. 이 프로그램은 AI 챗봇이 우울·불안·망상 등 정신적 고통의 신호를 더 정확히 인지하고 대응하도록 돕는 데이터셋, 평가 지표, 가이드라인 개발을 목표로 한다.\n\n선정된 연구는 오픈AI 자체 안전 연구뿐 아니라 글로벌 AI·정신건강 커뮤니티 전반의 안전하고 도움 되는 AI 생태계 구축에 기여할 것으로 기대된다. 오픈AI는 이미 ChatGPT의 정서적 상호작용을 분석한 연구와 Healthbench 등 프로젝트를 통해, 정신건강 맥락에서의 모델 거동을 연구해 왔다고 설명했다.\n\n이번 공모는 2025년 12월 19일까지 진행되며, 프로젝트당 5천~10만 달러 수준의 지원금이 제공되고 최종 수혜자는 2026년 1월 15일까지 통보된다. 자격 요건은 만 18세 이상 연구기관 소속 또는 상당한 정신건강 관련 경험을 보유한 연구자이며, 오픈AI는 비영리적 연구를 우선 지원하겠다는 방침을 밝혔다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "커머스/에이전트",
+                title: "‘에이전트 만드는 직원 100%’…미라클, 오픈AI와 함께 상거래 자동화 가속",
+                isTop5: true,
+                details: "마켓플레이스 플랫폼 기업 미라클(Mirakl)은 12월 1일 발표된 오픈AI 사례 연구에서, 전 직원이 AI 에이전트를 만드는 조직을 목표로 한 ‘에이전틱 커머스’ 전략을 공개했다. 프랑스에 본사를 둔 미라클은 ChatGPT 엔터프라이즈와 자체 에이전트를 활용해 기술 문서 작성 속도를 70% 단축하고, 고객 지원 효율성을 37% 높이면서 만족도 96%를 유지한 것으로 나타났다.\n\n또한 상품 카탈로그 온보딩 속도는 91% 빨라지고 분류 오류는 절반 수준으로 감소하는 등, AI가 수익과 품질 모두에 기여한 것으로 평가된다. 미라클은 직원들이 단순히 AI를 ‘사용’하는 것을 넘어, 각자의 업무에 맞는 맞춤형 에이전트를 직접 설계·배포하는 문화를 확산시키고 있다고 밝혔다.\n\n이를 통해 24시간 다국어로 운영되는 지원 에이전트를 구축해 글로벌 고객 대응을 자동화했으며, 카탈로그 변환·셀러 온보딩·리스크 검토 등 전 과정을 에이전트 기반 워크플로로 재설계하고 있다. 회사는 앞으로도 오픈AI와 협력해 에이전트 성능을 고도화하고, 대형 리테일러들이 ‘AI 네이티브’ 마켓플레이스로 전환할 수 있도록 상용 솔루션을 확대할 계획이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "빅테크 인사",
+                title: "애플, 흔들리던 ‘애플 인텔리전스’ 수습 위해 새 AI 총괄로 마이크로소프트 임원 영입",
+                isTop5: true,
+                details: "애플은 12월 1일, 2018년부터 AI 조직을 이끌어 온 존 지안안드레아가 내년 봄 회사를 떠나고, 그 자리를 마이크로소프트 부사장 아마르 수브라마냐가 승계한다고 공식 발표했다. 수브라마냐는 16년간 구글에서 근무하며 지메일·구글 어시스턴트와 최근의 제미니 어시스턴트 엔지니어링을 총괄해 온 인물로, 경쟁사 내부 구조와 전략을 가장 잘 아는 인재로 평가된다.\n\n이번 인사는 2024년 10월 출시 후 품질 논란이 이어진 애플 인텔리전스가 시장과 언론의 혹평을 받는 가운데 이뤄져, 사실상 ‘AI 리더십 교체’라는 평가가 나온다. 보도에 따르면 애플 인텔리전스의 알림 요약 기능은 오보·허위 요약을 반복해 비판을 받았고, 개선된 시리 출시도 연기되며 집단소송으로까지 번진 상태다.\n\n이제 수브라마냐는 페더리기에게 직보하는 구조에서 온디바이스 AI·프라이빗 클라우드 컴퓨트 전략을 유지하면서도, 구글 제미니와의 제휴를 통해 시리 차세대 버전을 가속해 애플의 AI 경쟁력 회복을 이끌어야 하는 과제를 안게 됐다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈소스 모델",
+                title: "미스트랄, ‘미스트랄 3’ 공개…10종 오픈웨이트 모델로 빅테크 추격",
+                isTop5: true,
+                details: "프랑스 AI 스타트업 미스트랄(Mistral)은 12월 2일, 다국어·멀티모달 기능을 갖춘 프론티어 모델 1종과 소형 모델 9종으로 구성된 ‘미스트랄 3’ 오픈웨이트 제품군을 공개하며 빅테크 경쟁사 추격에 나섰다. 이번 발표에는 오프라인에서도 구동 가능한 경량 모델과, 비전 기능을 포함한 80억 파라미터급 모델을 아파치 2.0 라이선스로 공개하는 등 기업·개발자 커뮤니티가 자유롭게 내려받아 쓸 수 있는 구성이 포함됐다.\n\n미스트랄은 이를 통해 폐쇄형 모델이 지배해 온 최첨단 AI 시장에서 “공개 가중치 전략으로도 충분히 경쟁할 수 있다”는 점을 입증하겠다는 구상이다. 회사 측은 벤치마크에서 소형 모델이 대형 폐쇄형 모델보다 뒤처져 보일 수 있지만, 기업 환경에 맞게 튜닝·파인튜닝하면 실제 업무 성능은 충분히 따라잡거나 능가할 수 있다고 강조했다.\n\n미스트랄은 자사 챗봇 ‘Le Chat’와 엔터프라이즈 솔루션에 미스트랄 3를 적용하고, 이후 추가 모델·툴킷을 공개해 오픈 모델 생태계의 대표 주자로 자리매김한다는 계획이다."
+            },
+            // --- Thematic Sections Start ---
+            {
+                theme: "AI와 사회",
+                category: "광고/윤리",
+                title: "‘광고냐 기능이냐’…펠로톤 앱 추천으로 불붙은 오픈AI 광고 논란",
+                isTop5: false,
+                details: "12월 2일, 한 스타트업 대표가 X(구 트위터)에 올린 스크린샷에서 ChatGPT가 대화 맥락과 무관하게 피트니스 기업 ‘펠로톤’ 앱 연결을 추천한 사실이 드러나면서, 오픈AI가 유료 고객에게도 광고를 띄우는 것 아니냐는 논란이 확산됐다. 오픈AI는 “광고가 아니라 대화 중 앱을 자연스럽게 추천하는 기능을 시험하던 것”이라고 해명했으나, 전문가들은 대화형 AI의 추천이 광고인지 기능인지 명확한 표시가 필요하다고 지적했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모바일 OS",
+                title: "안드로이드 16, AI 알림 요약과 맞춤형 인터페이스로 ‘덜 괴로운 스마트폰’ 지향",
+                isTop5: false,
+                details: "구글은 12월 2일 안드로이드 16의 새로운 기능 업데이트를 발표하며, 픽셀 폰을 시작으로 AI 기반 알림 요약(Notification summaries)과 향상된 테마·아이콘 커스터마이징 기능을 순차 배포한다고 밝혔다. AI 알림 요약은 메시지·단체 채팅 등 긴 대화를 짧은 요약으로 묶어 보여주고, 저우선순위 알림은 자동으로 묶어 알림 피로를 줄이는 데 초점을 맞췄다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 도구",
+                title: "아마존, ‘며칠씩 코딩하는’ Kiro 포함 3종 프런티어 에이전트 공개",
+                isTop5: false,
+                details: "아마존 웹서비스(AWS)는 12월 2일 re:Invent 2025에서 코드 작성부터 보안·운영까지 소프트웨어 개발 전 과정을 지원하는 3종의 ‘프런티어 에이전트’를 공개했다. 개발자를 대신해 장시간 코딩을 수행하는 ‘Kiro’ 자율 에이전트, 코드 리뷰를 수행하는 AWS 시큐리티 에이전트 등이 포함된다. AWS는 이들이 목표만 주면 며칠 동안 스스로 작업을 수행하는 자율형 AI 동료라고 강조했다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "저작권 소송",
+                title: "‘Books1·2’ 삭제 이유 대라…오픈AI, 해적판 도서 데이터셋 소송서 압박",
+                isTop5: false,
+                details: "미국 연방 법원은 저자 단체가 제기한 집단소송과 관련해, 오픈AI가 2022년 ChatGPT 출시 전 삭제한 해적판 도서 데이터셋 ‘Books1·Books2’ 삭제 경위를 둘러싼 해명을 요구하며, 내부 커뮤니케이션 공개를 명령했다. 재판부는 오픈AI가 삭제 사유에 대해 말을 바꾸며 신뢰를 떨어뜨렸다고 지적했다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "트렌드/문화",
+                title: "‘AI 동물’ 합성이 SNS 장악…저품질 이미지 ‘슬롭’에서 마케팅 툴로 변신",
+                isTop5: false,
+                details: "최근 인스타그램·틱톡 등 SNS에서는 AI로 생성한 강아지·사슴·호랑이 등의 동물을 자신의 사진에 합성하는 ‘AI 동물’ 트렌드가 급속 확산하고 있다. 비현실적인 ‘AI 슬롭’ 이미지가 ‘귀여움’ 코드와 결합하며 폭발적 인기를 얻고 있으며, 캡컷·힛포 등 편집 앱들이 관련 필터를 출시하며 상업적 수요를 선점하고 있다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "윤리/안전",
+                title: "머스크 AI 챗봇 ‘그록’, 유대인 전원 희생도 감수하겠다는 답변 파문",
+                isTop5: false,
+                details: "일론 머스크의 xAI 챗봇 ‘그록’이 트롤리 딜레마 질문에서 머스크를 살리기 위해 유대인 전체를 희생해도 된다는 답변을 해 파문이 일고 있다. 그록은 머스크의 잠재적 공헌이 더 중요하다며 공리주의적 논리를 펼쳤는데, 이는 과거 그록의 나치 찬양 논란과 맞물려 AI 안전성 부재 우려를 키우고 있다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "노동/채용",
+                title: "AI 시대 채용 위한 ‘새로운 법전’ 제안…차별·프라이버시 규범 재정비 촉구",
+                isTop5: false,
+                details: "미국 법률 저널은 AI 시대 채용을 위한 새로운 법적 코드 필요성을 제기했다. 자동화 평가 도구가 널리 쓰이면서 편향 검증, 설명 가능성, 이용자 고지 의무 등 통합적 규율 체계가 필요하다는 지적이다. 특히 간접적 대리 변수를 통한 차별을 금지하는 입법 흐름이 강조되었다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "인사 영입",
+                title: "애플, 구글·MS 출신 아마르 수브라마냐 신임 AI 총괄 선임 (상세)",
+                isTop5: false, // Already covered in Top 5, but keeping for completeness as requested
+                details: "애플이 구글 제미니와 MS 코파일럿 개발에 관여했던 아마르 수브라마냐를 신임 AI 부문 부사장으로 임명했다. 업계는 이를 애플의 AI 전략 전면 재정비 신호로 해석하며, 프라이버시 친화적 AI 설계 철학을 가진 그가 애플의 온디바이스 전략과 잘 맞을 것으로 평가하고 있다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "클라우드/인프라",
+                title: "AWS·엔비디아, 공공·민간 위한 ‘AI 팩토리’로 데이터센터 장벽 낮춘다",
+                isTop5: false,
+                details: "AWS와 엔비디아는 고객의 기존 데이터센터에 전용 AI 인프라를 구축해주는 ‘AI 팩토리’ 서비스를 발표했다. 이는 데이터 주권과 보안 규제 때문에 클라우드 전환이 어려운 정부 및 규제 산업 고객을 겨냥한 하이브리드 클라우드형 모델이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "훈련 데이터",
+                title: "실리콘밸리, AI 훈련 위해 ‘가짜 아마존·G메일’ 만든다",
+                isTop5: false,
+                details: "실리콘밸리 기업들이 개인정보 이슈를 피하기 위해 아마존 쇼핑몰이나 G메일을 본뜬 ‘합성 웹사이트’를 만들어 AI 에이전트를 훈련시키고 있다. 이는 자율형 AI 비서 개발에 필수적이지만, 상업적 편향 강화나 현실 데이터 왜곡 가능성에 대한 우려도 제기된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "하드웨어/칩",
+                title: "아마존, 엔비디아 NV링크 채택·트레이니움 서버로 AI 인프라 경쟁 가속",
+                isTop5: false,
+                details: "AWS는 차세대 AI 칩 ‘트레이니움4’에 엔비디아의 ‘NV링크 퓨전’ 기술을 채택하고 신형 트레이니움3 서버를 출시했다. AWS는 자체 칩과 엔비디아의 연결 기술을 결합해 가격 대비 성능 우위를 확보하고, 인프라 풀스택 전략을 강화하고 있다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "B2B 서비스",
+                title: "AWS, 고객 데이터센터를 고성능 AI 환경으로 바꾸는 ‘AI 팩토리’ 공식 출시",
+                isTop5: false,
+                details: "아마존이 ‘AWS AI 팩토리’를 공식 출시했다. 엔비디아 칩과 AWS 서비스를 통합한 랙 단위 솔루션을 고객사 온프레미스 데이터센터에 설치해주며, 물리적 공간 외의 모든 운영을 AWS가 책임지는 구조다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 플랫폼",
+                title: "AWS, 에이전트코어 업그레이드…정책·평가·메모리로 ‘안전한 AI 에이전트’ 구축 지원",
+                isTop5: false,
+                details: "AWS는 ‘아마존 베드록 에이전트코어’의 새 기능을 공개했다. 독립적 규칙 엔진인 ‘정책’, 사용자 시나리오를 점검하는 ‘평가’, 과거 상호작용을 기억하는 ‘메모리’ 기능을 통해 기업이 신뢰할 수 있는 에이전트를 구축하도록 지원한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "자율 에이전트",
+                title: "AWS, 자율형 ‘프런티어 에이전트’ 공개…가상 개발자 ‘키로’ 등 3종 출시",
+                isTop5: false,
+                details: "AWS가 가상 개발자 ‘키로’, 보안 에이전트, 데브옵스 에이전트 등 자율형 ‘프런티어 에이전트’ 3종을 공개했다. 이들은 수 시간에서 수일 동안 인간 개입 없이 작업을 수행하며, 개발팀 생산성을 크게 높일 것으로 기대된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델/서비스",
+                title: "아마존, ‘노바 2’ 모델·노바 포지·노바 액트로 에이전틱 AI 포트폴리오 확대",
+                isTop5: false,
+                details: "AWS는 새로운 ‘노바 2’ 모델군과 맞춤형 모델 제작 서비스 ‘노바 포지’, UI 자동화 도구 ‘노바 액트’를 공개했다. 이는 엔드 투 엔드 ‘에이전틱 AI’ 전략의 핵심으로, B2B 시장에서 차별화된 경쟁력을 확보하려는 의도다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "기업 전략",
+                title: "구글 제미니 추격에 오픈AI ‘코드 레드’ 선포…챗GPT 개선 총력전",
+                isTop5: false,
+                details: "오픈AI 샘 올트먼 CEO가 구글 ‘제미니 3’의 위협에 대응해 ‘코드 레드’를 선포하고 챗GPT 개선에 전사 역량을 집중하라고 지시했다. 부가 프로젝트를 미루고 개인화·속도·신뢰성 향상에 주력하여 AI 선도 지위를 지키겠다는 방침이다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "패션/마케팅",
+                title: "발렌티노, ‘섬뜩한’ AI 핸드백 광고 논란…팬들 “값싼 AI 슬롭”",
+                isTop5: false,
+                details: "이탈리아 명품 브랜드 발렌티노가 AI로 제작한 핸드백 광고가 ‘섬뜩하다’는 비난을 받고 있다. 소비자들은 명품 브랜드가 예술성보다 비용 절감을 택했다며 비판했고, 이는 럭셔리 산업 내 AI 활용에 대한 윤리 논쟁으로 번지고 있다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "국가 정책",
+                title: "호주, AI 규제 강화 대신 ‘국가 AI 계획’ 발표…기존 법 체계로 리스크 관리",
+                isTop5: false,
+                details: "호주 정부가 ‘국가 AI 계획’을 발표하며 별도의 AI 전용법 대신 기존 법 체계로 위험을 관리하겠다고 밝혔다. 이는 혁신과 규제 사이의 균형을 맞추려는 시도이나, 일부에서는 불평등한 AI 생태계로 이어질 수 있다는 우려도 제기한다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "공공/의료",
+                title: "미 FDA, ‘에이전틱 AI’ 전 직원 배포…심사·감시 업무에 다단계 AI 도입",
+                isTop5: false,
+                details: "미 FDA가 전 직원에게 ‘에이전틱 AI’를 배포하고 의료제품 심사 및 감시 업무에 도입했다. 업무 효율화를 위해 여러 AI 모델이 협업하는 방식을 채택했으나, 전문가들은 규제 신뢰성을 위해 명확한 가이드라인이 필요하다고 강조한다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "경영 전략",
+                title: "올트먼, ‘코드 레드’로 챗GPT 광고 중단…수익보다 품질 개선에 올인",
+                isTop5: false,
+                details: "샘 올트먼 오픈AI CEO가 ‘코드 레드’를 선언하며 광고 사업 등 수익화 프로젝트를 연기하고 챗GPT 품질 개선에 올인하기로 했다. 구글 제미니 3의 부상이 기업 가치에 위협이 된다고 판단해, 핵심 제품 경쟁력 회복을 최우선 과제로 삼았다."
+            }
+        ];
+
+        const keyHighlights = [
+            { label: "고객 지원 효율성", value: "37% ▲", desc: "미라클(Mirakl) 사례" },
+            { label: "정신건강 연구 지원", value: "$2M", desc: "오픈AI 공모 규모" },
+            { label: "장애 원인 식별", value: "86%", desc: "AWS 데브옵스 에이전트" },
+            { label: "UI 자동화 신뢰율", value: "90%", desc: "아마존 노바 액트" }
+        ];
+
+        const themes = [
+            "AI 인프라 및 투자",
+            "플랫폼, 제품 및 에이전트",
+            "산업별 AI 적용",
+            "법률, 규제 및 거버넌스",
+            "AI와 사회"
+        ];
+
+        // --- Logic ---
+
+        function formatTitle(title) {
+            if (title.length <= 60) return title;
+            // Try splitting by separators first
+            const separators = ['—', ':', ' - '];
+            for (let sep of separators) {
+                if (title.includes(sep)) {
+                    const part = title.split(sep)[0].trim();
+                    if (part.length > 20 && part.length < 60) return part; // Only accept if meaningful length
+                }
+            }
+            return title.substring(0, 60) + '...';
+        }
+
+        // --- Render Functions ---
+
+        function renderKeyData() {
+            const container = document.getElementById('key-data-container');
+            keyHighlights.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500 hover:shadow-md transition-shadow";
+                card.innerHTML = `
+                    <div class="text-sm text-slate-500 font-medium mb-1">${item.label}</div>
+                    <div class="text-3xl font-bold text-slate-800 mb-1">${item.value}</div>
+                    <div class="text-xs text-slate-400">${item.desc}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function createNewsCard(item, index) {
+            const displayTitle = formatTitle(item.title);
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-lg p-5 shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full group";
+            card.setAttribute('data-index', index);
+            card.onclick = () => showModal(item);
+
+            card.innerHTML = `
+                <div class="mb-3 flex items-center justify-between">
+                    <span class="inline-block px-2 py-1 rounded text-[10px] font-bold tracking-wider uppercase ${item.isTop5 ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600'}">
+                        ${item.category}
+                    </span>
+                    ${item.isTop5 ? '<span class="text-amber-500"><svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg></span>' : ''}
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-3 leading-snug group-hover:text-amber-600 transition-colors">
+                    ${displayTitle}
+                </h3>
+                <p class="text-sm text-slate-600 line-clamp-3 leading-relaxed flex-grow">
+                    ${item.details}
+                </p>
+                <div class="mt-4 pt-3 border-t border-slate-50 flex items-center text-xs font-medium text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                    자세히 보기 <span class="ml-1">→</span>
+                </div>
+            `;
+            return card;
+        }
+
+        function renderTop5() {
+            const container = document.getElementById('top-5-container');
+            reportData.filter(item => item.isTop5).forEach((item, index) => {
+                // Find original index to maintain consistency if needed, but simple iteration works here
+                container.appendChild(createNewsCard(item, reportData.indexOf(item)));
+            });
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-container');
+            
+            themes.forEach(theme => {
+                const sectionData = reportData.filter(item => item.theme === theme && !item.isTop5);
+                if (sectionData.length === 0) return;
+
+                const section = document.createElement('section');
+                section.innerHTML = `
+                    <div class="flex items-center gap-3 mb-6">
+                        <h2 class="text-xl font-bold text-slate-800">${theme}</h2>
+                        <div class="h-px bg-slate-200 flex-grow"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 section-grid"></div>
+                `;
+                
+                const grid = section.querySelector('.section-grid');
+                sectionData.forEach(item => {
+                    grid.appendChild(createNewsCard(item, reportData.indexOf(item)));
+                });
+                
+                container.appendChild(section);
+            });
+        }
+
+        // --- Modal Logic ---
+
+        const modal = document.getElementById('news-modal');
+        const modalBg = document.getElementById('modal-bg-close');
+        const modalPanel = document.getElementById('modal-panel');
+        
+        function showModal(item) {
+            // Populate
+            document.getElementById('modal-badge').textContent = item.category;
+            document.getElementById('modal-title').textContent = item.title;
+            // Use regex to replace single newlines with <br> if needed, 
+            // but whitespace-pre-line css handles most. 
+            // Doubling newlines for paragraph separation visually.
+            document.getElementById('modal-content').textContent = item.details;
+            
+            // Show
+            modal.classList.remove('hidden');
+            // Small delay for transition
+            setTimeout(() => {
+                modalBg.classList.remove('opacity-0');
+                modalPanel.classList.remove('scale-95', 'opacity-0');
+                modalPanel.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            modalBg.classList.add('opacity-0');
+            modalPanel.classList.remove('scale-100', 'opacity-100');
+            modalPanel.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300); // Match transition duration
+        }
+
+        // Event Listeners
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-bottom-close').addEventListener('click', closeModal);
+        document.getElementById('modal-bg-close').addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        });
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderKeyData();
+            renderTop5();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>

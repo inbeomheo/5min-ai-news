@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 뉴스 인포그래픽: 2025.11.20</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts (Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 기본 스타일 설정 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach */
+      color: #1E1E1E; 
+    }
+    
+    /* 스크롤바 커스텀 */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #FDF0E0; }
+    ::-webkit-scrollbar-thumb { background: #1E1E1E; border-radius: 4px; }
+
+    /* 네오-브루탈리즘 / 레트로 팝 스타일 카드 */
+    .kpi-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+      transition: transform 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .news-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; 
+      transition: all 0.2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 3px 3px 0px #1E1E1E; 
+    }
+
+    /* 섹션 헤더 스타일 */
+    .section-title {
+      display: inline-block;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      padding: 0.5rem 1.5rem;
+      transform: skew(-2deg);
+      margin-bottom: 1.5rem;
+    }
+    .section-title h2 {
+      transform: skew(2deg);
+      margin: 0;
+    }
+
+    /* 스티키 내비게이션 */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+      border-top: 2px solid #1E1E1E;
+      border-bottom: 2px solid #1E1E1E;
+    }
+
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      height: 250px; 
+    }
+
+    /* CSS 기반 다이어그램 (Flow) */
+    .flow-step {
+      background: #f3f4f6;
+      border: 2px solid #1E1E1E;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      position: relative;
+    }
+    .flow-arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: #1E1E1E;
+    }
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10 space-y-2">
+      <div class="inline-block px-4 py-1 border-2 border-black rounded-full bg-yellow-300 font-bold mb-2 text-sm">
+        DAILY AI REPORT
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight">
+        AI·기술 최신 동향
+        <span class="badge-new">NEW</span>
+      </h1>
+      <p class="text-xl font-medium text-gray-600" id="report-date">2025년 11월 20일 (목)</p>
+    </header>
+
+    <!-- =========================
+         SECTION: KPI OVERVIEW
+         ========================= -->
+    <section id="kpi-overview" class="mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1 -->
+        <div class="kpi-card p-6 rounded-lg flex flex-col justify-between">
+          <div>
+            <p class="text-sm font-bold text-gray-500 uppercase mb-1">자율 코딩 시간</p>
+            <p class="text-4xl font-black text-indigo-600">2h 42m</p>
+          </div>
+          <p class="text-sm mt-3 font-medium border-t-2 border-gray-100 pt-2">
+            GPT-5.1 Codex Max<br>
+            <span class="text-gray-500 font-normal">기존 대비 +25분</span>
+          </p>
+        </div>
+        <!-- KPI 2 -->
+        <div class="kpi-card p-6 rounded-lg flex flex-col justify-between">
+          <div>
+            <p class="text-sm font-bold text-gray-500 uppercase mb-1">Gemini 3 환각률</p>
+            <p class="text-4xl font-black text-red-500">88%</p>
+          </div>
+          <p class="text-sm mt-3 font-medium border-t-2 border-gray-100 pt-2">
+            지능지수 1위지만<br>
+            <span class="text-gray-500 font-normal">신뢰성 경고등 🚨</span>
+          </p>
+        </div>
+        <!-- KPI 3 -->
+        <div class="kpi-card p-6 rounded-lg flex flex-col justify-between">
+          <div>
+            <p class="text-sm font-bold text-gray-500 uppercase mb-1">블랙웰 칩 수출</p>
+            <p class="text-4xl font-black text-green-600">35,000</p>
+          </div>
+          <p class="text-sm mt-3 font-medium border-t-2 border-gray-100 pt-2">
+            美 → 사우디/UAE 승인<br>
+            <span class="text-gray-500 font-normal">오일머니 AI 투자 본격화</span>
+          </p>
+        </div>
+        <!-- KPI 4 -->
+        <div class="kpi-card p-6 rounded-lg flex flex-col justify-between">
+          <div>
+            <p class="text-sm font-bold text-gray-500 uppercase mb-1">Grok 4.1 점수</p>
+            <p class="text-4xl font-black text-blue-500">100%</p>
+          </div>
+          <p class="text-sm mt-3 font-medium border-t-2 border-gray-100 pt-2">
+            통신사 고객지원 벤치마크<br>
+            <span class="text-gray-500 font-normal">실무 투입 가능 수준</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/90 backdrop-blur-md py-4 mb-12">
+      <div class="flex justify-center flex-wrap gap-3 md:gap-6">
+        <a href="#theme1" class="text-sm md:text-base font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition-colors border border-transparent hover:border-black">🧠 초거대 모델 격돌</a>
+        <a href="#theme2" class="text-sm md:text-base font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition-colors border border-transparent hover:border-black">🤖 에이전트 혁명</a>
+        <a href="#theme3" class="text-sm md:text-base font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition-colors border border-transparent hover:border-black">💰 인프라 & 지정학</a>
+        <a href="#theme4" class="text-sm md:text-base font-bold px-4 py-2 rounded hover:bg-[#1E1E1E] hover:text-white transition-colors border border-transparent hover:border-black">🛍️ 에이전틱 커머스</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         MAIN CONTENT
+         ========================= -->
+    <div class="space-y-24">
+
+      <!-- THEME 1: 초거대 모델 격돌 -->
+      <section id="theme1" class="scroll-mt-32">
+        <div class="section-title">
+          <h2 class="text-2xl md:text-3xl font-black">🧠 초거대 모델 전쟁</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 font-medium">구글의 Gemini 3, OpenAI의 GPT-5.1 Codex, xAI의 Grok 4.1이 동시에 쏟아지며 '프론티어 모델' 경쟁이 정점에 달했습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1-1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded border border-blue-800">GOOGLE</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3 leading-tight">Gemini 3 공식 발표: "가장 지능적이나 환각은 여전"</h3>
+            <p class="mb-4 text-gray-700 flex-grow">구글이 '멀티모달 이해와 추론'에 최적화된 Gemini 3를 출시했습니다. 벤치마크 지능 지수는 1위를 기록했으나, 환각률이 88%에 달해 신뢰성 문제가 제기되었습니다. 학습·빌드·계획을 돕는 범용 도구로 포지셔닝 중입니다.</p>
+            <div class="bg-gray-50 p-4 rounded border border-gray-200 mb-4">
+              <div class="chart-container" style="height: 200px;">
+                <canvas id="chartHallucination"></canvas>
+              </div>
+              <p class="text-center text-xs text-gray-500 mt-2">Gemini 3 Pro 주요 지표 비교 (가상 데이터)</p>
+            </div>
+            <p class="pt-4 border-t border-gray-100 text-sm font-semibold text-blue-900">
+              💡 핵심: 압도적인 지능(IQ)을 가졌지만, 업무용으로 쓰기엔 거짓말(환각) 리스크가 아직 큽니다.
+            </p>
+          </article>
+
+          <!-- News Card 1-2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded border border-green-800">OPENAI</span>
+              <span class="bg-gray-100 text-gray-800 text-xs font-bold px-2 py-1 rounded border border-gray-800">xAI</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3 leading-tight">GPT-5.1 Codex & Grok 4.1: 코딩과 도구의 진화</h3>
+            <p class="mb-4 text-gray-700 flex-grow">OpenAI의 GPT-5.1-Codex-Max는 자율 작업 시간이 2시간 42분으로 늘어나며 대형 프로젝트 코딩이 가능해졌습니다. xAI의 Grok 4.1 Fast는 200만 토큰을 지원하며 통신사 고객지원 벤치마크에서 만점을 기록, 실무 투입 준비를 마쳤습니다.</p>
+            <div class="bg-green-50 p-4 rounded border border-green-800 mb-4">
+              <h4 class="font-bold text-green-900 text-sm mb-2">📊 자율 작업 지속 시간 (METR 평가)</h4>
+              <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                <div class="bg-gray-400 h-4 rounded-full" style="width: 45%"></div>
+              </div>
+              <div class="flex justify-between text-xs text-gray-500 mb-2">
+                <span>GPT-4 (약 1h)</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-4">
+                <div class="bg-green-600 h-4 rounded-full flex items-center justify-end pr-2 text-[10px] text-white font-bold" style="width: 85%">2h 42m</div>
+              </div>
+              <div class="flex justify-between text-xs text-green-700 mt-1">
+                <span>GPT-5.1 Codex Max</span>
+              </div>
+            </div>
+            <p class="pt-4 border-t border-gray-100 text-sm font-semibold text-green-900">
+              💡 핵심: 코딩과 도구 사용 능력이 비약적으로 상승해, 개발자의 '손'을 덜어주는 단계에 진입했습니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- THEME 2: 에이전트 혁명 -->
+      <section id="theme2" class="scroll-mt-32">
+        <div class="section-title">
+          <h2 class="text-2xl md:text-3xl font-black">🤖 에이전트 혁명</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 font-medium">AI가 단순히 답만 하는 것이 아니라, 브라우저를 켜고 버튼을 누르고 앱을 만듭니다. 'Action'이 가능한 에이전트 전성시대입니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 2-1 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">구글 '안티그래비티' & 'Stitch': 만드는 방법의 혁신</h3>
+            <p class="mb-4 text-gray-700">구글이 에이전트형 IDE '안티그래비티'를 공개했습니다. 개발자가 "무엇을 만들지"만 정하면 에이전트가 코딩, 터미널, 브라우저 테스트까지 수행합니다. 또한 디자인 도구 Stitch는 UI 그림을 60초 만에 실제 작동하는 웹앱으로 변환합니다.</p>
+            
+            <!-- Visual: Flow Diagram -->
+            <div class="my-6 space-y-2">
+              <div class="flow-step">👨‍💻 사용자: "이런 앱 만들어줘"</div>
+              <div class="flow-arrow">⬇️</div>
+              <div class="flow-step bg-blue-100 border-blue-900 text-blue-900">🤖 에이전트 (Antigravity/Stitch)<br><span class="text-xs font-normal">계획 수립 → 코드 작성 → 터미널 실행</span></div>
+              <div class="flow-arrow">⬇️</div>
+              <div class="flow-step bg-indigo-100 border-indigo-900 text-indigo-900">🚀 결과: 작동하는 앱/서비스 배포</div>
+            </div>
+
+            <p class="pt-4 border-t border-gray-100 text-sm font-semibold text-indigo-900">
+              💡 핵심: 개발의 장벽이 무너지고 있습니다. 아이디어만 있으면 누구나 앱을 만드는 시대가 옵니다.
+            </p>
+          </article>
+
+          <!-- News Card 2-2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl font-bold mb-3">Manus & Agent 365: 브라우저와 오피스를 장악하다</h3>
+            <p class="mb-4 text-gray-700">Manus는 크롬/엣지 브라우저를 'AI 브라우저'로 바꿔, 로그인된 사이트에서 클릭/입력 등 업무를 대신 수행합니다. MS는 'Agent 365'를 통해 13억 개의 에이전트가 엑셀, 팀즈, 아웃룩 안에서 직장 동료처럼 일하게 될 것이라고 예고했습니다.</p>
+            <div class="mt-auto bg-purple-50 border-2 border-purple-200 rounded-lg p-4 text-center">
+              <span class="block text-purple-800 font-bold text-lg mb-1">"Browser as a Body"</span>
+              <span class="text-sm text-purple-600">AI가 내 마우스와 키보드를 대신해<br>인터넷 세상을 돌아다닙니다.</span>
+            </div>
+            <p class="pt-4 mt-4 border-t border-gray-100 text-sm font-semibold text-purple-900">
+              💡 핵심: 별도의 AI 앱을 켜는 게 아니라, 내가 쓰던 브라우저와 엑셀 안으로 AI가 들어왔습니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- THEME 3: 인프라 & 지정학 -->
+      <section id="theme3" class="scroll-mt-32">
+        <div class="section-title">
+          <h2 class="text-2xl md:text-3xl font-black">💰 인프라 & 지정학</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 font-medium">AI 패권을 위해 오일머니가 쏟아지고, 국가는 안보를 걱정하며, 데이터센터는 전기를 빨아들이고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 3-1 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">중동으로 향하는 엔비디아 칩, 그 뒤엔 미국의 전략</h3>
+            <p class="mb-4 text-gray-700">미 상무부가 사우디(Humain)와 UAE(G42)에 엔비디아 '블랙웰' 칩 35,000개 수출을 승인했습니다. 트럼프 행정부의 기조와 맞물려, 미국은 중동을 'AI 동맹'으로 끌어들여 중국을 견제하고 경제적 이익을 취하려는 '선별적 개방' 전략을 취하고 있습니다.</p>
+            <div class="flex items-center justify-center py-6 bg-gray-900 text-white rounded-lg border-2 border-gray-500">
+              <div class="text-center">
+                <p class="text-xs text-gray-400 mb-1">SAUDI & UAE DEAL</p>
+                <p class="text-3xl font-black text-green-400">$1B+ Scale</p>
+                <p class="text-xs text-gray-400 mt-1">블랙웰 GPU 3.5만개</p>
+              </div>
+            </div>
+            <p class="pt-4 mt-4 border-t border-gray-100 text-sm font-semibold text-gray-900">
+              💡 핵심: AI 칩은 이제 단순한 부품이 아니라, 국가 간 동맹을 맺는 '외교적 무기'가 되었습니다.
+            </p>
+          </article>
+
+          <!-- News Card 3-2 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">"겨울 폭풍 오면 정전" 데이터센터 전력 위기</h3>
+            <p class="mb-4 text-gray-700">AI 데이터센터가 급증하며 전력망 부하가 한계에 다다랐습니다. 미국 PJM 등은 겨울 폭풍 시 대규모 정전 가능성을 경고했습니다. 러시아 푸틴 대통령 또한 'AI 주권'을 강조하며 국가 전력망과 인프라 확충을 지시했습니다.</p>
+            <ul class="space-y-2 bg-yellow-50 p-4 rounded border border-yellow-200 text-sm">
+              <li class="flex items-start">
+                <span class="mr-2">⚡</span> <span><b>전력난:</b> 데이터센터가 도시 하나분의 전기를 소비</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🇷🇺</span> <span><b>AI 주권:</b> 러시아 "외국 모델 의존은 위험, 독자 생존"</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🇺🇸</span> <span><b>규제 충돌:</b> 미 연방 vs 주정부 간 AI 규제 권한 다툼</span>
+              </li>
+            </ul>
+            <p class="pt-4 mt-4 border-t border-gray-100 text-sm font-semibold text-yellow-900">
+              💡 핵심: AI 발전의 가장 큰 걸림돌은 이제 기술이 아니라 '전기'와 '규제'입니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- THEME 4: 에이전틱 커머스 -->
+      <section id="theme4" class="scroll-mt-32">
+        <div class="section-title">
+          <h2 class="text-2xl md:text-3xl font-black">🛍️ 에이전틱 커머스</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 font-medium">검색하고 링크 타고 들어가는 쇼핑은 끝났습니다. "이거 사줘" 한마디면 AI가 탐색부터 결제까지 끝냅니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 4-1 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl font-bold mb-3">타깃(Target) & OpenAI: ChatGPT가 쇼핑몰이 된다</h3>
+            <p class="mb-4 text-gray-700">미국 대형 유통사 타깃이 OpenAI와 제휴해 ChatGPT 내에서 바로 물건을 사고 배송시키는 기능을 출시합니다. 월마트에 이은 합류로, 챗봇이 단순 대화 상대를 넘어 거대한 '앱 스토어'이자 '쇼핑 허브'로 변모하고 있습니다.</p>
+            <div class="chart-container" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+               <!-- 도넛 차트 (Visual Representation) -->
+               <canvas id="commerceChart"></canvas>
+            </div>
+            <p class="pt-4 mt-4 border-t border-gray-100 text-sm font-semibold text-pink-900">
+              💡 핵심: 소비자는 편하지만, 유통사는 플랫폼에 종속될까 두려워하면서도 올라탈 수밖에 없는 흐름입니다.
+            </p>
+          </article>
+
+          <!-- News Card 4-2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl font-bold mb-3">퍼플렉서티 '에이전틱 쇼핑': 검색에서 결제까지 원클릭</h3>
+            <p class="mb-4 text-gray-700">AI 검색 엔진 퍼플렉서티가 'Buy with Pro' 기능을 통해 상품 추천부터 결제까지 한 번에 해결하는 기능을 선보였습니다. 또한 미 연방정부(GSA)와 파트너십을 맺으며 공공 서비스 영역까지 '답변해주는 AI'의 영토를 확장했습니다.</p>
+            <div class="mt-auto p-4 bg-gray-100 rounded border-l-4 border-black">
+              <p class="font-bold text-sm mb-1">Agentic Shopping의 특징</p>
+              <ul class="text-xs text-gray-600 list-disc pl-4">
+                <li>최저가/리뷰 자동 분석</li>
+                <li>복잡한 회원가입/주소입력 생략 (원클릭)</li>
+                <li>광고 없는 중립적 추천 (지향)</li>
+              </ul>
+            </div>
+            <p class="pt-4 mt-4 border-t border-gray-100 text-sm font-semibold text-gray-900">
+              💡 핵심: "최저가 찾아줘"가 아니라 "최저가로 사놔"라고 말하는 시대가 시작되었습니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+    </div> <!-- End Main Content -->
+
+    <!-- FOOTER -->
+    <footer class="text-center text-gray-500 mt-20 mb-10 pb-10 border-t-2 border-gray-200 pt-8">
+      <p class="text-sm">AI Trends Infographic • Generated by AI Assistant</p>
+      <p class="text-xs mt-2">Data Source: 2025.11.19 Global Tech News Snippets</p>
+    </footer>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // 1. Smooth Scroll for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // 2. Chart.js Implementations
+    
+    // Chart 1: Gemini 3 Comparison (Radar or Bar) - Let's use Bar for clarity
+    const ctxHallucination = document.getElementById('chartHallucination');
+    if(ctxHallucination) {
+      new Chart(ctxHallucination, {
+        type: 'bar',
+        data: {
+          labels: ['지능(Reasoning)', '코딩(Coding)', '환각(Hallucination)', '창의성(Creativity)'],
+          datasets: [{
+            label: 'Gemini 3 Pro (Relative Score)',
+            data: [98, 95, 88, 92], // Mock data based on "High Intelligence but High Hallucination"
+            backgroundColor: [
+              'rgba(59, 130, 246, 0.6)', // Blue for good
+              'rgba(59, 130, 246, 0.6)',
+              'rgba(239, 68, 68, 0.7)',  // Red for bad (Hallucination)
+              'rgba(59, 130, 246, 0.6)'
+            ],
+            borderColor: [
+              'rgba(59, 130, 246, 1)',
+              'rgba(59, 130, 246, 1)',
+              'rgba(239, 68, 68, 1)',
+              'rgba(59, 130, 246, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, max: 100, ticks: { display: false } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+    }
+
+    // Chart 2: Commerce Share (Doughnut)
+    const ctxCommerce = document.getElementById('commerceChart');
+    if(ctxCommerce) {
+      new Chart(ctxCommerce, {
+        type: 'doughnut',
+        data: {
+          labels: ['AI 쇼핑 (New)', '전통 검색/앱'],
+          datasets: [{
+            data: [35, 65], // Conceptual data representing the shift
+            backgroundColor: ['#ec4899', '#e5e7eb'],
+            borderWidth: 2,
+            borderColor: '#1E1E1E'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'right' },
+            title: { display: true, text: '쇼핑 채널의 변화 (예상)' }
+          }
+        }
+      });
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 동향 인포그래픽 (2025-10-30)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- 
+    Narrative Plan: This infographic for Oct 30, 2025, comprehensively covers all news items by structuring them into four key themes: 1) The Infrastructure Arms Race (focusing on the massive investments by OpenAI, AWS, Google, MS, and the resulting energy crisis/supply chain impacts, including Nvidia's market cap and ASM's results), 2) National & Defense Strategy (covering geopolitical moves like AWS in Korea, US-KR-JP tech pact, Presidential remarks, military AI adoption by US DOE/Army/Palantir, IBM Defense model, and market forecasts), 3) Platforms & Developer Ecosystem (highlighting new tools like GitHub's Agent HQ, MS App Builder, OpenAI's safeguard model, Nvidia's NVQLink, Cisco switches, Counterintuitive ARU, DeepSeek-OCR, Cursor 2.0, Grammarly rebranding), and 4) Industry, Labor & Society (detailing real-world applications in finance (SKT FAME), industry (DNP, PayPal/Nvidia), aviation (Emirates), media (YouTube TV), retail (AI fraud), data brokerage (Mercor), education (SAIL4ALL), workforce opinions (PM replacement, IEA energy savings, Human+AI teams), and supply chain talent needs). A multi-column grid layout is used within sections to manage the high volume of content while maintaining usability, ensuring maximum content inclusion as requested.
+
+    Visualization Choices:
+    - OpenAI/MS Deal (Goal=Organize) -> HTML diagram (Foundation -> PBC). Justification=Explains governance. Confirmed NO SVG/Mermaid.
+    - AWS Rainier Chip Count (Goal=Inform) -> Large Number Callout (500,000). Justification=Highlights scale. Confirmed NO SVG.
+    - AWS Korea Investment (Goal=Inform) -> Large Number Callout (₩7 Trillion). Justification=Highlights scale. Confirmed NO SVG.
+    - Nvidia Market Cap (Goal=Inform) -> Large Number Callout ($5 Trillion). Justification=Highlights market dominance. Confirmed NO SVG.
+    - Military AI Market Growth (Goal=Compare) -> Bar Chart (Chart.js) (2024 vs 2030). Justification=Visualizes market expansion. Confirmed NO SVG.
+    - GitHub Agent HQ (Goal=Organize) -> HTML flow diagram (AIs -> HQ -> Dev). Justification=Simplifies platform concept. Confirmed NO SVG/Mermaid.
+    - DNP Patent Research Time Reduction (Goal=Compare) -> Bar Chart (Chart.js) (Before vs After AI). Justification=Shows productivity gain. Confirmed NO SVG.
+    - All other items (Goal=Inform) -> HTML/CSS styled cards with icons and key figures to ensure all news items are included. Confirmed NO SVG/Mermaid.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDF0E0; /* Light Peach */
+            color: #1E1E1E;
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .news-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 6px 6px 0px #1E1E1E;
+            transition: all 0.2s ease-in-out;
+            height: 100%; /* Ensure cards in a row have same height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .news-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; 
+            margin: 1.5rem auto;
+            height: 300px;
+            max-height: 400px;
+        }
+         .chart-container.small-bar {
+            height: 250px;
+            max-height: 300px;
+            max-width: 400px; /* Made slightly larger for readability */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+             .chart-container.small-bar {
+                 height: 300px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+         .news-card-content {
+            flex-grow: 1;
+        }
+        .news-card-footer {
+             margin-top: auto; /* Push footer to bottom */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl"> 
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">AI·기술 최신 동향</h1>
+            <p class="text-xl text-gray-700">2025년 10월 30일</p>
+        </header>
+
+        <section id="kpi-overview" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">핵심 지표 요약</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">OpenAI-MS 계약</p>
+                    <p class="text-5xl font-bold text-[#FF6B6B]">$2500억</p>
+                    <p class="text-sm text-gray-500">(Azure 구매 약정)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">AWS 'Project Rainier'</p>
+                    <p class="text-5xl font-bold text-[#4D96FF]">50만개</p>
+                    <p class="text-sm text-gray-500">(자체 AI 칩 가동)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">AWS, 한국 추가 투자</p>
+                    <p class="text-5xl font-bold text-[#F7D060]">7조원</p>
+                    <p class="text-sm text-gray-500">(총 130억 달러)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">엔비디아 시총</p>
+                    <p class="text-5xl font-bold text-[#6BCB77]">$5조</p>
+                    <p class="text-sm text-gray-500">(사상 첫 돌파)</p>
+                </div>
+            </div>
+        </section>
+
+        <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-4 mb-12 border-b-2 border-t-2 border-[#1E1E1E]">
+            <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+                <a href="#race" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라 전쟁</a>
+                <a href="#policy" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🏛️ 국가 & 국방 전략</a>
+                <a href="#platform" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">🤝 플랫폼 & 생태계</a>
+                <a href="#industry" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏢 산업 & 노동</a>
+            </div>
+        </nav>
+
+        <div class="space-y-20">
+            <section id="race">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라 전쟁: 빅테크의 천문학적 투자와 과제</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술 패권을 잡기 위한 경쟁이 '인프라' 확보전으로 치닫고 있습니다. OpenAI, AWS, Google, MS 등 빅테크들은 수백조 원 규모의 자금을 투입해 자체 칩을 개발하고, 전력 확보를 위해 원전 재가동까지 추진하며, AI 인프라의 수직 계열화에 총력을 기울이고 있습니다. 엔비디아는 시총 5조 달러를 돌파하며 독주 체제를 공고히 했지만, 공급망 리스크와 정책 불확실성도 함께 부상하고 있습니다.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">OpenAI, '영리 PBC' 전환 및 MS와 2500억 달러 Azure 계약</h3>
+                            <p class="mb-4">OpenAI가 기업가치 5000억 달러를 인정받으며 공익법인(PBC)으로 전환 완료. MS는 27% 지분 확보 및 AGI 독점 IP 권리 연장 대가로 향후 2500억 달러 Azure 서비스 구매 약정.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-6 bg-red-50 border-2 border-black rounded-lg">
+                            <h4 class="font-bold text-lg mb-4 text-center">OpenAI 신규 지배구조</h4>
+                            <div class="flex items-center justify-center space-x-2 text-center text-sm">
+                                <div class="p-2 bg-white border-2 border-black rounded-md">Foundation</div> → <div class="p-2 bg-white border-2 border-black rounded-md">Group PBC (MS 27%)</div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">AWS, 자체 칩 50만 개 '프로젝트 레이니어' 가동</h3>
+                            <p class="mb-4">자체 개발 AI 칩 'Trainium2' 50만 개 탑재 클러스터 가동 발표. 파트너 앤스로픽은 2025년 말까지 100만 개 이상 활용 계획. 엔비디아 의존도↓, 수직 계열화↑.</p>
+                         </div>
+                        <div class="news-card-footer my-8 p-8 bg-red-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">⚙️</p>
+                            <p class="text-3xl font-bold">500,000+ Chips</p>
+                            <p class="text-lg mt-2">AWS의 자체 칩 전략</p>
+                        </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">Google, AI 데이터센터 전력 위해 '원전 재가동'</h3>
+                            <p class="mb-4">아이오와주 폐쇄 원전(615MW) 재가동 프로젝트 참여 발표. 2029년 목표, 25년간 전력 장기 구매 계약. AI 전력난 해소를 위한 빅테크의 직접 에너지 투자.</p>
+                         </div>
+                        <div class="news-card-footer my-8 p-8 bg-red-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">☢️</p>
+                            <p class="text-3xl font-bold">Nuclear Power for AI</p>
+                            <p class="text-lg mt-2">구글의 에너지 확보 전략</p>
+                        </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">MS, 1분기 호실적 (설비투자 349억 달러)</h3>
+                            <p class="mb-4">AI 인프라 투자를 위한 분기 설비투자(CapEx) 349억 달러 집행. 장기 수주잔고(RPO) 3,920억 달러(+51%) 기록했으나, Azure 장애 발생으로 안정성 문제 부각.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-red-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-2xl font-bold">$34.9 Billion CapEx (Q1)</p>
+                         </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">엔비디아 시총 5조 달러 돌파 및 정책 혼선</h3>
+                            <p class="mb-4">AI 랠리 지속으로 시총 사상 첫 5조 달러 돌파. 하지만 트럼프 행정부의 대중국 AI 칩 판매 정책 재조정 혼선으로 수출 불확실성 증대.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-red-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">📈</p>
+                            <p class="text-3xl font-bold">$5 Trillion Market Cap</p>
+                            <p class="text-lg mt-2">NVIDIA의 독주</p>
+                        </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">ASM, 3분기 수주 부진 (중국 수요 감소)</h3>
+                            <p class="mb-4">네덜란드 반도체 장비업체 ASM 3분기 신규 수주, 시장 추정치 하회. 중국 발주 감소 영향. AI 관련 수요가 특정 분야에 집중되고 있음을 시사.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-red-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-2xl font-bold">Order Intake ↓ (Q3)</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">석유 공룡들, AI 데이터센터 전력 사업으로 피벗</h3>
+                            <p class="mb-4">SLB, 할리버튼 등 전통 석유·가스 서비스 기업들이 AI 데이터센터 전력·인프라 시장 진출. 베이커휴즈 3분기 40억 달러, 할리버튼 자회사-오라클 2.3GW 계약 등 'AI 전력 사이클' 부상.</p>
+                         </div>
+                          <div class="news-card-footer mt-6 p-4 bg-red-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-2xl font-bold">Oil Giants → AI Power</p>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="policy">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#4D96FF] pl-4">🏛️ 국가 & 국방 전략: AI 기술 패권 경쟁</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술이 국가 안보와 경제의 핵심으로 부상하면서, 각국 정부의 전략적 움직임이 빨라지고 있습니다. 미국은 동맹국과 기술 협력을 강화하며 정부 슈퍼컴퓨터 구축에 나섰고, 한국은 APEC에서 AI 주도권 확보 비전을 제시했습니다. IBM과 팔란티어 등 민간 기업들도 국방 특화 AI 개발에 뛰어들었습니다.</p>
+                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">AWS, 한국에 7조원 추가 투자 (총 130억 달러)</h3>
+                            <p class="mb-4">APEC 계기로 AWS가 2031년까지 한국 데이터센터 및 AI 인프라 확충에 7조원 추가 투자 발표. 글로벌 AI 허브 입지 강화 기대.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-blue-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🇰🇷</p>
+                            <p class="text-3xl font-bold">₩7 Trillion+</p>
+                            <p class="text-lg mt-2">AWS의 한국 투자 확대</p>
+                        </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">미국, 한국·일본과 AI·반도체 기술협력 합의</h3>
+                            <p class="mb-4">APEC 계기 '기술 번영 합의' 체결. AI, 반도체 등 핵심 기술 공조 강화. 동맹국 중심 '규범+공급망' 패키지 협력.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-blue-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">🇺🇸↔🇰🇷↔🇯🇵 Tech Pact</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">이재명 대통령, APEC서 '모두를 위한 AI' 제안</h3>
+                            <p class="mb-4">경주 APEC CEO 서밋 특별연설에서 'AI for all' 비전 천명, APEC 차원 AI 이니셔티브 추진 제안. AI 거버넌스 규범 설정자 역할 의지.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-blue-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">APEC: AI for All Initiative</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">美 DOE, NVIDIA·Oracle과 AI 슈퍼컴 구축</h3>
+                            <p class="mb-4">미 에너지부(DOE)가 NVIDIA, Oracle과 협력, DOE 최대 규모 AI 슈퍼컴퓨터 'Solstice'(블랙웰 10만 개) 및 'Equinox'(1만 개) 구축 합의. 공공 연구용 '초대형 AI' 인프라 구축.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-blue-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">US DOE + Nvidia + Oracle = Supercomputers</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">IBM, 국방 특화 'Defense Model' 출시</h3>
+                            <p class="mb-4">IBM이 Janes와 협력 개발한 국방 특화 AI 'IBM Defense Model' 일반 공급 개시. 에어갭, 비밀망, 엣지 배치 지원. '작전 현장 배치 가능 LLM'이 핵심 스펙.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-blue-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">IBM Defense Model (GA)</p>
+                         </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">미 육군-팔란티어, 국경 임무 데이터 연동</h3>
+                            <p class="mb-4">미 육군·NORTHCOM, 팔란티어 Army Vantage-Maven Smart 시스템 연동. 미-멕시코 국경 임무 데이터 공유 강화. 군-민간 데이터 융합으로 표적 감시 고도화.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-blue-50 border-2 border-black rounded-lg text-center">
+                            <p class="text-xl font-bold">US Army + Palantir: Border Data Fusion</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">군사용 AI 시장, 2030년 192.9억 달러 전망</h3>
+                            <p class="mb-4">Grand View Research 전망: 2024년 93.1억 달러 → 2030년 192.9억 달러 (CAGR 13.0%). 민군 겸용 AI 기술이 방산 밸류체인 핵심 투자 지표.</p>
+                         </div>
+                         <div class="chart-container small-bar">
+                             <canvas id="militaryMarketChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="platform">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#F7D060] pl-4">🤝 플랫폼 & 생태계: AI, 개발 환경을 바꾸다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술이 개발자들의 업무 방식을 근본적으로 바꾸고 있습니다. GitHub는 여러 AI 에이전트를 통합 관리하는 허브를 선보였고, MS는 코딩 없이 앱을 만드는 기능을 코파일럿에 탑재했습니다. Grammarly와 Cursor 등 전문 도구들도 AI 중심으로 진화하고 있으며, 하드웨어 수준에서도 AI 연산을 위한 혁신이 가속화되고 있습니다.</p>
+                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                     <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">GitHub, 'Agent HQ'로 멀티 AI 에이전트 통합</h3>
+                            <p class="mb-4">다양한 코딩 에이전트(OpenAI, Google, Anthropic 등)를 하나의 플랫폼에서 통합 관리(오케스트레이션)하고 제어하는 'Agent HQ' 공개. '단일 에이전트' 사용 → '다중 에이전트 운영체제'로 패러다임 이동.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-6 bg-yellow-50 border-2 border-black rounded-lg">
+                            <h4 class="font-bold text-lg mb-4 text-center">Agent HQ Workflow</h4>
+                            <div class="flex items-center justify-center space-x-2 text-center text-sm">
+                                <div class="p-2 bg-white border-2 border-black rounded-md">Multiple AIs</div> → <div class="p-2 bg-white border-2 border-black rounded-md">Agent HQ</div> → <div class="p-2 bg-white border-2 border-black rounded-md">Developer</div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">MS 코파일럿, 'App Builder'로 노코드 앱 생성</h3>
+                            <p class="mb-4">M365 코파일럿에 '앱 빌더(App Builder)' 및 '워크플로우(Workflows)' 기능 도입. 자연어 대화로 앱이나 업무 자동화 흐름 생성. '업무 UI = 코파일럿' 전환 가속화.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🧱</p>
+                            <p class="text-xl font-bold">Copilot App Builder</p>
+                            <p>No-Code Generation</p>
+                        </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">Grammarly, 'Superhuman' 리브랜딩</h3>
+                            <p class="mb-4">작문 보조 도구 'Grammarly'(3천만+ 사용자)가 'Superhuman'으로 사명 변경, 범용 AI 비서 'Superhuman Go' 출시. 단순 작문 보조 → 이메일, 일정, 문서 작업 지원 '업무 보조' 플랫폼 진화.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">✍️ → 🤖</p>
+                            <p class="text-xl font-bold">Grammarly → Superhuman</p>
+                            <p>AI Work Assistant</p>
+                        </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">Cursor 2.0, 자체 코딩 모델 'Composer' 공개</h3>
+                            <p class="mb-4">AI 특화 IDE 'Cursor' 2.0 발표. 다중 에이전트 인터페이스, 자체 코딩 모델 'Composer' 공개. 동급 모델 대비 4배 속도 주장. 병렬 에이전트 활용으로 생산성 향상 목표.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-yellow-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">Cursor 2.0 + Composer Model</p>
+                         </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">DeepSeek-OCR, 토큰 압축으로 비용 절감</h3>
+                            <p class="mb-4">문서 이미지를 고밀도 비전 토큰으로 압축 후 텍스트 복원 기술 발표. LLM 장문 컨텍스트 처리 비용 최대 20배 절감, 저압축(7배) 구간 복원 정확도 97% 주장.</p>
+                         </div>
+                          <div class="news-card-footer mt-6 p-4 bg-yellow-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">DeepSeek-OCR: Cost Reduction (up to 20x)</p>
+                         </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">엔비디아, GPU-QPU 저지연 연결 'NVQLink'</h3>
+                            <p class="mb-4">GTC서 GPU-QPU 직접 연결 'NVQLink' 기술 공개. 양자-클래식 하이브리드 컴퓨팅 병목 해결 목표. 17개 양자 기업, 9개 국립연구소 협력. 'AI 슈퍼컴 + 양자' 병행 상용화.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🔗</p>
+                            <p class="text-xl font-bold">NVQLink</p>
+                            <p>GPU ↔ QPU Connection</p>
+                        </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">NVIDIA-Cisco, AI 스위치 아키텍처</h3>
+                            <p class="mb-4">데이터센터용 AI 스위치 레퍼런스 아키텍처 및 통합 솔루션 발표. NVIDIA Spectrum-X + Cisco Nexus 기반. 이더넷 기반 AI 네트워킹 표준화 가속화.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">↔️</p>
+                            <p class="text-xl font-bold">NVIDIA + Cisco</p>
+                            <p>AI Switch Architecture</p>
+                        </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">Counterintuitive, '추론-네이티브' ARU 칩</h3>
+                            <p class="mb-4">스타트업 'Counterintuitive', LLM의 '트윈 트랩'(비결정성, 검증 불가) 해결 위한 "추론-네이티브" 칩/소프트웨어 'ARU(Artificial Reasoning Unit)' 구상 공개. '속도' → '추론/가시성' 경쟁축 다변화 가능성.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">💡</p>
+                            <p class="text-xl font-bold">ARU Chip Concept</p>
+                            <p>Reasoning-Native AI</p>
+                        </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">OpenAI, 오픈소스 안전 모델 공개</h3>
+                             <p class="mb-4">OpenAI가 유해 콘텐츠 필터링, 프롬프트 주입 방어 등 LLM 안전 기능을 강화하는 오픈소스 모델 'gpt-oss-safeguard' 시리즈를 공개했습니다. 모델 자체의 안전성 향상과 커뮤니티 기여를 동시에 추구합니다.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                             <p class="text-6xl mb-4">🛡️</p>
+                            <p class="text-xl font-bold">gpt-oss-safeguard</p>
+                             <p>Open Source Safety Model</p>
+                         </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="industry">
+                 <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#6BCB77] pl-4">🏢 산업 & 노동: AI 적용과 그 영향</h2>
+                 <p class="mb-10 text-lg text-gray-700">AI가 금융, 항공, 유통 등 전통 산업에 빠르게 적용되며 구체적인 성과를 내고 있습니다. 동시에 AI가 PM, 개발자 등 전문직의 직무를 대체할 수 있다는 전망과 에너지 감축에 기여할 것이라는 긍정론이 공존하며, AI가 가져올 변화에 대한 다양한 분석이 나오고 있습니다.</p>
+                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">SKT, AI 금융보안 'FAME' 출시</h3>
+                            <p class="mb-4">통신+금융 데이터 실시간 융합, 보이스피싱·부정거래 탐지 AI 솔루션 'FAME' 출시. 신한카드와 1호 공급 계약. 이기종 데이터 결합 모델이 금융 보안 표준 될 듯.</p>
+                         </div>
+                          <div class="news-card-footer mt-6 p-4 bg-green-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">SKT FAME: AI Financial Security</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">DNP, ChatGPT 도입 성과 (특허 리서치 95% 단축)</h3>
+                            <p class="mb-4">일본 대일본인쇄(DNP), ChatGPT Enterprise 10개 부서 배포 결과: 자동화율 87%, 특허 리서치 시간 95% 단축 성과 확인(OpenAI 공식 공개). KPI 기반 롤아웃 기준 제시.</p>
+                         </div>
+                         <div class="chart-container small-bar">
+                             <canvas id="dnpChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">PayPal, NVIDIA 오픈 모델로 출시 5배 단축</h3>
+                            <p class="mb-4">PayPal, NVIDIA 'Nemotron', 'NIM' 등 오픈 모델 도입으로 AI 솔루션 출시 리드타임(Time-to-Market) 5배 단축 발표. 상용 서비스의 오픈 모델 채택 성공 사례.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-green-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">PayPal + Nvidia Open Models = 5x Faster TTM</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">에미레이트 항공, AI로 난기류 예측</h3>
+                            <p class="mb-4">AI 및 실시간 데이터 통합으로 '예고 없는 심한 난기류' 발생 유의미하게 감소 발표. '기상+항공기 센싱+AI' 융합이 난기류 안전관리 표준으로 부상.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                             <p class="text-6xl mb-4">✈️</p>
+                            <p class="text-xl font-bold">AI Turbulence Prediction</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">YouTube TV, AI 업스케일링 및 QR 쇼핑 도입</h3>
+                            <p class="mb-4">AI 업스케일링(240p→720p), QR코드 기반 쇼핑, 썸네일 용량 확대(2MB→50MB) 등 순차 반영. TV-커머스 연계 확대 전략.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                             <p class="text-6xl mb-4">📺</p>
+                            <p class="text-xl font-bold">YouTube TV + AI Features</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">소매업, AI 사기 탐지 확산 (AI vs AI)</h3>
+                            <p class="mb-4">소매업체 과반(>50%)이 계정 탈취 등 복합 사기 적발에 AI 도입. 사기범들도 AI로 공격 고도화. 'AI 대 AI' 구도 본격화.</p>
+                         </div>
+                         <div class="news-card-footer my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                             <p class="text-6xl mb-4">🛡️</p>
+                            <p class="text-xl font-bold">AI vs AI Fraud Detection</p>
+                         </div>
+                    </div>
+                     <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">데이터 중개 'Mercor'와 성인 AI 리터러시 'SAIL4ALL'</h3>
+                            <p class="mb-4">AI 연구소, 데이터 중개 스타트업 'Mercor' 통해 비공개 도메인 특화 데이터 접근. Nature 저널, 성인 대상 AI 리터러시 표준 척도 'SAIL4ALL' 게재. 데이터와 교육 중요성 부각.</p>
+                         </div>
+                           <div class="news-card-footer mt-6 p-4 bg-green-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">Mercor (Data Broker) & SAIL4ALL (AI Literacy)</p>
+                         </div>
+                    </div>
+                    <div class="news-card p-8 rounded-xl">
+                         <div class="news-card-content">
+                            <h3 class="text-2xl font-bold mb-4">오피니언: 직무 대체 vs 에너지 감축 vs 팀워크</h3>
+                            <p class="mb-4">AI가 PM, 개발자 등 직무 대체 가능성 보도. 반면 IEA 분석 인용, 글로벌 에너지 배출 5% 감축 긍정론. 미래 업무는 '인간+AI 에이전트 팀' 협업 모델 제안 공존.</p>
+                         </div>
+                         <div class="news-card-footer mt-6 p-4 bg-green-50 border-2 border-black rounded-lg text-center">
+                             <p class="text-xl font-bold">AI Impact Opinions: Jobs vs Energy vs Teams</p>
+                         </div>
+                    </div>
+                 </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const chartColors = {
+            red: '#FF6B6B',
+            blue: '#4D96FF',
+            yellow: '#F7D060',
+            green: '#6BCB77',
+            grey: '#C0C0C0'
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const layoffData = {
+            labels: ['아마존 사무직 (4%)', 'Chegg (최근 45%)'], 
+            datasets: [{
+                label: '감원 비율 (%)',
+                data: [4, 45], 
+                backgroundColor: [chartColors.blue, chartColors.red],
+                borderWidth: 2,
+                borderColor: '#1E1E1E'
+            }]
+        };
+
+        const layoffConfig = {
+            type: 'bar',
+            data: layoffData,
+            options: {
+                 indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'AI 도입 관련 감원 사례', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                scales: { 
+                    x: { 
+                        beginAtZero: true,
+                        max: 50, 
+                         ticks: {
+                            callback: function(value) { return value + "%" }
+                        }
+                    } 
+                }
+            }
+        };
+
+        const militaryMarketData = {
+            labels: ['2024년', '2030년 (전망)'],
+            datasets: [{
+                label: '시장 규모 (십억 달러)',
+                data: [9.31, 19.29],
+                backgroundColor: [chartColors.blue, chartColors.green],
+                borderWidth: 2,
+                borderColor: '#1E1E1E'
+            }]
+        };
+
+        const militaryMarketConfig = {
+            type: 'bar',
+            data: militaryMarketData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: '군사용 AI 시장 성장 전망 (십억 달러)', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                scales: { 
+                    y: { 
+                        beginAtZero: true
+                    } 
+                }
+            }
+        };
+
+        const dnpData = {
+             labels: ['기존 리서치 시간', 'AI 도입 후'],
+            datasets: [{
+                label: '상대적 시간 (%)',
+                data: [100, 5], // 95% 단축
+                backgroundColor: [chartColors.grey, chartColors.red],
+                borderWidth: 2,
+                borderColor: '#1E1E1E'
+            }]
+        };
+        const dnpConfig = {
+            type: 'bar',
+             data: dnpData,
+             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                 plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'DNP 특허 리서치 시간 95% 단축', font: { size: 14, weight: 'bold' } },
+                     tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                 scales: {
+                    y: {
+                        beginAtZero: true,
+                         ticks: {
+                            callback: function(value) { return value + "%" }
+                        }
+                    }
+                }
+             }
+        };
+
+
+        let layoffChart, militaryChart, dnpChart;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'layoffChart' && !layoffChart) {
+                        layoffChart = new Chart(entry.target, layoffConfig);
+                    }
+                    if (entry.target.id === 'militaryMarketChart' && !militaryChart) {
+                        militaryChart = new Chart(entry.target, militaryMarketConfig);
+                    }
+                    if (entry.target.id === 'dnpChart' && !dnpChart) {
+                        dnpChart = new Chart(entry.target, dnpConfig);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.getElementById('layoffChart'));
+        observer.observe(document.getElementById('militaryMarketChart'));
+        observer.observe(document.getElementById('dnpChart'));
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>

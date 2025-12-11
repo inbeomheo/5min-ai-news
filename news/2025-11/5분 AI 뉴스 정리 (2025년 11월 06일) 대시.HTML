@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5분 AI 뉴스 대시보드 (2025-11-06)</title>
+    
+    <!--
+      [Gemini]
+      - Chosen Palette: Warm Neutrals (Slate, Zinc, Amber)
+      - Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list.
+      - Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used.
+      - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Noto Sans KR Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Noto Sans KR 글꼴 적용 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        /* 모달 스크롤바 스타일 (선택 사항) */
+        #modal-content {
+            scrollbar-width: thin;
+            scrollbar-color: #9ca3af #f3f4f6;
+        }
+        #modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        #modal-content::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 4px;
+        }
+        #modal-content::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+            border-radius: 4px;
+        }
+        #modal-content::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        /* NEW 뱃지 스타일 */
+        .badge-new {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+            letter-spacing: 0.5px;
+            animation: pulse 2s ease-in-out infinite;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- ==== 1. 헤더 (Header) ==== -->
+    <header class="sticky top-0 z-30 w-full bg-white/95 shadow-sm backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl font-bold text-slate-900">
+                5분 AI 뉴스 정리
+                
+            </h1>
+            <p class="text-sm text-slate-500">2025년 11월 06일</p>
+        </div>
+    </header>
+
+    <!-- ==== 2. 메인 콘텐츠 영역 ==== -->
+    <main id="content-area" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        <!-- 콘텐츠가 여기에 동적으로 삽입됩니다. -->
+    </main>
+
+    <!-- ==== 3. 모달 (Modal) ==== -->
+    <div id="news-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <!-- 모달 배경 (클릭 시 닫기) -->
+        <div id="modal-bg-close" class="fixed inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true"></div>
+        
+        <!-- 모달 패널 -->
+        <div class="relative w-full max-w-3xl bg-white rounded-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+            <!-- 모달 헤더 -->
+            <div class="flex items-start justify-between p-5 border-b border-slate-200">
+                <h2 id="modal-title" class="text-xl font-bold text-slate-900">
+                    <!-- 모달 제목이 여기에 삽입됩니다. -->
+                </h2>
+                <button id="modal-close-btn" type="button" class="text-slate-400 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            
+            <!-- 모달 본문 (스크롤) -->
+            <div id="modal-content" class="p-6 space-y-4 overflow-y-auto text-base leading-relaxed text-slate-600">
+                <!-- 상세 내용이 여기에 삽입됩니다. -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==== 데이터 영역 ====
+        
+        // 2. 주요 데이터 하이라이트
+        const keyNumbersData = [
+            { value: "6,100만 달러", label: "Giga, 시리즈 A 투자 유치" },
+            { value: "100만 곳", label: "오픈AI, 업무용 유료 고객" },
+            { value: "1조 원 이상", label: "네이버, 내년 AI 인프라 투자" },
+            { value: "10억 유로", label: "뮌헨 인더스트리얼 AI 클라우드" }
+        ];
+
+        // 1. & 3. 전체 뉴스 데이터 (isTop5로 Top 5 및 주제별 뉴스 구분)
+        const reportData = [
+            // --- Top 5 News ---
+            {
+                theme: "AI 인프라 및 투자",
+                category: "반도체",
+                title: "중국, 국가지원 데이터센터에서 외산 AI 칩 전면 배제",
+                isTop5: true,
+                details: "중국 정부가 국가지원 데이터센터의 신규 사업에서 외산 AI 칩 금지 지침을 내렸다고 11월 5일(현지시간) 보도됐다. 당국은 공정 진척률 30% 미만 사업에는 외산 칩 철거 또는 구매 취소를 요구하고, 그 이상은 개별 심사하는 방식을 적용한 것으로 전해졌다. 이 조치로 엔비디아 H20 등 미국산 칩 판매가 제약을 받고 일부 프로젝트가 중단되는 등 시장 영향이 나타나고 있다. (Reuters)\n\n배경에는 미중 기술 갈등과 자국 반도체 생태계 육성 전략이 있다. 로이터에 따르면 국산 대안으로 화웨이와 캠브리콘 등이 거론되지만 소프트웨어 생태계 장벽은 여전히 과제다. 향후 지침의 전국 적용 범위와 추가 규제 가능성에 따라 미중 양국의 AI 데이터센터 투자 구도에 변동이 예상된다. (Reuters)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "플랫폼",
+                title: "애플, 새 시리 위해 구글 제미니에 연 10억 달러 지불 임박",
+                isTop5: true,
+                details: "애플이 개편된 시리를 위해 구글 제미니의 맞춤형 모델 사용 대가로 연 10억 달러 규모 계약에 근접했다고 11월 5일(현지시간) 전해졌다. 애플은 자체 모델 고도화까지의 과도기 해법으로 구글 모델을 채택하며, 제미니 1.2조 파라미터급 모델을 적용해 기능을 강화할 계획이다. 거래 성사 시 애플·구글 협력이 확대되고 경쟁·규제 변수도 커질 전망이다. (TechCrunch)\n\n보도에 따르면 애플은 연초 오픈AI와 앤트로픽도 검토했지만 구글과 협상을 진전시켰다. 개편 시리는 내년 봄 공개가 거론되나 “계획은 변경될 수 있다”는 단서가 붙었다. 향후 공식 발표와 각국 당국의 플랫폼·AI 제휴 심사가 관전 포인트다. (TechCrunch)\n\n(추가 정보) 애플이 11월 5일(현지시간) 블룸버그 보도를 인용한 복수 매체에 따르면, 구글의 제미니를 새 시리에 탑재하기 위해 연 10억 달러 규모의 사용권 계약을 최종 조율 중인 것으로 전해졌다. 애플은 자사 AI 완성 전까지 맞춤형 모델을 서버 측에서 구동해 시리의 복합 과제 처리 능력을 끌어올리는 방식을 검토 중이며, 모델 규모는 1.2조 파라미터로 알려졌다. 계약이 성사되면 내년 봄 시리 개편 출시 목표에 속도가 붙을 전망이며, 구글 AI 검색의 iOS 통합은 포함되지 않는 것으로 전해졌다. (Reuters)\n\n애플은 상반기 ‘Apple Intelligence’ 공개 이후 시리 고도화 일정을 재정비했고, 초기에는 오픈AI·앤트로픽 등 대안을 검토한 것으로 알려졌다. 로이터에 따르면 구글은 논평할 내용이 없다고 밝혔고, 애플은 즉각 답변하지 않았다. 향후 계약 조건 확정과 각국 규제 심사 여부에 따라 협력 범위, 데이터 처리 위치(프라이빗 클라우드 컴퓨트)와 개인정보 보호 설계가 관건이 될 전망이다. (Reuters)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "제품",
+                title: "구글 지도, 제미니 탑재로 내비게이션·핸즈프리 기능 강화",
+                isTop5: true,
+                details: "구글이 11월 5일(현지시간) 구글 지도에 제미니를 통합해 운전 중 대화형 질의, 일정 추가 등 핸즈프리 사용성을 강화한다고 밝혔다. 새 기능은 경로상의 장소 정보 질의, 교통사고 신고, 실시간 방해 요소 알림까지 지원한다. 미국부터 순차 배포되며 안드로이드 오토 지원도 예고됐다. (TechCrunch)\n\n또한 스트리트뷰와 결합해 “500피트 후 우회전” 대신 주변 랜드마크 기준 안내를 제공하고, 구글 렌즈 연동으로 카메라에 비친 장소의 정보를 곧바로 설명한다. 구글은 전 세계 2억5천만 개 장소 데이터와 이미지 교차 검증으로 정확도를 높였다고 설명했다. 향후 수주 내 iOS·안드로이드에 확대되며 지역별 세부 배포 일정이 달라질 전망이다. (TechCrunch)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자",
+                title: "포춘: Giga, 음성 AI로 6,100만 달러 시리즈 A 유치",
+                isTop5: true,
+                details: "첫 문장(핵심 사실): 샌프란시스코의 음성 AI 스타트업 Giga가 11월 5일(현지시간) 고객지원 자동화를 앞세워 시리즈 A 6,100만 달러 투자를 유치했다.\n두 번째 문장(이유/방법): 회사는 초저지연(서브-세컨드) 음성 에이전트로 복잡한 고객 문의를 처리해 인건비와 통화 시간을 절감한다.\n세 번째 문장(영향): 이번 자금은 대기업 고객 확대와 제품 고도화에 쓰이며, 기업 콜센터의 AI 전환 경쟁을 가속할 전망이다. (Fortune)\n\n네 번째 문장(배경): 이번 라운드는 Redpoint Ventures 리드, Y Combinator·Nexus 등 참여로 알려졌고, 일부 대형 플랫폼 고객이 이미 시범 도입 중이다.\n다섯 번째 문장(세부/인용): Giga는 블로그에서 “Voice AI can cut per-interaction costs by up to 70%”라고 비용 절감 효과를 제시했다.\n여섯 번째 문장(전망): 도어대시 등 레퍼런스 고객 확대와 해외 시장 진출이 다음 단계로 거론된다. (Techmeme)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "인프라",
+                title: "톰스하드웨어: 구글, ‘프로젝트 선캐처’로 우주 AI 데이터센터 검토",
+                isTop5: true,
+                details: "첫 문장(핵심 사실): 구글이 11월 4~5일 ‘프로젝트 선캐처’를 공개하며 태양광 기반의 저궤도 위성군에 TPU를 탑재하는 우주 데이터센터 구상을 알렸다.\n두 번째 문장(이유/방법): 연중 무휴에 가까운 태양광과 자유공간 광통신을 활용해 전력·냉각 제약을 줄이고 대규모 AI 연산을 분산 처리하는 방식이다.\n세 번째 문장(영향): 업계는 전력난과 탄소발자국 문제를 동시에 풀 잠재력에 주목하지만, 통신 대역폭·방사선·비용 등 난제가 크다는 평가다. (Tom's Hardware)\n\n네 번째 문장(배경): 구글 리서치는 새벽·황혼(선동기) 태양동기 저궤도에서 위성을 밀집 편대로 운용하면 효율이 높다고 분석했다.\n다섯 번째 문장(세부/인용): 구글은 블로그에서 “in the future, space may be the best place to scale AI compute”라고 밝히며 연구의 방향성을 제시했다.\n여섯 번째 문장(전망): 시제품 임무가 2027년 계획돼 있으며, 성공 시 상용화 가능성과 규제 논의가 본격화할 것으로 보인다. (Google Research)"
+            },
+            
+            // --- Thematic Sections News ---
+            {
+                theme: "AI 인프라 및 투자",
+                category: "금융",
+                title: "FT: 도이치은행, 데이터센터 대출 익스포저 헤지 검토",
+                isTop5: false,
+                details: "첫 문장(핵심 사실): 도이치은행이 11월 5일 AI·클라우드 수요로 늘어난 데이터센터 금융 노출을 줄이기 위해 AI 종목 바스켓 공매도·신디케이트 파생(SRT) 등 헤지 옵션을 검토 중인 것으로 알려졌다.\n두 번째 문장(이유/방법): 급팽창하는 설비투자 속에서 디폴트·평가손 위험 분산을 위한 구조화·파생 전략을 내부 논의 중이라는 것이다.\n세 번째 문장(영향): 은행권이 AI 인프라 과열 리스크를 공식 관리 영역으로 끌어들이는 신호로 해석된다. (파이낸셜 타임스)\n\n네 번째 문장(배경): 도이치은행은 최근 EcoDataCenter·5C 등 프로젝트 금융을 지원하는 등 대출 확대를 이어왔다.\n다섯 번째 문장(세부/인용): 도이치은행의 짐 리드 애널리스트는 최근 시장 동향을 두고 “equity correction을 둘러싼 ‘growing chorus’가 커지고 있다”고 말했다.\n여섯 번째 문장(전망): 헤지 비용과 구조 제약으로 실행 난도가 높지만, 시장 변동성이 확대될 경우 부분적 헤지 가동 가능성이 제기된다. (파이낸셜 타임스)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "거버넌스",
+                title: "MundoAmerica: 중국, 글로벌 AI 거버넌스 기구 구상에 ‘건축가’ 자처",
+                isTop5: false,
+                details: "첫 문장(핵심 사실): 중국이 11월 5일 보도된 내용에서 상하이 설립 가능성을 포함한 세계 AI 협력기구 창설 구상을 내세우며 국제 AI 규범 설계 주도 의지를 밝혔다.\n두 번째 문장(이유/방법): 국제적 합의와 표준화로 AI를 공공재처럼 다루겠다는 명분 아래, 개도국을 아우르는 다자 협력을 강조했다.\n세 번째 문장(영향): 이는 미·중 AI 규범 경쟁 속에서 영향력 확대를 노리는 외교·산업 전략으로 평가된다. (mundoamerica.com)\n\n네 번째 문장(배경): 중국은 WAIC(세계인공지능대회) 개막 연설과 최근 APEC 정상회의 등을 통해 해당 구상을 반복 제시해왔다.\n다섯 번째 문장(세부/인용): 리창 총리는 “AI가 ‘소수 국가·기업의 독점 게임’이 되는 것을 경계해야 한다”고 밝혔다.\n여섯 번째 문장(전망): 미국·EU의 자율 규제·수출통제 기조와 충돌 가능성이 있어, 유엔·다자 틀에서의 조율이 관건이 될 전망이다. (Shanghai International Services)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책",
+                title: "저지, 섬 전역 AI 도입 촉진 위한 ‘Jersey AI Council’ 출범",
+                isTop5: false,
+                details: "저지의 디지털저지(Digital Jersey)가 11월 5일(현지시간) 저지에서 ‘Jersey AI Council’ 출범을 발표하며, 공공·금융·규제기관과 업계를 아우르는 다자 협의체 가동에 들어갔다. 협의체는 섬의 AI 프로젝트를 공동 조정하고 지식 공유를 통해 혜택을 극대화하고 위험을 줄이는 연계된 도입을 목표로 한다. 디지털저지는 정책 결정권은 없지만 실행 지원 허브로서 중복 감소와 생산성 제고를 뒷받침할 것이라고 밝혔다. (Bailiwick Express News Jersey)\n\n이번 출범은 디지털저지가 추진한 AI 플레이북 포 저지 권고 이행의 일환으로, Government of Jersey·Jersey Finance·JFSC·JOIC·Jersey AI Forum·Institute of Directors 등이 파트너로 참여한다. 토니 모레타 디지털저지 CEO이자 협의체 의장은 “섬은 AI 혁신의 변곡점에 서 있지만 현재 노력은 파편화되어 있다”며 협업 강화의 필요성을 강조했다. 협의체는 초기 과제로 홍보·장벽 해소·역량 강화에 집중하고, 공공·민간 시범사업을 묶어 섬 전역 확산 로드맵을 제시할 방침이다. (Bailiwick Express News Jersey)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "하드웨어",
+                title: "이온 기반 양자컴퓨터, 오류 수정 단순화 주장…퀀티넘 ‘헬리오스’ 공개",
+                isTop5: false,
+                details: "양자컴퓨팅 기업 퀀티넘이 11월 5일(현지시간) 이온 트랩 기반 양자컴퓨터 헬리오스를 공개했다. 헬리오스는 2큐비트 게이트 충실도 99.921% 등 낮은 물리 오류율을 앞세워 오류 수정 오버헤드를 줄였다고 설명한다. 회사는 98개 물리 큐비트에서 오류 수정 논리 큐비트 48개를 구현했다고 밝혀 상용화 가능성을 높였다는 평가가 나온다. (Quantinuum)\n\n헬리오스는 칩 상에서 이온을 교차 이동시키는 상업용 첫 ‘아이온 정션’ 구조를 도입해 확장성을 겨냥했다. 업계 분석에선 오류 수정 효율과 개발자 도구(새 버전 Guppy) 등 소프트웨어 스택이 주목받고 있다. 퀀티넘은 2027년 100 논리 큐비트 시스템과 2029년 ‘아폴로’ 로드맵을 제시했다. (Quantinuum)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "오피니언",
+                title: "WEF 기고: CEO와 CIO, ‘공동 리더십’으로 AI 전환 가속",
+                isTop5: false,
+                details: "워키바의 줄리 이스코우 CEO와 킴 허프만 CIO가 11월 5일 세계경제포럼(WEF) 사이트에서 AI 전환을 공동으로 이끄는 방법을 제안했다. 두 사람은 비전 정렬과 데이터 거버넌스, 직원 신뢰 형성이 핵심이라며 CEO는 방향을, CIO는 전사 실행 설계를 맡아야 한다고 강조했다. 제언은 기업의 성과 연계형 AI 도입을 촉진하려는 실무 지침으로 해석된다. (World Economic Forum)\n\nWEF는 올해 내내 AI 도입과 인력 재설계 필요성을 강조해 왔다. 관련 자료에선 절반 이하 기업만 기업 차원의 AI 전략을 갖췄다는 지적도 제기됐다. 이러한 권고는 리더십 공조 체계와 재교육 투자 중심으로 향후 포럼 의제에서 논의가 이어질 전망이다. (World Economic Forum)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "플랫폼",
+                title: "오픈AI, 업무용 고객 100만 곳 돌파…‘사상 최단 기간’ 플랫폼 성장 주장",
+                isTop5: false,
+                details: "오픈AI는 11월 5일 업무용 유료 고객 100만 곳을 돌파했다고 공식 발표했다. 회사는 ChatGPT for Work와 개발자 플랫폼 사용이 포함되며 주간 8억 사용자 기반이 도입 속도를 높였다고 밝혔다. 이에 따라 외부 연구에서 ROI가 대체로 긍정적이라는 결과를 근거로 기업 채택이 더 빨라질 수 있다는 전망이 제시됐다. (OpenAI)\n\n오픈AI는 회사 지식, AgentKit, 실시간 음성 에이전트 API 등 기업 기능을 확장하고 있다고 덧붙였다. 같은 날 PYMNTS도 이 이정표를 전하며 맥락을 소개했으며, 오픈AI는 엔터프라이즈 좌석 700만 확대와 생태계 연계를 강조했다. 앞으로는 데이터브릭스 통합 등 파트너십을 통해 활용 범위를 넓힌다는 계획이다. (OpenAI)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안",
+                title: "구글 “AI 악성코드 새 국면 진입”…실행 중 자기변이 사례 포착",
+                isTop5: false,
+                details: "구글 위협정보팀(GTIG)은 11월 5일 LLM을 실행 중 호출해 코드 변형하는 신형 악성코드를 확인했다고 밝혔다. 보고서는 PROMPTFLUX·PROMPTSTEAL 등에서 명령 생성·난독화를 AI가 수행하는 정황을 제시했다. 구글은 관련 자산을 비활성화하고 모델 방어 강화 조치를 병행했다고 설명했다. (blog.google)\n\nGTIG는 북한·이란·중국 등 국가 연계 공격자가 정찰부터 데이터 유출까지 AI를 광범위하게 활용한다고 분석했다. PYMNTS는 이를 AI 악용의 새 단계로 규정했다. 보안 업계는 자율·적응형 악성코드로의 진화를 경계하며 탐지·거버넌스 체계 보강을 권고한다. (blog.google)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안",
+                title: "연구진, ChatGPT 우회·데이터 유출 취약점 7종 공개…일부는 패치",
+                isTop5: false,
+                details: "사이버보안업체 테너블 연구진은 11월 5일 GPT-4o와 GPT-5를 노려 기억·대화 내역을 빼낼 수 있는 취약점 7종을 공개했다. 핵심은 간접 프롬프트 인젝션과 메모리 오염 등으로, 합법 사이트나 검색 문맥을 악용해 비의도적 명령 실행을 유도하는 방식이다. 오픈AI는 일부 문제를 이미 해결했으며 연구진은 보호 메커L니즘 강화를 촉구했다. (The Hacker News)\n\n보고서는 안전장치 우회, 대화 주입, 악성 콘텐츠 은닉 등 다양한 기법을 정리했다. 여러 연구도 프롬프트 인젝션과 데이터 오염이 에이전트형 AI의 공격 표면을 넓힌다고 경고했다. 대응책으론 URL 화이트리스트 검증, 메모리 관리, 렌더링 결함 보정 같은 체계적 개선이 제시됐다. (The Hacker News)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자",
+                title: "네이버, 내년에도 AI 인프라에 1조 이상 투자…GPU만 1조 투입",
+                isTop5: false,
+                details: "네이버가 2025년 3분기 실적 발표에서 내년 AI 인프라에 1조원 이상 투자하고, GPU에만 1조원을 집행하겠다고 11월 5일 밝혔습니다(한국, 컨퍼런스콜). 회사는 피지컬 AI와 GPUaaS 확대를 위해 투자를 이어가며, 올해 3분기까지 AI 인프라에 이미 1조원 이상을 투입했다고 설명했습니다. 이에 따라 쇼핑 AI 에이전트와 통합 에이전트를 내년 봄 순차 출시해 검색·커머스 성장세를 강화할 계획입니다. (AI타임스)\n\n배경으로, 네이버는 APEC 경주 행사에서 엔비디아 GPU 6만 장 도입을 확인했고(네이버·엔비디아 발표), 3분기 매출 3조1381억 원·영업이익 5706억 원을 공시했습니다. 김희철 CFO는 “수익 연동 투자도 예상…적극적인 투자 기조를 이어갈 것”이라고 했고, 엔비디아도 한국 파트너들과의 블랙웰 GPU 대규모 공급을 공식화했습니다. 온서비스 AI 전략 아래 서비스 전반의 AI 고도화를 확대한다는 게 회사 청사진입니다. (AI타임스)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "인프라",
+                title: "중국, 자국 AI 칩 쓰는 데이터센터에 최대 50% 전기요금 할인",
+                isTop5: false,
+                details: "중국 지방정부가 11월 초 간쑤·구이저우·네이멍구 등에서 국산 AI 반도체를 쓰는 데이터센터에 산업용 전력요금 최대 50% 인하를 적용한다고 밝혔습니다(현지). 미국의 수출 통제로 엔비디아·AMD 칩을 쓰는 시설은 제외되며, 일부 지역은 kWh당 약 0.4위안 수준과 현금 인센티브까지 제공합니다. 정책은 전력효율이 낮은 국산 칩 사용 부담을 낮춰 AI 국산화 가속을 노립니다. (AI타임스)\n\n해당 조치는 FT 보도로 처음 주목됐고, 로컬 그리드의 저전력 단가를 활용한 지원으로 평가됩니다. 전문가들은 “보조금과 투자 확대가 결합하면 자립이 빨라질 수 있다”고 전망합니다. 국제 통신사도 중국산 칩 사용 데이터센터 전기료 반값 방침을 확인했습니다. 화웨이·캠브리콘 등 국산 가속기 경쟁과 성능 격차 축소가 향후 관건입니다. (파이낸셜 타임스)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델",
+                title: "알리바바, 수학 벤치마크 ‘만점’ 추론 모델 공개…GPT-5에 견줄 성능",
+                isTop5: false,
+                details: "알리바바는 11월 4일 ‘큐원3-맥스-싱킹(Qwen3-Max-Thinking)’을 공개하며 AIME 2025·HMMT 100% 정답률을 주장했습니다(중국). 모델은 아직 학습 중인 프리뷰 단계지만, 오픈AI ‘GPT-5 프로’에 이어 두 번째 만점 기록이라고 소개했습니다. 웹 서비스·클라우드 API를 통해 체험이 가능하다는 게 회사 설명입니다. (AI타임스)\n\n알리바바 연구진은 “완성 단계는 아니며 추가 학습을 계속한다”고 밝혔고, SCMP 등 외신도 만점 성과를 전했습니다. 해당 모델은 큐원3-맥스를 기반으로 하며, 대형 언어모델의 수학 추론 성능 경쟁이 한층 격화될 전망입니다. 공식 X 계정에서도 만점 결과를 재확인했습니다. (AI타임스)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "교육",
+                title: "미 노스다코타 학교 “AI 덕분에 교사-학생 상호작용 시간 늘었다”",
+                isTop5: false,
+                details: "노스다코타주 여러 학군은 11월 5일 수업자료 작성·평가·루브릭 생성 등 반복 업무에 AI를 활용해 교사 업무시간을 절감하고 학생과 보내는 시간을 늘리고 있다고 밝혔습니다(미국, 현지 보도). 주(州) 가이드라인을 토대로 윤리·프롬프트 교육을 진행했고, 진도 추적·난이도 조정에도 AI를 적용 중입니다. (Governing)\n\n밀너 학군의 피츠제럴드 교사는 “교사 업무 시간을 줄여 다른 일에 집중하게 한다”고 했고, 파고 교육청도 “시간 절약과 학습 지원” 효과를 언급했습니다. 다만 편향·정확성·개인정보 우려에 따라 검토·감사 절차를 병행합니다. 주 전역으로 현장 연수와 가이드 강화가 이어질 전망입니다. (Governing)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "지정학",
+                title: "“중국이 AI 경쟁에서 이길 것”…엔비디아, FT 행사서 발언",
+                isTop5: false,
+                details: "엔비디아 젠슨 황 CEO는 11월 5일 FT ‘퓨처 오브 AI 서밋’에서 “중국이 AI 경쟁에서 이길 것”이라고 밝혔습니다. 그는 중국 시장 접근 제한이 미국의 장기 경쟁력을 약화시킬 수 있다며, 중국 개발자 생태계와의 연결을 강조했습니다. (Reuters)\n\n황 CEO는 워싱턴 행사에서 “미국이 AI 경쟁에서 승리하길 원한다”면서도 중국 판매 제약이 개발자 기반 절반 상실을 초래할 수 있다고 지적했습니다. 앞서 트럼프 대통령의 블랙웰 칩 제한 발언과 맞물려 미·중 AI 패권 구도가 재부각됐습니다. FT 보도 요지도 동일합니다. (Reuters)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "법률",
+                title: "아마존, 퍼플렉시티 ‘코멧’ 상대로 법적 경고…에이전트 쇼핑 중단 요구",
+                isTop5: false,
+                details: "퍼플렉시티의 AI 브라우저 코멧이 아마존 스토어에서 에이전트 브라우징을 통해 상품을 구매한다는 이유로, 아마존이 11월 4일(현지) 퍼플렉시티에 시정 요구(cease-and-desist) 서한을 보냈다. 아마존은 코멧이 자신을 명확히 드러내지 않은 채 접근해 이용약관과 미국 CFAA(컴퓨터 사기 및 남용 방지법)를 위반했다고 주장했다. 이번 조치는 제3자 AI 쇼핑 에이전트의 운영 원칙을 둘러싼 선례가 될 수 있어 업계 파장이 예상된다. (TechCrunch)\n\n앞서 퍼플렉시티는 블로그 글에서 “사용자 에이전트는 사용자의 권한과 동일하다”며 아마존의 요구를 “혁신을 막는 압박”으로 반박했다. 아마존은 공식 입장에서 “고객을 대신해 구매하는 제3자 앱은 투명하게 운영돼야 한다”고 강조했고, 서한에는 기한 내 시정하지 않을 경우 법적 조치를 검토한다는 내용도 담겼다. 클라우드플레어 사태로 불거진 ‘봇·에이전트’ 구분 논란이 다시 촉발되며, 플랫폼과 AI 에이전트 간 접근 규칙 정립 논의가 본격화될 전망이다. (Perplexity AI)\n\n(추가 정보) 아마존이 코멧의 에이전트 구매 기능 중단을 요구하는 서한을 발송하자, 퍼플렉시티가 11월 5일(한국시간) 이를 공개 비판하며 입장문을 발표했다. 아마존은 코멧이 에이전트 신원을 밝히지 않아 고객 경험 저해와 개인정보 위험을 초래한다고 주장했으며, 퍼플렉시티는 “소비자 선택권을 막는다”고 맞섰다. 이번 대립은 AI 에이전트를 통한 대리 쇼핑 시장의 규범을 가를 분수령이 되고 있다. (AI타임스)\n\n아마존은 “음식배달·여행예약처럼 제3자 앱도 파트너의 허가와 투명성 원칙을 지켜야 한다”고 강조했고, 퍼플렉시티는 블로그에서 “광고 수익을 우선시하는 플랫폼 논리”라고 역공했다. 아마존의 시정 요구서에는 코멧이 차단을 우회했다는 정황과 법적 책임 가능성이 담겼다. 향후 양측 협의 여부와 플랫폼의 AI 에이전트 수용 기준이 관전 포인트다. (About Amazon)\n\n(추가 정보) 퍼플렉시티는 자사 X(옛 트위터) 계정을 통해 아마존의 경고에 대한 공식 입장을 밝히고, 블로그 글 ‘Bullying is Not Innovation’을 공유했다. 글에서 퍼플렉시티는 사용자 에이전트가 사용자의 지시에 따라 동일 권한으로 행동할 수 있어야 하며, 플랫폼의 차단은 소비자 권리 침해라고 주장했다. 이번 메시지는 AI 에이전트의 투명성·권한을 둘러싼 규범 논쟁을 공론장으로 끌어올렸다. (Perplexity AI)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "인프라",
+                title: "엔비디아·도이체텔레콤, 뮌헨에 10억유로 ‘인더스트리얼 AI 클라우드’ 구축",
+                isTop5: false,
+                details: "도이체텔레콤과 엔비디아가 11월 4일(현지) 독일 뮌헨 기존 센터를 개보수해 10억유로 규모 AI 데이터센터를 공동 구축한다고 밝혔다. 양사는 프로젝트를 통해 독일의 AI 연산능력 50% 확대를 목표로 하며, 조기 단계부터 SAP 등 파트너가 참여한다. 시설은 2026년 1분기 상용화를 앞두고 있어 유럽 산업계의 주권형 AI 인프라 확충에 속도가 붙는다. (Reuters)\n\n데이터센터에는 최대 1만 개 GPU(블랙웰 기반 포함)와 DGX B200 시스템이 투입돼 제조·자동차·로봇·의료 등 산업 AI 수요를 지원한다. 도이체텔레콤은 물리 인프라를, SAP는 BTP 등 소프트웨어를 맡고, 엔비디아는 AI·옴니버스 플랫폼을 제공한다. 독일 정부와 업계가 참석한 공개 행사 이후, 유럽 각국의 대규모 AI 인프라 경쟁이 한층 가속될 전망이다. (TechCrunch)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "산업",
+                title: "오픈서베이, ‘인사이트 위키’ 출시…AI가 전략 보고서 자동 작성",
+                isTop5: false,
+                details: "오픈서베이가 11월 5일 자사 리서치·경험관리 플랫폼 데이터스페이스에 신규 기능 ‘인사이트 위키’를 도입했다고 밝혔다. 사용자는 주제와 목적만 입력하면 AI 자동 리포트 생성으로 핵심 인사이트와 실행 전략을 몇 분 내 받아볼 수 있다. 기업 내부 데이터와 오픈서베이 보유 데이터의 결합 분석으로 리서치 시간을 크게 단축하는 것이 특징이다. (AI타임스)\n\n회사 측은 무료 체험을 통해 트렌드 데이터 무제한 접근과 무제한 리포트 생성을 제공한다고 안내했다. 공식 업데이트 노트와 국내 IT 매체도 ‘인사이트 위키’의 베타 오픈 일정과 기능을 확인했다. 오픈서베이는 AI 시대에 맞춘 리서치 인프라 확장을 지속한다는 계획이다. (updates.opensurvey.io)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발",
+                title: "구글, Gemini API 구조화 출력 업데이트…스키마 준수성·정렬 개선",
+                isTop5: false,
+                details: "구글 AI 개발자팀이 11월 6일(한국시간) X 공식 계정에서 Gemini API의 구조화 출력(Structured Outputs)을 강화했다고 밝혔다. 이번 업데이트는 JSON 스키마 확대 지원과 속성 순서 준수 개선 등으로 모델 출력의 일관성과 신뢰도를 높이는 데 초점을 맞췄다. 이에 따라 개발자는 스키마 기반 계약 응답을 더 안정적으로 활용할 수 있게 됐다. (X (formerly Twitter))\n\n배경으로, 그동안 일부 모델이 요구 스키마를 완벽히 충족하지 못하는 사례가 보고돼 왔으며 구글은 공식 문서와 체인지로그를 통해 지원 범위와 변경 사항을 세부 안내하고 있다. 구글은 문서에서 response_json_schema와 response_mime_type 설정을 통한 검증·파싱 전략을 권고했으며, 관련 모델의 단종 일정도 병행 고지 중이다. 향후 세부 개선은 개발자 문서/릴리즈 노트 채널로 이어질 전망이다. (Google AI for Developers)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "제품",
+                title: "오픈AI, 장시간 질의 중단·재지시 지원…진행 중 작업에 새 맥락 추가 가능",
+                isTop5: false,
+                details: "오픈AI가 11월 6일(한국시간) X에서 ChatGPT에서 장시간 실행 질의를 중단하고 새 정보를 더해 재시작 없이 이어서 처리할 수 있다고 발표했다. 사용자는 사이드바의 업데이트 기능으로 요구 조건을 보완하면 모델이 즉시 접근 방식을 조정한다. 이 기능은 딥 리서치나 대규모 분석처럼 반복 정제가 필요한 작업에서 생산성을 높일 것으로 보인다. (X (formerly Twitter))\n\n오픈AI 릴리즈 노트는 이번 변경으로 “재시작이 필요 없다”는 점을 명시하고, 예시로 추가 제약을 도중에 반영해 결과를 갱신하는 흐름을 소개했다. 딥 리서치는 올해 업데이트로 시각 브라우저 통합 등 확장을 거듭해 왔으며, 세부 가이드는 헬프센터 문서를 통해 순차 제공된다. 향후 배포 범위와 세부 동작은 릴리즈 노트 개정에 따라 보완될 예정이다. (OpenAI Help Center)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델",
+                title: "테스팅카탈로그, “Gemini 3 Pro 프리뷰 11월 포착” 주장…구글 공식 확인 없음",
+                isTop5: false,
+                details: "테스팅카탈로그는 11월 6일(한국시간) X에서 Vertex AI 코드에 ‘gemini-3-pro-preview-11-2025’ 표기가 나타났다고 전했다. 게시물은 프리뷰 공개 임박 가능성을 시사하지만, 현재까지 구글의 공식 발표는 확인되지 않았다. 시장에는 맥락 창 확장 등 추정 스펙이 돌지만 신뢰 가능한 문서화는 없다. (X (formerly Twitter))\n\n배경으로, 구글은 최근 구조화 출력 강화와 모델 단종 일정을 공식 채널에서 고지했으나 Gemini 3 자체는 언급하지 않았다. 구글 개발자 커뮤니티에서도 “출시일은 미확정”이라는 답변이 공유되는 등 추정 보도가 뒤따르고 있다. 향후 사실 여부는 구글 공식 블로그·체인지로그로 판가름날 전망이다. (blog.google)\n\n(추가 정보) 개발자 플라비오 아다모는 11월 6일(한국시간) X에서 구글 공식 제품 코드에서 “Gemini 3 Pro Preview (11-2025)” 문자열을 발견했다고 주장했다. 그는 이를 근거로 프리뷰 임박을 전망했으나, 현재 구글의 공식 확인은 없다. 시장 영향은 출시 신호로 해석되지만, 비공식 정보에 그친다. (X (formerly Twitter))"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "거버넌스",
+                title: "앤트로픽, 모델 폐기·보존 약속 발표…가중치 영구 보관·사후 인터뷰 도입",
+                isTop5: false,
+                details: "앤트로픽이 11월 4일(현지) ‘모델 폐기 및 보존에 관한 약속’을 공개하고, 모든 공개 모델과 중요 내부 모델의 가중치를 회사 존속 기간 내 영구 보존하겠다고 밝혔다. 회사는 모델 교체·폐기 과정의 안전 리스크와 연구 연속성 문제를 이유로 들었다. 조치에는 모델 사후 보고서 작성과 모델 인터뷰 절차가 포함된다. (Anthropic)\n\n앤트로픽은 파일럿으로 클로드 소네트 3.6에 표준화 프로토콜을 적용했고, 클로드 문서에 모델 단종 관리 원칙을 별도로 안내하고 있다. 이번 방침은 향후 과거 모델의 제한적 재공개 가능성까지 열어두는 한편, 보존 우선 기조를 제도화한다. 세부 가이드와 통지는 지원 문서/상태 페이지를 통해 지속 업데이트될 예정이다. (Claude Docs)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "제품",
+                title: "테스팅카탈로그, “딥 리서치가 지메일·드라이브·챗 연동” 게시…구글도 공식 발표",
+                isTop5: false,
+                details: "테스팅카탈로그는 11월 6일(한국시간) X에서 Gemini 딥 리서치가 지메일·문서·드라이브·챗 데이터를 직접 끌어와 보고서 작성을 지원한다고 전했다. 구글은 공식 블로그로 동일 내용을 확인했으며, 기능은 데스크톱 우선 제공 후 모바일 확대 예정이다. 이번 변화는 내부 자료+웹 정보 결합 분석을 가능하게 한다. (X (formerly Twitter))\n\n배경으로, 딥 리서치는 2024년 말 도입돼 복합 주제 탐색 보고서를 자동 생성해왔고, 이번 연동으로 워크스페이스 문서 집계가 강화됐다. 외신도 이메일·드라이브·챗 접근을 통한 맞춤형 리서치로 효용이 커졌다고 분석했다. 구글은 관리자 제어·정책 하에 점진적 확산을 예고했다. (blog.google)"
+            }
+        ];
+        
+        // ==== 렌더링 함수 ====
+
+        /**
+         * 공통 섹션 헤더 생성
+         */
+        function createSectionHeader(title) {
+            return `
+                <div class="border-b border-slate-200 pb-2 mb-6">
+                    <h2 class="text-3xl font-bold text-slate-900">${title}</h2>
+                </div>
+            `;
+        }
+        
+        /**
+         * 공통 뉴스 카드 그리드 생성
+         */
+        function createCardGrid() {
+            return `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+        }
+
+        /**
+         * 개별 뉴스 카드 HTML 생성
+         */
+        function createNewsCard(item, index) {
+            // 제목 길이 최적화 (60자 초과 시)
+            let displayTitle = item.title;
+            if (item.title.length > 60) {
+                const splitChar = item.title.includes('…') ? '…' : (item.title.includes('—') ? '—' : (item.title.includes(':') ? ':' : null));
+                
+                if (splitChar) {
+                    displayTitle = item.title.split(splitChar)[0] + splitChar;
+                    // 그래도 길면 60자에서 자르기
+                    if (displayTitle.length > 60) {
+                         displayTitle = item.title.substring(0, 60) + '...';
+                    }
+                } else {
+                    displayTitle = item.title.substring(0, 60) + '...';
+                }
+            }
+            
+            // 카드 HTML
+            return `
+                <div data-index="${index}" class="bg-white border border-slate-200 rounded-lg shadow-sm p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between min-h-[180px]">
+                    <div>
+                        <span class="inline-block bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded-full mb-3">${item.category}</span>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">${displayTitle}</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2 line-clamp-2">
+                        ${item.details.split('\n')[0]}
+                    </p>
+                </div>
+            `;
+        }
+
+        /**
+         * 2. 주요 데이터 하이라이트 섹션 생성
+         */
+        function createKeyNumbersSection(container) {
+            let headerHtml = createSectionHeader("주요 데이터 하이라이트");
+            let gridHtml = `<div class="grid grid-cols-2 md:grid-cols-4 gap-4">`;
+            
+            keyNumbersData.forEach(item => {
+                gridHtml += `
+                    <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-5 text-center">
+                        <div class="text-3xl font-bold text-amber-600">${item.value}</div>
+                        <div class="text-sm text-slate-500 mt-1">${item.label}</div>
+                    </div>
+                `;
+            });
+            
+            gridHtml += `</div>`;
+            container.innerHTML += (headerHtml + gridHtml);
+        }
+        
+        /**
+         * 3. Top 5 뉴스 섹션 렌더링
+         */
+        function renderTop5Section(container) {
+            const top5News = reportData.map((item, index) => ({...item, originalIndex: index}))
+                                     .filter(item => item.isTop5);
+                                     
+            let headerHtml = createSectionHeader("Top 5 뉴스");
+            let gridHtml = createCardGrid();
+            
+            top5News.forEach(item => {
+                gridHtml += createNewsCard(item, item.originalIndex);
+            });
+            
+            gridHtml += `</div>`;
+            container.innerHTML += (headerHtml + gridHtml);
+        }
+
+        /**
+         * 4. 주제별 상세 뉴스 섹션 렌더링
+         */
+        function renderThematicSections(container) {
+            const thematicNews = reportData.map((item, index) => ({...item, originalIndex: index}))
+                                          .filter(item => !item.isTop5);
+            
+            // 테마 순서 정의
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회 (활용, 심리, 노동)",
+                "산업별 AI 적용"
+            ];
+            
+            themes.forEach(theme => {
+                const newsByTheme = thematicNews.filter(item => item.theme === theme);
+                
+                if (newsByTheme.length > 0) {
+                    let headerHtml = createSectionHeader(theme);
+                    let gridHtml = createCardGrid();
+                    
+                    newsByTheme.forEach(item => {
+                        gridHtml += createNewsCard(item, item.originalIndex);
+                    });
+                    
+                    gridHtml += `</div>`;
+                    container.innerHTML += (headerHtml + gridHtml);
+                }
+            });
+        }
+        
+        /**
+         * 모달 상호작용 초기화
+         */
+        function initModal() {
+            const modal = document.getElementById('news-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const closeBtn = document.getElementById('modal-close-btn');
+            const bgClose = document.getElementById('modal-bg-close');
+            const contentArea = document.getElementById('content-area');
+
+            const showModal = (item) => {
+                modalTitle.textContent = item.title; // 전체 원본 제목
+                modalContent.innerHTML = item.details.replace(/\n/g, '<br />'); // 줄바꿈 처리
+                modal.classList.remove('hidden');
+            };
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                modalTitle.textContent = '';
+                modalContent.innerHTML = '';
+            };
+
+            // 카드 클릭 시 (이벤트 위임)
+            contentArea.addEventListener('click', (e) => {
+                const card = e.target.closest('[data-index]');
+                if (card) {
+                    const index = parseInt(card.dataset.index, 10);
+                    const item = reportData[index];
+                    if (item) {
+                        showModal(item);
+                    }
+                }
+            });
+
+            // 닫기 버튼
+            closeBtn.addEventListener('click', closeModal);
+            // 배경 클릭
+            bgClose.addEventListener('click', closeModal);
+        }
+        
+        // ==== 애플리케이션 실행 ====
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            
+            // 1. 주요 데이터 렌더링
+            createKeyNumbersSection(contentArea);
+            
+            // 2. Top 5 뉴스 렌더링
+            renderTop5Section(contentArea);
+            
+            // 3. 주제별 뉴스 렌더링
+            renderThematicSections(contentArea);
+            
+            // 4. 모달 초기화
+            initModal();
+        });
+    </script>
+    <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 방문자 추적 스크립트 -->
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>

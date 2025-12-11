@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 최신 동향 대시보드 (2025년 10월 28일)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by thematic sections. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News, 4. Consolidated Thematic Sections (Investment/Governance/Infra, Platforms/Products/Safety, Labor/Society/Culture, Research/Tech). This hierarchical structure guides the user from a high-level overview to specific topics, making the dense report digestible without requiring user filtering, a proven effective approach. Themes were consolidated for better navigation. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries and has been successfully used in previous versions. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #e2e8f0; /* slate-200 */
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #94a3b8; /* slate-400 */
+            border-radius: 10px;
+            border: 2px solid #e2e8f0; /* slate-200 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm sticky top-0 z-30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <h1 class="text-2xl font-bold text-slate-900">AI·기술 최신 동향 리포트</h1>
+                <p class="text-sm text-slate-500">2025년 10월 28일</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div id="content-area">
+                <!-- Content sections will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h2 id="modal-title" class="text-lg font-bold text-slate-900"></h2>
+                <button id="modal-close-btn" class="text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto modal-content">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+             { theme: "중국 PLA AI 도입", category: "국방", title: "중국 인민해방군(PLA), DeepSeek 기반 AI 무기·지휘지원 채택 속도↑", isTop5: true, details: { what: "중국 인민해방군(PLA)이 DeepSeek AI 모델을 로봇견, 드론 군집, 지휘 지원 시스템 등 군사 분야에 본격 적용 중인 정황이 로이터 통신 보도를 통해 확인되었습니다.", impact: "이는 '알고리즘 주권'을 확보하려는 중국의 의지와 미중 기술 경쟁 속 국산화 가속화의 일환으로 풀이됩니다. 특허 및 논문에서 Nvidia A100 칩 언급도 여전하지만, 화웨이 Ascend 칩 사용도 확인되어 국산 모델과 하드웨어 결합을 시도 중입니다." } },
+            { theme: "아마존 대규모 감원", category: "노동/기업", title: "아마존, 오늘부터 사무직 최대 30,000명 감원 착수 전망", isTop5: true, details: { what: "아마존이 비용 절감 및 AI 기반 효율화를 이유로 10월 28일(현지시간)부터 사무직 최대 30,000명(약 9%) 감원에 착수할 것이라고 로이터 통신이 보도했습니다.", impact: "이번 구조조정은 팬데믹 시기 과다 채용 인력을 정상화하고 AI 도입에 따른 자동화·효율화를 통해 비용을 절감하려는 목적입니다. 이는 AI 투자가 사무직(화이트칼라) 일자리 재편의 현실적인 요인으로 작용하고 있음을 보여줍니다." } },
+            { theme: "OpenAI 인프라 투자", category: "인프라/투자", title: "OpenAI, 'Stargate' 등 총 10GW·5,000억 달러 데이터센터 투자 추진", isTop5: true, details: { what: "OpenAI가 AI 수요 급증에 따른 전력 부족 문제를 해결하기 위해 대규모 데이터센터 투자를 추진합니다. 현재 7GW 규모, 4,000억 달러가 투입되는 'Stargate' 프로젝트를 포함, 2025년 내 총 10GW, 5,000억 달러(약 680조 원) 규모의 투자를 목표로 하고 있다고 밝혔습니다.", impact: "OpenAI는 AI 리더십 유지를 위해 미국 정부에 연간 100GW의 전력 증설을 권고하며, AI 성장의 병목이 '알고리즘'이 아닌 '전력'임을 공식화했습니다." } },
+            { theme: "퀄컴 AI 칩", category: "반도체/경쟁", title: "퀄컴, 데이터센터용 AI 가속기 'AI200·AI250' 발표", isTop5: true, details: { what: "퀄컴이 데이터센터용 AI 가속기 시장에 본격 진출하며 엔비디아·AMD와의 정면 경쟁을 선언했습니다. 퀄컴은 'AI200'(2026년 출시)과 'AI250'(2027년 출시) 로드맵을 공개했습니다.", impact: "특히 카드당 768GB의 대용량 메모리를 지원하고 직접 액체 냉각 방식의 랙 솔루션까지 함께 제공하며, 전력 효율과 총소유비용(TCO) 절감을 강조했습니다. Humain이 초기 고객으로 200MW 규모 배치 계획을 밝히는 등 시장의 기대감이 반영되어 퀄컴 주가는 당일 11.1% 급등했습니다." } },
+            { theme: "MS 코파일럿 제소", category: "규제/소비자", title: "호주, '코파일럿' 요금 인상·옵션 미고지 혐의로 MS 제소", isTop5: true, details: { what: "호주 경쟁소비자위원회(ACCC)가 마이크로소프트(MS)를 연방법원에 제소했습니다. MS 365 개인·패밀리 구독자에게 AI 기능인 '코파일럿'을 통합하면서, 코파일럿이 제외된 기존의 저렴한 '클래식 플랜' 옵션을 제대로 고지하지 않았다는 혐의입니다.", impact: "ACCC는 MS가 약 270만 명의 호주 구독자를 대상으로 이 옵션을 숨기고 '다크 패턴'을 사용했다고 지적했습니다. 이는 AI 기능을 번들로 제공하며 가격을 인상하는 업계 관행에 '소비자 선택권'과 '정보 투명성'을 요구하는 강력한 규제 신호로 해석됩니다." } },
+            { theme: "LLM과 인간 대화", category: "연구", title: "노르웨이과기대(NTNU) \"LLM은 사람 흉내에 약함... 과도한 모방·담화표지 오용\"", details: { what: "노르웨이과기대(NTNU) 등 공동 연구진이 LLM이 생성하는 대화가 실제 인간의 대화와 명확히 구분된다는 연구 결과를 발표했습니다.", impact: "LLM은 인간의 발화를 '과도하게 모방'하려는 경향을 보였으며, 'so', 'well' 같은 담화 표지를 부적절하게 사용하거나 대화의 시작과 끝맺음이 부자연스러웠습니다. 이는 AI 챗봇 설계 시 '유용한 기능'과 '인간 같은 자연스러움'은 별개의 과제임을 분명히 합니다." } },
+            { theme: "금융 AI", category: "산업/금융", title: "Anthropic, 'Claude for Financial Services' 확장... Excel 통합·LSEG 연동", details: { what: "Anthropic이 금융 서비스 특화 AI 'Claude for Financial Services'의 기능 업데이트를 발표했습니다. 이번 업데이트에는 Excel 애드인 통합, 워크플로우 자동화 기능인 '에이전트 스킬', LSEG Workspace 등 데이터 커넥터 확대가 포함됐습니다.", impact: "노르웨이 국부펀드(NBIM)는 이를 통해 연간 21.3만 시간을 절감했다고 보고했습니다. 이는 범용 LLM에서 특정 도메인과 데이터 파트너가 결합된 실전형 플랫폼으로 AI 시장의 무게중심이 이동하고 있음을 보여줍니다." } },
+            { theme: "법률 AI", category: "산업/법률", title: "독일 로펌, ChatGPT Business로 계약·소송서면 작성 '수 시간→수 분' 단축", details: { what: "독일의 소규모 세무·법률 펌 'Steuerrecht.com'이 ChatGPT Business를 도입해 업무 효율을 크게 높인 사례가 OpenAI를 통해 공개됐습니다.", impact: "맞춤형 GPT와 내부 데이터 연결을 통해 마케팅, 계약서 검토, 법원 소송 서면 작성 등 반복 업무 시간을 '수 시간에서 수 분' 단위로 단축했습니다. 이는 소규모 전문직 그룹이 인력 증원 없이 AI를 '가상 부서'처럼 활용해 처리량을 늘린 사례입니다." } },
+            { theme: "AI 생산성 격차", category: "경제/사회", title: "AI 생산성 격차 심화... 대기업 '급등' vs 중소기업 '기초 디지털화 미비'", details: { what: "AI 도입으로 인한 생산성 향상 효과가 대기업에 집중되고 중소기업(SME)은 뒤처지면서 'AI 격차'가 심화되고 있습니다.", impact: "Cisco 연구에 따르면 대기업은 AI 파일럿에서 실제 운영 환경으로 4배 더 빠르게 전환하는 반면, 많은 중소기업은 기초적인 디지털화와 데이터 거버넌스조차 미비한 상태입니다. 이는 AI 성과가 '도입 여부'보다 '데이터 및 프로세스 준비도'에 좌우됨을 시사합니다." } },
+            { theme: "AI 채용 기준", category: "노동/채용", title: "\"AI 활용 역량\" 채용 필수화... 채용담당자 26% '기본요건'", details: { what: "AI 도구 활용 능력이 채용 시장의 핵심 역량으로 급부상하고 있습니다. Nexford 대학 조사에 따르면, 미국 채용 담당자의 26%가 'AI 활용 능력'을 기본 요건으로 간주했습니다.", impact: "기업 리크루터의 40%는 '실습형 AI 교육'을 선호한다고 밝혀, 단순 이론 지식보다 실제 도구를 현업에 적용해 본 경험을 중시하는 것으로 나타났습니다. 이는 구직자들이 이력서와 포트폴리오에 AI 활용 사례를 구체적으로 명시해야 함을 의미합니다." } },
+            { theme: "AI와 질병 연구", category: "연구/의료", title: "UCSD 연구진, AI로 크론병 염증 유발 유전자 53개 규명", details: { what: "UC 샌디에이고(UCSD) 의대 연구진이 AI를 활용해 크론병 환자의 염증성 대식세포와 복원성 대식세포의 균형을 가르는 53개의 핵심 유전자 서명을 발견했습니다.", impact: "AI 분석을 통해 NOD2 유전자 변이가 'girdin' 단백질과 결합하는 과정에 결손이 생기면 면역 균형이 무너져 만성 염증이 발생함을 규명했습니다. 이는 크론병 진단 바이오마커 개발 및 표적 치료제 설계의 토대가 될 전망입니다." } },
+            { theme: "교육 AI 앱", category: "교육/앱", title: "강의 요약 앱 '터보AI', PDF/영상→노트·퀴즈 자동 생성... 사용자 500만 돌파", details: { what: "대학생의 강의 필기 문제를 해결하기 위해 시작된 AI 노트테이킹 앱 '터보AI(Turbo AI)'가 사용자 500만 명, 8자리 수의 연간반복매출(ARR)을 달성하며 급성장하고 있습니다.", impact: "이 앱은 PDF, YouTube 영상, 오디오 파일 등 다양한 형식의 강의 자료를 업로드하면 AI가 자동으로 요약 노트, 퀴즈, 플래시카드를 생성해 줍니다. 'AI 필기'가 학습 워크플로우의 중심으로 이동하고 있음을 보여줍니다." } },
+            { theme: "AI와 해고", category: "노동/분석", title: "\"AI 때문에 해고\"는 핑계?... 실제론 불확실성·전략 리밸런싱 요인 혼재", details: { what: "기업들이 감원 사유로 'AI 도입'을 언급하는 사례가 늘고 있으나, 전문가들은 이것이 실제 이유라기보다 자동화 성과를 과시하거나 구조조정의 명분으로 삼는 '핑계'일 수 있다고 경고합니다.", impact: "실제로는 경영 환경 불확실성, 금리, 수요 둔화, 성과 압박 등 복합적인 요인이 작용한다는 분석입니다. 현재의 'AI 탓 해고' 담론은 고용 변화의 복잡한 원인을 단순화할 위험이 있습니다." } },
+            { theme: "대학 AI 도입", category: "교육/플랫폼", title: "콜로라도주립대(CSU), 전 구성원용 자체 'CSU-GPT' 공개", details: { what: "콜로라도주립대(CSU)가 전 학생과 교직원이 사용할 수 있는 자체 생성형 AI 포털 'CSU-GPT'를 론칭했습니다.", impact: "Microsoft Azure의 보안 환경을 기반으로 구축되었으며, 학내 구성원들이 외부 상용 챗봇을 사용하는 대신 안전한 환경에서 AI를 활용하도록 지원합니다. 이는 대학이 직접 AI 거버넌스를 통제하며 학내 데이터 보안을 강화하려는 움직임입니다." } },
+            { theme: "AI 신뢰 격차", category: "사회/윤리", title: "기업 내 AI 신뢰 격차... '투명성·인간 통제'로 해소해야", details: { what: "기업 내 AI 도입이 늘어나고 있지만, 경영진과 직원 간 'AI 신뢰 격차'가 여전하다는 분석이 나왔습니다. 에델만 조사에 따르면 AI 기업에 대한 대중의 신뢰도는 54%에 불과합니다.", impact: "AI 전문 매체는 이러한 신뢰 격차를 해소하기 위해 ▲투명성, ▲일관된 규정 적용, ▲인간의 개입 및 감사 장치, ▲강화된 데이터 거버넌스가 필수적이라고 제언했습니다." } },
+            { theme: "AI 에이전트 보안", category: "보안", title: "'AIjacking' 위험 경고... AI 에이전트가 권한 밖 행동 수행 가능", details: { what: "AI 에이전트의 기능이 고도화되면서 'AI재킹(AIjacking)'이라는 새로운 보안 위협이 대두되고 있습니다. AI재킹은 프롬프트 인젝션이나 세션 하이재킹을 통해 AI 에이전트가 개발자의 의도를 벗어나 공격자가 원하는 행동을 수행하도록 탈취하는 공격을 의미합니다.", impact: "KDnuggets는 에이전트의 '입력 신뢰도'와 '권한 설계'가 향후 AI 보안의 핵심 분기점이 될 것이라고 경고했습니다." } },
+            { theme: "AI 악용 사기", category: "금융/보안", title: "AI 생성 영수증 이용한 허위 비용 청구 급증", details: { what: "생성형 AI를 이용해 만든 가짜 영수증으로 기업에 허위 비용을 청구하는 사기 시도가 급증하고 있습니다. 2025년 9월 한 달간 적발된 허위 경비 청구 시도의 14%가 AI로 생성된 영수증을 사용했습니다.", impact: "AI는 영수증의 구겨짐, 번짐, 서명까지 모방할 수 있어 사람의 눈으로는 구분이 어렵습니다. 이에 따라 재무팀의 심사 부담이 가중되고 있으며, AI 사기 탐지 솔루션 도입과 원본 영수증 정책 강화가 시급해졌습니다." } },
+            { theme: "AI 보험 면책", category: "보험/법률", title: "美 책임보험사들, AI 관련 손해 '면책' 조항 도입 확대", details: { what: "미국 책임보험사들이 AI 기술로 인해 발생하는 손해(저작권 침해, 프라이버시 침해 등)를 표준 약관에서 배제하려는 움직임을 보이고 있습니다.", impact: "AI 리스크는 예측이 어렵고 대형 소송으로 번질 가능성이 크기 때문입니다. 이는 기업들이 AI 리스크를 보장받기 위해 별도의 사이버 보험이나 전문 배상 책임 특약에 가입해야 함을 의미하며, 'AI 리스크의 보험화'가 본격 분화되고 있음을 시사합니다." } },
+            { theme: "AI 데이터센터 부지", category: "인프라/국방", title: "미 공군, 5개 기지 유휴부지(3,000+에이커) 민간 AI 데이터센터로 임대", details: { what: "미 공군이 캘리포니아 에드워즈 기지 등 5개 공군 기지 내 유휴 부지(총 3,000+ 에이커)를 민간 AI 데이터센터 용도로 임대한다고 발표했습니다.", impact: "이는 AI 인프라를 신속하게 확충하기 위한 조치로, 임대 기간은 최대 50년입니다. 이는 유휴 군사 자산과 민간 AI 인프라 수요를 결합하는 새로운 모델입니다." } },
+            { theme: "EA AI 도입 논란", category: "게임/노동", title: "EA, 사내 AI 도입 의무화했으나 오류·재작업으로 개발자 반발", details: { what: "대형 게임사 EA가 비용 절감과 개발 속도 향상을 위해 사내 AI 도구 사용을 의무화했으나, 오히려 개발자들의 반발과 생산성 저하를 초래하고 있다고 Futurism이 보도했습니다.", impact: "이는 충분한 검증과 현장 적합성 고려 없이 '전사 AI 의무화'를 추진할 경우 역효과가 날 수 있음을 보여줍니다." } },
+            { theme: "비침습 BCI", category: "기술/뇌과학", title: "샘 알트만, '뇌 읽는 스타트업' Merge Labs 추진... 비침습 BCI 개발", details: { what: "OpenAI CEO 샘 알트만이 'Merge Labs'라는 새로운 스타트업을 비밀리에 추진 중이라고 The Verge 등이 보도했습니다. 이 스타트업은 뇌에 칩을 이식하지 않는 '비침습 BCI' 기술 개발을 목표로 합니다.", impact: "초음파와 자기장 등을 활용해 뇌 신호를 안전하게 해독하는 방식을 모색 중이며, 이는 '칩 이식 없는' 두뇌-AI 인터페이스 기술이 본격적인 상업화 단계로 이동하고 있음을 시사합니다." } },
+            { theme: "OpenAI 안전성 강화", category: "플랫폼/안전", title: "OpenAI, 민감 대화 대응 강화... 비선호 응답 최대 80% 감소", details: { what: "OpenAI가 170명 이상의 외부 임상 전문가와 협력하여 ChatGPT가 민감한 주제에 더 안전하게 대응하도록 모델을 업데이트했다고 밝혔습니다.", impact: "이번 개선으로 민감 대화에서 비선호 응답이 65~80% 감소했습니다. 이는 모델 성능 경쟁 못지않게 '안전지표 공개'와 '고위험 사례 대응'이 사용자 신뢰의 핵심 축으로 부상하고 있음을 보여줍니다." } },
+            { theme: "AI 경찰 보고서", category: "정책/법률", title: "캘리포니아, \"AI 작성 경찰보고서\"에 공개 문구·감사추적 의무화", details: { what: "미국 캘리포니아주가 AI로 작성된 경찰 보고서의 투명성을 강화하는 법안(SB 524)을 통과시켰습니다. 2026년 1월 1일부터 시행되는 이 법은, 생성형 AI를 사용해 작성된 모든 공식 보고서에 대해 \"AI를 사용해 작성되었음\"을 매 페이지에 명시하도록 의무화합니다.", impact: "이는 수사 기록에 '표시·추적·보관'이라는 최소한의 안전장치를 법제화한 첫 사례 중 하나입니다." } },
+            { theme: "AI와 창작", category: "문화/예술", title: "기예르모 델 토로 감독, \"생성형 AI는 안 쓴다, 차라리 죽겠다\"", details: { what: "영화 '프랑켄슈타인'의 기예르모 델 토로 감독이 영화 제작에 생성형 AI를 사용하지 않겠다는 입장을 재차 강조했습니다.", impact: "그는 \"생성형 AI를 사용하느니 차라리 죽겠다\"고 발언하며, 창작의 통제와 윤리적 책임은 인간이 져야 한다는 철학을 밝혔습니다. 이는 톱 크리에이터가 'AI 보조'가 업계 표준이 되는 흐름에 제동을 거는 신호로 해석됩니다." } },
+            { theme: "AI와 전력 효율", category: "인프라/에너지", title: "Arm \"데이터센터 전력난, 에지 AI로 효율화해야\"", details: { what: "Arm이 AI 인프라 전력 수요 급증에 대응하기 위해 '에지(Edge) AI' 중심의 효율화 전략이 필요하다는 내용의 포지션 페이퍼를 공개했습니다.", impact: "AI 컴퓨팅 수요의 75%가 '추론'에서 발생할 것으로 추정하며, 모든 연산을 중앙 데이터센터에서 처리하는 대신 기기단(에지)에서 추론을 수행하면 전력의 최대 60%를 절감할 수 있다고 주장했습니다." } },
+            { theme: "에너지 산업과 AI", category: "산업/에너지", title: "SLB 등 석유 공룡들, AI 데이터센터 전력·인프라 사업으로 피벗", details: { what: "SLB(슐룸베르거), 할리버튼 등 전통적인 석유·가스 시추 서비스 기업들이 AI 데이터센터 전력·인프라 시장으로 사업을 빠르게 다각화하고 있습니다.", impact: "북미 지역 시추 경기가 둔화된 반면, AI로 인한 전력 수요는 폭증하고 있기 때문입니다. 이는 '드릴링 사이클'에 민감했던 중공업 밸류체인이 'AI 전력 사이클'이라는 새로운 성장 동력에 올라타고 있음을 보여줍니다." } },
+            { theme: "OpenAI Sora 업데이트", category: "플랫폼/영상", title: "OpenAI 'Sora', 캐릭터 재사용·클립 연결 기능 및 안드로이드 앱 출시 예고", details: { what: "OpenAI가 영상 생성 AI 'Sora' 앱(iOS)에 주요 편집 기능을 추가하고 안드로이드 앱 출시를 예고했습니다.", impact: "동일한 캐릭터를 재사용하는 '카메오' 기능과 여러 클립을 이어 붙이는 '스티칭' 기능을 곧 제공할 것이라고 밝혔습니다. 이는 '텍스트→영상 생성' 단계를 넘어, 사용자가 모바일 앱 내에서 '생성→편집→공유'까지 완료할 수 있는 통합 크리에이티브 스택으로 진화하려는 전략입니다." } }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            const modal = document.getElementById('news-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            // Consolidated themes
+            const themes = [
+                '투자, 거버넌스 및 인프라',
+                '플랫폼, 제품 및 안전성',
+                '노동, 사회 및 문화',
+                '연구 및 기술'
+            ];
+
+
+            function init() {
+                renderContent();
+            }
+
+            function createKeyNumbersSection() {
+                 const keyNumbers = [
+                    { value: "3만명", label: "아마존 예상 감원" },
+                    { value: "10GW", label: "OpenAI 데이터센터 목표" },
+                    { value: "768GB", label: "퀄컴 AI 칩 메모리" },
+                    { value: "270만", label: "호주 MS 구독자" }
+                ];
+
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-4 text-slate-900 border-b pb-3">주요 데이터 하이라이트</h2>
+                        <p class="text-slate-600 mb-6">이번 주 보고서에서 주목해야 할 핵심 수치들을 요약했습니다. 각 데이터는 특정 조건 하의 결과이며, 자세한 내용은 관련 뉴스 항목을 참고해 주십시오.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                            ${keyNumbers.map(kn => `
+                                <div class="bg-white p-6 rounded-lg shadow-sm text-center border border-slate-200">
+                                    <p class="text-4xl font-bold text-amber-600">${kn.value}</p>
+                                    <p class="text-base text-slate-600 mt-2">${kn.label}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+
+            function renderTop5Section() {
+                const top5Data = reportData.filter(item => item.isTop5);
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">오늘의 Top 5 뉴스</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${top5Data.map((item) => createNewsCard(item, reportData.indexOf(item))).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+            
+             function renderThematicSections() {
+                // Map original themes to consolidated themes using keywords
+                const mapThemeToBucket = (theme, category) => {
+                    const t = theme || '';
+                    const c = category || '';
+                    
+                    // 인프라, 투자, 정책 관련
+                    if (t.includes('투자') || t.includes('인프라') || t.includes('에너지') || t.includes('데이터센터') || 
+                        c.includes('인프라') || c.includes('투자') || c.includes('국방') || c.includes('에너지') ||
+                        t.includes('공군') || t.includes('PLA') || t.includes('OpenAI')) {
+                        return '투자, 거버넌스 및 인프라';
+                    }
+                    
+                    // 플랫폼, 제품, 보안, 안전성
+                    if (t.includes('플랫폼') || t.includes('안전성') || t.includes('보안') || t.includes('코파일럿') || 
+                        t.includes('Sora') || t.includes('Claude') || t.includes('ChatGPT') ||
+                        c.includes('플랫폼') || c.includes('보안') || c.includes('규제') || c.includes('앱') ||
+                        t.includes('악용') || t.includes('보험') || t.includes('에이전트')) {
+                        return '플랫폼, 제품 및 안전성';
+                    }
+                    
+                    // 노동, 교육, 사회, 문화
+                    if (t.includes('노동') || t.includes('고용') || t.includes('교육') || t.includes('채용') || 
+                        t.includes('감원') || t.includes('해고') || t.includes('아마존') || t.includes('EA') ||
+                        t.includes('대학') || t.includes('창작') || t.includes('신뢰') || t.includes('격차') ||
+                        c.includes('노동') || c.includes('교육') || c.includes('사회') || c.includes('문화') ||
+                        c.includes('게임') || c.includes('경제')) {
+                        return '노동, 사회 및 문화';
+                    }
+                    
+                    // 연구, 기술, 산업 응용
+                    if (t.includes('연구') || t.includes('기술') || t.includes('퀄컴') || t.includes('BCI') ||
+                        t.includes('LLM') || t.includes('질병') || t.includes('금융') || t.includes('법률') ||
+                        c.includes('연구') || c.includes('반도체') || c.includes('의료') || c.includes('산업') ||
+                        c.includes('법률') || c.includes('금융') || c.includes('뇌과학')) {
+                        return '연구 및 기술';
+                    }
+                    
+                    return '기타'; // Fallback category
+                };
+
+                const groupedByBucket = reportData.reduce((acc, item) => {
+                    if (!item.isTop5) {
+                        const bucket = mapThemeToBucket(item.theme, item.category);
+                        if (!acc[bucket]) acc[bucket] = [];
+                        acc[bucket].push(item);
+                    }
+                    return acc;
+                }, {});
+
+                let html = '';
+                themes.forEach(themeKey => { // Use the consolidated theme order
+                    if (groupedByBucket[themeKey] && groupedByBucket[themeKey].length > 0) {
+                        html += `
+                            <section class="mb-12">
+                                <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">${themeKey}</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    ${groupedByBucket[themeKey].map(item => createNewsCard(item, reportData.indexOf(item))).join('')}
+                                </div>
+                            </section>
+                        `;
+                    }
+                });
+                 // Add '기타' section if exists and has items
+                if (groupedByBucket["기타"] && groupedByBucket["기타"].length > 0) {
+                     html += `
+                        <section class="mb-12">
+                            <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">기타</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                ${groupedByBucket["기타"].map(item => createNewsCard(item, reportData.indexOf(item))).join('')}
+                            </div>
+                        </section>
+                    `;
+                }
+                return html;
+            }
+
+
+            function renderContent() {
+                contentArea.innerHTML = `
+                    ${createKeyNumbersSection()}
+                    ${renderTop5Section()}
+                    ${renderThematicSections()}
+                `;
+                addCardClickListeners();
+            }
+
+            function createNewsCard(item, index) {
+                 const imageTag = item.category === "국방" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Defense+Tech" class="w-full h-full object-cover rounded-t-lg"></div>` : 
+                                item.category === "반도체/경쟁" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Qualcomm+AI" class="w-full h-full object-cover rounded-t-lg"></div>` : '';
+
+
+                return `
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col border border-slate-200" data-index="${index}">
+                         ${imageTag}
+                        <div class="p-5 flex-grow">
+                            <span class="text-xs font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.category}</span>
+                            <h3 class="mt-3 font-bold text-lg text-slate-800">${item.title}</h3>
+                        </div>
+                        <div class="p-4 bg-slate-50 ${imageTag ? '' : 'rounded-b-lg'} text-sm text-blue-600 font-medium">
+                            자세히 보기 &rarr;
+                        </div>
+                    </div>
+                `;
+            }
+
+            function addCardClickListeners() {
+                document.querySelectorAll('[data-index]').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const index = e.currentTarget.dataset.index;
+                        showModal(reportData[index]);
+                    });
+                });
+            }
+
+            function showModal(item) {
+                modalTitle.textContent = item.title;
+                modalContent.innerHTML = `
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.theme} &gt; ${item.category}</span>
+                        </div>
+                        ${Object.entries(item.details).map(([key, value]) => {
+                            const keyMap = {
+                                what: "무엇을 (What)",
+                                impact: "영향 (Impact)"
+                            };
+                            return `
+                                <div>
+                                    <h4 class="font-bold text-base text-slate-800 mb-1">${keyMap[key] || key}</h4>
+                                    <p class="text-slate-600 whitespace-pre-wrap leading-relaxed">${value}</p>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            modalCloseBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+
+            init();
+        });
+    </script>
+</body>
+</html>

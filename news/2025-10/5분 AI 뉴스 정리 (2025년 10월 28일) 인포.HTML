@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 동향 인포그래픽 (2025-10-28)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- 
+    Narrative Plan: This infographic for Oct 28, 2025, focuses on four critical themes: 1) The Infrastructure Supercycle (highlighting OpenAI's massive $500B/10GW investment plan and the US Air Force leasing land, showcasing the scale of the global build-out), 2) The Workforce Disruption (focusing on Amazon's large-scale layoffs attributed to AI efficiency and the growing requirement for AI skills in hiring), 3) The Regulatory Tightening (featuring the Australian lawsuit against Microsoft for lack of pricing transparency and Bernie Sanders' call to break up OpenAI), and 4) The Shifting Competitive Landscape (illustrating Qualcomm's entry into the datacenter AI chip market to challenge Nvidia/AMD and the PLA's adoption of domestic DeepSeek AI). This structure captures the interplay of massive investment, workforce impact, regulatory responses, and geopolitical/competitive shifts.
+
+    Visualization Choices:
+    - OpenAI's $500B/10GW Plan: Goal=Inform. Viz=An illustrative HTML/CSS block with a large number callout ($500 Billion / 10GW) and icons representing datacenters and power. Justification=Instantly communicates the unprecedented scale of infrastructure investment required. Confirmed NO SVG.
+    - Amazon Layoffs: Goal=Inform. Viz=An illustrative HTML/CSS block with a large number callout (Up to 30,000) and an arrow indicating workforce reduction. Justification=Emphasizes the significant and immediate impact of AI-driven efficiency on employment. Confirmed NO SVG.
+    - Australian Lawsuit vs Microsoft: Goal=Inform. Viz=A styled HTML/CSS block with a legal scale icon representing the ACCC lawsuit over Copilot bundling/pricing transparency. Justification=Provides a strong visual metaphor for increasing regulatory scrutiny on Big Tech's AI practices. Confirmed NO SVG.
+    - Qualcomm vs Nvidia/AMD: Goal=Organize. Viz=A styled HTML/CSS diagram showing Qualcomm's logo entering a competitive arena with Nvidia and AMD logos, targeting the AI inference market. Justification=Visually represents the changing dynamics and new entrants in the critical AI chip market. Confirmed NO SVG/Mermaid.
+    - PLA adopting DeepSeek AI: Goal=Inform. Viz=An illustrative HTML/CSS block with military icons (drone, robot dog) connected to an AI brain icon labeled "DeepSeek". Justification=Highlights the significant geopolitical implications of domestic AI adoption by military forces. Confirmed NO SVG. 
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDF0E0; /* Light Peach */
+            color: #1E1E1E;
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .news-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 6px 6px 0px #1E1E1E;
+            transition: all 0.2s ease-in-out;
+        }
+        .news-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; 
+            margin: 1.5rem auto;
+            height: 300px;
+            max-height: 400px;
+        }
+         .chart-container.doughnut {
+           max-width: 400px; /* Keep doughnut smaller */
+           height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+             .chart-container.doughnut {
+                 height: 350px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">AI·기술 최신 동향</h1>
+            <p class="text-xl text-gray-700">2025년 10월 28일</p>
+        </header>
+
+        <section id="kpi-overview" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">핵심 지표 요약</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">OpenAI 인프라 투자</p>
+                    <p class="text-5xl font-bold text-[#FF6B6B]">~680조원</p>
+                    <p class="text-sm text-gray-500">(10GW 목표)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">아마존 사무직 감원</p>
+                    <p class="text-5xl font-bold text-[#4D96FF]">최대 3만명</p>
+                    <p class="text-sm text-gray-500">(AI 효율화)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">中 PLA, AI 무기화</p>
+                    <p class="text-5xl font-bold text-[#F7D060]">DeepSeek</p>
+                    <p class="text-sm text-gray-500">(로봇견·드론 적용)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">퀄컴, 데이터센터 도전</p>
+                    <p class="text-5xl font-bold text-[#6BCB77]">AI 200/250</p>
+                    <p class="text-sm text-gray-500">(추론 칩 공개)</p>
+                </div>
+            </div>
+        </section>
+
+        <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-4 mb-12 border-b-2 border-t-2 border-[#1E1E1E]">
+            <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+                <a href="#race" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라 전쟁</a>
+                <a href="#workforce" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">💼 노동 시장 격변</a>
+                <a href="#regulation" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">🛡️ 규제와 신뢰</a>
+                <a href="#competition" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">⚔️ 기술 패권 경쟁</a>
+            </div>
+        </nav>
+
+        <div class="space-y-20">
+            <section id="race">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라 전쟁: 수백조 원의 AI 제국 건설</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술 패권을 차지하기 위한 경쟁이 천문학적인 규모의 인프라 투자 전쟁으로 치닫고 있습니다. OpenAI는 뉴욕시 전체와 맞먹는 전력량을 사용하는 AI 제국 건설 계획을 발표하며 경쟁사들을 압도하려 하고 있으며, 미 공군까지 유휴 부지를 내놓으며 이 경쟁에 불을 지피고 있습니다.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI, 680조원 투입 '10GW AI 인프라' 구축</h3>
+                        <p class="mb-4">OpenAI가 향후 5년간 총 5,000억 달러(약 680조 원)를 투입해 10GW 규모의 AI 데이터센터를 구축하겠다는 야심 찬 계획을 공식화했습니다. 이는 '스타게이트' 프로젝트(7GW)를 포함하는 것으로, AI 리더십 유지를 위해 미국 정부에 연간 100GW 전력 증설까지 요구하며 AI 성장의 병목이 '전력'임을 분명히 했습니다.</p>
+                        <div class="my-8 p-8 bg-red-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">⚡️</p>
+                            <p class="text-3xl font-bold">10GW / $500 Billion</p>
+                            <p class="text-lg mt-2">OpenAI의 AI 인프라 제국</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 경쟁은 이제 단순히 똑똑한 모델을 만드는 것을 넘어, 그 모델을 구동할 수 있는 막대한 물리적 인프라와 에너지를 확보하는 '총력전'이 되었습니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">미 공군, 민간 AI 데이터센터에 기지 부지 임대</h3>
+                        <p class="mb-4">미 공군이 캘리포니아 등 5개 기지의 유휴 부지(총 3,000 에이커 이상)를 민간 AI 데이터센터 용도로 최대 50년간 임대한다고 발표했습니다. 이는 AI 인프라 확충을 국가적 과제로 인식하고, 군사 자산까지 동원하여 민간 투자를 유치하려는 파격적인 조치입니다.</p>
+                        <div class="my-8 p-8 bg-red-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">✈️ + 🏢</p>
+                            <p class="text-3xl font-bold">군사 기지 → AI 허브</p>
+                            <p class="text-lg mt-2">미국의 AI 인프라 총력전</p>
+                        </div>
+                         <p class="mt-4 text-sm">💡 **핵심:** AI 인프라 경쟁은 국가 안보와 직결된 문제로 격상되었으며, 정부는 규제를 넘어 직접적인 자원 제공자로 나서고 있습니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="workforce">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#4D96FF] pl-4">💼 노동 시장 격변: AI 효율화와 인력 재편</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술 도입이 본격화되면서 기업들의 인력 구조 재편이 현실화되고 있습니다. 아마존은 AI 기반 효율화를 이유로 대규모 사무직 감원을 예고하며 노동 시장에 충격을 주었고, 채용 시장에서는 AI 활용 능력이 필수 역량으로 자리 잡으며 새로운 기준을 만들고 있습니다.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">아마존, 사무직 최대 3만 명 감원 착수</h3>
+                        <p class="mb-4">아마존이 비용 절감과 AI 기반 효율화를 위해 10월 28일부터 사무직 인력의 약 9%에 달하는 최대 3만 명 감원을 시작할 것이라고 로이터 통신이 보도했습니다. 이는 AI 투자가 실제 화이트칼라 일자리 재편의 직접적인 요인으로 작용하고 있음을 보여주는 상징적인 사건입니다.</p>
+                        <div class="my-8 p-8 bg-blue-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">📉</p>
+                            <p class="text-3xl font-bold">Up to 30,000 Layoffs</p>
+                            <p class="text-lg mt-2">AI 기반 인력 구조조정</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI는 더 이상 미래의 위협이 아닌, 현재 진행형인 고용 구조 변화의 핵심 동력입니다. 기업과 개인 모두 이에 대한 적응 전략이 시급합니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">'AI 활용 능력', 채용 시장의 새로운 필수 요건</h3>
+                        <p class="mb-4">Nexford 대학 조사 결과, 미국 채용 담당자의 26%가 'AI 활용 능력'을 채용의 기본 요건으로 간주하며, 22%는 커뮤니케이션 능력보다 더 중요하게 평가했습니다. 특히 기업들은 이론 지식보다 실제 AI 도구(ChatGPT, Copilot 등)를 현업에 적용해 본 경험을 중시하는 것으로 나타났습니다.</p>
+                         <div class="chart-container">
+                            <canvas id="hiringChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 리터러시는 이제 선택이 아닌 필수 생존 역량입니다. 구직자들은 AI 활용 능력을 구체적인 성과로 증명해야 경쟁력을 갖출 수 있습니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="regulation">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#F7D060] pl-4">🛡️ 규제와 신뢰: AI 시대의 새로운 규칙</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술의 확산 속도가 빨라지면서, 그에 따른 부작용을 막기 위한 규제 논의와 기술적 안전장치 마련이 시급한 과제로 떠올랐습니다. 호주에서는 MS의 불투명한 가격 정책에 제동이 걸렸고, 버니 샌더스 의원은 OpenAI의 독점적 지위에 대한 분할을 요구하고 나섰습니다. 동시에 AI가 야기하는 새로운 보안 위협과 책임 문제도 부각되고 있습니다.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">호주, MS 코파일럿 요금 정책 투명성 문제로 제소</h3>
+                        <p class="mb-4">호주 경쟁소비자위원회(ACCC)가 MS 365 구독자에게 AI 기능이 제외된 저가 요금제 옵션을 제대로 알리지 않았다며 MS를 제소했습니다. 이는 AI 기능을 번들로 제공하며 가격을 인상하는 빅테크의 관행에 '소비자 선택권'과 '정보 투명성'을 요구하는 강력한 규제 신호입니다.</p>
+                        <div class="my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">⚖️</p>
+                            <p class="text-3xl font-bold">Pricing Transparency Lawsuit</p>
+                            <p class="text-lg mt-2">규제 당국의 개입 본격화</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 기술의 확산은 소비자의 권익 보호와 공정한 시장 경쟁 환경 조성이라는 새로운 규제 과제를 낳고 있습니다.</p>
+                    </div>
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">버니 샌더스 "OpenAI 분할해야"…반독점 압박</h3>
+                        <p class="mb-4">미국 민주당 성향의 버니 샌더스 상원의원이 OpenAI의 막대한 시장 영향력을 지적하며 "분할해야 한다"고 공개적으로 요구했습니다. 이는 미국 주요 정치인 중 첫 분할 요구로, 향후 AI 대기업을 겨냥한 반독점 규제 논의를 촉발할 수 있습니다.</p>
+                         <div class="my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🏛️</p>
+                            <p class="text-3xl font-bold">Call to Break Up OpenAI</p>
+                            <p class="text-lg mt-2">AI 독점 규제 논의 부상</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 기술의 발전 속도만큼이나, 그 기술이 소수 기업에 의해 독점되는 것에 대한 사회적 견제와 우려도 커지고 있습니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">AI 해킹·사기·보험 면책…새로운 리스크 부상</h3>
+                        <p class="mb-4">AI 에이전트가 해킹당해 권한 밖의 행동을 수행하는 'AI재킹' 위험, AI가 생성한 가짜 영수증을 이용한 허위 비용 청구 급증, AI 관련 손해를 보장하지 않는 보험사의 면책 조항 확대 등 AI 기술 오남용으로 인한 새로운 사회·경제적 리스크가 현실화되고 있습니다.</p>
+                        <div class="my-8 p-8 bg-yellow-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🚨</p>
+                            <p class="text-3xl font-bold">Emerging AI Risks</p>
+                            <p class="text-lg mt-2">AIjacking, Fraud, Liability Gaps</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 기술 도입은 생산성 향상이라는 기회와 함께, 예측하기 어려운 새로운 형태의 위험을 동반합니다. 이에 대한 기술적, 제도적 대비가 시급합니다.</p>
+                    </div>
+
+                </div>
+            </section>
+            
+            <section id="competition">
+                 <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#6BCB77] pl-4">⚔️ 기술 패권 경쟁: 하드웨어와 군사력</h2>
+                 <p class="mb-10 text-lg text-gray-700">AI 기술 패권을 둘러싼 경쟁이 하드웨어 시장과 군사 분야에서 새로운 국면을 맞고 있습니다. 퀄컴은 엔비디아가 장악한 데이터센터 AI 칩 시장에 도전장을 내밀었고, 중국 인민해방군은 자국산 AI 모델을 실제 무기 시스템에 통합하며 기술 자립을 과시하고 있습니다.</p>
+                 <div class="grid md:grid-cols-2 gap-10">
+                     <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">퀄컴, 데이터센터 AI 칩 시장 진출 선언</h3>
+                        <p class="mb-4">스마트폰 칩 강자 퀄컴이 데이터센터용 AI 추론 가속기 'AI200'과 'AI250'을 공개하며 엔비디아와 AMD에 정면 도전합니다. 전력 효율과 비용 절감을 강점으로 내세워 2026년부터 시장 공략에 나설 계획이며, 이는 AI 칩 시장의 경쟁 구도를 다변화시키는 중요한 변수가 될 것입니다.</p>
+                         <div class="mt-6 p-6 bg-green-50 border-2 border-black rounded-lg">
+                            <h4 class="font-bold text-lg mb-4 text-center">AI 칩 시장 경쟁 구도</h4>
+                            <div class="flex items-center justify-center space-x-2 md:space-x-4 text-center text-sm md:text-base">
+                                <div class="p-3 bg-white border-2 border-black rounded-md">NVIDIA / AMD</div>
+                                <div class="font-bold text-2xl text-gray-400">vs</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-md">Qualcomm</div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 추론 시장이 급성장하면서, 특정 작업에 최적화된 다양한 AI 칩(ASIC)들이 GPU의 대안으로 부상하며 시장 경쟁을 촉진하고 있습니다.</p>
+                    </div>
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">중국 PLA, DeepSeek AI 군사 시스템 적용 가속</h3>
+                        <p class="mb-4">중국 인민해방군(PLA)이 자국산 AI 모델 'DeepSeek'을 로봇견, 드론 군집, 지휘 지원 시스템 등 다양한 군사 플랫폼에 본격적으로 적용하고 있는 정황이 포착되었습니다. 이는 미국의 제재 속에서도 중국이 AI 기술 자립을 이루고 군사력 현대화에 박차를 가하고 있음을 보여줍니다.</p>
+                         <div class="my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🇨🇳 + 🤖</p>
+                            <p class="text-3xl font-bold">PLA + DeepSeek AI</p>
+                            <p class="text-lg mt-2">AI 기반 군사 현대화</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 기술은 이제 경제를 넘어 국가 안보와 군사력의 핵심 요소가 되었으며, 기술 자립 능력은 미래 전장의 승패를 가를 수 있습니다.</p>
+                    </div>
+                 </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const chartColors = {
+            red: '#FF6B6B',
+            blue: '#4D96FF',
+            yellow: '#F7D060',
+            green: '#6BCB77',
+            grey: '#C0C0C0'
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const hiringData = {
+            labels: ['AI 활용 능력: 기본 요건', 'AI 활용 능력: 중요 역량'],
+            datasets: [{
+                label: '채용 담당자 응답 비율 (%)',
+                data: [26, 22], 
+                backgroundColor: [chartColors.blue, chartColors.green],
+                borderWidth: 2,
+                borderColor: '#1E1E1E'
+            }]
+        };
+
+        const hiringConfig = {
+            type: 'bar',
+            data: hiringData,
+            options: {
+                 indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: '채용 시 AI 활용 능력 중요도', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                scales: { 
+                    x: { 
+                        beginAtZero: true,
+                        max: 30,
+                         ticks: {
+                            callback: function(value) { return value + "%" }
+                        }
+                    } 
+                }
+            }
+        };
+
+        let hiringChart;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'hiringChart' && !hiringChart) {
+                        hiringChart = new Chart(entry.target, hiringConfig);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.getElementById('hiringChart'));
+
+    </script>
+
+</body>
+</html>

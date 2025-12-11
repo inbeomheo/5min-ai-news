@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Noto Sans KR 글꼴 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        /* NEW 뱃지 스타일 */
+        .badge-new {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+            letter-spacing: 0.5px;
+            animation: pulse 2s ease-in-out infinite;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+    
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-slate-900">
+                AI 뉴스 대시보드
+                
+            </h1>
+            <p class="text-slate-600 mt-1">2025년 11월 1일 주요 뉴스 정리</p>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div id="content-area"></div>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-96 overflow-y-auto">
+            <div class="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-start">
+                <h2 id="modal-title" class="text-2xl font-bold text-slate-900 flex-1 pr-4"></h2>
+                <button id="modal-close-btn" class="text-slate-500 hover:text-slate-700 text-2xl flex-shrink-0">×</button>
+            </div>
+            <div id="modal-content" class="p-6 space-y-4 text-slate-700 leading-relaxed"></div>
+        </div>
+    </div>
+
+    <script>
+        // 뉴스 데이터 배열
+        const reportData = [
+            // ===== TOP 5 뉴스 =====
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "브라우저 에이전트",
+                title: "OpenAI ChatGPT '에이전트 모드' 출시—브라우저에서 자동화 시작",
+                isTop5: true,
+                details: "OpenAI가 2025년 11월 1일에 ChatGPT Atlas를 통해 '에이전트 모드'를 출시했습니다. 이 기능은 웹 탐색, 양식 작성, 리서치 등 다단계 작업을 자동으로 수행하도록 설계되었으며, 가상 컴퓨터, 시각/텍스트 브라우저, 터미널, 커넥터를 통합해 단계별로 작동합니다. 브라우저 내에서 실제 업무를 모델이 직접 처리할 수 있도록 한 것이 특징입니다. 사용 한도는 Plus는 월 40건, Pro는 월 400건입니다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "컴퓨팅 인프라",
+                title: "OpenAI 알트먼, 주당 1GW 컴퓨팅 증설·30GW 인프라 목표 천명",
+                isTop5: true,
+                details: "OpenAI의 샘 알트먼 CEO는 2025년 10월 30일 라이브스트림에서 대규모 컴퓨팅 인프라 확장 목표를 발표했습니다. 총 30GW 규모의 데이터센터 구축과 주당 1GW 증설을 목표로 하며, 약 1.4조 달러의 투자를 의무화했습니다. 이는 모델의 성능이 알고리즘뿐 아니라 추론과 컴퓨팅 규모에 크게 좌우된다는 판단에 따른 것입니다. Oracle, Related 등과의 파트너십을 통해 추진되고 있으며, 이는 AI 경쟁의 중심이 모델에서 인프라로 이동하는 것을 보여줍니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "생산성 도구",
+                title: "Google NotebookLM 대규모 업그레이드—1M 토큰 컨텍스트·6배 메모리",
+                isTop5: true,
+                details: "Google의 순다르 피차이 CEO가 2025년 10월 29일 NotebookLM의 대규모 업그레이드를 발표했습니다. 컨텍스트 토큰이 100만 개(기존 대비 8배)로 확대되고, 대화 메모리가 6배 증가했으며, 전반적인 품질이 50% 향상되었습니다. Gemini 기반 엔진으로 업그레이드되었으며, 목표와 페르소나 설정 기능이 추가되었습니다. 이는 장문의 연구 자료와 다중 출처를 다루는 워크플로우를 크게 강화합니다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "음악 산업",
+                title: "UMG·Udio 소송 합의—라이선스 기반 AI 음악 플랫폼 2026년 출시",
+                isTop5: true,
+                details: "Universal Music Group과 AI 음악 생성 스타트업 Udio는 2025년 10월 30일 저작권 분쟁을 종료하고 라이선스 기반의 AI 음악 플랫폼을 공동 개발하기로 합의했습니다. Udio의 CEO 앤드류 산체즈가 주도한 이 협력으로 2026년에 신규 플랫폼과 도구가 출시될 예정입니다. 기존 Udio 서비스 사용자들에게는 48시간의 다운로드 창이 제공됩니다. 이 합의는 무단 학습과 라이선스 기반 접근의 대립에서 업계 표준을 시험하는 첫 대형 합의로, 음악 AI 산업 전반에 라이선스 모델 확산 압력을 가할 것으로 예상됩니다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "반도체 실적",
+                title: "삼성전자 3분기 영업이익 12.2조원, AI용 HBM 수요가 견인",
+                isTop5: true,
+                details: "삼성전자가 2025년 3분기 영업이익 12.2조 원(전년 동기 대비 32.5% 증가)을 기록했습니다. 분기 최대 매출 86.1조 원을 달성했으며, 반도체 부문 영업이익은 7.0조 원입니다. AI 서버용 메모리인 HBM3E의 양산과 HBM4 샘플 출하가 실적 회복을 주도했습니다. HBM 수요의 지속적 증가로 AI 투자 모멘텀이 계속될 것으로 전망되며, 이는 메모리 가격 안정화와 가동률 향상을 의미합니다."
+            },
+
+            // ===== AI 인프라 및 투자 =====
+            {
+                theme: "AI 인프라 및 투자",
+                category: "클라우드 인프라",
+                title: "아마존 '프로젝트 레이니어' 가동—Trainium2 50만개, 연말 100만+ 목표",
+                isTop5: false,
+                details: "AWS가 2025년 10월 30일 대규모 AI 컴퓨팅 클러스터 '프로젝트 레이니어'의 본격 운영을 시작했습니다. 현재 약 50만 개의 Trainium2 칩이 운영 중이며, 2025년 말까지 100만 개 이상으로 확장할 계획입니다. Anthropic의 Claude 워크로드가 탑재되어 학습과 추론 비용 최적화가 이루어질 것으로 예상됩니다. 이는 AWS의 클라우드 인프라, 자체 칩, 그리고 모델 애플리케이션이 수직 통합되는 경쟁의 시작을 알립니다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "칩 공급",
+                title: "삼성, 엔비디아에 차세대 HBM4 공급 협상 진행",
+                isTop5: false,
+                details: "삼성전자가 2025년 10월 31일 엔비디아와 차세대 HBM4 공급을 '밀접하게 협의' 중인 것으로 알려졌습니다. 별도로 엔비디아 고급 칩 5만 개를 대량 구매하기로 합의했습니다. 이와 대조적으로 SK하이닉스는 HBM4를 4분기에 출하할 계획을 세우고 있습니다. 차세대 HBM4 수주는 AI 가속기의 성능과 원가에 직결되는 전략적 포인트로, 메모리 3사 간의 경쟁이 심화되고 있습니다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "스타트업 투자",
+                title: "인도 Snabbit, 5개월 만에 기업가치 $80M→$180M, Series C $30M 유치",
+                isTop5: false,
+                details: "인도의 온디맨드 가사도움 서비스 Snabbit이 2025년 10월 30일 Series C 라운드에서 3천만 달러를 조달했습니다. 5개월 만에 기업가치가 8천만 달러에서 1.8억 달러로 125% 상승했습니다. BII, Lightspeed, Elevation, Nexus 등이 투자에 참여했으며, 누적 조달액은 5천 5백만 달러입니다. 5개 도시로 운영을 확대하고 있으며, 여성 중심의 5,000명대 공급망을 구축했습니다. 10분 내 즉시 배치 서비스가 차별화 포인트입니다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "네트워크 인프라",
+                title: "네이버클라우드·엔비디아 '피지컬 AI' 플랫폼 MOU",
+                isTop5: false,
+                details: "네이버클라우드와 엔비디아가 2025년 10월 31일 제조 현장용 피지컬 AI 플랫폼 공동 개발에 합의했습니다. 네이버의 디지털 트윈 및 로보틱스 기술이 엔비디아의 Omniverse와 Isaac Sim 플랫폼과 결합됩니다. 네이버클라우드는 6만 개 이상의 GPU를 확충하여 인프라를 지원합니다. 반도체, 조선, 에너지 등 국내 주력 산업의 AI 전환을 가속하는 것이 목표이며, 모델 성능보다 현장 통합(IT/OT) 역량이 경쟁력의 분기점이 될 것으로 예상됩니다."
+            },
+
+            // ===== 플랫폼, 제품 및 에이전트 =====
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "AI 에이전트",
+                title: "Microsoft Researcher '컴퓨터 사용' 추가—웹 탐색·다단계 실행 자동화",
+                isTop5: false,
+                details: "Microsoft가 2025년 10월 31일 Microsoft 365 Copilot의 Researcher 에이전트에 '컴퓨터 사용' 기능을 추가했습니다. Windows 365 기반의 가상 PC에서 시각 및 텍스트 브라우저, 터미널, Graph를 연계하여 웹 탐색, 수백 개 사이트 정보 수집, 보고서 생성, 행동 수행까지 자동화합니다. 고위험 작업은 사용자 승인을 요청합니다. 민감한 데이터는 기본 차단 옵션으로 보호됩니다. 이로써 Microsoft도 '행동하는 에이전트' 경쟁에 본격적으로 합류하게 됩니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "코딩 에이전트",
+                title: "Cursor, 첫 자체 코딩 모델 'Composer' 공개—코드 생성 4배 빨라짐",
+                isTop5: false,
+                details: "Cursor(Anysphere)가 2025년 11월 2일 첫 자체 코딩 모델 'Composer'와 다중 에이전트 기반 'Cursor 2.0'을 공개했습니다. RL(강화학습)과 MoE(Mixture of Experts) 기반 모델로 구축되었으며, 초당 250토큰의 처리 속도를 자랑합니다. 최대 8개의 에이전트가 병렬로 작동하여 코드 작성, 디버깅, 테스트를 자동화합니다. 벤더 자체평가에 따르면 코드 생성 속도가 4배 빨라졌으며, IDE 중심에서 '에이전트 중심' 개발로의 전환을 가속화할 것으로 예상됩니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "특허 검색",
+                title: "Perplexity 'Perplexity Patents' 베타 공개—자연어 특허 검색 무료",
+                isTop5: false,
+                details: "Perplexity AI가 2025년 10월 31일 'Perplexity Patents'를 베타로 공개했습니다. 자연어 질의로 특허, 논문, 리포지토리를 검색하는 에이전트로, '세계 최초 AI 특허 리서치 에이전트'를 표방하고 있습니다. 관련 특허 요약, 사전공개 자료 탐색, 유사 개념 매칭 등의 기능을 제공합니다. 베타 기간 전 사용자에게는 무료이며, 향후 Pro/Max 사용자에게 추가 쿼터를 제공할 계획입니다. 스타트업과 리서처의 특허 조사 초기 단계 비용과 시간을 크게 절감할 수 있습니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "영상 생성",
+                title: "OpenAI Sora 앱 태국 출시—5일 내 100만 다운로드",
+                isTop5: false,
+                details: "OpenAI가 2025년 10월 30일 Sora 앱을 태국에 출시했으며, 베트남과 대만에도 동시에 론칭했습니다. iOS에서 무료로 다운로드 가능하며 초기에는 초대장 없이 접근할 수 있습니다. Sora 2 기반의 영상 생성, 리믹스, Cameos 기능을 제공합니다. 출시 후 5일 내 100만 다운로드를 기록했습니다. 워터마크와 C2PA 기술을 도입하여 출처 추적성을 강화합니다. 생성형 영상의 대중 확산이 북미에서 아시아로 본격적으로 확장되는 신호입니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "디자인 도구",
+                title: "Figma, AI 미디어 생성 스타트업 Weavy 인수—'Figma Weave' 출시",
+                isTop5: false,
+                details: "Figma가 2025년 10월 30일 텔아비브 기반의 AI 미디어 생성 스타트업 Weavy를 인수했습니다. 이를 'Figma Weave'로 리브랜딩하여 출시했습니다. 노드 기반 워크플로를 통해 여러 AI 모델과 도구를 병렬로 적용할 수 있으며, 이미지, 영상, VFX까지 확장됩니다. 사용자가 프롬프트 한 방이 아닌 절차적 편집으로 세밀한 제어가 가능합니다. 인수 금액과 세부 라이선스 정책은 비공개입니다. 이는 '프롬프트 한 방'에서 '프로시저 편집'으로의 패러다임 전환을 알립니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "디자인 AI",
+                title: "Canva, 자체 'Design Model' 공개—편집 가능한 레이어 직접 생성",
+                isTop5: false,
+                details: "Canva가 2025년 10월 31일 자체 디자인 모델을 공개하고 대규모 AI 기능 업데이트를 발표했습니다. 모델이 구조, 계층, 브랜딩을 반영하여 완전히 편집 가능한 산출물을 직접 생성합니다. Video 2.0, Ask Canva 등의 새로운 AI 기능이 추가되었으며, 영상, 이메일, 폼 등 업무 도구가 통합됩니다. Affinity는 무료로 제공되도록 전환되었습니다. 이는 '이미지 생성'을 넘어 '편집 가능한 산출' 중심의 디자인-AI 경쟁 구도를 본격화합니다."
+            },
+
+            // ===== 산업별 AI 적용 =====
+            {
+                theme: "산업별 AI 적용",
+                category: "헬스케어",
+                title: "AI로 병원비 감액 성공—$195K→$33K(-83.1%)",
+                isTop5: false,
+                details: "2025년 10월 30일 한 유족이 Anthropic의 Claude를 활용하여 병원 청구서 오류를 지적하고 합의에 성공한 사례가 보도되었습니다. 원래 청구액 $195,000이 $33,000으로 감액되어 무려 83.1% 절감되었습니다. Claude가 중복 청구, 코딩 오류, 규정 위반 항목을 식별하고 이의제기 근거를 제시했습니다. 이는 무보험 상태의 환자가 AI를 통해 정보 비대칭을 극복하고 소비자 권익을 보호할 수 있는 실질적 사례입니다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "도시 계획",
+                title: "지바대, AI로 도쿄 수직녹화 최적지 지도화—8만장 거리사진 분석",
+                isTop5: false,
+                details: "지바대 연구팀이 2025년 10월 30일 도시 수직녹화의 최적 위치를 찾는 AI 기반 공간 프레임워크를 발표했습니다. YOLOv8을 사용하여 도쿄 23구의 8만 장 이상의 거리뷰 이미지를 분석했습니다. 수직녹화 수요지수(VGDI) 지도를 작성하여 우선 지역을 도출했습니다. 고밀도 지역의 열섬과 녹지 부족 문제 해결을 위한 데이터 기반 계획을 가능하게 합니다. 지자체의 예산과 인센티브를 타깃팅하는 효율성을 높일 수 있습니다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "음악 공연",
+                title: "라이브 음악 업계, AI로 경로 설계·마케팅·수요예측 자동화",
+                isTop5: false,
+                details: "Billboard Pro가 2025년 11월 1일 라이브 음악 산업 내 AI 활용 현황을 분석한 기사를 발표했습니다. 프로모터, 에이전트, 마케터들이 이미 관객 데이터 분석, 캠페인 자동화, 가격과 좌석 배치 최적화 등에 AI를 활용하고 있습니다. 중소 프로모터와 공연장의 마케팅 비용이 감소하고 의사결정 속도가 향상됩니다. 'AI+수요 관리'가 공연 흥행 리스크 관리의 표준 도구로 자리 잡고 있습니다."
+            },
+
+            // ===== 법률, 규제 및 거버넌스 =====
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "법무",
+                title: "팔란티어, 전직 엔지니어 2명 상대 영업비밀 소송 제기",
+                isTop5: false,
+                details: "Palantir가 2025년 10월 31일 미국 뉴욕 남부 연방지법에 전직 엔지니어 2명(라다 자인, 조애나 코헨)을 상대로 영업비밀 침해와 계약 위반 소송(케이스 1:2025-cv-08985)을 제기했습니다. 이들은 Percepta AI 설립 과정에서 소스코드와 고객 워크플로 등 핵심 자산을 유출했다는 혐의입니다. Percepta는 최소 10명 이상의 Palantir 전직원을 채용했으며, General Catalyst 등으로부터 투자를 받았습니다. AI 핵심 인력의 이동이 '데이터와 코드 거버넌스' 컴플라이언스의 법적 시험대에 올랐습니다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "이민·감시",
+                title: "DHS, 비시민 입·출국 얼굴인식 의무화—2025-12-26 시행",
+                isTop5: false,
+                details: "미국 국토안보부(DHS)가 2025년 10월 28일 규정을 게재하여 2025년 12월 26일부터 비시민의 입·출국 시 얼굴인식 수집을 의무화합니다. 미국 전역 공항, 항만, 육로에서 시행됩니다. CBP의 Traveler Verification Service와 정부 데이터베이스를 연계합니다. ICE는 현장에서 스마트폰 앱 'Mobile Fortify'를 통해 얼굴인식을 수행 중입니다. 시민은 공식적으로 옵트아웃이 가능하나, 실효성에 대한 의문이 제기됩니다. 국경관리용 얼굴인식이 국내 단속 현장으로 '내륙 확장'되는 흐름에 주의가 필요합니다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "기업 지배구조",
+                title: "OpenAI PBC 전환 완료—기업가치 $500B, MS 지분 27% 확보",
+                isTop5: false,
+                details: "OpenAI가 2025년 10월 30일 비영리에서 영리(PBC, Public Benefit Corporation) 구조로의 전환을 완료했습니다. 기업가치는 약 500억 달러입니다. Microsoft가 27%의 지분을 확보하여 약 1,350억 달러의 지분가를 보유합니다. 비영리 재단은 26%의 지분(약 1,300억 달러)과 250억 달러의 공익지출 권리를 유지합니다. AGI 검증 독립 패널을 구성하고 2032년까지 MS의 IP 접근을 규정합니다. 인프라에 약 1.4조 달러를 의무화합니다. 이는 'AI 인프라'가 반도체, 전력, 부동산을 묶는 초대형 투자 자산으로 부상함을 보여줍니다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안",
+                title: "OpenAI, 보안 연구 에이전트 'Aardvark' 프라이빗 베타 공개",
+                isTop5: false,
+                details: "OpenAI가 2025년 10월 31일 코드 취약점 탐지 에이전트 'Aardvark'의 프라이빗 베타를 공개했습니다. 리포지토리 분석, 커밋 스캔, 샌드박스 검증, Codex 기반 패치 제안까지 자동으로 수행합니다. GitHub와 연동되며 오픈소스에도 적용될 예정입니다. 내부 및 파트너 테스트에서 92.0%의 검출률을 기록했고, CVE 10건을 보고했습니다. 이는 '에이전트형 보안연구자'의 상용 검증이 시작되었음을 의미하며, AI의 보안 실전 배치로의 전환점입니다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "사이버보안",
+                title: "시스코 'SecureBERT 2.0' 공개—보안용 도메인 특화 LLM",
+                isTop5: false,
+                details: "Cisco가 2025년 10월 31일 보안 전문용 도메인 특화 LLM 'SecureBERT 2.0'을 공개했습니다. ModernBERT 기반으로 장문 컨텍스트를 이해하며, 130억 개의 텍스트 토큰과 5,300만 개의 코드 토큰으로 학습되었습니다. 위협 인텔리전스, 사고 대응, 보안 코드 분석에 최적화되어 있습니다. HuggingFace, GitHub, arXiv에 오픈소스로 배포됩니다. SOC와 위협 헌팅에서 고정밀 임베딩과 RAG 적용이 용이하며, 생성형 LLM과의 명확한 역할 분담(생성 vs 이해)이 이루어집니다."
+            },
+
+            // ===== AI와 사회 =====
+            {
+                theme: "AI와 사회",
+                category: "오피니언",
+                title: "에이전트 개발자: '첫 시도에 거의 안 된다'—프롬프트·규칙 튜닝 반복 필요",
+                isTop5: false,
+                details: "에이전트와 RAG 교육자인 Akshay Pachaar가 2025년 11월 1일 X 스레드에서 Microsoft 에이전트 진전을 평가하며 실무자 견해를 제시했습니다. 에이전트는 초기에는 잘 작동하지 않으며, 반복적인 프롬프트 엔지니어링, 예시 추가, 규칙 정교화가 필수적이라고 강조합니다. 기능 발표보다 운영 공정(평가, 튜닝, 가드레일)이 성패를 좌우한다는 것입니다. 벤치마크와 현실의 장기·복합 과업 성능 격차가 크다는 점도 언급되었습니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "교육",
+                title: "UIUC 사례—AI로 작성된 동일 문구 사과 메일 다수 적발",
+                isTop5: false,
+                details: "일리노이 어바나-샴페인 대학(UIUC)의 교수들이 2025년 10월 30일 출석·평가 부정 적발 후 학생들이 AI로 작성한 동일 문구의 사과 메일을 다수 발견했습니다. 교수 Karle Flanagan과 Wade Fagen-Ulmschneider는 강의 중 이를 공개하고 지침을 안내했습니다. 생성AI의 손쉬운 접근성, 탐지와 정책의 미비가 핵심 문제입니다. 이는 '탐지 중심' 대응의 한계를 드러내며, 명시적 AI 사용 규정, 증빙(작업 기록) 수집, 프로젝트·구술 중심의 평가 설계 전환이 필요함을 보여줍니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "심리",
+                title: "Aalto 연구—생성형 AI 사용 시 '모두가 과신'",
+                isTop5: false,
+                details: "Aalto University의 연구팀(주저자 Robin Welsch)이 2025년 10월 30일 생성형 AI 사용이 메타인지 왜곡을 초래한다는 연구 결과를 발표했습니다. LSAT 논리 문제 등에서 AI 보조 사용 시 실제 수행은 평균 약 3점 개선되었으나, 자기평가는 약 4점 과대 추정되었습니다. 2개 대규모 실험(Study1 N=246, Study2 N=452)을 통해 검증되었습니다. 전통적 DKE(Dunning-Kruger Effect) 패턴이 소멸하고 AI 리터러시가 높을수록 과신이 더 커졌습니다. 교육과 업무에서 메타인지 보정 기능이 필요합니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "직장·생산성",
+                title: "LSE 조사—생성형 AI 사용자 주당 7.5시간 절감, 연 £14,000 가치",
+                isTop5: false,
+                details: "런던정경대(LSE)의 연구팀이 2025년 10월 30일 생성형 AI의 생산성 효과 조사 결과를 발표했습니다. 약 3,000명의 직원과 240명의 임원을 대상으로 한 설문에서 AI 사용자는 주당 평균 7.5시간을 절감하며, 1인당 연간 약 £14,000의 생산성 가치를 창출합니다. 그러나 최근 12개월간 교육을 받지 않은 사람이 68%에 달합니다. 교육이 ROI의 핵심 변수임을 보여줍니다. '시간 절감'에서 '업무 재배치'로의 전환이 본격화되고 있습니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "고등교육",
+                title: "마일스 칼리지·엔비디아 제휴—'약 절반' 교수 AI 수업 반영",
+                isTop5: false,
+                details: "HBCU(역사적 흑인 대학) 마일스 칼리지와 엔비디아가 2025년 10월 30일 AI 교육, 연구, 지역협력 전반을 아우르는 제휴를 발표했습니다. Deep Learning Institute(DLI) 콘텐츠와 도구를 제공하며 교원과 학생 인증을 지원합니다. 교원의 약 절반이 AI를 수업에 반영하고 있으며, 연구의 약 60%가 AI를 활용하고 있습니다. 전 학과 AI 리터러시 강화와 취업 역량 제고가 목표입니다. 대학-빅테크 협업이 '전 학과 AI 기초역량' 표준으로 자리 잡는 흐름을 보여줍니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "개발자 생태계",
+                title: "GitHub 옥토버스 2025—한국 개발자 266만 명, +20% 증가",
+                isTop5: false,
+                details: "GitHub가 2025년 10월 30일 'Octoverse 2025' 통계를 발표했습니다. 한국의 활동 개발자는 266만 명이며, 전년 대비 20% 증가했고, 12개월 동안 신규 45만 명이 유입되었습니다. 전 세계적으로는 1.8억 개발자가 활동 중이며, 연간 3,600만 명의 신규 개발자가 가입합니다. 신규 가입자의 80%가 첫 주에 Copilot을 사용합니다. 한국 개발자 풀의 양적 확대가 AI 개발 역량과 오픈소스 기여도 증대로 연결될 가능성이 높습니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "스타트업",
+                title: "릴리스AI, 2년 만에 100만 사용자 달성—요약 노트 780만 건",
+                isTop5: false,
+                details: "요약 AI 스타트업 릴리스AI(대표 오현수)가 2025년 10월 30일 100만 사용자 달성을 발표했습니다. 182개국에서 누적 780만 건의 요약 노트가 작성되었습니다. 시밀러웹 기준 국내 1위 요약 AI입니다. 템플릿 30여 종과 AI 에이전트 기능을 무료로 개방했습니다. 무료화로 사용자 유입과 활성도가 상승할 것으로 예상됩니다. '요약+에이전트' 결합이 개인과 업무 문서 워크플로의 기본 도구로 자리 잡는 신호입니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "통신·제품",
+                title: "Google·Reliance Jio 제휴—Gemini Pro 18개월 무료(5.5억 사용자)",
+                isTop5: false,
+                details: "Alphabet/Google과 인도의 Reliance Jio(무케시 암바니)가 2025년 10월 30일 제휴를 발표했습니다. Jio 전 가입자 약 5.05억 명을 대상으로 Gemini Pro(2.5 포함)를 18개월 무료로 제공합니다. 가치는 약 ₹35,100(약 $399)입니다. 2TB 저장공간, 이미지·영상 생성 모델, 초기에는 18~25세 요금제부터 순차 적용됩니다. MyJio 앱을 통해 사전등록이 가능합니다. '통신요금 번들+AI'이 스트리밍 이후의 차세대 대중 확산 채널로 부상하는 것을 보여줍니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "제조 DX",
+                title: "BayPine: '새 공장 바닥은 디지털'—현장 인력 모두가 엔지니어로",
+                isTop5: false,
+                details: "사모펀드 BayPine의 포트폴리오 운영진이 2025년 10월 30일 제조 현장의 디지털 전환과 현장 인력의 소프트웨어화를 강조했습니다. 데이터 플랫폼과 저코드·자동화 도구를 현장에 확산하여 역할과 스킬 구조를 재편하려고 합니다. 목표는 모든 현장 인력이 '소프트웨어·데이터를 다루는 엔지니어'가 되는 것입니다. 설비·라인 최적화보다 '데이터·도구 습득'이 생산성의 핵심 변수로 부상합니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "공공데이터",
+                title: "'공공문서 91.1%가 비정형'—AI가 읽지 못하는 구조 문제",
+                isTop5: false,
+                details: "한국딥러닝의 기고와 위성곤 의원실의 국감 자료가 2025년 10월 31일 공공기관 문서의 91.1%가 비정형 포맷임을 지적했습니다. HWP, 스캔 PDF 등으로 인해 LLM 활용에 제약이 발생합니다. 공무원의 70%가 생성형 AI를 활용하고 있지만, 문서 구조화 없이는 행정 AI 활용에 병목이 발생합니다. 전자문서 재설계와 'AI-Ready' 포맷 표준화가 필요합니다. 시스템 도입보다 '데이터 준비도'가 행정 AI 성공의 선결 과제입니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "모델·연구",
+                title: "BAAI 'Emu3.5' 공개—멀티모달 세계모델, 추론 최대 20배 가속",
+                isTop5: false,
+                details: "BAAI(베이징 인공지능연구원)가 2025년 10월 30일 멀티모달 세계모델 'Emu3.5'를 공개했습니다. 비전과 언어를 하나의 next-token 예측으로 통합 학습하는 방식입니다. 10T 이상의 토큰으로 사전학습되었으며, DiDA 기술로 병렬 토큰 예측으로 전환하여 이미지당 추론을 최대 20배 가속한다고 주장합니다. 코드와 논문을 공개할 예정입니다. '확산 없이 토큰 예측' 노선이 멀티모달 표준 경쟁을 자극합니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "과학·출판",
+                title: "'Agents4Science 2025'—AI 저자·심사가 논문 1,800건 중 315편 제출",
+                isTop5: false,
+                details: "Stanford의 James Zou 등이 주도한 'Agents4Science 2025'가 2025년 10월 22일 개최되었고, 2025년 10월 30일 Smithsonian Magazine에 보도되었습니다. AI가 작성하고 심사한 논문을 인간이 선별·발표하는 실험적 학회입니다. 등록 1,800명, 제출 315편, 최종 발표 48편이며, 과정과 리뷰가 전량 공개됩니다. 'AI-작성·심사'의 장단점이 실제 데이터로 공개되며, 연구평가의 증거 기반 논의가 가능해집니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "안전·해석",
+                title: "Anthropic, 'LLM이 자신의 생각 인식 가능'—개념 주입 실험",
+                isTop5: false,
+                details: "Anthropic 연구팀(저자 Jack Lindsey)이 2025년 10월 29일 LLM이 자신의 내부 상태를 인식할 수 있다는 증거를 제시했습니다. 2025년 11월 3일 기사로 보도되었습니다. 개념 주입(Concept Injection) 기법으로 내부 특성을 변조한 후 모델의 자기보고를 검증합니다. Claude Opus 4/4.1이 최적 조건에서 약 20% 확률로 내부 상태 인지를 보고했습니다. '의식' 논쟁과 무관하게, 투명성 지표로서 내성 측정이 중요해짐을 보여줍니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "국방·사이버",
+                title: "DOD, INDOPACOM 17개 네트워크 'MNaaS'로 통합—AI 기반 예측 방어",
+                isTop5: false,
+                details: "미국 국방부(CIO 케이티 애링턴)가 2025년 10월 31일 INDOPACOM 산하 동맹 통신 17개 네트워크를 'Mission Network-as-a-Service(MNaaS)'로 통합한다고 발표했습니다. 제로트러스트 아키텍처를 적용하고 AI 기반 예측 방어를 도입합니다. CJADC2(Combined Joint All-Domain Command and Control) 달성을 위한 동맹 간 신속·안전한 데이터 공유가 목표입니다. '동맹형 단일 임무망+AI'로 미-동맹 합동작전의 네트워크 탄력성을 제고합니다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "과금·제품",
+                title: "OpenAI, 코덱스·소라 '크레딧제' 도입—소라 추가 10회 $4",
+                isTop5: false,
+                details: "OpenAI가 2025년 10월 30일 코덱스와 소라의 기본 한도 초과 사용을 위한 '크레딧제'를 도입했습니다. 소라는 기본적으로 Plus 월 30회, Pro 월 100회이며, 추가 10회당 $4입니다. 코덱스는 로컬 평균 5 크레딧, 클라우드 25 크레딧이며, 크레딧의 유효 기간은 12개월입니다. 플랜 변경 없이 선택적 초과 사용이 가능하게 되었습니다. '사용량 기반 과금'이 생성형 도구의 기본 모델로 정착하는 신호입니다."
+            }
+        ];
+
+        // 주요 데이터 하이라이트
+        const keyNumbers = [
+            {
+                label: "ChatGPT Plus/Pro 에이전트 한도",
+                value: "Plus 40건/월",
+                description: "Pro 400건/월"
+            },
+            {
+                label: "OpenAI 인프라 목표",
+                value: "30GW",
+                description: "$1.4조 투자, 주당 1GW 증설"
+            },
+            {
+                label: "GitHub 한국 개발자",
+                value: "266만 명",
+                description: "전년 대비 +20% 증가"
+            },
+            {
+                label: "삼성전자 3Q 영업이익",
+                value: "12.2조 원",
+                description: "+32.5% YoY 증가"
+            }
+        ];
+
+        // DOM 렌더링 함수들
+        function createKeyNumbersSection() {
+            const container = document.createElement('section');
+            container.className = 'mb-12';
+            
+            const title = document.createElement('h2');
+            title.className = 'text-2xl font-bold text-slate-900 mb-6';
+            title.textContent = '주요 데이터 하이라이트';
+            container.appendChild(title);
+
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-4';
+
+            keyNumbers.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-lg shadow-sm border border-slate-200';
+                
+                const label = document.createElement('p');
+                label.className = 'text-sm text-slate-600 mb-2';
+                label.textContent = item.label;
+                card.appendChild(label);
+
+                const value = document.createElement('p');
+                value.className = 'text-2xl font-bold text-amber-600 mb-1';
+                value.textContent = item.value;
+                card.appendChild(value);
+
+                const desc = document.createElement('p');
+                desc.className = 'text-xs text-slate-500';
+                desc.textContent = item.description;
+                card.appendChild(desc);
+
+                grid.appendChild(card);
+            });
+
+            container.appendChild(grid);
+            return container;
+        }
+
+        function getTruncatedTitle(title, maxLen = 60) {
+            if (title.length <= maxLen) return title;
+            
+            const dashIdx = title.indexOf('—');
+            const colonIdx = title.indexOf(':');
+            
+            if (dashIdx > 0 && dashIdx < maxLen) {
+                return title.substring(0, dashIdx);
+            }
+            if (colonIdx > 0 && colonIdx < maxLen) {
+                return title.substring(0, colonIdx);
+            }
+            
+            return title.substring(0, maxLen) + '...';
+        }
+
+        function renderTop5Section() {
+            const top5Items = reportData.filter(item => item.isTop5);
+            
+            const container = document.createElement('section');
+            container.className = 'mb-12';
+            
+            const title = document.createElement('h2');
+            title.className = 'text-2xl font-bold text-slate-900 mb-6';
+            title.textContent = 'Top 5 뉴스';
+            container.appendChild(title);
+
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+
+            top5Items.forEach((item, index) => {
+                const card = createNewsCard(item, index);
+                grid.appendChild(card);
+            });
+
+            container.appendChild(grid);
+            return container;
+        }
+
+        function renderThematicSections() {
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회"
+            ];
+
+            const container = document.createElement('div');
+
+            themes.forEach(theme => {
+                const themeItems = reportData.filter(item => item.theme === theme && !item.isTop5);
+                
+                if (themeItems.length === 0) return;
+
+                const section = document.createElement('section');
+                section.className = 'mb-12';
+                
+                const themeTitle = document.createElement('h2');
+                themeTitle.className = 'text-2xl font-bold text-slate-900 mb-6';
+                themeTitle.textContent = theme;
+                section.appendChild(themeTitle);
+
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+
+                themeItems.forEach((item, index) => {
+                    const card = createNewsCard(item, index);
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+
+            return container;
+        }
+
+        function createNewsCard(item, index) {
+            const dataIndex = reportData.indexOf(item);
+            
+            const card = document.createElement('div');
+            card.className = 'bg-white p-6 rounded-lg shadow-sm border border-slate-200 hover:shadow-xl transition-shadow cursor-pointer';
+            card.setAttribute('data-index', dataIndex);
+
+            const categoryBadge = document.createElement('span');
+            categoryBadge.className = 'inline-block text-xs font-semibold text-amber-700 bg-amber-100 px-2 py-1 rounded mb-3';
+            categoryBadge.textContent = item.category;
+            card.appendChild(categoryBadge);
+
+            const titleElem = document.createElement('h3');
+            titleElem.className = 'text-lg font-semibold text-slate-900 mb-3 line-clamp-3';
+            titleElem.textContent = getTruncatedTitle(item.title);
+            card.appendChild(titleElem);
+
+            const themeBadge = document.createElement('p');
+            themeBadge.className = 'text-xs text-slate-500';
+            themeBadge.textContent = item.theme;
+            card.appendChild(themeBadge);
+
+            card.addEventListener('click', () => showModal(item));
+
+            return card;
+        }
+
+        function showModal(item) {
+            const modal = document.getElementById('news-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+
+            // 전체 원본 제목 표시
+            modalTitle.textContent = item.title;
+
+            // 상세 내용 표시 (문단 형태)
+            modalContent.innerHTML = '';
+            
+            if (typeof item.details === 'string') {
+                const paragraph = document.createElement('p');
+                paragraph.className = 'text-slate-700 leading-relaxed';
+                paragraph.textContent = item.details;
+                modalContent.appendChild(paragraph);
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('news-modal');
+            modal.classList.add('hidden');
+        }
+
+        // 이벤트 리스너
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('news-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'news-modal') closeModal();
+        });
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            
+            contentArea.appendChild(createKeyNumbersSection());
+            contentArea.appendChild(renderTop5Section());
+            contentArea.appendChild(renderThematicSections());
+        });
+    </script>
+    <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 방문자 추적 스크립트 -->
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>

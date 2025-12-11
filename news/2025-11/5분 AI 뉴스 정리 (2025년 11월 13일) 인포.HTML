@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 기술 동향 인포그래픽 (2025-11-13)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Noto Sans KR 폰트 및 레트로 스타일 적용 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach 배경색 */
+      color:#1E1E1E; 
+    }
+    .kpi-card { 
+      background:#fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; /* 굵은 그림자 (검정) */
+    }
+    .news-card { 
+      background:#fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; /* 굵은 그림자 (검정) */
+      transition: all .2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); /* 호버 시 약간 이동 */
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      max-width: 600px; 
+      margin: 1.5rem auto; 
+      height: 300px; /* 기본 높이 */
+      max-height: 400px;
+    }
+    .chart-container.doughnut { 
+      max-width: 400px; 
+    }
+    @media (min-width: 768px) {
+      .chart-container { height: 350px; }
+      .chart-container.doughnut { height: 350px; }
+    }
+    /* 스티키 네비게이션 */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+    }
+    /* 차트 로드 전 숨김 */
+    .chart-canvas {
+      visibility: hidden;
+    }
+    .chart-canvas.loaded {
+      visibility: visible;
+    }
+    /* NEW 배지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2">AI·기술 최신 동향 <span class="badge-new">NEW</span></h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 13일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (핵심 지표 4가지)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">핵심 지표 요약</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1: 앤트로픽 투자 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 인프라 투자</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#FF6B6B]">$500억</p>
+          <p class="text-sm text-gray-500">앤트로픽, 美 데이터센터 투자</p>
+        </div>
+        <!-- KPI 2: 독일 법원 판결 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 저작권 침해</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#F7D060]">9곡</p>
+          <p class="text-sm text-gray-500">독일 법원, ChatGPT 가사 학습 위법</p>
+        </div>
+        <!-- KPI 3: 구글 프라이버시 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">클라우드 프라이버시</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#4D96FF]">'온디바이스 수준'</p>
+          <p class="text-sm text-gray-500">구글 '프라이빗 AI 컴퓨트' 공개</p>
+        </div>
+        <!-- KPI 4: 바이트댄스 코딩툴 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 코딩 에이전트</p>
+          <p class="text-3xl md:text-4xl font-bold text-[#6BCB77]">$1.3/월</p>
+          <p class="text-sm text-gray-500">바이트댄스, 초저가 경쟁 점화</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 테마)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">💰 AI 인프라 전쟁</a>
+        <a href="#platform" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🧠 플랫폼의 진화</a>
+        <a href="#data" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI와 법적 충돌</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🛠️ 업무 도구의 자동화</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-20">
+
+      <!-- 1) AI 인프라 전쟁 -->
+      <section id="infra">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#FF6B6B] pl-4">💰 AI 인프라 전쟁</h2>
+        <p class="mb-8 text-lg text-gray-700">앤트로픽, 소프트뱅크 등 빅 플레이어들이 천문학적인 자금을 AI 데이터센터와 인프라에 쏟아붓고 있으며, 이는 전력 및 메모리 시장의 슈퍼 사이클을 견인하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 1-1: 앤트로픽 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">앤트로픽, 500억 달러 규모 미국 데이터센터 투자 계획</h3>
+            <p class="mb-4">앤트로픽이 클로드(Claude) 모델 수요 급증에 대응하기 위해 500억 달러(약 70조 원)를 투자, 미국 전역에 AI 전용 데이터센터를 건설합니다. 초기에는 텍사스와 뉴욕에 대형 시설을 짓고 확장할 계획으로, 이는 오픈AI, 구글 등과의 'AI 데이터센터 군비 경쟁' 속에서 독자적인 연산 능력을 확보하려는 시도입니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-red-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 앤트로픽-플루이드스택 파트너십, MS/구글과 'AI 군비 경쟁' 본격화</p>
+            </div>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> 클로드 수요 급증에 대응해 독자적 연산 능력 확보를 위한 'AI 군비 경쟁'에 본격 참전.</p>
+          </article>
+
+          <!-- 카드 1-2: 메모리 슈퍼 사이클 (차트) -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">"메모리 슈퍼 사이클 온다"… AI가 견인하는 가격 급등</h3>
+            <p class="mb-4">모건스탠리는 AI 데이터센터의 '필수 수요'로 인해 DRAM·NAND 가격이 사상 최고치를 넘는 새로운 '메모리 슈퍼 사이클'이 진행 중이라고 분석했습니다. 4분기 서버 DRAM 계약 가격은 예상치(30%)를 훨씬 웃도는 70% 상승이 전망되며, HBM 생산이 일반 DRAM 캐파를 잠식하며 가격 동반 급등을 이끌고 있습니다.</p>
+            <!-- 차트 -->
+            <div class="chart-container">
+              <canvas id="infraChart" class="chart-canvas"></canvas>
+            </div>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> AI '필수 수요'가 DRAM/NAND 가격을 사상 최고치로 밀어 올리며 SK하이닉스/삼성전자 비중 확대.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) 플랫폼의 진화 -->
+      <section id="platform">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#4D96FF] pl-4">🧠 플랫폼의 진화</h2>
+        <p class="mb-8 text-lg text-gray-700">GPT-5.1 공개로 모델 성능이 향상되는 동시에, 구글은 '프라이빗 AI 컴퓨트'로 클라우드 연산의 프라이버시 문제를 해결하려는 상반된 접근이 동시에 진행 중입니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 2-1: GPT-5.1 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI, GPT-5.1 공개… "더 자연스럽고 믿을 만한 대화형 AI"</h3>
+            <p class="mb-4">오픈AI가 최신 대규모 언어모델 GPT-5.1을 공개했습니다. 복잡한 추론, 코딩, 데이터 분석, 도구 호출을 더 안정적으로 수행하면서도 응답 속도와 비용 효율을 개선했습니다. 또한 사용자 표현 스타일 파악, 맥락 유지, 장기 대화 품질이 향상되었으며, 챗GPT, API, 비즈니스 솔루션에 동시에 적용되는 '범용 엔진'으로 설계되었습니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-blue-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 환각 감소, 탈옥 내성 강화 등 안전성 향상 (시스템 카드 보충 문서 공개)</p>
+            </div>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> 복잡한 추론, 코딩, 도구 호출 성능을 개선하고 안전성을 강화해 '범용 엔진'으로 동시 적용.</p>
+          </article>
+
+          <!-- 카드 2-2: 구글 프라이빗 AI 컴퓨트 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">구글, '프라이빗 AI 컴퓨트' 공개… "클라우드도 온디바이스 수준"</h3>
+            <p class="mb-4">구글이 애플의 '프라이빗 클라우드 컴퓨트'에 맞서 '프라이빗 AI 컴퓨트'를 공개했습니다. 이 시스템은 스마트폰이 감당하기 어려운 무거운 AI 연산을 클라우드로 넘기면서도, 사용자 데이터는 '봉인된 하드웨어 영역(티타늄 인텔리전스 인클레이브)'에서 처리해 구글 직원조차 접근할 수 없도록 설계되었습니다. 픽셀 10의 '매직 큐' 기능 등에 우선 적용됩니다.</p>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> 애플 '프라이빗 클라우드 컴퓨트'에 맞서, 민감 데이터를 보안 영역에서 처리하며 프라이버시와 고성능 연산을 양립 시도.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) AI와 법적 충돌 -->
+      <section id="data">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#F7D060] pl-4">⚖️ AI와 법적 충돌</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 학습 데이터의 저작권과 사용자 데이터 프라이버시 문제가 미국과 유럽에서 동시에 법적 쟁점으로 부상하며 AI 기업들을 압박하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 3-1: 독일 법원 판결 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">독일 법원, "저작권 음악 가사로 ChatGPT 훈련, 저작권 침해"</h3>
+            <p class="mb-4">독일 뮌헨 지방법원이 오픈AI가 독일 인기 곡 9곡의 가사를 허가 없이 학습하고 재현한 것은 저작권법 위반이라고 판결했습니다. 법원은 오픈AI의 '연구 목적 데이터 마이닝' 예외 주장을 받아들이지 않았으며, 해당 가사 저장 금지 및 손해배상을 명령했습니다. GEMA 측은 "인간의 창작 성과는 공짜 템플릿이 아니다"라고 강조했습니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-yellow-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 유럽 내 AI 학습의 '데이터 마이닝 예외(TDM)' 불인정 첫 주요 판례</p>
+            </div>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> 유럽 내 AI 학습의 '데이터 마이닝 예외'를 인정하지 않은 중요 판례로, AI 기업의 라이선스 책임 강화.</p>
+          </article>
+
+          <!-- 카드 3-2: 오픈AI vs NYT (차트) -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI "NYT의 데이터 요구, 심각한 사생활 침해" 반격</h3>
+            <p class="mb-4">오픈AI가 NYT와의 저작권 소송에서, NYT가 요구한 수천만 건의 챗GPT 대화 기록이 "심각한 사생활 침해"라며 법원에 보호를 요청했습니다. 오픈AI는 NYT가 건강, 연애 등 민감한 대화가 포함된 기록까지 요구하고 있다며, 이는 저작권 분쟁이 아니라 "일반 이용자 일기장을 통째로 가져가려는 요구"라고 비판했습니다.</p>
+            <!-- 도넛 차트 (디저 설문 인용) -->
+            <div class="chart-container doughnut">
+              <canvas id="govChart" class="chart-canvas"></canvas>
+            </div>
+            <p class="text-xs text-gray-500 text-center mt-2">※ 디저/입소스 설문: AI 생성 음악 식별 여부</p>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> 저작권 분쟁이 '이용자 데이터 보호' 문제로 확전되며, 생성형 AI 시대의 프라이버시 기준 선례가 될 전망.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) 업무 도구의 자동화 -->
+      <section id="apps">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 border-l-8 border-[#6BCB77] pl-4">🛠️ 업무 도구의 자동화</h2>
+        <p class="mb-8 text-lg text-gray-700">월 1.3달러짜리 코딩 에이전트부터 그룹 채팅, 법률 문서 초안 작성까지 AI가 실제 업무 현장의 워크플로를 빠르게 대체하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 4-1: 바이트댄스 코딩 에이전트 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">바이트댄스, 월 1.3달러 '초저가' AI 코딩 에이전트 출시</h3>
+            <p class="mb-4">틱톡 모회사 바이트댄스가 월 9.9위안(약 1.3달러)의 프로모션 가격으로 AI 코딩 에이전트 'Doubao-Seed-Code'를 출시했습니다. 정가도 월 40위안 수준으로, '가성비 코딩 파트너'를 지향하며 중국 내 가격 경쟁에 불을 붙였습니다. 코드 자동완성, 버그 수정 등을 지원하며 SWE-Bench 벤치마크에서 최상위권 성능을 기록했다고 밝혔습니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-green-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 광군제 프로모션, 중소 개발사/학생 타겟, 자국 생태계 락인(Lock-in) 전략</p>
+            </div>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> 중국 내 AI 코딩 시장 저변 확대를 노린 '가성비' 공세로, 자국 개발자 생태계 락인(Lock-in) 전략.</p>
+          </article>
+
+          <!-- 카드 4-2: ChatGPT 그룹 채팅 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">ChatGPT, 링크로 초대하는 '그룹 채팅 미리보기' 포착</h3>
+            <p class="mb-4">ChatGPT 웹 앱에서 '그룹 채팅 미리보기' 기능이 포착되었습니다. 링크 기반으로 여러 사용자가 하나의 대화에 참여할 수 있으며, 그룹마다 별도의 사용자 지정 지침, 자동 응답 모드, 참여자별 개별 메모리 설정 등을 둘 수 있습니다. 이는 팀 프로젝트, 수업 등에서 ChatGPT를 실시간 협업용 워크스페이스로 활용하려는 시도로 보입니다.</p>
+            <p class="mt-4 text-sm font-semibold">💡 <b>핵심:</b> 단순 1:1 대화를 넘어, 링크 공유와 개별 설정을 통해 실시간 협업용 워크스페이스로 진화 시도.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8">
+      <p>AI·기술 최신 동향 | 2025-11-13</p>
+      <p>이 인포그래픽은 제공된 뉴스 스니펫을 기반으로 AI가 생성했습니다.</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPTS (Smooth Scroll & Chart.js)
+       ========================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // --- Smooth Scroll (앵커 링크 부드러운 이동) ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // 네비게이션 바 높이를 고려하여 스크롤 위치 조정 (약 60px)
+            const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 70; 
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // --- Chart.js 로더 (화면에 보일 때 로드) ---
+      const chartElements = [
+        { id: 'infraChart', type: 'bar', data: getInfraData() },
+        { id: 'govChart', type: 'doughnut', data: getGovData() }
+      ];
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const chartConfig = chartElements.find(c => c.id === entry.target.id);
+            if (chartConfig && !entry.target.classList.contains('loaded')) {
+              new Chart(entry.target, {
+                type: chartConfig.type,
+                data: chartConfig.data,
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: chartConfig.type === 'doughnut' ? 'top' : 'bottom',
+                    }
+                  }
+                }
+              });
+              entry.target.classList.add('loaded'); // 로드 완료 표시
+              observer.unobserve(entry.target); // 관찰 중지
+            }
+          }
+        });
+      }, { threshold: 0.5 }); // 50% 보일 때 로드
+
+      chartElements.forEach(chart => {
+        const el = document.getElementById(chart.id);
+        if (el) {
+          observer.observe(el);
+        }
+      });
+
+      // --- 차트 데이터 정의 ---
+
+      // 1. 인프라 차트 데이터 (모건스탠리 리포트 기반)
+      function getInfraData() {
+        return {
+          labels: ['4분기 서버 DRAM 가격 (기존 예상)', '4분기 서버 DRAM 가격 (최신 전망)'],
+          datasets: [{
+            label: '가격 상승률 전망 (QoQ)',
+            data: [30, 70], // 기존 30% -> 70% 상향
+            backgroundColor: [
+              'rgba(77, 150, 255, 0.6)', // Blue
+              'rgba(255, 107, 107, 0.6)'  // Red
+            ],
+            borderColor: [
+              'rgba(77, 150, 255, 1)',
+              'rgba(255, 107, 107, 1)'
+            ],
+            borderWidth: 2
+          }]
+        };
+      }
+
+      // 2. 거버넌스 차트 데이터 (디저/입소스 설문 기반)
+      function getGovData() {
+        return {
+          labels: ['AI 생성 음악 (식별 실패)', 'AI 생성 음악 (식별 성공)'],
+          datasets: [{
+            label: 'AI 생성 음악 식별 여부',
+            data: [97, 3], // 97% 구분 못함
+            backgroundColor: [
+              'rgba(247, 208, 96, 0.7)', // Yellow
+              'rgba(30, 30, 30, 0.7)'    // Dark
+            ],
+            borderColor: [
+              'rgba(247, 208, 96, 1)',
+              'rgba(30, 30, 30, 1)'
+            ],
+            borderWidth: 2,
+            hoverOffset: 4
+          }]
+        };
+      }
+
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 뉴스 인포그래픽 - 2025년 11월 29일</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 기본 스타일 및 레트로 팝 디자인 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach */
+      color: #1E1E1E; 
+    }
+    
+    /* 카드 스타일: 굵은 테두리와 그림자 */
+    .kpi-card, .news-card {
+      background: #FFFFFF;
+      border: 2px solid #1E1E1E;
+      box-shadow: 6px 6px 0px #1E1E1E;
+      transition: all 0.2s ease-in-out;
+    }
+    
+    .news-card:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 4px 4px 0px #1E1E1E;
+    }
+
+    /* KPI 카드 호버 효과 */
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 8px 8px 0px #1E1E1E;
+    }
+
+    /* 차트 컨테이너 */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+    }
+
+    /* 스티키 내비게이션 */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    /* 커스텀 스크롤바 (Webkit) */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FDF0E0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E1E1E;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    /* 유틸리티: 형광펜 효과 */
+    .highlight-pen {
+      background: linear-gradient(to top, #FFFD82 40%, transparent 40%);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-[#FDF0E0]">
+
+  <div class="container mx-auto px-4 md:px-8 max-w-6xl pb-20">
+    
+    <!-- =========================
+         HEADER
+         ========================= -->
+    <header class="text-center py-12 md:py-16">
+      <div class="inline-block border-2 border-black bg-white px-4 py-1 mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-bold text-sm md:text-base">
+        Daily AI Briefing
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">AI·기술 최신 동향</h1>
+      <p class="text-xl font-medium text-gray-700 mt-2">2025년 11월 29일 (토)</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (핵심 지표)
+         ========================= -->
+    <section id="kpi-overview" class="mb-16">
+      <h2 class="text-2xl font-bold text-center mb-8 flex items-center justify-center gap-2">
+        <span>⚡ 오늘의 핵심 숫자</span>
+      </h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1 -->
+        <div class="kpi-card p-6 rounded-xl text-center flex flex-col justify-center items-center">
+          <p class="text-gray-500 font-bold text-sm mb-2">MIT 아이스버그 지수</p>
+          <p class="text-4xl md:text-5xl font-black text-[#FF6B6B]">11.7%</p>
+          <p class="text-xs text-gray-600 mt-2 font-medium">현재 AI로 대체 가능한<br>미국 전체 일자리 비중</p>
+        </div>
+        <!-- KPI 2 -->
+        <div class="kpi-card p-6 rounded-xl text-center flex flex-col justify-center items-center">
+          <p class="text-gray-500 font-bold text-sm mb-2">델타항공 수하물 AI</p>
+          <p class="text-4xl md:text-5xl font-black text-[#4D96FF]">+30%</p>
+          <p class="text-xs text-gray-600 mt-2 font-medium">AI 도입 후<br>수하물 처리 효율 향상</p>
+        </div>
+        <!-- KPI 3 -->
+        <div class="kpi-card p-6 rounded-xl text-center flex flex-col justify-center items-center">
+          <p class="text-gray-500 font-bold text-sm mb-2">인도 AI 투자</p>
+          <p class="text-4xl md:text-5xl font-black text-[#F7D060]">$50억</p>
+          <p class="text-xs text-gray-600 mt-2 font-medium">아다니 그룹,<br>구글 데이터센터 투자액</p>
+        </div>
+        <!-- KPI 4 -->
+        <div class="kpi-card p-6 rounded-xl text-center flex flex-col justify-center items-center">
+          <p class="text-gray-500 font-bold text-sm mb-2">미 CISA 인력난</p>
+          <p class="text-4xl md:text-5xl font-black text-[#6BCB77]">40%</p>
+          <p class="text-xs text-gray-600 mt-2 font-medium">사이버 방어국 공석률<br>(AI 도입 가속화 원인)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/90 border-y-2 border-black py-4 mb-12">
+      <div class="flex justify-center flex-wrap gap-3 md:gap-6 text-sm md:text-base">
+        <a href="#infra" class="font-bold px-4 py-2 rounded-lg border-2 border-transparent hover:bg-[#FF6B6B] hover:text-white hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">🏗️ 인프라 & 칩 전쟁</a>
+        <a href="#consumer" class="font-bold px-4 py-2 rounded-lg border-2 border-transparent hover:bg-[#4D96FF] hover:text-white hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">🛍️ 일상 속 AI</a>
+        <a href="#security" class="font-bold px-4 py-2 rounded-lg border-2 border-transparent hover:bg-[#F7D060] hover:text-white hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">🛡️ 보안 & 지정학</a>
+        <a href="#society" class="font-bold px-4 py-2 rounded-lg border-2 border-transparent hover:bg-[#6BCB77] hover:text-white hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">📉 일자리와 사회</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         SECTION 1: 인프라 & 칩 전쟁
+         ========================= -->
+    <section id="infra" class="space-y-8 scroll-mt-28 mb-24">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 bg-[#FF6B6B] border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-xl">🏗️</div>
+        <div>
+          <h2 class="text-3xl font-black">인프라 & 칩 전쟁</h2>
+          <p class="text-gray-600 text-sm md:text-base mt-1">엔비디아의 독주에 도전하는 구글과 바이두, 그리고 물리적 한계인 '열'과의 전쟁</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Article 1: Google TPU -->
+        <article class="news-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold mb-3 leading-tight">구글 TPU 외부 개방, 엔비디아 아성 흔드나?</h3>
+            <p class="text-gray-700 mb-4 leading-relaxed text-sm md:text-base">
+              구글이 자사 AI 칩인 <span class="highlight-pen">TPU(텐서 처리 장치)의 임대를 시작</span>했습니다. 특히 메타(Meta)가 수십억 달러 규모의 도입을 검토 중이라는 소식은 엔비디아 GPU 독점 구조에 균열을 예고합니다. GB300 대비 가격 경쟁력을 앞세워 클라우드 칩 시장의 판도를 바꿀지 주목됩니다.
+            </p>
+          </div>
+          <div class="bg-gray-100 p-3 rounded border border-black mt-2">
+            <p class="text-xs font-bold text-gray-500 mb-1">MARKET REACTION</p>
+            <div class="flex justify-between items-center font-bold">
+              <span>알파벳 (GOOGL)</span>
+              <span class="text-red-500">▲ 상승</span>
+            </div>
+            <div class="flex justify-between items-center font-bold text-gray-400">
+              <span>엔비디아 (NVDA)</span>
+              <span class="text-blue-500">▼ 하락</span>
+            </div>
+          </div>
+          <p class="mt-4 text-sm font-medium border-t-2 border-gray-100 pt-3">💡 <b>핵심:</b> 빅테크들이 자체 칩(ASIC) 생태계를 개방하며 엔비디아 의존도를 낮추기 시작했습니다.</p>
+        </article>
+
+        <!-- Article 2 & Visualization: Baidu & Heat -->
+        <div class="space-y-6">
+          <!-- Small Card: Data Center Heat -->
+          <article class="news-card p-5 rounded-2xl bg-orange-50">
+            <h3 class="text-lg font-bold mb-2">🔥 데이터센터의 최대 적은 '열'</h3>
+            <p class="text-sm text-gray-700 mb-3">
+              AI 연산 폭증으로 데이터센터 전력의 40%가 냉각에 쓰입니다. 마이크로소프트 등은 <strong>액체 냉각</strong>과 <strong>폐열 재활용</strong> 기술 확보에 사활을 걸고 있습니다.
+            </p>
+          </article>
+
+          <!-- Chart: Baidu Chip Growth -->
+          <div class="news-card p-6 rounded-2xl">
+            <h4 class="font-bold text-lg mb-4 text-center">🇨🇳 바이두 AI 칩(쿤룬신) 매출 전망</h4>
+            <div class="chart-container">
+              <canvas id="baiduChart"></canvas>
+            </div>
+            <p class="text-xs text-center text-gray-500 mt-2">미국 제재 속, 중국 내수 시장 6배 성장 예측</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SECTION 2: 일상 속 AI
+         ========================= -->
+    <section id="consumer" class="space-y-8 scroll-mt-28 mb-24">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 bg-[#4D96FF] border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-xl">🛍️</div>
+        <div>
+          <h2 class="text-3xl font-black">일상 속 AI</h2>
+          <p class="text-gray-600 text-sm md:text-base mt-1">쇼핑부터 창작까지, 소비자의 경험을 재설계하는 에이전트 AI</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Visual: Gemini Shopping Flow -->
+        <article class="news-card p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">제미니 3, 블랙프라이데이 '최저가 사냥꾼' 등극</h3>
+          <p class="text-gray-700 text-sm mb-6">
+            구글 제미니 3가 쇼핑 에이전트 기능을 전면에 내세웠습니다. 단순 검색이 아니라 가격 이력을 분석하고 "진짜 핫딜인지" 판단해줍니다.
+          </p>
+          
+          <!-- CSS Flow Diagram -->
+          <div class="flex flex-col items-center justify-center space-y-2 bg-gray-50 p-4 rounded-xl border border-dashed border-gray-400">
+            <div class="w-full flex justify-between gap-2">
+              <div class="bg-white border-2 border-black p-2 text-xs font-bold rounded shadow-[2px_2px_0] text-center w-1/3">사용자 질문<br>"이 가격 맞아?"</div>
+              <div class="flex items-center text-gray-400 text-xs">▶</div>
+              <div class="bg-blue-100 border-2 border-black p-2 text-xs font-bold rounded shadow-[2px_2px_0] text-center w-1/3">제미니 3<br>가격 이력 분석</div>
+            </div>
+            <div class="text-gray-400 font-bold">⬇</div>
+            <div class="bg-green-100 border-2 border-black p-3 text-sm font-black rounded shadow-[2px_2px_0] text-center w-full">
+              ✅ "구매 추천! 역대 최저가입니다."
+            </div>
+          </div>
+          <p class="mt-4 text-sm font-medium border-t-2 border-gray-100 pt-3">💡 <b>핵심:</b> 검색창 중심의 쇼핑이 '대화형 AI 비서' 중심으로 재편되고 있습니다.</p>
+        </article>
+
+        <!-- Article: Nano Banana Pro -->
+        <article class="news-card p-6 rounded-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-[#4D96FF] text-white text-xs font-bold px-3 py-1 border-l-2 border-b-2 border-black">New Product</div>
+          <h3 class="text-xl font-bold mb-3">구글 '나노 바나나 프로', 생각하는 이미지 모델</h3>
+          <p class="text-gray-700 mb-4 leading-relaxed text-sm md:text-base">
+            단순히 태그를 나열하는 것이 아니라, <span class="bg-blue-100 px-1 rounded">"물리 법칙과 의도를 이해"</span>하는 2세대 이미지 모델이 공개되었습니다. 텍스트 스펠링 처리와 복잡한 구도 이해 능력이 미드저니를 위협할 수준입니다.
+          </p>
+          <ul class="text-sm text-gray-600 space-y-2 bg-gray-50 p-3 rounded border border-gray-200">
+            <li class="flex items-center">✨ <strong>Reasoning:</strong> 물리적 관계를 추론하여 배치</li>
+            <li class="flex items-center">📝 <strong>Text:</strong> 이미지 내 정확한 텍스트 삽입</li>
+            <li class="flex items-center">🎨 <strong>Control:</strong> 조명, 화풍의 정밀 제어</li>
+          </ul>
+          <p class="mt-4 text-sm font-medium border-t-2 border-gray-100 pt-3">💡 <b>핵심:</b> 생성 AI가 단순 '화가'를 넘어 '크리에이티브 디렉터'로 진화했습니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         SECTION 3: 보안 & 지정학
+         ========================= -->
+    <section id="security" class="space-y-8 scroll-mt-28 mb-24">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 bg-[#F7D060] border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-xl">🛡️</div>
+        <div>
+          <h2 class="text-3xl font-black">보안 & 지정학</h2>
+          <p class="text-gray-600 text-sm md:text-base mt-1">고도화되는 AI 해킹 위협과 기술 패권 다툼의 그림자</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Article: CISA Pivot -->
+        <article class="news-card p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-3">미 CISA의 승부수 "방어에도 AI 전면 도입"</h3>
+          <p class="text-gray-700 mb-4 text-sm md:text-base">
+            중국·러시아 해커들이 AI로 무장하자, 미 사이버보안국(CISA)도 방어 시스템에 <strong>오픈소스 LLM과 상용 AI 도구</strong>를 전면 통합하는 '전략적 피벗'을 선언했습니다.
+          </p>
+          
+          <!-- Big Number Callout -->
+          <div class="flex items-center justify-between bg-red-50 p-4 border-2 border-black rounded-xl shadow-[4px_4px_0] mb-2">
+            <div>
+              <p class="text-xs font-bold text-gray-500 uppercase">CISA Vacancy Rate</p>
+              <p class="text-3xl font-black text-red-600">40% 공석</p>
+            </div>
+            <div class="text-right text-xs font-medium text-gray-700">
+              인력 부족을 메우기 위해<br>AI 도입이 "선택이 아닌 필수"
+            </div>
+          </div>
+          <p class="mt-4 text-sm font-medium border-t-2 border-gray-100 pt-3">💡 <b>핵심:</b> 사이버 보안이 '사람 대 사람'에서 'AI 대 AI'의 대리전 양상으로 바뀌고 있습니다.</p>
+        </article>
+
+        <!-- Article: China Evasion -->
+        <article class="news-card p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-3">칩 규제 뚫는 중국의 '우회 훈련'</h3>
+          <p class="text-gray-700 mb-4 text-sm md:text-base">
+            미국의 강력한 수출 통제에도 불구, 알리바바와 바이트댄스는 <strong>동남아시아 데이터센터</strong>를 임대하거나, 디프시크(DeepSeek)처럼 <strong>재고 칩을 활용한 효율화</strong>로 기술 개발 속도를 늦추지 않고 있습니다.
+          </p>
+          <div class="bg-gray-800 text-white p-4 rounded-lg text-sm">
+            <p class="mb-2 font-bold">🚧 미국의 규제 역설:</p>
+            <p class="opacity-90">"규제벽을 높일수록 중국은 자체 생태계(화웨이, 쿤룬신)를 강화하거나 제3국을 통한 우회로를 뚫으며 '기술 자립'을 가속화하고 있습니다."</p>
+          </div>
+          <p class="mt-4 text-sm font-medium border-t-2 border-gray-100 pt-3">💡 <b>핵심:</b> 물리적 칩 통제만으로는 소프트웨어(AI 모델) 발전을 막기에 역부족임이 드러났습니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         SECTION 4: 일자리와 사회
+         ========================= -->
+    <section id="society" class="space-y-8 scroll-mt-28 mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 bg-[#6BCB77] border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-xl">📉</div>
+        <div>
+          <h2 class="text-3xl font-black">일자리와 사회</h2>
+          <p class="text-gray-600 text-sm md:text-base mt-1">낙관론 뒤에 숨겨진 '아이스버그(빙산)' 경고와 내부의 목소리</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Article: MIT Iceberg Index & Chart -->
+        <article class="news-card p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-3">MIT "당신의 일자리, 11.7%는 이미 위험하다"</h3>
+          <p class="text-gray-700 mb-4 text-sm">
+            MIT 연구팀의 '아이스버그 지수'에 따르면, <strong>현재 상용 기술만으로도</strong> 미국 일자리의 11.7%가 경제적으로 대체 가능합니다. 이는 기존 예상치(2.2%)를 훨씬 웃도는 수치입니다.
+          </p>
+          <!-- Doughnut Chart -->
+          <div class="chart-container" style="height:200px;">
+            <canvas id="jobChart"></canvas>
+          </div>
+          <p class="mt-4 text-sm font-medium border-t-2 border-gray-100 pt-3">💡 <b>핵심:</b> 단순 반복 업무뿐 아니라 재무·물류 등 '인지 노동' 영역이 수면 아래 거대한 빙산처럼 위협받고 있습니다.</p>
+        </article>
+
+        <!-- Article: Amazon Protest & HR AI -->
+        <article class="news-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold mb-3">"AI 질주 멈춰라" 아마존 직원 1,000명의 경고</h3>
+            <p class="text-gray-700 mb-4 text-sm md:text-base">
+              아마존 직원들이 회사의 "비용 불문 초고속 AI 추진" 전략이 환경 파괴와 대량 해고를 초래한다며 공개 서한을 보냈습니다. 한편, 한국 대기업 90%가 인사 관리에 AI를 도입하며 '알고리즘 상사'에 대한 공정성 논란도 커지고 있습니다.
+            </p>
+            <div class="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400 text-sm text-gray-700 italic">
+              "AI는 노동자의 권한을 줄이고 자원을 독점하려는 '마법의 단어'가 되어선 안 된다." <br>- 아마존 직원 서한 중
+            </div>
+          </div>
+          <p class="mt-4 text-sm font-medium border-t-2 border-gray-100 pt-3">💡 <b>핵심:</b> AI 도입 속도전 속에서 노동권, 환경, 공정성 문제가 기업 내부에서부터 폭발하고 있습니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 border-t-2 border-gray-300 pt-8">
+      <p class="mb-2">Data Sources: WebProNews, Reuters, MIT, Bloomberg, TechCrunch, Google Blog</p>
+      <p>Generated by AI News Assistant • 2025.11.29 Edition</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPTS: Charts & Logic
+       ========================= -->
+  <script>
+    // 1. Baidu Chip Revenue Chart (Bar)
+    const baiduCtx = document.getElementById('baiduChart').getContext('2d');
+    new Chart(baiduCtx, {
+      type: 'bar',
+      data: {
+        labels: ['2023 (Est)', '2026 (Forecast)'],
+        datasets: [{
+          label: '매출 전망 ($ Billion)',
+          data: [0.2, 1.1],
+          backgroundColor: ['#d1d5db', '#FF6B6B'],
+          borderColor: '#1E1E1E',
+          borderWidth: 2,
+          borderRadius: 4,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.raw + ' 십억 달러';
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: { color: '#e5e7eb' },
+            ticks: { font: { family: "'Noto Sans KR', sans-serif" } }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { font: { family: "'Noto Sans KR', sans-serif", weight: 'bold' } }
+          }
+        }
+      }
+    });
+
+    // 2. Job Replacement Chart (Doughnut)
+    const jobCtx = document.getElementById('jobChart').getContext('2d');
+    new Chart(jobCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['대체 가능 (위험군)', '상대적 안전'],
+        datasets: [{
+          data: [11.7, 88.3],
+          backgroundColor: ['#FF6B6B', '#FFFFFF'],
+          borderColor: '#1E1E1E',
+          borderWidth: 2,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { 
+            position: 'right',
+            labels: { font: { family: "'Noto Sans KR', sans-serif" }, boxWidth: 12 }
+          }
+        },
+        layout: { padding: 10 }
+      }
+    });
+
+    // 3. Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

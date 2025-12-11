@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 (2025-11-11)</title>
+
+    <!-- 
+      Chosen Palette: Warm Neutrals (Slate, Zinc, Amber)
+      Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list.
+      Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used.
+      CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 스크롤바 스타일링 (선택 사항이지만 완성도를 높여줌) */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; /* bg-slate-100 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8; /* bg-slate-400 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* bg-slate-500 */
+        }
+        /* NEW 배지 스타일 */
+        .badge-new {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+            letter-spacing: 0.5px;
+            animation: pulse 2s ease-in-out infinite;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1);} 50% { transform: scale(1.05);} }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- 모달 창 (기본적으로 숨겨져 있음) -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 md:p-8">
+        <!-- 모달 배경 (클릭 시 닫기) -->
+        <div id="modal-bg-close" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        
+        <!-- 모달 컨텐츠 -->
+        <div class="relative z-10 w-full max-w-3xl overflow-hidden rounded-xl bg-white shadow-2xl">
+            <!-- 모달 헤더 -->
+            <div class="flex items-start justify-between border-b border-slate-200 p-4 md:p-6">
+                <h2 id="modal-title" class="text-xl font-bold leading-snug text-slate-900 md:text-2xl">
+                    <!-- JS로 제목이 채워집니다 -->
+                </h2>
+                <button id="modal-close-btn" class="ml-4 flex-shrink-0 rounded-full p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- 모달 본문 (스크롤 가능) -->
+            <div id="modal-content-container" class="max-h-[60vh] overflow-y-auto p-4 md:p-6">
+                <!-- 
+                  <pre> 태그를 사용하거나 \n을 <br>로 치환합니다.
+                  <br>로 치환하는 방식이 Tailwind typography와 잘 어울리므로 선택합니다.
+                -->
+                <div id="modal-content" class="prose prose-slate max-w-none text-base leading-relaxed text-slate-700">
+                    <!-- JS로 본문이 채워집니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 헤더 -->
+    <header class="sticky top-0 z-30 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-sm">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900">뉴스대시 <span class="badge-new">NEW</span></h1>
+                <p class="text-sm text-slate-500">일일 AI 뉴스 리포트</p>
+            </div>
+            <div class="text-right">
+                <span id="report-date" class="font-semibold text-slate-700"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        
+        <!-- 1. 주요 데이터 하이라이트 -->
+        <section id="key-numbers-section" class="mb-12">
+            <h2 class="mb-4 text-2xl font-bold text-slate-900">주요 데이터 하이라이트</h2>
+            <!-- JS로 컨텐츠가 채워집니다 -->
+            <div id="key-numbers-container" class="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <!-- Key number cards will be injected here -->
+            </div>
+        </section>
+
+        <!-- 2. Top 5 뉴스 -->
+        <section id="top5-section" class="mb-12">
+            <h2 class="mb-4 text-2xl font-bold text-slate-900">Top 5 뉴스</h2>
+            <!-- JS로 컨텐츠가 채워집니다 -->
+            <div id="top5-container" class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Top 5 news cards will be injected here -->
+            </div>
+        </section>
+        
+        <!-- 3. 주제별 상세 뉴스 -->
+        <section id="thematic-section">
+            <h2 class="mb-4 text-2xl font-bold text-slate-900">주제별 상세 뉴스</h2>
+            <!-- JS로 컨텐츠가 채워집니다 -->
+            <div id="thematic-container" class="space-y-10">
+                <!-- Thematic sections and cards will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // --- 데이터 정의 ---
+
+            const reportDate = "2025년 11월 11일";
+
+            // 5대 핵심 테마 (순서 고정)
+            const THEMES = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회 (활용, 심리, 노동)"
+            ];
+
+            // 4개 주요 수치
+            const keyNumbers = [
+                { label: "코어위브 3분기 매출", value: "13.6억 달러" },
+                { label: "츠보라이트 AI 칩 사전주문", value: "1억 달러+" },
+                { label: "노던데이터 M&A 제안", value: "76억 달러" },
+                { label: "美 잠재 실업률 (AI 분석)", value: "최대 10%" },
+            ];
+
+            // 전체 뉴스 데이터 (총 35개 항목)
+            const reportData = [
+                {
+                    theme: "법률, 규제 및 거버넌스", // 5대 분류
+                    category: "국방", // 원본 분류
+                    title: "오픈AI, 미군·재향군인 대상 ‘챗GPT 플러스 1년 무료’ 제공",
+                    isTop5: true,
+                    details: "첫 문장(핵심 사실): 오픈AI가 미군 복무자와 재향군인을 대상으로 챗GPT 플러스 1년 무료 혜택을 11월 10일(현지시간), 온라인에서 발표했다.\n두 번째 문장(이유/방법): SheerID 신원 인증을 통해 최근 12개월 내 전역·퇴역자도 포함되며, 가이드 영상과 100여 개 예시 대화 등 학습 자료가 함께 제공된다.\n세 번째 문장(영향): 오픈소스·민간 부문에서 생성형 AI 접근성 확대가 가속될 전망이다. (OpenAI)\n네 번째 문장(배경): 오픈AI는 교육·업무 효율 향상을 위해 비기술 사용자에게도 고급 모델 활용을 독려해 왔다.\n다섯 번째 문장(세부/인용): 안내 페이지는 혜택 신청 절차와 적격 대상 범위를 구체적으로 명시한다.\n여섯 번째 문장(전망): 회사는 향후 추가 파트너십으로 지원 대상을 넓힐 수 있음을 시사했다. (OpenAI)"
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "플랫폼",
+                    title: "MS, 인플루언서 마케팅으로 ‘코파일럿’ 대중 인지도 확대 노린다",
+                    isTop5: true,
+                    details: "첫 문장(핵심 사실): 마이크로소프트가 알릭스 얼(Alix Earle) 등 인플루언서와 협업해 11월 10일, 미국에서 소비자 대상 코파일럿 확산 전략을 공개했다.\n두 번째 문장(이유/방법): 기업 시장과 달리 소비자 채널 인지도 격차를 줄이기 위한 창작자 중심 캠페인이 핵심이다.\n세 번째 문장(영향): 챗GPT와 구글 제미니가 장악한 대중 인식 경쟁에서 코파일럿의 점유율 반등 여부가 주목된다. (Los Angeles Times)\n네 번째 문장(배경): 보도에 따르면 챗GPT는 주간 1억 명 이상의 사용자를 확보했고, 구글 제미니는 월간 1억 명 이상을 기록했다.\n다섯 번째 문장(세부/인용): MS 측은 코파일럿의 광범위한 기업 채택을 강조하면서도 소비자 인지도는 더 높여야 한다고 밝혔다.\n여섯 번째 문장(전망): 업계는 창작자 채널 성과와 재참여율이 코파일럿의 대중 확산을 가를 것으로 본다. (Los Angeles Times)"
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "스포츠",
+                    title: "스페인육상연맹, IBM AI로 선수 퍼포먼스 최적화",
+                    isTop5: true,
+                    details: "첫 문장(핵심 사실): 스페인 육상연맹(RFEA)이 IBM의 AI 플랫폼을 도입해 마드리드, 11월부터 훈련·경기 데이터 분석을 고도화한다.\n두 번째 문장(이유/방법): watsonx 기반 모델을 통해 생체·전술 데이터를 통합하고 코치용 인사이트를 실시간 제공한다.\n세 번째 문장(영향): 엘리트 선수단의 부상 예방과 기록 향상이 기대된다.\n네 번째 문장(배경): RFEA는 국제대회 경쟁력 강화를 위해 데이터 과학 역량을 확대해 왔다.\n다섯 번째 문장(세부/인용): 발표에 따르면 솔루션은 맞춤형 대시보드와 성능 예측 모델을 포함한다.\n여섯 번째 문장(전망): 양측은 추후 타 종목 확장과 청소년 육성 프로그램 적용도 검토한다."
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "금융",
+                    title: "LCPC AI, 영국서 AI+블록체인 결합한 웹3 금융 플랫폼 출시",
+                    isTop5: true,
+                    details: "첫 문장(핵심 사실): LCPC AI가 영국에서 AI 컴퓨팅 자원과 블록체인을 결합한 웹3 금융 서비스 플랫폼을 11월 공개했다.\n두 번째 문장(이유/방법): 온체인 투명성과 AI 연산력 공유를 묶어 수익 분배와 리스크 관리를 자동화한다.\n세 번째 문장(영향): 신생 핀테크 시장에서 탈중앙 데이터 처리 수요를 선점하려는 움직임이다.\n네 번째 문장(배경): 회사는 이전에 모바일 금융 앱을 선보이며 사용자 기반을 쌓아 왔다.\n다섯 번째 문장(세부/인용): 공지문은 영국 규제 환경을 준수하겠다고 명시했다.\n여섯 번째 문장(전망): 향후 유럽 추가 국가로 서비스 확대가 예고됐다."
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "인프라",
+                    title: "텍사스대 오스틴, AI 컴퓨팅 허브 규모 ‘두 배’…GPU 1000대 이상",
+                    isTop5: true,
+                    details: "첫 문장(핵심 사실): 텍사스대 오스틴(UT)이 11월 10일, 오스틴에서 생성형 AI 센터의 컴퓨팅 역량을 GPU 1000대 이상으로 두 배 확장한다고 밝혔다.\n두 번째 문장(이유/방법): 텍사스 주 의회 2천만 달러 지원과 최신 칩 도입으로 기초·응용 연구 속도를 높인다.\n세 번째 문장(영향): 백신·영상의학·NLP 등에서 대규모 모델 학습이 가능한 학계 허브로 위상이 강화된다. (UT 오스틴 뉴스)\n네 번째 문장(배경): UT는 공개 연구 생태계에서 대규모 모델을 처음부터 학습할 수 있는 드문 기관이다.\n다섯 번째 문장(세부/인용): 연구소장은 이번 증설이 해석가능성·정확도 향상에 기여할 것이라고 설명했다.\n여섯 번째 문장(전망): UT는 TACC 등 캠퍼스 자원과 연계해 산학 협력을 넓힐 계획이다. (UT 오스틴 뉴스)"
+                },
+                {
+                    theme: "AI와 사회 (활용, 심리, 노동)",
+                    category: "교육",
+                    title: "터프츠 의대, AI 교육 로드맵 공개…학생·교원 “활용은 하지만 숙련도 낮다”",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 터프츠 의대가 11월 10일, 보스턴에서 AI 활용 현황 조사와 교육 로드맵을 발표했다.\n두 번째 문장(이유/방법): 설문에 따르면 학생 12%·교원 9%만이 고숙련으로 자평해 체계적 교육 필요성이 제기됐다.\n세 번째 문장(영향): 차트 분석·강의 지원 등 임상·교육 현장에서 안전한 활용 규범이 자리잡을 전망이다. (Tufts Now)\n네 번째 문장(배경): 의대는 2024년 가을부터 AI 학습목표를 정식 도입했다.\n다섯 번째 문장(세부/인용): 보고서는 윤리·편향·환자 소통 교육을 강화하고 모의 면담 챗봇 등 파일럿 프로젝트를 소개했다.\n여섯 번째 문장(전망): 학교는 워크숍·가이드라인을 통해 전교적 역량 강화를 이어간다. (Tufts Now)"
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "에이전트",
+                    title: "구글 지도, AI 빌더 에이전트·MCP 서버 공개…인터랙티브 프로젝트 ‘손쉽게’",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 구글이 11월 10일, 온라인에서 구글 지도용 AI 도구(빌더 에이전트·MCP 서버)를 출시해 대화형 프로젝트 생성을 지원한다고 밝혔다.\n두 번째 문장(이유/방법): 제미니 모델 전면 적용과 Grounding Lite로 지도 데이터 기반 코딩·스타일링을 자동화한다.\n세 번째 문장(영향): 개발자·일반 사용자는 스트리트뷰 투어·날씨 맵 등 시제품을 신속히 제작·배포할 수 있다. (TechCrunch)\n네 번째 문장(배경): 구글은 최근 내비게이션 제미니 핸즈프리와 사고·속도 제한 알림 등 지도 소비자 기능도 확장했다.\n다섯 번째 문장(세부/인용): 새 컨텍스추얼 뷰 컴포넌트는 목록·지도·3D 시각화를 선택적으로 제공한다.\n여섯 번째 문장(전망): 회사는 개발자 문서 연동 도우미를 통해 API 진입장벽 완화를 예고했다. (TechCrunch)"
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "반도체",
+                    title: "츠보라이트, AI 칩 사전주문 1억 달러+ 확보",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 츠보라이트(Tsavorite)가 11월 10일, 미국에서 AI 칩 사전주문 1억 달러 이상을 확보했다고 밝혔다.\n두 번째 문장(이유/방법): 회사는 워크플로 확장을 겨냥한 칩 라인업으로 고객 선주문을 이끌어냈다.\n세 번째 문장(영향): 신생 AI 반도체 공급망에 대규모 수요 신호가 포착됐다. (Reuters)\n네 번째 문장(배경): AI 가속기 시장 호황 속에서 스타트업·클라우드사 수요가 급증하고 있다.\n다섯 번째 문장(세부/인용): 보도는 사전주문 규모와 생산 확대 계획을 전했다.\n여섯 번째 문장(전망): 업체는 양산·고객 납기를 맞추기 위해 공급망 투자를 지속할 것으로 보인다. (Reuters)"
+                },
+                {
+                    theme: "AI와 사회 (활용, 심리, 노동)",
+                    category: "노동",
+                    title: "“미국 실업률 10%까지 갈 수도” — AI 일자리 대체 우려",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 24/7 월스트리트는 11월 10일, 미국의 현재 실업률 4.2%에서 추가 800만 명의 일자리가 사라지면 10%에 도달한다고 분석했다.\n두 번째 문장(이유/방법): 골드만삭스의 6~7% 대체 추정과 아마존 자동화 계획 등을 근거로 AI 충격 누적을 경고했다.\n세 번째 문장(영향): 리테일·화이트칼라 중심의 고용 구조 변화가 가속될 수 있다. (24/7 Wall St.)\n네 번째 문장(배경): 보고서는 공개 해고 통계의 한계를 지적하며 잠재적 감원 파급을 강조했다.\n다섯 번째 문장(세부/인용): 챌린저·그레이 발표와 JP모건 전망을 교차 인용해 부문별 취약성을 제시했다.\n여섯 번째 문장(전망): 재훈련·정책 지원 없이는 장기 실업 리스크가 커질 전망이다. (24/7 Wall St.)"
+                },
+                {
+                    theme: "법률, 규제 및 거버넌스",
+                    category: "정책",
+                    title: "중국, 국가 지원 데이터센터에 외산 AI 칩 금지",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 중국 당국이 11월, 중국 내 국가 자금 지원 데이터센터에서 외국산 AI 칩 사용을 금지했다고 전했다.\n두 번째 문장(이유/방법): 자국 산업 자신감 과시와 공급망 안보가 정책 배경으로 제시됐다.\n세 번째 문장(영향): 엔비디아·AMD 등 미국 반도체 업체에 추가 압박이 예상된다. (fdd.org)\n네 번째 문장(배경): 중국은 수입 규제·내수 대체 전략을 병행해 왔다.\n다섯 번째 문장(세부/인용): 분석은 이번 조치를 국가 전략 신호로 평가했다.\n여섯 번째 문장(전망): 국산 가속기 생태계 육성과 해외 의존도 축소가 가속될 전망이다. (fdd.org)"
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "투자",
+                    title: "NYT 딜북: ‘감마(Gamma)’, 기업가치 21억 달러에 라운드 진행",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 뉴욕타임스 딜북 보도에 따르면 프레젠테이션 플랫폼 감마가 11월 10일, 뉴욕에서 기업가치 21억 달러 수준의 라운드를 진행하고 연간매출 1억 달러에 도달했다.\n두 번째 문장(이유/방법): 생성형 문서·슬라이드 자동화로 생산성 시장에서 급성장했다.\n세 번째 문장(영향): 오피스 생산성 소프트웨어의 AI 전환 경쟁이 심화된다.\n네 번째 문장(배경): 감마는 ‘파워포인트 대체’ 콘셉트로 사용자 기반을 넓혔다.\n다섯 번째 문장(세부/인용): 업계 보도는 ARR 1억 달러와 고평가 달성을 전했다.\n여섯 번째 문장(전망): 신규 자금은 제품 R&D·글로벌 확장에 투입될 전망이다."
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "헬스케어",
+                    title: "‘AI 레이저 태그’로 암 기원 추적…대규모 단일세포 분석 시연",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 국제 연구진이 AI와 레이저 태깅을 결합해 암 발생 기원 추적 시스템을 11월, 이스라엘에서 공개했다.\n두 번째 문장(이유/방법): MAGIC으로 불리는 방식은 세포 표지·AI 분석을 통해 종양 형성 과정을 재구성한다.\n세 번째 문장(영향): 조기 진단·신약 표적 발굴의 정확도 향상이 기대된다. (jpost.com)\n네 번째 문장(배경): 연구팀은 하루 10만 개 이상의 세포를 처리하는 고처리량 분석을 강조했다.\n다섯 번째 문장(세부/인용): 보도는 단일세포 수준에서의 암 조상세포 탐지 가능성을 소개했다.\n여섯 번째 문장(전망): 후속 연구는 임상 검증과 다기관 데이터셋으로 확장될 예정이다. (jpost.com)"
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "M&A",
+                    title: "독일 노던데이터, 럼블에 76억 달러 규모 인수 제안 받아",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 노던데이터가 11월 10일, 독일에서 럼블(Rumble)로부터 주당 50달러의 바이아웃 제안(총 76억 달러)을 받았다.\n두 번째 문장(이유/방법): 제안가는 직전 종가 대비 35% 프리미엄으로 AI·클라우드 자산 확보 의지가 반영됐다.\n세 번째 문장(영향): 반독점 심사·자금 조달 등 거래 불확실성이 향후 변수다. (Reuters)\n네 번째 문장(배경): 회사는 고성능 컴퓨팅 인프라를 운영하며 AI 워크로드 수요 증가의 수혜를 받아왔다.\n다섯 번째 문장(세부/인용): 보도는 재무자문사와 법률 검토 착수 사실을 전했다.\n여섯 번째 문장(전망): 협상 과정에서 가격·조건 조정 가능성이 제기된다. (Reuters)"
+                },
+                {
+                    theme: "법률, 규제 및 거버넌스",
+                    category: "정책",
+                    title: "오픈AI, 정부 지원 확대 재차 촉구…“세액공제 대상 넓혀야”",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 오픈AI가 11월, 미국에서 AMIC(제조 투자 세액공제) 적용 확대 등 정부 지원을 거듭 촉구했다.\n두 번째 문장(이유/방법): 샘 올트먼은 X에서 칩·데이터센터·전력 인프라를 포함해야 한다고 밝혔고, CFO 사라 프라이어는 보증 제공 시 조달비용 절감을 언급했다.\n세 번째 문장(영향): 대규모 AI 인프라 투자의 공공정책 논쟁이 이어지고 있다. (PYMNTS.com)\n네 번째 문장(배경): 백악관 AI·크립토 정책 책임자 데이비드 색스는 업계 구제 의사 없음을 시사했다.\n다섯 번째 문장(세부/인용): 보도는 수요 급증으로 데이터센터·칩 투자 계획이 확대되고 있음을 전했다.\n여섯 번째 문장(전망): 세제·보증 설계에 따라 민간 투자 속도가 달라질 전망이다. (PYMNTS.com)"
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "모델",
+                    title: "앤트로픽, MCP 코드 실행 패턴 공개…토큰 비용 98.7% 절감",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 앤트로픽이 11월 10일, 온라인에서 MCP(모델 컨텍스트 프로토콜) 코드 실행 기반 접근을 공개했다.\n두 번째 문장(이유/방법): 도구 정의를 코드 API로 변환해 모델이 타입스크립트 코드 작성·실행으로 작업을 수행, 15만→2000 토큰으로 비용을 줄였다.\n세 번째 문장(영향): 지연·오류·민감정보 노출을 줄이며 에이전트 확장성을 높일 수 있다. (AI타임스)\n네 번째 문장(배경): MCP는 외부 시스템 연결 오픈 표준으로 다양한 도구를 통합해 왔다.\n다섯 번째 문장(세부/인용): 새 패턴은 파일시스템 기반 도구 탐색과 상태 유지·재사용 스킬을 지원한다.\n여섯 번째 문장(전망): 회사는 샌드박싱·모니터링 등 운영 보안 고려를 병행하겠다고 밝혔다. (AI타임스)"
+                },
+                {
+                    theme: "AI와 사회 (활용, 심리, 노동)",
+                    category: "연구",
+                    title: "고등학생이 촉발한 고대 벽화 복원 AI…‘MurFact’ 프로젝트",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 노스이스턴대 연구실에서 한 고교생의 제안으로 고대 벽화 복원 AI 도구가 11월 10일, 토론토 캠퍼스 프로젝트로 공개됐다.\n두 번째 문장(이유/방법): MurFact AI는 손상 구역 추정·문화 맥락 추론을 통해 이미지 복원 후보를 생성한다.\n세 번째 문장(영향): 대형·야외 벽화 등 복원 난제가 많은 문화재 처리에 시간 단축이 기대된다. (Northeastern Global News)\n네 번째 문장(배경): 연구진은 전문가 라벨링과 LLM 아키텍처를 결합해 의미 단위 학습을 구현했다.\n다섯 번째 문장(세부/인용): 프로젝트는 교육·연구 도구로 개발돼 복원가의 의사결정 보조를 목표로 한다.\n여섯 번째 문장(전망): 팀은 앱 형태의 실무 적용과 대규모 데이터셋 확장을 모색한다. (Northeastern Global News)"
+                },
+                {
+                    theme: "AI와 사회 (활용, 심리, 노동)",
+                    category: "교육",
+                    title: "UVA 다든, 전략 코어 과목에 생성형 AI ‘전면 도입’",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 버지니아대 다든 경영대학원이 11월 10일, 샬러츠빌에서 전략 코어 과목에 생성형 AI 전면 도입을 알렸다.\n두 번째 문장(이유/방법): CAiSEY 토론 에이전트와 챗봇 활용 과제로 359명 전원이 ChatGPT·Claude·Copilot을 사용한다.\n세 번째 문장(영향): 사례 토론 중심 수업이 AI 리터러시 내재화와 평가 혁신을 병행한다. (Darden Report Online)\n네 번째 문장(배경): 학교는 투명한 사용 공개와 할루시네이션 검증을 정책으로 명문화했다.\n다섯 번째 문장(세부/인용): 수업은 컨설팅 산업의 AI 충격을 다루는 신규 케이스도 포함한다.\n여섯 번째 문장(전망): 다든은 연설 코치·커스텀 GPT 등 타 과목 확대를 예고했다. (Darden Report Online)"
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "헬스케어",
+                    title: "릴리, 인실리코와 1억 달러+ 규모 신약발굴 제휴…AI ‘파마 팩토리’ 연계",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 일라이 릴리가 인실리코 메디슨과 AI 신약 공동개발 제휴(1억 달러 이상)를 11월 10일 발표했다.\n두 번째 문장(이유/방법): 릴리는 Pharma.AI를 자사 질환 전문성과 결합하고, 엔비디아 DGX 슈퍼POD 기반 AI 팩토리로 모델을 학습한다.\n세 번째 문장(영향): 후보물질 발굴 속도와 개발 효율이 향상될 전망이다. (GEN 뉴스)\n네 번째 문장(배경): 양사는 2023년 소프트웨어 라이선스로 협업을 시작했다.\n다섯 번째 문장(세부/인용): 인실리코는 마일스톤·로열티 구조를 포함한 100M+ 규모라고 밝혔다.\n여섯 번째 문장(전망): 타깃·적응증은 비공개이며 임상 파이프라인 확대가 예상된다. (GEN 뉴스)"
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "재무",
+                    title: "코어위브, 3분기 매출 13.6억 달러…예상 상회",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 코어위브가 11월 10일, 뉴욕에서 3분기 매출 13.6억 달러로 시장 예상(12.9억 달러)을 웃돌았다고 밝혔다.\n두 번째 문장(이유/방법): 메타 140억 달러 계약 및 오픈AI 65억 달러 확장 등 대형 고객 수요가 견인했다.\n세 번째 문장(영향): 적자 축소(주당 -0.22달러)와 함께 AI 인프라 호황이 재확인됐다. (Reuters)\n네 번째 문장(배경): 상장 후 주가는 50억 달러+ 시가총액으로 두 배 이상 상승했다.\n다섯 번째 문장(세부/인용): 조정 영업이익 8.38억 달러로 컨센서스를 상회했다.\n여섯 번째 문장(전망): 다만 코어 사이언티픽 합병 결렬 등 변동성 요인이 남아 있다. (Reuters)"
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "제품",
+                    title: "구글, Google TV 스트리머에 ‘제미니’ 탑재…어시스턴트 대체",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 구글이 11월 10일, 미국에서 Google TV 스트리머에 제미니를 배포해 구글 어시스턴트를 대체하기 시작했다.\n두 번째 문장(이유/방법): 사용자는 자연어 추천·요약 질의 등 음성 인터랙션 고도화를 이용할 수 있다.\n세 번째 문장(영향): 업데이트는 몇 주에 걸쳐 18세 이상 사용자에게 순차 적용된다. (TechCrunch)\n네 번째 문장(배경): 제미니는 이미 TCL·하이센스 일부 모델과 Walmart Onn 4K Pro에 도입됐다.\n다섯 번째 문장(세부/인용): 구글은 리모컨 마이크 버튼으로 접근하며 학습·DIY 등 일반 질의도 가능하다고 설명했다.\n여섯 번째 문장(전망): 회사는 전 디바이스·플랫폼에서 어시스턴트→제미니 전환을 이어갈 계획이다. (TechCrunch)"
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "산업",
+                    title: "AI 향수의 시대…NYT 패션면이 본 업계 변화",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 뉴욕타임스 패션 섹션은 11월 10일, 뉴욕에서 AI가 향수 산업에 미치는 영향을 조명했다.\n두 번째 문장(이유/방법): 향료 조합·향 개발 시뮬레이션에 AI 모델을 적용해 개발 기간 단축과 맞춤 제작이 확산 중이다.\n세 번째 문장(영향): 전통 조향 예술과 기술의 공존을 둘러싼 윤리·투명성 논의가 커지고 있다. (The Verge)\n네 번째 문장(배경): 업계에선 심라이즈·지보단·IFF 등 대기업이 AI 도구(Carto 등)를 도입했고 오스모(Osmo)는 48시간 내 시제품을 내세운다.\n다섯 번째 문장(세부/인용): 전문가들은 창의성 저해·환경 영향 등 부정적 외부효과도 지적한다.\n여섯 번째 문장(전망): 규범·표준이 정립되면 투명한 데이터·모델 공개가 경쟁력이 될 전망이다. (The Verge)"
+                },
+                {
+                    theme: "법률, 규제 및 거버넌스",
+                    category: "저작권",
+                    title: "위키피디아, 유료 API 사용 촉구…무단 스크래핑 중단 요구",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 위키미디어 재단이 11월 10일, 온라인에서 AI 기업을 향해 유료 API 이용을 권고하고 스크래핑 중단을 요구했다.\n두 번째 문장(이유/방법): 신뢰성·확장성·보상 체계를 갖춘 공식 API가 데이터 이용의 공정성을 높인다는 주장이다.\n세 번째 문장(영향): 상업용 AI 모델 학습의 데이터 조달 관행에 변화가 예상된다. (Los Angeles Times)\n네 번째 문장(배경): 무료·기여 기반 플랫폼은 지속가능한 재정을 필요로 한다.\n다섯 번째 문장(세부/인용): 재단은 문서화·지원 도구를 제공하고 정책 위반 시 조치를 시사했다.\n여섯 번째 문장(전망): 업계가 라이선스 준수로 전환하면 콘텐츠 생태계 상생에 도움이 될 전망이다. (Los Angeles Times)"
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "플랫폼",
+                    title: "LA 타임스: MS-인플루언서 전략의 관건은 ‘지속적 참여’",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 마이크로소프트가 11월 10일, 미국에서 인플루언서 협업을 확대해 소비자 코파일럿 인지도를 끌어올린다.\n두 번째 문장(이유/방법): 보도는 챗GPT 주간 1억+·제미니 월간 1억+ 경쟁 구도를 짚었다.\n세 번째 문장(영향): 고객 유입 대비 잔존율이 성패를 좌우할 전망이다. (Los Angeles Times)\n네 번째 문장(배경): 유섭 메흐디는 기업 채택 강세를 내세우며 소비자 공략을 병행 중이라고 밝혔다.\n다섯 번째 문장(세부/인용): 가트너 애널리스트는 인플루언서 마케팅의 지속 효과에 회의적 시각도 전했다.\n여섯 번째 문장(전망): 구독형 번들·디바이스 탑재 등 채널 다변화가 예고된다. (Los Angeles Times)"
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "스포츠",
+                    title: "PR: 스페인육상연맹-IBM 성능 분석 협력 (링크 보강기사)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): RFEA와 IBM이 AI 성능 최적화 플랫폼으로 선수 데이터 분석을 강화한다.\n두 번째 문장(이유/방법): watsonx·MLOps로 훈련 성과·부상 리스크를 관리한다.\n세 번째 문장(영향): 대표팀 경쟁력 제고가 기대된다.\n네 번째 문장(배경): 글로벌 스포츠는 데이터 드리븐 코칭으로 전환 중이다.\n다섯 번째 문장(세부/인용): IBM은 맞춤형 대시보드와 실시간 인사이트 제공을 내세웠다.\n여섯 번째 문장(전망): 성공 시 타 연맹·리그 확산이 예상된다."
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "금융",
+                    title: "액세스와이어: LCPC AI의 영국 웹3 금융 서비스 (링크 보강기사)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): LCPC AI가 영국 금융 시장에 AI+블록체인 결합 플랫폼을 선보였다.\n두 번째 문장(이유/방법): 연산력 공유·스마트계약으로 투명한 수익 분배를 구현한다.\n세 번째 문장(영향): 웹3 금융의 합규제 모델 탐색이 가속된다.\n네 번째 문장(배경): 회사는 모바일 앱을 통한 사용자 접점을 확대 중이다.\n다섯 번째 문장(세부/인용): 발표는 규제 준수와 확장 로드맵을 언급한다.\n여섯 번째 문장(전망): 유럽 확장 및 기관 파트너십 추진이 예상된다."
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "반도체",
+                    title: "로이터: 츠보라이트 사전주문 (원문 링크)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 츠보라이트가 AI 칩 사전주문 1억 달러+를 확보했다.\n두 번째 문장(이유/방법): 워크플로 확장에 최적화된 칩으로 고객 선주문을 이끌어냈다.\n세 번째 문장(영향): 생산 확대·납기 관리가 관건이다. (Reuters)\n네 번째 문장(배경): AI 하드웨어 수요가 폭발적으로 증가 중이다.\n다섯 번째 문장(세부/인용): 기사에는 상세 규모와 일정이 포함됐다.\n여섯 번째 문장(전망): 후속 투자 유치와 고객 다변화가 전망된다. (Reuters)"
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "M&A",
+                    title: "로이터: 노던데이터-럼블 인수 제안 (원문 링크)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 노던데이터가 럼블의 주당 50달러 인수 제안을 받았다.\n두 번째 문장(이유/방법): 35% 프리미엄 제시로 의향 확인 단계다.\n세 번째 문장(영향): 규제 심사와 거래 조건 협의가 뒤따른다. (Reuters)\n네 번째 문장(배경): 회사는 AI·HPC 인프라로 성장해 왔다.\n다섯 번째 문장(세부/인용): 자문사 선정 등 절차가 진행 중이다.\n여섯 번째 문장(전망): 가격 재협상 가능성도 배제할 수 없다. (Reuters)"
+                },
+                {
+                    theme: "AI 인프라 및 투자",
+                    category: "재무",
+                    title: "로이터: 코어위브 3Q 실적 (원문 링크)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 코어위브가 3분기 매출 13.6억 달러로 예상 상회했다.\n두 번째 문장(이유/방법): 메타·오픈AI 대형 계약이 수익을 견인했다.\n세 번째 문장(영향): 적자 축소에도 성장-지출 균형이 과제로 남는다. (Reuters)\n네 번째 문장(배경): AI 인프라 붐이 지속되는 가운데 주가는 상장가 대비 두 배 이상을 기록했다.\n다섯 번째 문장(세부/인용): 계약 총액 220억 달러+로 언급됐다.\n여섯 번째 문장(전망): 확장 투자·리스크 관리가 병행될 전망이다. (Reuters)"
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "에이전트",
+                    title: "테크크런치: 구글 지도 AI 프로젝트 도구 (원문 링크)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 구글이 빌더 에이전트·MCP 서버·Grounding Lite 등 지도 AI 도구를 공개했다.\n두 번째 문장(이유/방법): 제미니 기반 생성·스타일링으로 인터랙티브 맵을 텍스트 설명만으로 생성 가능하다.\n세 번째 문장(영향): 시제품 제작·교육·관광 등에서 개발 생산성이 높아진다. (TechCrunch)\n네 번째 문장(배경): 구글은 지도 내 Q&A 시각화를 위한 컨텍스추얼 뷰도 함께 선보였다.\n다섯 번째 문장(세부/인용): 사용자는 코드 내보내기·Firebase 스튜디오 연계로 배포를 가속화할 수 있다.\n여섯 번째 문장(전망): API 도우미가 학습 곡선 완화를 이끌 것으로 보인다. (TechCrunch)"
+                },
+                {
+                    theme: "법률, 규제 및 거버넌스",
+                    category: "저작권",
+                    title: "테크크런치: 위키피디아 유료 API 촉구 (원문 링크)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 위키미디어 재단이 AI 기업에 유료 API 전환을 권고하고 스크래핑 중단을 요구했다.\n두 번째 문장(이유/방법): 신뢰성·호환성을 보장하는 공식 엔드포인트로 데이터 품질을 관리하려는 취지다.\n세 번째 문장(영향): 모델 학습 파이프라인의 법적·재정적 구조가 재편될 수 있다. (Los Angeles Times)\n네 번째 문장(배경): 재단은 지속가능한 자금과 공정한 보상을 강조해 왔다.\n다섯 번째 문장(세부/인용): 발표는 정책 위반 시 조치 가능성도 시사했다.\n여섯 번째 문장(전망): 대형 AI 업체의 응답과 업계 표준화가 향후 쟁점이다. (Los Angeles Times)"
+                },
+                {
+                    theme: "산업별 AI 적용",
+                    category: "헬스케어",
+                    title: "예루살렘포스트: AI-레이저 태그 연구 (원문 링크)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 연구진이 단일세포 레이저 태깅+AI로 암 기원 추적을 시연했다.\n두 번째 문장(이유/방법): MAGIC 파이프라인을 통해 표지-추적-분석을 자동화했다.\n세 번째 문장(영향): 조기 진단과 맞춤 치료 전략 개발이 빨라질 전망이다. (jpost.com)\n네 번째 문장(배경): 시스템은 고처리량 데이터 처리를 전제로 설계됐다.\n다섯 번째 문장(세부/인용): 보도는 기술적 제약·후속 검증 필요도 언급한다.\n여섯 번째 문장(전망): 임상 데이터 연계와 표준화가 다음 단계다. (jpost.com)"
+                },
+                {
+                    theme: "법률, 규제 및 거버넌스",
+                    category: "정책",
+                    title: "파이먼츠: 오픈AI—정부 협력 (원문 링크)",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): 오픈AI는 세액공제 확대 등 정부 협력을 촉구했다.\n두 번째 문장(이유/방법): 올트먼·프라이어의 발언과 백악관의 ‘구제 의사 없음’ 입장이 대조됐다.\n세 번째 문장(영향): 공공-민간 투자 역할 분담을 둘러싼 정책 논의가 지속된다. (PYMNTS.com)\n네 번째 문장(배경): AI 인프라 수요 급증이 배경이다.\n다섯 번째 문장(세부/인용): 보도는 데이터센터·그리드 투자 필요성을 강조했다.\n여섯 번째 문장(전망): 세제·보증 설계가 민간 조달비용을 좌우할 전망이다. (PYMNTS.com)"
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "개발",
+                    title: "xAI, 12월 샌프란시스코서 24시간 해커톤…Grok 모델·X API 사전 접근 제공",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): xAI가 12월 6~7일, 샌프란시스코 베이 지역에서 24시간 해커톤 개최를 공지했다. (xAI)\n두 번째 문장(이유/방법): 참가자는 향후 공개 예정 Grok 모델과 X API에 독점 사전 접근을 받아 프로토타입을 만든다. (xAI)\n세 번째 문장(영향): 상위 팀은 X 계정에서 소개되고 별도 시상이 이뤄지며, 지원 마감은 11월 22일로 개발자 생태계 활성화가 기대된다. (xAI)\n네 번째 문장(배경): xAI는 최근 Grok 4와 API를 앞세워 모델·에이전트 기능을 확장하고 있다. (xAI)\n다섯 번째 문장(세부/인용): 회사는 게시글에서 해커톤을 “하드코어 빌더를 위한 장”으로 소개하며 “24시간 논스톱 코딩”을 강조했다. (X (formerly Twitter))\n여섯 번째 문장(전망): 행사는 API 공개 확대와 모델 업데이트 검증의 시험대가 될 전망이다."
+                },
+                {
+                    theme: "플랫폼, 제품 및 에이전트",
+                    category: "에이전트",
+                    title: "구글, ‘Introduction to Agents(11월판)’ 공개 소식…에이전트 AI 가이드 강화",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): X의 ai_for_success 계정이 11월 11일(현지시간), 온라인에서 구글 팀의 최신 백서 ‘Introduction to Agents(11월판)’ 공개를 소개했다. (X (formerly Twitter))\n두 번째 문장(이유/방법): 문서는 에이전트(자율형 AI 애플리케이션) 개념과 설계 원칙을 체계화하고 개발·평가 방법론을 정리한 자료로 알려졌다. (Google Cloud)\n세 번째 문장(영향): 이번 업데이트는 기업과 개발자의 에이전트 도입 가속과 보안·평가 표준화 논의에 힘을 보탤 전망이다. (Google Research)\n네 번째 문장(배경): 구글은 올해 Agent Development Kit(ADK)와 Vertex AI 에이전트 평가 도구 등 에이전트 생태계 자료를 잇달아 내놨다. (Google Developers Blog)\n다섯 번째 문장(세부/인용): 공식 문서는 에이전트가 목표 달성을 위해 ‘계획·행동·관찰’을 반복한다고 정의하며 핵심 구성요소·거버넌스를 설명한다. (Google Cloud)\n여섯 번째 문장(전망): 향후 Gemini Enterprise·Vertex Agent Builder와 연계한 생산 환경 적용이 확대될 것으로 보인다. (Google Cloud)"
+                },
+                {
+                    theme: "AI와 사회 (활용, 심리, 노동)",
+                    category: "오피니언",
+                    title: "TBPN, “빌 게이츠·마크 저커버그의 순간” 인용…10대에 ‘바이브 코딩’ 권유 발언 확산",
+                    isTop5: false,
+                    details: "첫 문장(핵심 사실): TBPN 계정이 11월 10~11일(현지시간), 온라인에서 “빌 게이츠·마크 저커버그의 순간”이라는 발언을 인용해 공유했다. (X (formerly Twitter))\n두 번째 문장(이유/방법): 메시지는 AI 도구에 익숙한 세대가 미래 경제에서 우위를 점한다는 주장으로, ‘바이브 코딩’ 담론과 결합해 확산 중이다. (Business Insider)\n세 번째 문장(영향): 관련 보도에서 스케일 AI 창업자 알렉산더 왕의 유사 발언이 확인되며 청소년 AI 학습 논쟁이 가열됐다. (Fortune)\n네 번째 문장(배경): 왕은 TBPN 인터뷰 등에서 “13세라면 시간을 바이브 코딩에 쏟으라”며 초기 몰입이 장기 우위로 이어진다고 강조해 왔다. (Fortune)\n다섯 번째 문장(세부/인용): 일각은 입문자 생산성 향상을 근거로 들지만, 전문가들은 품질·보안 리스크와 과대평가 가능성을 경고한다. (Business Insider)\n여섯 번째 문장(전망): 교육계·기업의 커리큘럼·채용 기준 변화가 뒤따를 경우 유행의 제도화 여부가 판가름 날 전망이다."
+                }
+            ];
+
+
+            // --- DOM 요소 ---
+            const reportDateEl = document.getElementById("report-date");
+            const keyNumbersContainer = document.getElementById("key-numbers-container");
+            const top5Container = document.getElementById("top5-container");
+            const thematicContainer = document.getElementById("thematic-container");
+            
+            const modal = document.getElementById("news-modal");
+            const modalTitle = document.getElementById("modal-title");
+            const modalContent = document.getElementById("modal-content");
+            const modalCloseBtn = document.getElementById("modal-close-btn");
+            const modalBgClose = document.getElementById("modal-bg-close");
+
+            
+            // --- 헬퍼 함수 ---
+
+            /**
+             * 제목을 60자로 자르고 "..."를 붙입니다.
+             * @param {string} title - 원본 제목
+             * @param {number} length - 최대 길이
+             * @returns {string} - 축약된 제목
+             */
+            function truncateTitle(title, length = 60) {
+                if (title.length <= length) {
+                    return title;
+                }
+                // 요청사항: '—' 또는 ':' 기준으로 자르기 시도
+                const splitChar = title.includes('—') ? '—' : (title.includes(':') ? ':' : null);
+                
+                if (splitChar) {
+                    let splitTitle = title.split(splitChar)[0].trim();
+                    // 자른 제목이 너무 짧거나(10자 미만) 여전히 길면(60자 초과) 기본 60자 자르기 사용
+                    if (splitTitle.length > 10 && splitTitle.length <= length) {
+                        return splitTitle + "...";
+                    }
+                }
+                
+                // 기본 60자 자르기
+                return title.substring(0, length) + "...";
+            }
+
+            /**
+             * 단일 뉴스 카드 HTML을 생성합니다.
+             * @param {object} item - reportData의 개별 항목
+             * @param {number} index - reportData에서의 원본 인덱스
+             * @returns {string} - HTML 문자열
+             */
+            function createNewsCard(item, index) {
+                const displayTitle = truncateTitle(item.title, 60);
+                
+                return `
+                    <div class="news-card flex h-full transform-gpu cursor-pointer flex-col justify-between rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl" data-index="${index}">
+                        <div>
+                            <span class="mb-2 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                                ${item.category}
+                            </span>
+                            <h3 class="mb-3 text-lg font-bold leading-snug text-slate-900">
+                                ${displayTitle}
+                            </h3>
+                        </div>
+                        <div class="text-right">
+                           <span class="text-sm font-medium text-amber-600">자세히 보기 &rarr;</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- 렌더링 함수 ---
+
+            /** 1. 헤더 날짜 렌더링 */
+            function renderHeader() {
+                reportDateEl.textContent = reportDate;
+            }
+
+            /** 2. 주요 데이터 하이라이트 렌더링 */
+            function createKeyNumbersSection() {
+                let html = "";
+                keyNumbers.forEach(item => {
+                    html += `
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="mb-1 text-sm font-medium text-slate-500">${item.label}</p>
+                            <p class="text-3xl font-bold text-amber-600">${item.value}</p>
+                        </div>
+                    `;
+                });
+                keyNumbersContainer.innerHTML = html;
+            }
+
+            /** 3. Top 5 뉴스 렌더링 */
+            function renderTop5Section() {
+                const top5News = reportData.filter(item => item.isTop5);
+                let html = "";
+                top5News.forEach(item => {
+                    const originalIndex = reportData.indexOf(item);
+                    html += createNewsCard(item, originalIndex);
+                });
+                top5Container.innerHTML = html;
+            }
+
+            /** 4. 주제별 상세 뉴스 렌더링 */
+            function renderThematicSections() {
+                const otherNews = reportData.filter(item => !item.isTop5);
+
+                // 테마별로 뉴스 그룹화
+                const newsByTheme = {};
+                otherNews.forEach(item => {
+                    if (!newsByTheme[item.theme]) {
+                        newsByTheme[item.theme] = [];
+                    }
+                    newsByTheme[item.theme].push(item);
+                });
+
+                let html = "";
+                
+                // THEMES 배열 순서대로 섹션 생성
+                THEMES.forEach(theme => {
+                    const themeNews = newsByTheme[theme] || [];
+                    if (themeNews.length === 0) return; // 뉴스가 없는 테마는 건너뜀
+
+                    html += `
+                        <div class="mb-10">
+                            <h3 class="mb-4 border-b-2 border-amber-300 pb-2 text-xl font-bold text-slate-800">
+                                ${theme}
+                            </h3>
+                            <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    `;
+                    
+                    themeNews.forEach(item => {
+                        const originalIndex = reportData.indexOf(item);
+                        html += createNewsCard(item, originalIndex);
+                    });
+
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                });
+
+                thematicContainer.innerHTML = html;
+            }
+
+            // --- 모달 상호작용 함수 ---
+
+            /**
+             * 모달을 열고 데이터를 채웁니다.
+             * @param {number} index - reportData의 원본 인덱스
+             */
+            function showModal(index) {
+                const item = reportData[index];
+                if (!item) return;
+
+                // 1. 모달 제목 설정 (전체 원본 제목)
+                modalTitle.textContent = item.title;
+
+                // 2. 모달 본문 설정 (줄바꿈을 <br>로 변환)
+                // <br><br>로 처리하여 단락 구분을 명확하게 함
+                const formattedDetails = item.details
+                                            .replace(/\n/g, '<br><br>')
+                                            .replace(/<br><br>([가-힣\w\s]+):/g, '<br><br><strong>$1:</strong>'); // "첫 문장(핵심 사실):" 등을 강조
+                
+                modalContent.innerHTML = formattedDetails;
+
+                // 3. 모달 보이기
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+                document.body.style.overflow = "hidden"; // 배경 스크롤 방지
+            }
+
+            /** 모달을 닫습니다. */
+            function closeModal() {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+                document.body.style.overflow = ""; // 스크롤 복원
+            }
+
+
+            // --- 이벤트 리스너 ---
+
+            // 1. 뉴스 카드 클릭 리스너 (이벤트 위임)
+            document.body.addEventListener("click", (e) => {
+                const card = e.target.closest(".news-card");
+                if (card) {
+                    const index = card.dataset.index;
+                    showModal(index);
+                }
+            });
+
+            // 2. 모달 닫기 버튼
+            modalCloseBtn.addEventListener("click", closeModal);
+
+            // 3. 모달 배경 클릭
+            modalBgClose.addEventListener("click", closeModal);
+            
+            // 4. ESC 키로 모달 닫기
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+                    closeModal();
+                }
+            });
+
+            // --- 초기 렌더링 실행 ---
+            renderHeader();
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="visitor-tracker.js"></script>
+
+</body>
+</html>

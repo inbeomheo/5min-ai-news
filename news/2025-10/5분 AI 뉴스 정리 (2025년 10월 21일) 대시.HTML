@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 최신 동향 대시보드 (2025년 10월 21일)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by thematic sections. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News, 4. Thematic Sections. This hierarchical structure guides the user from a high-level overview to specific topics, making the dense report digestible without requiring user filtering, a proven effective approach. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries and has been successfully used in previous versions. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #e2e8f0; /* slate-200 */
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #94a3b8; /* slate-400 */
+            border-radius: 10px;
+            border: 2px solid #e2e8f0; /* slate-200 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm sticky top-0 z-30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <h1 class="text-2xl font-bold text-slate-900">AI·기술 최신 동향 리포트</h1>
+                <p class="text-sm text-slate-500">2025년 10월 21일</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div id="content-area">
+                <!-- Content sections will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h2 id="modal-title" class="text-lg font-bold text-slate-900"></h2>
+                <button id="modal-close-btn" class="text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto modal-content">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            { theme: "플랫폼 및 정책", category: "플랫폼/에이전트", title: "앤트로픽, ‘클로드 스킬’로 업무 자동화의 새 장을 열다", isTop5: true, details: { what: "앤트로픽이 MS 365 생태계와 직접 연동되는 ‘클로드 스킬(Claude Skills)’을 출시하여, 사용자가 반복적인 업무를 자동화하고 기업 내 데이터를 손쉽게 활용할 수 있는 길을 열었습니다.", impact: "단순한 챗봇을 넘어 실제 업무 프로세스를 실행하는 ‘AI 에이전트’ 경쟁이 본격화되었음을 보여주는 중요한 사례입니다." } },
+            { theme: "플랫폼 및 정책", category: "정책/윤리", title: "오픈AI, 딥페이크 파문에 ‘책임 강화’로 응답하다", isTop5: true, details: { what: "오픈AI는 마틴 루터 킹 주니어 목사의 딥페이크 영상 생성 논란에 대해 유족의 요청을 받아들여 생성을 중단하고, 역사적 인물의 초상권을 보호하는 중대한 정책 선례를 남겼습니다.", impact: "이는 생성형 AI의 윤리적 딜레마가 수면 위로 떠오르며 플랫폼의 사회적 책임에 대한 논의를 한 단계 진전시키는 계기가 되었습니다." } },
+            { theme: "인프라 및 하드웨어", category: "반도체", title: "엔비디아·TSMC, AI 반도체 공급망의 ‘미국 귀환’을 알리다", isTop5: true, details: { what: "엔비디아와 TSMC는 미국 애리조나 공장에서 생산한 첫 ‘블랙웰’ 웨이퍼를 공개하며, 첨단 반도체 생산기지를 미국 본토로 이전하는 리쇼어링 전략의 가시적인 성과를 보여주었습니다.", impact: "AI 시대의 핵심 자원인 반도체 공급망에 지각변동이 일어나고 있음을 시사합니다." } },
+            { theme: "인프라 및 하드웨어", category: "로봇", title: "피규어 AI, ‘피규어 03’ 공개로 가정용 로봇 시대의 서막을 열다", isTop5: true, details: { what: "피규어 AI는 가정용으로 설계된 휴머노이드 로봇 ‘피규어 03’을 선보이며, 연간 1.2만 대 대량생산 계획을 발표했습니다.", impact: "공상 과학 영화 속 이야기가 현실로 다가오며, 로봇이 산업 현장을 넘어 우리 일상으로 들어오는 대중화 시대가 임박했음을 시사합니다." } },
+            { theme: "사회 및 노동", category: "법률/노동", title: "AI 발전의 그늘, 저작권과 노동권 갈등 전면화", isTop5: true, details: { what: "세일즈포스는 AI 학습 데이터의 저작권 문제로 작가들에게 집단소송을 당했으며, 배우들은 자신의 신체 데이터가 무분별하게 활용되는 것을 막기 위해 AI 스캔에 대한 통제권을 강력히 요구하는 등 기술 발전의 이면에 놓인 갈등이 사회적 쟁점으로 부상하고 있습니다.", impact: "기술의 발전이 기존의 법적, 윤리적 체계와 충돌하고 있음을 보여줍니다." } },
+            { theme: "플랫폼 및 정책", category: "플랫폼/성장", title: "ChatGPT, 성장세 둔화 신호", details: { what: "OpenAI와 하버드가 공동 진행한 연구에 따르면, ChatGPT 소비자 사용의 73%는 비업무용이며, 앱 다운로드 성장률과 평균 체류 시간이 감소하는 등 시장이 점차 성숙 및 정체 국면에 접어들고 있음을 시사했습니다.", impact: "" } },
+            { theme: "기업 동향", category: "경영", title: "구글 CEO, “챗GPT 출시는 위기가 아닌 기회였다”", details: { what: "순다르 피차이 구글 CEO가 챗GPT 출시 당시 위협보다는 AI 개발의 시급성에 대한 공감대를 형성하는 긍정적인 자극이 되었다고 밝혔습니다.", impact: "" } },
+            { theme: "사회 및 노동", category: "노동", title: "‘학생용 링크드인’ 핸드셰이크, AI 전환 속 96명 감원", details: { what: "채용 플랫폼 핸드셰이크가 AI 기반 서비스를 출시하며 인력 96명을 영구 감원, AI 도입이 인력 구조 재편으로 이어지는 대표적인 사례가 되었습니다.", impact: "" } },
+            { theme: "사회 및 노동", category: "노동", title: "SK텔레콤 AI CIC, 출범 직후 ‘자발적 퇴직’ 프로그램 공지", details: { what: "SK텔레콤의 신설 AI 사내독립기업(CIC)이 설립 수 주 만에 전 직원을 대상으로 자발적 퇴직 프로그램을 공지하며 인력 효율화 및 조직 재편의 신호탄을 쏘았습니다.", impact: "" } },
+            { theme: "교육", category: "투자", title: "미국 빅테크, 교사 40만 명 AI 연수에 2,100만 달러 이상 투자", details: { what: "마이크로소프트, 오픈AI, 앤트로픽이 미국 최대 교원 단체와 손잡고 대규모 AI 역량 강화 프로그램을 시작, 교육 현장의 AI 주도권 확보에 나섰습니다.", impact: "" } },
+            { theme: "교육", category: "정책", title: "한국 AI 디지털교과서, 사실상 ‘롤백’", details: { what: "국회가 현장 준비 부족 등을 이유로 AI 디지털교과서의 법적 지위를 ‘보조 교육자료’로 격하하는 법안을 통과시켜, 기술 중심 정책의 한계를 드러냈습니다.", impact: "" } },
+            { theme: "플랫폼 및 정책", category: "보안", title: "MS 보고서, “국가 배후 AI 활용 사이버 공격 급증”", details: { what: "마이크로소프트의 최신 보고서에 따르면, 러시아와 중국 등 국가 배후 해킹 조직들이 AI를 활용해 피싱, 가짜뉴스 유포 등 사이버 공격을 고도화하고 있습니다.", impact: "" } },
+            { theme: "플랫폼 및 정책", category: "정치/광고", title: "미국 공화당, AI 딥페이크 영상으로 정치 광고 제작 논란", details: { what: "미 공화당이 민주당 척 슈머 원내대표의 모습을 AI로 합성한 공격 광고를 게시해 선거에서의 AI 활용 윤리 문제가 본격적으로 대두되었습니다.", impact: "" } },
+            { theme: "사회 및 노동", category: "사회/범죄", title: "AI 합성 사진으로 ‘가짜 침입’ 신고…美 20대 여성 체포", details: { what: "한 27세 여성이 AI로 생성한 가짜 사진으로 911에 허위 신고를 했다가 체포되어, AI 생성 콘텐츠가 현실 세계의 공공 안전 시스템을 교란할 수 있다는 경고를 던졌습니다.", impact: "" } },
+            { theme: "플랫폼 및 정책", category: "공공", title: "오클랜드 시, 행정 서비스에 GenAI 점진적 도입 검토", details: { what: "미국 캘리포니아주 오클랜드 시가 311 민원 응대 등에 생성형 AI를 시범 도입하며, 공공의 신뢰와 데이터 보안을 최우선으로 고려하는 점진적 접근법을 취하고 있습니다.", impact: "" } },
+            { theme: "인프라 및 하드웨어", category: "재무", title: "오라클, AI 투자 부담 우려에 주가 급락", details: { what: "오라클이 장기 성장 비전을 발표했음에도 불구하고, 막대한 AI 인프라 투자 비용에 대한 시장의 우려로 주가가 6.9% 급락했습니다.", impact: "" } },
+            { theme: "인프라 및 하드웨어", category: "재무", title: "메타, 루이지애나 데이터센터에 300억 달러 자금 조달", details: { what: "메타가 데이터센터 프로젝트를 위해 민간 인프라 금융 역사상 최대 규모 중 하나인 약 300억 달러의 자금을 조달, AI 인프라 구축의 새로운 금융 모델을 보여주었습니다.", impact: "" } },
+            { theme: "기업 동향", category: "거시경제", title: "AI 투자가 영국 파운드·스웨덴 크로나 강세 이끌어", details: { what: "로이터 통신은 최근 영국과 스웨덴의 활발한 AI 투자가 해당 국가의 생산성 향상 기대감을 높여 통화 가치를 끌어올리고 있다고 분석했습니다.", impact: "" } },
+            { theme: "인프라 및 하드웨어", category: "에너지", title: "텍사스, ‘원전+데이터센터’ 초대형 프로젝트 논란", details: { what: "AI 데이터센터 전력 공급을 위해 4기의 신규 원전을 함께 건설하는 ‘프로젝트 마타도르’가 물 부족, 핵폐기물 안전 등을 둘러싼 환경 및 사회적 갈등을 야기하고 있습니다.", impact: "" } },
+            { theme: "연구", category: "의료", title: "AI, 췌장암·혈액암 등 난치병 연구에 활용", details: { what: "AI가 환자 데이터를 통합 분석하여 췌장암 조기 진단 및 맞춤형 치료법 개발을 가속하고 있으나, 최신 정보 부족으로 인한 한계도 드러났습니다.", impact: "" } },
+            { theme: "연구", category: "과학", title: "AI, 경제·기상·수자원 등 복잡계 시스템 모델링에 기여", details: { what: "AI 기반 제어기가 거시경제 성장모형을 안정적으로 관리하고, 기상 예보 정확도를 높이는 등 다양한 과학 분야에서 복잡한 시스템의 난제를 해결하는 데 기여하고 있습니다.", impact: "" } },
+            { theme: "연구", category: "모델", title: "스탠퍼드 연구팀, 프롬프트 변경만으로 LLM 답변 다양성 2배 향상", details: { what: "프롬프트에 “N개의 다른 답변과 확률을 말해달라”고 요청하는 것만으로 창의적 과제에서 응답의 다양성을 최대 2.1배까지 높일 수 있는 실용적인 방법론이 제시되었습니다.", impact: "" } }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            const modal = document.getElementById('news-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            const themes = [
+                '플랫폼 및 정책',
+                '인프라 및 하드웨어',
+                '사회 및 노동',
+                '기업 동향',
+                '교육',
+                '연구',
+            ];
+
+            function init() {
+                renderContent();
+            }
+
+            function createKeyNumbersSection() {
+                const keyNumbers = [
+                    { value: "73%", label: "ChatGPT 비업무용 사용" },
+                    { value: "-8.1%", label: "ChatGPT 앱 다운로드 성장률" },
+                    { value: "1.2만대", label: "피규어 03 연간 생산 목표" },
+                    { value: "$24.5M", label: "세일즈포스 저작권 소송" }
+                ];
+
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-4 text-slate-900 border-b pb-3">주요 데이터 하이라이트</h2>
+                        <p class="text-slate-600 mb-6">이번 주 보고서에서 주목해야 할 핵심 수치들을 요약했습니다. 각 데이터는 특정 조건 하의 결과이며, 자세한 내용은 관련 뉴스 항목을 참고해 주십시오.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                            ${keyNumbers.map(kn => `
+                                <div class="bg-white p-6 rounded-lg shadow-sm text-center border border-slate-200">
+                                    <p class="text-4xl font-bold text-amber-600">${kn.value}</p>
+                                    <p class="text-base text-slate-600 mt-2">${kn.label}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+
+            function renderTop5Section() {
+                const top5Data = reportData.filter(item => item.isTop5);
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">오늘의 Top 5 뉴스</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${top5Data.map((item) => createNewsCard(item, reportData.indexOf(item))).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+            
+            function renderThematicSections() {
+                return themes.map(theme => {
+                    const themeData = reportData.filter(item => item.theme === theme && !item.isTop5);
+                    if (themeData.length === 0) return '';
+                    
+                    return `
+                        <section class="mb-12">
+                            <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">${theme}</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                ${themeData.map(item => createNewsCard(item, reportData.indexOf(item))).join('')}
+                            </div>
+                        </section>
+                    `;
+                }).join('');
+            }
+
+            function renderContent() {
+                contentArea.innerHTML = `
+                    ${createKeyNumbersSection()}
+                    ${renderTop5Section()}
+                    ${renderThematicSections()}
+                `;
+                addCardClickListeners();
+            }
+
+            function createNewsCard(item, index) {
+                const imageTag = item.category === "로봇" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Humanoid+Robot" class="w-full h-full object-cover rounded-t-lg"></div>` : 
+                                 item.category === "반도체" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Semiconductor" class="w-full h-full object-cover rounded-t-lg"></div>` : '';
+
+                return `
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col border border-slate-200" data-index="${index}">
+                        ${imageTag}
+                        <div class="p-5 flex-grow">
+                            <span class="text-xs font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.category}</span>
+                            <h3 class="mt-3 font-bold text-lg text-slate-800">${item.title}</h3>
+                        </div>
+                        <div class="p-4 bg-slate-50 ${imageTag ? '' : 'rounded-b-lg'} text-sm text-blue-600 font-medium">
+                            자세히 보기 &rarr;
+                        </div>
+                    </div>
+                `;
+            }
+
+            function addCardClickListeners() {
+                document.querySelectorAll('[data-index]').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const index = e.currentTarget.dataset.index;
+                        showModal(reportData[index]);
+                    });
+                });
+            }
+
+            function showModal(item) {
+                modalTitle.textContent = item.title;
+                modalContent.innerHTML = `
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.theme} &gt; ${item.category}</span>
+                        </div>
+                        ${Object.entries(item.details).map(([key, value]) => {
+                            const keyMap = {
+                                what: "무엇을 (What)",
+                                impact: "영향 (Impact)"
+                            };
+                            return `
+                                <div>
+                                    <h4 class="font-bold text-base text-slate-800 mb-1">${keyMap[key] || key}</h4>
+                                    <p class="text-slate-600 whitespace-pre-wrap leading-relaxed">${value}</p>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            modalCloseBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+
+            init();
+        });
+    </script>
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>
+

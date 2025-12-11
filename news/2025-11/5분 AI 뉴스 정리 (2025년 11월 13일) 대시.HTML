@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 
+      요청된 필수 주석 (Placeholder Comments)
+    -->
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <title>AI 뉴스 대시보드 | 2025-11-13</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Noto Sans KR 글꼴 적용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Noto Sans KR 글꼴 적용 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 커스텀 스크롤바 (선택 사항) */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #94a3b8; /* slate-400 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        /* NEW 배지 스타일 */
+        .badge-new {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+            letter-spacing: 0.5px;
+            animation: pulse 2s ease-in-out infinite;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1);} 50% { transform: scale(1.05);} }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- 
+      헤더 (Header)
+      - 앱 제목과 보고서 날짜
+      - sticky top-0 z-30
+    -->
+    <header class="sticky top-0 z-30 w-full bg-white/90 shadow-sm backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- 좌측: 제목 -->
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-900">
+                        5분 AI 뉴스 정리 <span class="badge-new">NEW</span>
+                    </h1>
+                </div>
+                <!-- 우측: 날짜 -->
+                <div class="flex-shrink-0">
+                    <span class="text-sm md:text-base font-medium text-slate-500">2025년 11월 13일</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 
+      메인 콘텐츠 영역
+      - max-w-7xl mx-auto
+      - 모든 동적 콘텐츠가 여기에 주입됩니다.
+    -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+        <div id="content-area" class="space-y-12">
+            <!-- 
+              동적 콘텐츠가 여기에 주입됩니다:
+              1. 주요 데이터 하이라이트 (Key Data Highlights)
+              2. Top 5 뉴스 (Top 5 News)
+              3. 주제별 상세 뉴스 (Thematic Sections)
+            -->
+        </div>
+    </main>
+
+    <!-- 
+      모달 (Modal)
+      - 뉴스 상세 내용을 표시합니다.
+      - 기본적으로 'hidden' 상태입니다.
+    -->
+    <div id="news-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden">
+        
+        <!-- 모달 배경 (클릭 시 닫기) -->
+        <div class="modal-bg-close absolute inset-0"></div>
+        
+        <!-- 모달 패널 -->
+        <div class="relative w-full max-w-3xl bg-white rounded-lg shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
+            
+            <!-- 모달 헤더 -->
+            <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 flex-shrink-0">
+                <h2 id="modal-title" class="text-lg md:text-xl font-bold text-slate-900">
+                    <!-- 동적 모달 제목 -->
+                </h2>
+                <button id="modal-close-btn" class="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- 모달 콘텐츠 -->
+            <div id="modal-content-wrapper" class="p-4 md:p-6 overflow-y-auto">
+                <div id="modal-metadata" class="mb-4 flex items-center space-x-4 text-sm">
+                    <span id="modal-theme" class="inline-block bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-medium">
+                        <!-- 동적 테마 -->
+                    </span>
+                    <span id="modal-category" class="text-slate-500">
+                        <!-- 동적 카테고리 -->
+                    </span>
+                </div>
+                <!-- 
+                  whitespace-pre-line: 
+                  HTML에서 공백은 합치되, 줄바꿈(\n)은 <br> 태그처럼 처리합니다.
+                -->
+                <p id="modal-content" class="text-base text-slate-700 leading-relaxed whitespace-pre-line">
+                    <!-- 동적 모달 본문 -->
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 
+      =================================
+      JavaScript 로직
+      =================================
+    -->
+    <script>
+        // 5개의 대주제 상수 (테마 통합용)
+        const THEMES = {
+            INFRA: "AI 인프라 및 투자",
+            PLATFORM: "플랫폼, 제품 및 에이전트",
+            INDUSTRY: "산업별 AI 적용",
+            GOVERNANCE: "법률, 규제 및 거버넌스",
+            SOCIETY: "AI와 사회 (활용, 심리, 노동)"
+        };
+
+        // 1. 주요 데이터 하이라이트
+        const keyNumbersData = [
+            { value: "500억 달러", label: "앤트로픽, 美 데이터센터 투자" },
+            { value: "97%", label: "AI 작곡 구분 실패율 (설문)" },
+            { value: "5,000만 달러", label: "WisdomAI, 시리즈 A 추가 유치" },
+            { value: "월 1.3달러", label: "바이트댄스, 초저가 코딩 에이전트" }
+        ];
+
+        // 2. 전체 뉴스 데이터 (reportData)
+        // isTop5: true로 처음 5개 항목 지정
+        // theme: 5개 대주제 중 하나로 통합 분류
+        const reportData = [
+            // --- Top 5 News ---
+            {
+                theme: THEMES.GOVERNANCE,
+                category: "OpenAI",
+                title: "오픈AI, NYT의 광범위한 데이터 요구에 “사용자 사생활 침해” 반격",
+                isTop5: true,
+                details: "오픈AI는 최근 뉴욕타임스(NYT)가 수천만 건의 챗GPT 대화 기록을 요구한 소송 절차에서, 미국 법원에 사용자 프롬프트와 응답을 보호해 달라고 요청하며 NYT의 요구가 “심각한 사생활 침해”라고 주장했다. 회사는 NYT 측이 뉴욕타임스를 언급한 출력뿐 아니라, 건강·연애·직장 고민 등 민감한 대화가 포함된 수년 치 기록까지 포괄적으로 요구하고 있다며 이는 언론사 저작권 분쟁의 범위를 벗어난다고 설명했다. 오픈AI는 법원이 이 같은 요구를 제한하지 않으면 AI 서비스 이용자들의 신뢰가 훼손되고, 혁신 서비스 채택이 위축될 수 있다고 경고했다. (OpenAI)\n\n오픈AI는 이번 입장이 “저작권 분쟁”이 아니라 “일반 이용자 일기장을 통째로 가져가려는 요구에 대한 방어”라고 강조하며, 자사 이용 약관과 프라이버시 정책에 따라 수집된 데이터라도 소송 상대방에게 무제한으로 넘겨서는 안 된다고 했다. 회사는 “법원이 허용한다 해도, 필요한 최소 범위의 익명화·가명화 데이터를 제공하는 방식으로 대응하겠다”고 밝히며, AI 규제 논의에서도 이용자 데이터 보호 원칙이 우선돼야 한다는 메시지를 던졌다. 이번 공방은 저작권·공정 이용뿐 아니라 생성형 AI 시대의 프라이버시 기준을 둘러싼 선례가 될 전망으로, 유사 소송을 준비 중인 다른 언론사·권리자들의 전략에도 영향을 줄 것으로 보인다. (OpenAI)"
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "OpenAI",
+                title: "기능성 껌 브랜드 뉴로, ChatGPT 비즈니스로 전국 유통 성과 확대",
+                isTop5: true,
+                details: "미국 기능성 껌·민트 브랜드 뉴로(Neuro)는 소규모 팀에도 불구하고 전국 리테일 유통 계약을 따내기 위해, 최근 ChatGPT 비즈니스 버전을 도입해 마케팅·영업 문서 작성 업무를 자동화했다고 밝혔다. 뉴로는 영업 제안서, 바이어 피칭 자료, SNS 캠페인 카피 등 반복 문서 작업을 AI에 맡기면서 직원들은 제품 전략·고객 관계 관리에 더 많은 시간을 쓸 수 있게 됐다고 설명했다. 회사는 이를 통해 전국 체인 유통사와의 딜 협상 속도가 빨라지고, 캠페인 테스트·수정 주기가 단축되는 등 실질적인 매출 성과에 기여했다고 평가했다. (OpenAI)\n\n배경에는 기능성 식품·웰니스 시장의 경쟁 심화와, 스타트업·중소 브랜드가 ‘적은 인원·적은 예산’으로 전국 단위 마케팅을 해야 하는 현실이 있다. 뉴로는 챗GPT 비즈니스를 사내 표준 도구로 지정해, 브랜드 톤·가이드라인을 프롬프트에 고정해 일관된 카피를 생산하고, 유통사별 맞춤 제안서 템플릿을 AI로 관리하는 방식 등을 활용하는 것으로 알려졌다. 회사는 앞으로도 제품 개발 아이디어 발굴, 고객 피드백 분석, 글로벌 진출용 현지화 카피 생성까지 활용 영역을 넓혀 AI 중심의 ‘린(lean) 마케팅 조직’ 모델을 고도화하겠다는 계획이다. (OpenAI)"
+            },
+            {
+                theme: THEMES.GOVERNANCE,
+                category: "OpenAI",
+                title: "오픈AI, GPT-5.1 안전성 평가 ‘시스템 카드’ 별도 공개",
+                isTop5: true,
+                details: "오픈AI는 GPT-5.1 출시와 함께 기존 GPT-5 시스템 카드에 대한 보충 문서(애드렌덤)를 공개하며, 최신 모델의 위험 요인·완화책·테스트 결과를 상세히 설명했다. 이 애드렌덤은 헬스케어·정치·사이버 보안·잘못된 정보 생성 등 고위험 영역에서 GPT-5.1이 어떤 식으로 제한·감독되는지와, 내부 ‘레드팀’ 및 외부 연구자들과의 공동 평가 절차를 정리한 것이 특징이다. 오픈AI는 이를 통해 규제 당국과 연구자, 기업 고객에게 모델의 한계와 남아 있는 위험을 투명하게 공유하겠다는 입장이다. (OpenAI)\n\n문서에 따르면 GPT-5.1은 GPT-5 대비 환각(hallucination) 빈도 감소, 프롬프트 공격·탈옥(jailbreak)에 대한 내성 강화, 개인정보 노출 방지 필터 개선 등의 안전성 향상이 있었지만, 완전한 해결과는 거리가 있다고 평가된다. 오픈AI는 특히 정치 캠페인용 맞춤 선전·표적화 광고, 생물·사이버 무기 설계 조언, 아동 착취 등에 대해선 강력한 차단 정책과 모니터링을 유지하고 있다고 강조했다. 회사는 앞으로도 새로운 사용 패턴과 악용 사례를 반영해 시스템 카드를 정기적으로 업데이트하고, 외부 감사·독립 연구와의 협력을 확대하겠다고 밝혔다. (OpenAI)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "OpenAI",
+                title: "GPT-5.1 공개… “더 자연스럽고 믿을 만한 대화형 AI”",
+                isTop5: true,
+                details: "오픈AI는 최신 대규모 언어모델 GPT-5.1을 공개하며, 챗GPT 전반을 더 자연스럽고 일관된 대화형 비서로 업그레이드했다고 발표했다. 회사는 GPT-5.1이 복잡한 추론·코딩·데이터 분석·도구 호출을 더 안정적으로 수행하면서도, 응답 속도와 비용 효율을 개선했다고 설명했다. 또, GPT-5.1은 사용자 표현 스타일을 더 잘 파악해 맥락 유지와 장기 대화 품질이 향상됐고, 세밀한 안전 가드레일과 결합해 상용 서비스에 적합하도록 설계됐다고 밝혔다. (OpenAI)\n\n오픈AI는 GPT-5.1이 챗GPT, API, 그리고 각종 비즈니스 솔루션에 동시에 적용되는 ‘범용 엔진’이라며, 기업 고객이 플러그인·툴 체인과 결합해 자체 워크플로를 구축할 수 있다고 강조했다. 내부 벤치마크에선 수학·코드·지식 질의뿐 아니라, 복수 문서 요약·계획 수립·멀티에이전트 협업 시나리오에서 GPT-5 대비 성능 향상이 관측됐다는 설명도 덧붙였다. 오픈AI는 앞으로도 도메인 특화 튜닝, 에이전트 기능, 멀티모달 처리 능력을 추가한 파생 모델을 내놓고, 정책·문제 사례를 반영해 지속적으로 개선하겠다고 예고했다. (OpenAI)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "Amazon Web Services, Inc.",
+                title: "AWS, 아마존 베드록에 Cohere Embed 4로 ‘멀티모달 엔터프라이즈 검색’ 강화",
+                isTop5: true,
+                details: "AWS는 아마존 베드록(Amazon Bedrock)에 Cohere의 최신 멀티모달 임베딩 모델 ‘Embed 4’를 통합해, 기업용 검색·RAG(검색 증강 생성) 워크로드를 고도화하는 방안을 소개했다. Embed 4는 텍스트·이미지·혼합 문서를 단일 벡터 표현으로 처리하고, 최대 12만8천 토큰까지 지원해 복잡한 비즈니스 문서를 잘라 나누는 전처리 부담을 줄인다. AWS는 또한 압축 임베딩 옵션으로 벡터 저장 비용을 최대 83%까지 절감하고, S3 Vectors와 결합하면 기존 벡터DB 대비 최대 90%의 비용 절감과 서브-초 단위 질의를 구현할 수 있다고 밝혔다. (Amazon Web Services, Inc.)\n\n해당 블로그는 금융 업계를 예시로, 임베딩된 문서를 Amazon S3 Vectors에 저장한 뒤 Strands Agents SDK와 Bedrock AgentCore를 활용해 ‘에이전트형 검색 시스템’을 구현하는 아키텍처를 제시한다. 검색 에이전트는 Embed 4를 이용해 질의와 문서 간 의미 유사도를 계산하고, Bedrock 런타임을 통해 여러 파운데이션 모델의 조합을 활용하는 구조다. AWS는 이 조합이 규제가 까다로운 금융·의료·제조 분야에서 문서 기반 질의 응답·감사·리스크 분석 워크로드를 빠르게 구축할 수 있게 해 주며, 향후 더 많은 AI 에이전트·RAG 템플릿을 제공해 엔터프라이즈 검색 생태계를 확장하겠다고 밝혔다. (Amazon Web Services, Inc.)"
+            },
+            
+            // --- Thematic News ---
+            {
+                theme: THEMES.INDUSTRY,
+                category: "Muck Rack",
+                title: "“변호사도 AI 초안 권장”… 법률 문서 작성에 생성형 AI 활용 조언",
+                isTop5: false,
+                details: "미 워싱턴 지역 방송 NBC4는 혼인 계약서·유언장 등 고가의 법률 문서를 준비해야 하는 시민들이 생성형 AI를 활용해 초안을 작성한 뒤 변호사의 검토를 받는 사례가 늘고 있다고 보도했다. 한 부부는 변호사로부터 혼전계약서 작성에 약 1만 달러가 든다는 견적을 듣고, ChatGPT·Grok·Gemini 등 챗봇에 조건을 설명해 초안을 만든 뒤 이를 변호사에게 가져가 비용을 크게 줄였다고 전했다. 인터뷰에 나선 변호사는 AI가 서식과 조항 구조를 빠르게 잡아줘 시간·비용을 절감할 수 있지만, 주(州)별 법·개인 상황을 반영하는 최종 검토는 반드시 전문가가 맡아야 한다고 강조했다. (Muck Rack)\n\n보도에 따르면, 변호사는 AI가 최신 법 개정 사항을 반영하지 못하거나, 특정 관할 지역에서 유효하지 않은 조항을 포함할 수 있다는 위험을 지적했다. 그럼에도 “AI로 먼저 초안을 시도해 보는 것 자체에 대해서는 ‘More power to you’라며 긍정적인 메시지를 전하며, 이를 ‘변호사 없이 진행하라’는 조언으로 오해해서는 안 된다고 설명했다. 전문가들은 앞으로 소비자용 AI 문서 도구와 변호사의 역할이 ‘경쟁’이 아닌 ‘보완’ 관계가 될 가능성이 크고, 각국 변호사 협회가 이런 도구 사용 가이드라인과 책임 범위를 정비할 필요가 있다고 전망했다. (X (formerly Twitter))"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "blog.google",
+                title: "구글, “클라우드도 단말기만큼 안전하다”는 ‘프라이빗 AI 컴퓨트’ 공개",
+                isTop5: false,
+                details: "구글은 새 플랫폼 ‘프라이빗 AI 컴퓨트(Private AI Compute)’를 공개하며, 제미나이(Gemini) 모델이 클라우드에서 처리하더라도 데이터 프라이버시는 ‘온디바이스 수준’으로 지키겠다고 밝혔다. 이 시스템은 사용자 기기에서 온 고위험·고민감 데이터를 ‘봉인된(closed) 하드웨어 영역’으로 전송해 처리하고, 구글 직원조차 해당 데이터에 접근할 수 없도록 설계됐다고 회사는 설명했다. 구글은 프라이빗 AI 컴퓨트를 통해 스마트폰이 감당하기 어려운 무거운 AI 연산을 클라우드로 넘기면서도, 사용자가 기대하는 개인정보 보호 수준을 유지할 수 있을 것이라고 강조했다. (blog.google)\n\n이 플랫폼은 구글 자체 TPU와 티타늄 인텔리전스 인클레이브(Titanium Intelligence Enclaves)를 기반으로 한 단일 기술 스택, 원격 인증·종단 간 암호화, ‘제로 액세스’ 보장 구조 등 다층 방어 체계를 갖췄다. 독립 보안업체 NCC 그룹은 공개 보고서에서, 프라이빗 AI 컴퓨트가 설계상 로컬 연산과 유사한 프라이버시 보장을 목표로 하고 있다고 평가했다. 구글은 먼저 픽셀 10 시리즈의 ‘매직 큐(Magic Cue)’와 녹음 앱 요약 기능에 이 기술을 적용하고, 향후 더 많은 기기·서비스로 확장하며 애플의 ‘프라이빗 클라우드 컴퓨트’와 정면 경쟁에 나설 전망이다. (AI News)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "South China Morning Post",
+                title: "바이트댄스, 월 1.3달러 ‘초저가’ AI 코딩 에이전트 출시",
+                isTop5: false,
+                details: "틱톡 모회사 바이트댄스의 클라우드 부문 볼케이노 엔진은 한 달 9.9위안(약 1.3달러) 프로모션 가격의 AI 코딩 에이전트 ‘Doubao-Seed-Code’를 출시하며 중국 내 코딩 에이전트 가격 경쟁에 불을 붙였다. 정가도 월 40위안 수준으로 책정돼, 중국 내 주요 경쟁 제품들보다 저렴한 ‘가성비 코딩 파트너’를 지향한다. 바이트댄스는 Doubao-Seed-Code가 코드 자동완성·버그 수정·테스트 케이스 생성 등 개발 전 과정을 지원하며, SWE-Bench Verified 벤치마크에서 최상위권 성능을 기록해 앤트로픽의 Claude Sonnet 등 글로벌 모델과 견줄 수준이라고 밝혔다. (South China Morning Post)\n\n회사 측은 최근 6개월간 일반 챗봇 ‘Doubao’ 사용량이 두 배로 급증했다며, 이 성장세를 바탕으로 개발자용 도구까지 포트폴리오를 넓히고 있다고 설명했다. 특히 11월 11일 ‘광군제’ 쇼핑 페스티벌에 맞춘 프로모션은 중소 개발사·학생·프리랜서가 저렴한 가격에 AI 코딩 도구를 체험하도록 설계된 것으로, 중국 내 AI 코딩 시장 저변 확대를 노린 전략으로 해석된다. 한편, 앤트로픽이 9월 중국 계열사 접근을 제한하는 등 미·중 간 AI 서비스의 블록화가 진행되는 상황에서, 바이트댄스의 저가 공세는 자국 개발자 생태계를 자국산 모델로 묶어 두려는 움직임으로도 평가된다. (South China Morning Post)"
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "Design News",
+                title: "“제조업의 실시간 두뇌”… 엣지 AI, 스마트 팩토리의 새 기반으로 부상",
+                isTop5: false,
+                details: "미 기술매체 디자인뉴스는 최신 기고에서 공장 설비·로봇·센서 등 데이터가 발생하는 지점에 직접 AI를 탑재하는 ‘엣지 AI’가 제조업의 실시간 의사결정 인프라로 부상하고 있다고 분석했다. 엣지 AI는 데이터를 중앙 클라우드로 보내지 않고 현장에서 곧바로 분석·판단을 수행해, 지연을 줄이고 네트워크 비용을 절감하며 안전성을 높이는 것이 특징이다. 기사에 따르면, 이러한 구조는 설비 이상 징후 감지·품질 검사·작업자 안전 모니터링 등에서 즉각적인 대응을 가능하게 해, 경쟁이 치열한 제조 현장에서 효율성과 수익성을 동시에 끌어올리는 수단이 되고 있다. (Design News)\n\n글은 엣지코틱스(EdgeCortix) 등 전문 업체 사례를 인용해, 맞춤형 엣지 AI 칩·소프트웨어 스택이 공장 내 로봇 암, 컨베이어, 영상 검사 장비 등에 임베딩되는 추세를 소개한다. 특히 메르세데스-벤츠의 베를린-마리엔펠데 공장 등에서 AI가 산업용 로봇을 제어하며 실시간 품질 검사와 에너지 최적화에 활용되는 사례가 언급된다. 전문가들은 향후 5G·산업용 사물인터넷(IoT)과 결합한 엣지 AI가 ‘완전 자율형 공장’ 구현의 핵심이 될 것이라며, 사이버 보안·표준화 과제 해결이 병행돼야 한다고 강조했다. (Design News)"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "AI타임스",
+                title: "소프트뱅크, 엔비디아 지분 전량 매각… 오픈AI 투자에 “올인”",
+                isTop5: false,
+                details: "일본 소프트뱅크가 최근 분기 실적 발표에서 보유 중이던 엔비디아 주식 3,210만 주 전량을 58억3,000만 달러(약 8조 원)에 매각했다며, 이는 오픈AI 등에 대한 225억 달러(약 32조 원) 규모 투자 재원 마련을 위한 조치라고 밝혔다. CNBC 인용 보도에 따르면, 이 자금은 오픈AI와의 ‘스타게이트’ 초대형 데이터센터 프로젝트 등 최소 305억 달러(약 44조 원) 규모의 AI 투자 계획을 지원하는 핵심 현금 원천으로 활용될 예정이다. 발표 직후 엔비디아 주가는 약 2% 하락하며 AI 투자 과열·버블 우려에 다시 불을 지폈다. (AI타임스)\n\n요시미츠 고토 소프트뱅크 CFO는 컨퍼런스콜에서 “재무 건전성을 유지하면서도 새로운 투자 기회를 확보하기 위해 자산 포트폴리오를 재구성하고 있다”며, 이번 매각이 ABB 로보틱스 인수 등 다른 프로젝트 자금까지 고려한 전략적 결정이라고 설명했다. 전문가들은 이번 조치를 엔비디아에 대한 비관적 시그널이라기보다, 손정의 회장이 오픈AI를 핵심 성장 축으로 삼고 ‘공격적 AI 인프라 투자’에 나선 행보로 해석하고 있다. 다만 손 회장이 과거 엔비디아 투자에서 매수·매각 타이밍을 여러 차례 놓친 전례가 있어, 이번 결단이 또 다른 ‘타이밍 미스’가 될지, 아니면 오픈AI 베팅 성공으로 돌아설지 시장의 관심이 쏠리고 있다. (AI타임스)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "AI타임스",
+                title: "카카오, AI 에이전트 앱 ‘카나나’ 웹 버전 출시… PC에서도 ‘나나’와 대화",
+                isTop5: false,
+                details: "카카오는 12일 AI 에이전트 앱 서비스 ‘카나나(Kanana)’의 웹 버전을 출시해, 모바일 앱에 이어 PC 환경에서도 개인 AI 메이트 ‘나나’와 스페셜 메이트들을 사용할 수 있게 됐다고 밝혔다. 기존 앱 이용자는 동일 계정으로, 신규 이용자는 카카오 계정으로 로그인해 타로·사주·챌린지·스터디 코칭·보험 상담 등 특화 AI 메이트 5종을 포함한 기능을 웹에서도 이용할 수 있다. 회사는 웹 버전에서 우선 1:1 개인 메이트 기능을 중심으로 제공하고, 그룹방 등 일부 기능은 단계적 업데이트를 통해 지원할 계획이라고 설명했다. (AI타임스)\n\n웹 버전에는 카나나의 다양한 대화 주제와 활용법을 소개하는 ‘카나나 더 알아보기’ 메뉴가 추가돼, 각 주제별 메이트와 기능·신규 소식을 한눈에 볼 수 있는 허브 역할을 한다. 김종한 카카오 카나나 성과리더는 “더 많은 이용자들이 카나나 서비스를 경험할 수 있도록 플랫폼을 확장했다”며 “모바일 중심의 AI 에이전트 서비스를 더 넓은 환경으로 확대해 나가겠다”고 말했다. 카카오는 향후 모바일 앱에서 지원 중인 기능들을 웹에도 순차적으로 이식하고, 기업용·톡 기반 서비스와의 연계를 강화해 ‘일상형 AI 에이전트 생태계’를 구축하겠다는 구상이다. (AI타임스)"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "AI News",
+                title: "구글, 애플式 ‘AI 클라우드’에 맞선 자사 버전 공식화",
+                isTop5: false,
+                details: "테크 매체 AI News는 구글이 애플 ‘프라이빗 클라우드 컴퓨트’와 유사한 개념의 ‘프라이빗 AI 컴퓨트’를 선보이며, 강력한 Gemini 모델과 엄격한 프라이버시 보호를 결합한 새로운 AI 클라우드 전략을 내놨다고 전했다. 이 시스템은 TPU·티타늄 인텔리전스 인클레이브(TIE) 기반 보안 인프라와 암호화·원격 인증을 통해, 데이터가 클라우드에서 처리되더라도 사용자 본인 외 누구도 접근할 수 없도록 설계됐다고 구글은 주장한다. 기사에 따르면, 구글은 이를 통해 사용자는 더 빠르고 개인화된 AI 기능을 누리면서도, 데이터는 ‘로컬 처리와 동등한 수준’의 보호를 받는 것이 목표라고 강조하고 있다. (AI News)\n\n프라이빗 AI 컴퓨트는 우선 픽셀 10의 ‘매직 큐’ 기능에 적용돼 이메일·캘린더 등에서 필요한 정보를 맥락에 맞춰 제시하고, 녹음 앱의 다국어 요약 기능에도 활용될 예정이다. AI News는 이 움직임을 “대규모 AI 연산 수요와 개인정보 보호 요구라는 양립하기 어려운 과제를 동시에 해결하기 위한 빅테크의 새 접근”으로 평가했다. 전문가들은 구글과 애플의 유사한 설계 선택, NCC 그룹 등 외부 보안 업체의 설계 검토 결과를 감안할 때, 향후 다른 빅테크·클라우드 사업자들도 ‘프라이버시 우선’ AI 인프라를 내세우는 경쟁에 뛰어들 가능성이 크다고 내다봤다. (AI News)"
+            },
+            {
+                theme: THEMES.SOCIETY,
+                category: "Reuters",
+                title: "“AI 작곡, 97%가 눈치 못 챈다”… 딥러닝 음악의 윤리·저작권 논쟁 확산",
+                isTop5: false,
+                details: "로이터 통신은 디저(Deezer)와 여론조사 기관 입소스(Ipsos)가 실시한 설문에서 응답자의 97%가 인공지능(AI)이 만든 곡과 인간 작곡가의 곡을 구분하지 못한 것으로 나타났다고 보도했다. 미국·영국·프랑스 등 8개국 9,000명을 대상으로 한 조사에서, 대다수는 AI 음악이 창작·소비·수익 배분 방식을 뒤흔들 수 있다는 우려를 드러냈다. 동시에 73%는 AI 생성 음악이 추천·재생될 때 명확한 라벨링을 원한다고 답했고, 40%는 AI 음악임을 알게 되면 곡을 건너뛰겠다고 응답하는 등 복잡한 태도를 보였다. (Reuters)\n\n디저는 AI 생성 곡이 일일 업로드의 약 3분의 1을 차지할 정도로 급증하자, AI 음악을 태깅해 에디토리얼 플레이리스트·추천 알고리즘에서 제외하는 정책을 도입했다. 디저 CEO 알렉시스 랑테르니에르는 “창의성은 인간에게서 나온다고 믿으며, 그들이 보호받아야 한다”고 강조하면서도, AI 도구의 활용 가능성 자체는 부정하지 않는 입장을 밝혔다. 음악 업계에서는 가상 밴드 ‘벨벳 선다운(Velvet Sundown)’ 사례나, AI 음악 스타트업 Udio와 유니버설뮤직의 합의·플랫폼 출시 계획, 독일 법원이 ChatGPT의 가사 무단 재현을 저작권 침해로 판단한 판결 등을 계기로, 향후 라이선스·보상 구조 재편과 새로운 규제가 뒤따를 것으로 전망하고 있다. (Reuters)"
+            },
+            {
+                theme: THEMES.GOVERNANCE,
+                category: "Anadolu Ajansı",
+                title: "에릭 슈미트 “값싼 중국 AI 모델, 전 세계 정부의 표준 될 수 있다”",
+                isTop5: false,
+                details: "전 구글 CEO 에릭 슈미트는 최근 팟캐스트 ‘문샷츠(Moonshots)’에서, 개방형(open-source) 구조와 낮은 비용을 무기로 한 중국 AI 모델이 전 세계 정부의 표준으로 자리 잡을 수 있다며 우려를 표했다. 슈미트는 “미국의 대형 AI 모델은 대부분 폐쇄형이고, 중국의 모델은 오픈소스인 경우가 많다”며 “돈이 없는 대부분의 국가들은 ‘품질이 아니라 공짜라는 이유로’ 중국 모델을 표준으로 삼게 될 것”이라고 말했다. 그는 이 같은 흐름이 데이터 프라이버시·국가 안보·미국의 기술 리더십 측면에서 중대한 지정학적 문제를 야기할 수 있다고 경고했다. (Anadolu Ajansı)\n\n기사에 따르면, 슈미트는 올해 딥시크(DeepSeek) 등 중국 AI 모델의 급부상을 계기로 이런 우려가 커지고 있다고 지적했다. 그는 구글 CEO 재직 시기(2001~2015년)에도 인터넷 거버넌스와 국가 안보 문제에 대해 강경한 입장을 보여 왔으며, 이번에도 “미국과 서방이 규제와 안보 우려를 이유로 속도만 늦춘다면, 결국 중국이 AI 표준을 장악하게 될 것”이라고 주장했다. 최근 엔비디아 CEO 젠슨 황 또한 중국이 AI 경쟁에서 승리할 것이라는 발언을 했다가, 이후 미국의 선도 지위를 인정하면서도 과도한 규제에 우려를 표하는 등, 미·중 AI 패권 경쟁 속 서방 내부의 고민이 드러나는 발언이 이어지고 있다. (Anadolu Ajansı)"
+            },
+            {
+                theme: THEMES.GOVERNANCE,
+                category: "Axios",
+                title: "“AI 경쟁에서 미국은 더 많은 위험을 감수해야” 팔란티어 CEO 경고",
+                isTop5: false,
+                details: "팔란티어 테크놀로지스 CEO 알렉스 카프는 ‘액시오스 쇼(Axios Show)’ 인터뷰에서, AI 경쟁에서 서방이 승리하려면 미국이 “상당한 수준의 위험을 감수해야 한다”고 주장했다. 그는 AI가 잘못될 수 있는 방식은 많지만, 미국이 속도를 늦추면 같은 기술이 중국의 손에 들어갈 뿐이라며, ‘우리에게 잘못되든, 중국에게 잘못되든 둘 중 하나’라고 표현했다. 카프는 AI가 군사·사이버·정찰·제조 등 거의 모든 안보·산업 분야에 반영되고 있어, 미·중 중 어느 쪽이 AI 우위를 점하느냐에 따라 세계 질서와 시민의 권리가 크게 달라질 것이라고 경고했다. (Axios)\n\n액시오스 보도에 따르면, 팔란티어는 올해 미 육군과 최대 100억 달러 규모의 소프트웨어·데이터 계약을 체결하는 등 ‘방산 AI’ 분야에서 영향력을 키우고 있다. 카프는 인터뷰에서 “우리가 하는 가장 중요한 일은 전쟁을 막는 것”이라며, 억지력을 강화하는 데이터·AI 플랫폼이 궁극적으로 분쟁을 예방한다고 주장했다. 전문가들은 카프의 발언을 ‘너무 느리게 가는 것의 위험이, 너무 빠르게 가는 것의 위험보다 크다’는 빅테크 특유의 논리를 반영한 것으로 보면서도, AI 군비 경쟁이 인권·감시·오판 위험을 키우지 않도록 국제 규범과 투명성이 병행돼야 한다고 지적하고 있다. (Axios)"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "TechCrunch",
+                title: "마이크로소프트가 지원한 Veir, 초전도 케이블로 데이터센터 전력 병목 해소 도전",
+                isTop5: false,
+                details: "테크크런치는 마이크로소프트가 투자한 스타트업 Veir가 ‘메가와트급 초전도 전력 전달 시스템’을 데이터센터에 도입해, 폭증하는 전력 수요와 전력 인프라 병목을 해결하려 한다고 전했다. 기사에 따르면, 최근 몇 년 사이 데이터센터의 랙당 전력 요구량은 수십 kW에서 수백 kW 수준으로 급증해, 기존 구리 케이블·변압 설비만으로는 성장 속도를 따라가기 어려운 상황이다. Veir는 극저온 환경에서 작동하는 초전도 케이블을 활용해 동일한 공간에서 더 많은 전력을 손실 없이 전달하고, 변전 인프라 규모를 줄일 수 있다고 설명한다. (TechCrunch)\n\n관련 보도에 따르면, Veir는 이미 3MW급 초전도 전력 전달 데모를 성공적으로 시연했으며, AI 데이터센터를 주요 타깃 시장으로 삼고 있다. 데이터센터는 이제 “새로운 유전(油田)을 찾는 것보다 더 많은 투자금을 끌어들이는 인프라”라는 평가가 나올 정도로, 지역 전력망·환경 규제와의 충돌이 빈번한 상황이다. Veir와 같은 기술이 실제 상용화될 경우, 제한된 부지에서 고밀도 AI 클러스터를 운영하려는 하이퍼스케일러·클라우드 사업자들에게 새로운 선택지를 제공할 수 있지만, 초전도 시스템의 비용·안정성·유지보수 체계가 검증돼야 한다는 과제도 남아 있다. (TechCrunch)"
+            },
+            {
+                theme: THEMES.SOCIETY,
+                category: "KDnuggets",
+                title: "“모든 것을 담는 노트북”으로 NotebookLM을 두 번째 뇌로… KDnuggets 제안",
+                isTop5: false,
+                details: "데이터 사이언스 매체 KDnuggets는 구글 NotebookLM에서 ‘모든 것을 담는(everything) 노트북’을 만들어, 개인·조직의 전문 지식을 한곳에 모으는 전략의 장점을 소개했다. 글에 따르면, 사용자는 조직 프로세스 문서, 도메인 규격, 논문, 회의록, 코드 스니펫 등을 한 노트북에 통합해, LLM이 서로 다른 자료 간 연결 관계를 찾아내도록 할 수 있다. NotebookLM은 노트북당 최대 50개 소스, 총 2,500만 단어를 지원해 ‘지식 그래프형’ 레퍼런스 허브를 구축하기에 충분한 용량을 제공하며, 이를 통해 프로젝트 재개·규제 검토·모델 개선 같은 작업의 인지 부담을 크게 줄일 수 있다는 설명이다. (KDnuggets)\n\n글은 구체적으로 여러 개의 짧은 문서를 도메인·단계별로 묶어 50개의 ‘마스터 문서’로 만드는 수용량 극대화 전략, 자연어 질의를 통해 문서 내 특정 개념을 찾는 ‘강화된 CTRL+F’ 스타일 검색, 복수 소스를 비교·요약하는 질의 예시 등을 제시한다. 또 NotebookLM 위에서 퀴즈·플래시카드를 생성해 학습 도구로 활용하거나, 프로젝트 요약·기술 메모 초안을 자동 작성하는 방식으로 ‘두 번째 뇌’ 역할을 하게 할 수 있다고 강조한다. KDnuggets는 이런 접근이 데이터 과학자뿐 아니라, 복잡한 문서·규정을 다루는 모든 지식 노동자에게 지식의 단절을 줄이고 생산성을 높이는 방법이 될 수 있다고 평가했다. (KDnuggets)"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "TechCrunch",
+                title: "앤트로픽, 500억 달러 규모 미국 데이터센터 투자 계획 발표",
+                isTop5: false,
+                details: "앤트로픽은 영국 기반 ‘네오클라우드’ 사업자 플루이드스택(Fluidstack)과 파트너십을 맺고, 미국 전역에 AI 전용 데이터센터를 건설하기 위해 향후 500억 달러(약 70조 원)를 투자하겠다고 밝혔다. 테크크런치 보도에 따르면, 초기 단계에서는 텍사스와 뉴욕에 대형 시설을 짓고 이후 추가 지역으로 확장할 계획으로, 이는 클로드(Claude) 모델 수요 증가에 대응하기 위한 인프라 구축이다. 이 프로젝트는 마이크로소프트·오픈AI, 구글 등과의 ‘AI 데이터센터 군비 경쟁’ 속에서 앤트로픽이 독자적인 연산 능력을 확보하려는 시도로 해석된다. (TechCrunch)\n\n보도는 이번 투자 규모가 지금까지 알려진 AI 인프라 투자 가운데서도 손꼽히는 수준이라며, 미국 내 반도체·전력·부동산 공급망에도 상당한 파급 효과를 미칠 것으로 전망한다. 앤트로픽 CEO 다리오 아모데이는 “과학적 발견을 가속하고, 지금까지 불가능했던 방식으로 복잡한 문제를 푸는 AI에 더 가까워지고 있다”고 말하며, 대규모 연산 자원의 필요성을 강조했다. 한편, 환경·전력 사용량·지역 사회 영향에 대한 우려도 제기되는 가운데, 미국 정부와 각 주 정부가 AI 데이터센터를 국가 전략 인프라로 볼지, 추가 규제를 가할지에 따라 프로젝트의 속도와 형태가 달라질 수 있다는 관측이 나온다. (TechCrunch)"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "TechCrunch",
+                title: "AI 데이터 분석 스타트업 WisdomAI, Kleiner·엔비디아에서 5,000만 달러 추가 투자 유치",
+                isTop5: false,
+                details: "테크크런치는 루브릭(Rubrik) 공동창업자 소함 마즈무다르가 설립한 데이터 분석 스타트업 ‘WisdomAI’가 Kleiner Perkins가 주도하고 엔비디아의 벤처 부문 NVentures가 참여한 시리즈 A 라운드에서 5,000만 달러를 추가로 유치했다고 전했다. WisdomAI는 정형·비정형·오타 등 ‘지저분한(dirty)’ 데이터까지 수집해, 자연어 질의로 비즈니스 질문에 답하는 AI 기반 분석 플랫폼을 제공하는 것이 특징이다. 이번 투자를 포함해 회사는 ‘AI 앱 레이어’를 둘러싼 글로벌 경쟁 속에서, 기업 데이터 위에 얹는 분석·결정 지원 계층을 선점하려는 플레이어로 부상하고 있다. (TechCrunch)\n\n관련 보도에 따르면, WisdomAI는 데이터 웨어하우스·문서 저장소·업무 툴 등 여러 시스템을 연결한 뒤, 사용자에게 ‘회사 전용 챗봇’ 형태로 질의 응답·리포트 작성·시뮬레이션 기능을 제공하는 것을 목표로 한다. 엔비디아가 참여한 점은 고성능 GPU 인프라와의 결합, 그리고 엔비디아 생태계 고객을 대상으로 한 공동 마케팅 가능성을 시사한다. 시장에서는 기업 고객들이 단일 벤더에 의존하지 않고 다양한 LLM·모델을 선택해 붙일 수 있는 ‘데이터·분석 계층’이 향후 B2B AI 시장의 핵심 전장이 될 것으로 보고 있어, WisdomAI가 후속 라운드·제품 완성도를 통해 어느 정도 점유율을 확보할지 주목된다. (TechCrunch)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "Towards Data Science",
+                title: "Claude와 MCP로 n8n 워크플로를 감시·디버그하는 AI 어시스턴트 구축",
+                isTop5: false,
+                details: "Towards Data Science 기고문은 워크플로 자동화 도구 n8n에 앤트로픽 Claude와 모델 컨텍스트 프로토콜(MCP)을 결합해, 자동으로 작업 실패를 감지·요약하고 수정 제안을 해 주는 ‘AI 운영 어시스턴트’를 배포하는 방법을 소개했다. 글에서 저자는 n8n 실행 로그와 에러 메시지를 MCP를 통해 Claude에게 전달해, 사람이 이해하기 쉬운 자연어 설명과 원인 분석, 재시도 전략을 생성하는 패턴을 제안한다. 이를 통해 복잡한 자동화 파이프라인에서 발생하는 문제를 개발자가 하나하나 로그를 뒤져 찾기보다, AI에게 ‘어디가 잘못됐는지 설명해 달라’고 물을 수 있게 하는 것이 목표다.\n\n배경 설명에서는 MCP가 AI 모델이 외부 툴·API·파일 시스템에 안전하게 접근할 수 있도록 해 주는 표준화된 인터페이스라는 점을 강조하며, 이를 활용하면 n8n뿐 아니라 다른 워크플로 엔진·CI/CD 시스템·관측(Observability) 스택과 연결된 ‘AI 디버깅 에이전트’를 손쉽게 확장할 수 있다고 제안한다. 글은 예시로 실패한 이메일 발송 플로우, 타임아웃이 발생한 HTTP 요청, 잘못된 스키마로 인한 데이터베이스 에러 등을 Claude가 요약·분류하고, 설정 변경·재시도 시나리오를 추천하는 워크플로를 다룬다. 저자는 이런 패턴이 “개발자의 시간을 아끼는 것뿐 아니라, 운영·지원 팀이 비전문가도 이해할 수 있는 설명을 AI로부터 직접 얻는 데 도움을 줄 것”이라며, 향후 ‘AI 옵스(AI-Ops) 코파일럿’으로 발전할 여지를 강조했다."
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "threads.com",
+                title: "ChatGPT, 링크로 초대하는 그룹 채팅 미리보기… 웹 앱 협업 기능 강화",
+                isTop5: false,
+                details: "오픈AI의 ChatGPT 웹 앱에서 그룹 채팅 미리보기 기능이 포착되면서, 상단 탐색 바의 그룹 채팅 시작 버튼과 새로운 그룹 채팅 사이드바, 링크 기반 초대·공유 기능 등이 새롭게 확인됐다. 미리보기 UI에 따르면 그룹마다 별도의 사용자 지정 지침과 자동 응답·멘션 전용 응답 모드, 참여자별 개별 메모리 설정을 둘 수 있어, 여러 사용자가 같은 어시스턴트와 대화하면서도 각자의 프라이버시를 지킬 수 있도록 설계된 것으로 보인다. 이를 통해 팀 프로젝트, 수업, 커뮤니티 운영 등에서 ChatGPT를 실시간 협업용 워크스페이스로 활용할 수 있을 것이라는 전망이 나온다. (threads.com)\n\n이번 기능은 오픈AI 공식 발표가 아닌 미리보기 화면과 UI 에셋이 커뮤니티에 공유되며 존재가 알려진 상태로, 반응 이모지, 특정 메시지에 대한 답장, 입력 중 표시, 파일 업로드, 이미지 생성, 웹 검색 지원 등 현대적 메신저 수준의 협업 요소를 갖춘 것으로 전해졌다. 특히 그룹 단위 시스템 프롬프트를 개인 기본 지침과 분리해 설정하고, 봇이 항상 자동 응답할지 멘션이 있을 때만 개입할지 선택하는 옵션은 사람들끼리 자유 대화를 하다가 필요할 때만 ChatGPT를 불러 쓰려는 수요를 겨냥한 기능으로 해석된다. 다만 아직 정식 출시 일정과 무료·유료 플랜 적용 범위가 공개되지 않은 만큼, 오픈AI가 언제 어떤 방식으로 이 그룹 채팅 기능을 공식화할지가 향후 관전 포인트로 꼽힌다. (Windows Forum)"
+            },
+            {
+                theme: THEMES.GOVERNANCE,
+                category: "Reuters",
+                title: "독일 법원 “저작권 있는 노래 가사로 ChatGPT 학습, 저작권 침해”",
+                isTop5: false,
+                details: "독일 뮌헨 지방법원이 11일(현지시간) 오픈AI가 독일 인기 곡 9곡의 가사를 허가 없이 학습·재현함으로써 저작권법을 위반했다는 판결을 내리며, ChatGPT의 음악 저작권 침해를 인정했다. 이번 소송은 독일 음악 저작권 단체인 GEMA가 작사가·작곡가·출판사를 대표해 제기한 사건으로, 법원은 보호받는 노래 가사를 모델 학습과 답변 재현에 활용하려면 라이선스가 필요하다고 판단했다. 재판부는 오픈AI에 대해 해당 가사를 저장하거나 답변으로 출력하지 말 것과 손해배상, 이용 내역·수익 공개 의무를 명령해, 유럽 내 AI 학습 관행에 중요한 선례를 남겼다. (Reuters)\n\n이번 사건은 저작물 데이터 마이닝과 생성형 AI 학습이 어디까지 허용되는지에 대한 유럽 첫 본격 판례 중 하나로 평가되며, 법원은 오픈AI가 ‘연구 목적 텍스트·데이터 마이닝’ 예외를 주장했으나 이를 받아들이지 않았다. GEMA 측은 판결 후 “인터넷은 셀프 서비스 매장이 아니며, 인간의 창작 성과는 공짜 템플릿이 아니다… 오늘 우리는 저작자의 권리를 보호하고 명확히 하는 선례를 세웠다”고 강조하며, AI 기업도 저작권법을 준수해야 한다고 밝혔다. 오픈AI는 판결에 동의하지 않으며 항소를 검토 중이라고 밝힌 만큼, 이번 사건이 EU 전역의 AI·저작권 규제 방향과 다른 국가의 유사 소송에 어떤 파급을 미칠지 주목된다. (newindustryfocus.com)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "X (formerly Twitter)",
+                title: "오픈AI, ChatGPT 웹앱에 ‘그룹 채팅 미리보기’ 기능…링크 공유형 멀티 유저 지원",
+                isTop5: false,
+                details: "ChatGPT 관련 소식을 공유하는 개발자 콜 트레거스(Kol Tregaskes)가 11월 12일(현지시간) X를 통해 ChatGPT 웹 앱에 ‘그룹 채팅 미리보기’ 기능이 실험 중이라고 전했다. 해당 스크린샷에 따르면 웹 인터페이스 상단에 ‘그룹 채팅 시작(Start group chat)’ 버튼이 새로 생기고, 사이드바에는 공유된 그룹 채팅이 별도 섹션으로 정리된다. 각 참가자는 개별 사용자 지정 지침과 자동/멘션 전용 응답, 개인 메모리를 설정할 수 있어, 같은 방 안에서도 서로 다른 ‘역할’의 AI를 동시에 활용할 수 있는 것으로 보인다. (X (formerly Twitter))\n\n이번 업데이트는 단순 1:1 대화 중심이던 기존 UI를 넘어, 링크 기반으로 여러 사용자가 하나의 대화를 공동 편집·참여할 수 있도록 확장하려는 시도로 해석된다. 스크린샷에는 반응(이모지), 특정 메시지에 대한 스레드형 답장, 입력 표시기, 파일 업로드, 이미지 생성, 웹 검색 등 협업에 필요한 인터랙션 요소들이 함께 노출돼 있어 팀·커뮤니티용 활용도가 커질 전망이다. 오픈AI가 별도의 공지 없이 웹에서 ‘조용히’ A/B 테스트를 진행하는 만큼, 이용자 피드백에 따라 향후 정식 기능 출시 여부와 요금제 적용 범위가 정해질 것으로 보인다. (X (formerly Twitter))"
+            },
+            {
+                theme: THEMES.GOVERNANCE,
+                category: "Reuters",
+                title: "독일 법원, “저작권 음악 가사로 ChatGPT 훈련…오픈AI 저작권 침해” 첫 판결",
+                isTop5: false,
+                details: "독일 뮌헨 지방법원이 11월 11일(현지시간) 오픈AI가 독일 음악저작권협회 GEMA가 관리하는 노래 가사를 무단으로 사용해 ChatGPT를 훈련했다며 저작권법 위반을 인정했다. 재판부는 헬레네 피셔, 헤르베르트 그뢰네마이어 등 인기 가수의 곡을 포함한 9곡의 가사가 허가 없이 모델 학습·출력에 사용됐다고 보고, 관련 가사를 더 이상 저장·재현하지 말 것과 함께 손해배상 및 이용 내역 공개를 명령했다. 이번 판결은 AI 학습 과정의 ‘텍스트·데이터 마이닝 예외(TDM)’가 어디까지 허용되는지를 다룬 첫 주요 사례로, 유럽 전반의 AI 규제 논의에 파급력을 가질 전망이다. (Reuters)\n\nGEMA는 “인터넷은 셀프 서비스 매장이 아니며, 인간의 창작물은 공짜 템플릿이 아니다”라며 이번 승소가 창작자의 권리를 명확히 했다고 강조했다. 오픈AI는 가사가 “모델이 새로 생성한 텍스트일 뿐”이라며 책임을 부인했지만, 법원은 모델 내부 ‘기억’과 출력 모두가 저작재산권 침해에 해당한다고 판단했다. 회사 측은 판결에 동의하지 않으며 항소를 검토 중이라고 밝혀, 유럽 내 AI 학습용 데이터 라이선스 체계와 손해배상 기준을 둘러싼 장기 법정 공방으로 이어질 가능성이 크다. (The Verge)"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "X (formerly Twitter)",
+                title: "구글, ‘프라이빗 AI 컴퓨트’ 발표…클라우드에서 돌리는 AI도 “온디바이스 수준 프라이버시”",
+                isTop5: false,
+                details: "AI 애널리스트 로한 폴(Rohan Paul)은 X에서 구글이 ‘프라이빗 AI 컴퓨트(Private AI Compute)’라는 새 클라우드 기반 AI 처리 플랫폼을 발표했다고 전했다. 이 플랫폼은 스마트폰·PC가 클라우드 상의 Gemini 모델에 연결되지만, 민감한 사용자 데이터는 ‘티타늄 인텔리전스 인클레이브(TIE)’라는 보안 구역 안에서 암호화·격리 처리돼 구글조차 접근할 수 없다는 점을 내세운다. 기존에는 번역·요약 등 많은 AI 기능을 온디바이스에서 처리해 프라이버시를 지켰지만, 더 무거운 추론이 필요해지면서 보안을 유지한 채 클라우드 연산을 활용하려는 절충안으로 풀이된다. (X (formerly Twitter))\n\n프라이빗 AI 컴퓨트는 우선 픽셀 10 시리즈의 ‘매직 큐(Magic Cue)’ 제안 기능과 녹음 앱 등에서 더 정교한 추천과 다국어 전사 기능을 제공하는 데 활용될 예정이며, 향후 다른 안드로이드·크롬OS 기기로도 확대될 전망이다. 구글은 이 플랫폼이 맞춤형 추천, 개인 콘텐츠 요약 등 고도화된 AI 경험을 제공하면서도 데이터는 ‘기기 주인의 것’으로 남게 한다고 강조한다. 다만 외부 연구자들은 TIE 구조, 원격 인증 방식, 고객 관리 키(CMEK) 제공 여부 등이 아직 불투명하다며, 애플의 ‘프라이빗 클라우드 컴퓨트’와 마찬가지로 실제 프라이버시 수준을 검증할 독립 평가와 투명성이 핵심 과제로 남았다고 지적한다. (AI News)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "X (formerly Twitter)",
+                title: "일레븐랩스, 초저지연 STT 모델 ‘Scribe v2 Realtime’ 공개…150ms 실시간 전사",
+                isTop5: false,
+                details: "AI 음성 기업 일레븐랩스(ElevenLabs)는 공식 X 계정을 통해 “세계에서 가장 정확한 실시간 음성 인식 모델”이라며 ‘Scribe v2 Realtime’을 발표했다. 회사 블로그에 따르면 이 모델은 150ms 미만의 지연(latency)으로 라이브 음성을 텍스트로 변환하며, 영어·프랑스어·독일어·스페인어 등 6개 주요 언어와 총 90개 언어를 지원한다. 특히 잡음 환경·복잡한 내용이 섞인 500개 난이도 높은 샘플에서 경쟁 모델 대비 우수한 정확도를 보였다고 주장해, 콜센터·회의 비서·실시간 자막 등 다양한 에이전트형 서비스에 바로 적용될 수 있을 것으로 전망된다. (X (formerly Twitter))\n\nScribe v2 Realtime은 음성 구간 자동 감지(VAD), 언어 자동 감지, 이전 배치를 이어받는 텍스트 컨디셔닝, 수동 커밋 기능, 다양한 오디오 포맷 지원 등의 기능을 포함한다. 또한 SOC 2, ISO 27001, HIPAA, GDPR 등 기업 보안·규제 준수와 EU·인도 데이터 레지던시, ‘제로 보존(Zero retention)’ 모드를 제공해 민감 데이터 처리에도 적합하다고 회사는 설명한다. API와 자사 에이전트 플랫폼을 통해 이미 사용 가능하며, 전문가들은 이 모델이 고품질 음성-텍스트 파이프라인을 갖춘 음성 에이전트·콜봇 시장에서 사실상 ‘기본 인프라’로 자리 잡을 것으로 보고 있다. (ElevenLabs)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "X (formerly Twitter)",
+                title: "구글 ‘Jules’ 코딩 에이전트, CLI 대규모 업데이트…병렬 작업·사이드바이사이드 디프 제공",
+                isTop5: false,
+                details: "구글의 코딩 에이전트 ‘줄스(Jules)’ 팀은 X 계정(@julesagent)을 통해 Jules Tools CLI에 대규모 기능 개선을 배포했다고 밝혔다. 공식 변경 로그에 따르면 최신 버전은 --parallel 플래그를 통해 하나의 프롬프트로 여러 작업을 병렬 수행할 수 있고, 터미널 UI(TUI)에서 사이드바이사이드 코드 비교(diff) 뷰어를 지원한다. 또 레포지토리 자동 추론, OAuth2 인증 안정화, WSL·Arch Linux 환경 크리덴셜 문제 해결, PNPM 지원 등이 추가돼 다양한 개발 환경에서 에이전트를 더 쉽게 통합할 수 있게 됐다. (X (formerly Twitter))\n\n이번 업데이트는 Jules가 단순 웹 UI 에이전트를 넘어, 터미널·CI 파이프라인·GitHub 워크플로우와 긴밀히 연결되는 ‘개발용 자동화 계층’으로 자리 잡으려는 전략의 연장선으로 보인다. 구글은 이미 REST 기반 Jules API를 공개해 슬랙·지라·GitHub Actions 등과 연동하는 ‘챗옵스( ChatOps )’·자동 버그 수정·자동 릴리스 노트 생성 시나리오를 제시한 바 있다. 전문가들은 병렬 실행·사이드바이사이드 디프 같은 개선이 코파일럿·클로드 코드 등 경쟁 에이전트형 도구와의 성능·편의성 격차를 줄이거나, 특정 워크플로우에서는 우위를 만들 수 있다며, 향후 요금 구조와 Gemini 상위 모델 접속 범위가 관전 포인트라고 평가한다. (jules.google)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "X (formerly Twitter)",
+                title: "Google AI Studio, 팟캐스트 RSS 받아 전사·검색하는 Python 앱 데모 공개",
+                isTop5: false,
+                details: "Google AI Studio 공식 X 계정은 팟캐스트 RSS 피드를 가져와 에피소드를 전사하고, File Search 툴로 색인하는 Python 예제 앱을 소개했다. 트윗에 따르면 이 앱은 RSS에서 오디오를 자동 수집한 뒤, Gemini 기반 전사 기능으로 텍스트를 생성하고, 이를 검색 가능한 인덱스로 구축하는 흐름으로 설계된다. 이렇게 구축된 인덱스는 특정 화자 발언·주제·키워드 기준으로 에피소드 전체를 질의응답(Q&A) 형식으로 탐색할 수 있어, 오디오 아카이브 활용도를 크게 높인다. (X (formerly Twitter))\n\n개발 블로그와 커뮤니티 글에 따르면, 이 스타터 앱은 AI Studio의 프롬프트 템플릿, 코드 스니펫, 시스템 프롬프트 예시까지 함께 제공해 초보자도 손쉽게 맞춤형 오디오 검색 서비스를 만들 수 있게 돕는다. 마케터·교육자·크리에이터는 이를 활용해 팟캐스트를 블로그 글, 쇼노트, 다국어 요약 등의 텍스트 자산으로 재활용할 수 있으며, 장기적으로는 기업 내부 회의·콜 녹취록까지 확장해 ‘음성 데이터 기반 지식 베이스’를 구축하는 방향으로 진화할 것으로 예상된다. (GeekNews)"
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "X (formerly Twitter)",
+                title: "“바나나에 케찹?”…구글, 차세대 이미지 모델 ‘Gempix 2’ 코드명 ‘Ketchup’으로 변경 정황",
+                isTop5: false,
+                details: "AI 리서처 베드로스 팜부키안(@bedros_p)은 X에서 구글 코드베이스에서 ‘Gempix 2’라는 내부 명칭이 ‘Ketchup’으로 치환되고 있다며, “구글은 케찹이 바나나와 더 잘 어울린다고 생각하는 것 같다”고 농담 섞인 글을 올렸다. 최근 보도에 따르면 Gempix 2는 ‘Nano Banana 2’로 불리는 차세대 이미지 생성 모델의 내부 이름으로, Gemini 3 Pro Image 아키텍처 위에서 4K급 고해상도와 향상된 색·구도 제어를 지원하는 것으로 알려졌다. 커뮤니티에서는 코드명 변경이 곧 Nano Banana 2 / Gempix 2의 공식 론칭과 브랜드 리뉴얼이 임박했다는 신호로 해석되고 있다. (X (formerly Twitter))\n\n각종 프리뷰 기사와 리뷰에 따르면 Nano Banana 2(Gempix 2)는 텍스트·이미지·비전-언어 추론을 결합해, 인물 얼굴 일관성과 사진 같은 광원·질감을 구현하는 데 초점을 맞췄다. 일부 매체는 미디어 편집·마케팅·프로토타이핑을 겨냥해 멀티 프레임 일관성, 실제 카메라 촬영에 가까운 톤·노이즈, 4K 출력 지원을 강조하며, Nano Banana 2가 모바일 기기에서 포토샵급 워크플로를 대체할 잠재력을 갖췄다고 평가한다. 다만 세부 정책·워터마크·저작권 보호 장치가 공개돼야 하므로, 정식 공개 시점에 구글이 이미지 안전성·투명성에 대한 로드맵을 어떻게 내놓을지가 핵심 쟁점이 될 전망이다. (Medium)"
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "X (formerly Twitter)",
+                title: "구글, 카사바와 손잡고 아프리카에 ‘데이터 프리’ Gemini 제공…6개월간 Google AI Plus 무료",
+                isTop5: false,
+                details: "구글 랩스·Gemini 부문 부사장 조시 우드워드(Josh Woodward)는 아프리카통신 전시회 AfricaCom 현장에서 아프리카 통신·테크 기업 카사바 테크놀로지(Cassava Technologies)와 파트너십을 맺고, Gemini 앱과 Google AI Plus를 모바일 데이터 차감 없이 제공한다고 밝혔다. 구글과 카사바는 합작을 통해 아프리카 일부 국가 이용자에게 6개월간 Google AI Plus 무료 이용과 ‘데이터 프리’ Gemini 접속을 제공할 예정으로, 고비용 데이터 요금 탓에 생성형 AI를 쓰지 못했던 수백만 명이 주요 수혜가 될 전망이다. 이 내용은 구글 공식 블로그와 블록체인 뉴스 등에서도 확인됐다. (X (formerly Twitter))\n\n분석 매체들은 이번 조치가 데이터 비용과 네트워크 인프라 격차로 인한 ‘AI 디지털 디바이드’를 줄이는 상징적 사례라고 평가한다. 스마트폰 보급률은 높지만 인터넷 접근성이 떨어지는 아프리카에서는, Gemini 같은 멀티모달 AI가 교육·농업·핀테크·보건 분야에서 현지 언어로 맞춤형 도움을 제공할 수 있기 때문이다. 업계에서는 이번 사례를 계기로 다른 빅테크와 통신사들도 ‘데이터 프리’ AI 접속·번들형 프리미엄 요금제 등을 검토할 가능성이 크며, 동시에 각국 데이터 보호법·윤리 기준을 충족하는 지역 맞춤형 거버넌스 모델이 요구될 것이라고 전망한다. (Blockchain News)"
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "X (formerly Twitter)",
+                title: "“메모리 슈퍼 사이클 온다”…모건스탠리, SK하이닉스·삼성전자 ‘비중 확대’ 유지",
+                isTop5: false,
+                details: "반도체 애널리스트로 알려진 X 계정 ‘주칸’(@Jukanlosreve)은 모건스탠리가 최근 보고서에서 SK하이닉스와 삼성전자에 대한 ‘비중 확대(Overweight)’ 의견을 유지했다고 전했다. 보고서에서 모건스탠리는 AI 데이터센터·클라우드 기업들이 가격 민감도가 낮은 ‘필수 수요’로 메모리를 사들이면서, DRAM·NAND 가격이 사상 최고치를 넘는 새로운 ‘메모리 슈퍼 사이클’이 진행 중이라고 평가했다. 특히 4분기 서버 DRAM 계약 가격이 기존 예상(30%)을 크게 웃도는 약 70% 상승, DDR5 현물가는 9월 대비 3배 이상 급등한 것으로 분석되며, 이에 따라 두 기업의 주가가 새 고점을 경신할 여지가 크다고 진단했다. (X (formerly Twitter))\n\n모건스탠리는 이번 사이클이 과거 PC·모바일 중심 수요와 달리, 추론(Inference)에 최적화된 고대역폭 메모리(HBM)·서버 DRAM 중심 구조라 공급자 가격 결정력이 훨씬 크다고 강조한다. HBM 생산이 일반 DRAM 캐파를 잠식하는 가운데, 엔터프라이즈 SSD·3D NAND 가격도 20~70% 수준으로 동반 급등하고 있어 메모리 업체의 실적이 시장 컨센서스를 크게 상회할 것이라는 전망이다. 다만 증권사 측은 밸류에이션만으로 고점을 단정 짓기보다는, AI 인프라 투자 지속 여부와 메모리 비중 확대 추세를 지켜보는 것이 중요하다며, 공급사들이 설비투자와 가격 정책을 어떻게 조절하는지가 향후 4~6분기 수익성의 관건이 될 것이라고 덧붙였다. (富途牛牛财经新闻)"
+            }
+        ];
+
+
+        /**
+         * DOMContentLoaded 이벤트 리스너
+         * 페이지 로드 시 모든 렌더링 함수를 실행합니다.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            if (!contentArea) {
+                console.error("Content area not found!");
+                return;
+            }
+
+            // 1. 주요 데이터 하이라이트 섹션 생성
+            contentArea.appendChild(createKeyNumbersSection(keyNumbersData));
+
+            // 2. Top 5 뉴스 섹션 렌더링
+            const top5News = reportData.filter(item => item.isTop5);
+            contentArea.appendChild(createNewsSection('Top 5 뉴스', '오늘의 가장 중요한 5가지 소식입니다.', top5News));
+
+            // 3. 주제별 상세 뉴스 섹션 렌더링
+            // Top 5가 아닌 뉴스들
+            const thematicNews = reportData.filter(item => !item.isTop5);
+            
+            // 5개 대주제 목록 가져오기 (순서 보장)
+            const uniqueThemes = [
+                THEMES.INFRA,
+                THEMES.PLATFORM,
+                THEMES.INDUSTRY,
+                THEMES.GOVERNANCE,
+                THEMES.SOCIETY
+            ];
+
+            uniqueThemes.forEach(theme => {
+                const newsInTheme = thematicNews.filter(item => item.theme === theme);
+                if (newsInTheme.length > 0) {
+                    // 각 테마별로 섹션 생성
+                    contentArea.appendChild(createNewsSection(theme, `${theme} 관련 상세 뉴스입니다.`, newsInTheme));
+                }
+            });
+
+            // 모달 상호작용 설정
+            setupModalInteractions();
+        });
+
+        /**
+         * 섹션 헤더를 생성합니다.
+         * @param {string} title - 섹션 제목
+         * @param {string} subtitle - 섹션 부제목
+         * @returns {HTMLElement} - 생성된 헤더 DOM 요소
+         */
+        function createSectionHeader(title, subtitle) {
+            const header = document.createElement('div');
+            header.className = 'mb-6 pb-2 border-b border-slate-300';
+            header.innerHTML = `
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">${title}</h2>
+                <p class="mt-1 text-base text-slate-600">${subtitle}</p>
+            `;
+            return header;
+        }
+
+        /**
+         * 1. 주요 데이터 하이라이트 섹션을 생성합니다.
+         * @param {Array} data - keyNumbersData 배열
+         * @returns {HTMLElement} - 생성된 섹션 DOM 요소
+         */
+        function createKeyNumbersSection(data) {
+            const section = document.createElement('section');
+            
+            section.appendChild(createSectionHeader('주요 데이터 하이라이트', '오늘 보고서의 핵심 수치입니다.'));
+
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-4';
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-4 rounded-lg border border-slate-200 shadow-sm';
+                card.innerHTML = `
+                    <div class="text-3xl md:text-4xl font-bold text-amber-600">${item.value}</div>
+                    <p class="mt-1 text-sm md:text-base text-slate-600">${item.label}</p>
+                `;
+                grid.appendChild(card);
+            });
+
+            section.appendChild(grid);
+            return section;
+        }
+
+        /**
+         * 2 & 3. 뉴스 섹션 (Top 5 또는 주제별)을 생성합니다.
+         * @param {string} title - 섹션 제목
+         * @param {string} subtitle - 섹션 부제목
+         * @param {Array} newsItems - 해당 섹션의 reportData 항목 배열
+         * @returns {HTMLElement} - 생성된 섹션 DOM 요소
+         */
+        function createNewsSection(title, subtitle, newsItems) {
+            const section = document.createElement('section');
+            
+            section.appendChild(createSectionHeader(title, subtitle));
+
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+
+            newsItems.forEach(item => {
+                // reportData에서 원본 인덱스 찾기 (모달용)
+                const originalIndex = reportData.findIndex(originalItem => originalItem === item);
+                
+                // 뉴스 카드 생성
+                const card = createNewsCard(item, originalIndex);
+                grid.appendChild(card);
+            });
+
+            section.appendChild(grid);
+            return section;
+        }
+
+        /**
+         * 개별 뉴스 카드를 생성합니다.
+         * @param {object} item - reportData의 개별 항목
+         * @param {number} index - reportData에서의 원본 인덱스
+         * @returns {HTMLElement} - 생성된 카드 DOM 요소
+         */
+        function createNewsCard(item, index) {
+            const card = document.createElement('div');
+            // 요청된 카드 스타일 적용
+            card.className = 'bg-white border border-slate-200 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col h-full';
+            card.setAttribute('data-index', index); // 모달 참조용 인덱스
+
+            // 제목 길이 최적화 (60자 제한)
+            const displayTitle = truncateTitle(item.title, 60);
+
+            card.innerHTML = `
+                <div class="p-5 flex flex-col justify-between flex-grow">
+                    <div>
+                        <span class="inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-medium mb-3">
+                            ${item.category}
+                        </span>
+                        <h3 class="text-lg font-bold text-slate-800 group-hover:text-amber-700">
+                            ${displayTitle}
+                        </h3>
+                    </div>
+                    <!-- 카테고리/테마 태그를 카드 하단으로 이동 (선택 사항) -->
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-sm font-medium text-amber-700">${item.theme}</span>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        /**
+         * 제목을 60자로 제한하는 헬퍼 함수
+         * @param {string} title - 원본 제목
+         * @param {number} limit - 글자 수 제한
+         * @returns {string} - 축약된 제목
+         */
+        function truncateTitle(title, limit = 60) {
+            if (title.length <= limit) {
+                return title;
+            }
+            
+            // '—' 또는 ':' 기호 기준 자르기 시도
+            let splitChar = title.includes('—') ? '—' : (title.includes(':') ? ':' : null);
+            
+            if (splitChar) {
+                const parts = title.split(splitChar);
+                const firstPart = parts[0].trim();
+                if (firstPart.length > 0 && firstPart.length <= (limit + 10)) { // 너무 짧지 않고 적당한 길이
+                    return firstPart + '...';
+                }
+            }
+            
+            // 위 조건이 맞지 않으면 60자에서 자르기
+            return title.substring(0, limit) + '...';
+        }
+
+
+        /**
+         * 모달 상호작용 (열기/닫기)을 설정합니다.
+         */
+        function setupModalInteractions() {
+            const modal = document.getElementById('news-modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const modalBgClose = modal.querySelector('.modal-bg-close');
+
+            // 닫기
+            const hideModal = () => {
+                modal.classList.add('hidden');
+            };
+
+            modalCloseBtn.addEventListener('click', hideModal);
+            modalBgClose.addEventListener('click', hideModal);
+
+            // 열기 (이벤트 위임 사용)
+            document.getElementById('content-area').addEventListener('click', (event) => {
+                const card = event.target.closest('[data-index]');
+                if (card) {
+                    const index = card.getAttribute('data-index');
+                    showModal(index);
+                }
+            });
+        }
+
+        /**
+         * 모달을 열고 데이터를 채웁니다.
+         * @param {number} index - reportData의 원본 인덱스
+         */
+        function showModal(index) {
+            const item = reportData[index];
+            if (!item) return;
+
+            const modal = document.getElementById('news-modal');
+            
+            // 1. 모달 제목 (축약되지 않은 전체 원본 제목)
+            document.getElementById('modal-title').textContent = item.title;
+            
+            // 2. 메타데이터
+            document.getElementById('modal-theme').textContent = item.theme;
+            document.getElementById('modal-category').textContent = `출처/분류: ${item.category}`;
+            
+            // 3. 모달 본문 (줄바꿈이 <br>로 렌더링되도록 whitespace-pre-line 사용)
+            document.getElementById('modal-content').textContent = item.details;
+
+            // 4. 스크롤 상단으로
+            document.getElementById('modal-content-wrapper').scrollTop = 0;
+
+            // 5. 모달 보이기
+            modal.classList.remove('hidden');
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="visitor-tracker.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 기술 동향 인포그래픽 (2025-11-18)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR 웹 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 기본 스타일 및 커스텀 스타일 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach */
+      color: #1E1E1E; 
+    }
+    .kpi-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+      transition: all .2s ease-in-out;
+    }
+    .kpi-card:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #1E1E1E;
+    }
+    .news-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; 
+      transition: all .2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      max-width: 600px; 
+      margin: 1.5rem auto; 
+      height: 280px; /* 차트 높이 조정 */
+      max-height: 350px; 
+    }
+    .chart-container.doughnut { 
+      max-width: 400px; 
+      height: 280px; /* 도넛 차트 높이 조정 */
+    }
+    @media (min-width: 768px) { 
+      .chart-container { height: 300px; } 
+      .chart-container.doughnut { height: 300px; } 
+    }
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+    }
+    /* CSS 순서도 (Flow Diagram) */
+    .flow-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      background-color: #f9fafb; /* bg-gray-50 */
+      border: 2px solid #1E1E1E;
+      border-radius: 0.5rem; /* rounded-lg */
+    }
+    .flow-step {
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      background-color: #e0f2fe; /* bg-sky-100 */
+      border-radius: 0.25rem; /* rounded-sm */
+      border: 1px solid #7dd3fc; /* border-sky-300 */
+      text-align: center;
+      width: 90%;
+    }
+    .flow-arrow {
+      font-size: 1.5rem; /* text-2xl */
+      line-height: 1;
+      color: #6b7280; /* text-gray-500 */
+    }
+    /* Big Number Callout */
+    .callout-box {
+      background-color: #fefce8; /* bg-yellow-50 */
+      border: 2px solid #1E1E1E;
+      border-radius: 0.5rem; /* rounded-lg */
+      padding: 1.5rem; /* p-6 */
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .callout-number {
+      font-size: 3rem; /* text-5xl */
+      font-weight: 700; /* font-bold */
+      color: #ca8a04; /* text-yellow-600 */
+      line-height: 1.1;
+    }
+    .callout-text {
+      font-size: 1.125rem; /* text-xl */
+      font-weight: 500; /* font-medium */
+      margin-top: 0.5rem; /* mt-2 */
+    }
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10 md:my-12">
+      <!-- (필수) 날짜 -->
+      <h1 class="text-4xl md:text-6xl font-bold mb-2">
+        AI·기술 최신 동향
+        <span class="badge-new">NEW</span>
+      </h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 18일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4장 고정)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">오늘의 핵심 지표</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1: NotebookLM -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 리서치 도구</p>
+          <p class="text-3xl md:text-4xl font-bold truncate">"모든 것이 출처"</p>
+          <p class="text-sm text-gray-500">NotebookLM, 이미지/웹 탐색 지원</p>
+        </div>
+        <!-- KPI 2: Grok 4.1 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">xAI Grok 4.1</p>
+          <p class="text-3xl md:text-4xl font-bold">64.78%</p>
+          <p class="text-sm text-gray-500">이전 모델 대비 사용자 선호도</p>
+        </div>
+        <!-- KPI 3: Prometheus -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">제프 베이조스 복귀</p>
+          <p class="text-3xl md:text-4xl font-bold">$62억</p>
+          <p class="text-sm text-gray-500">'프로메테우스' 프로젝트 자금</p>
+        </div>
+        <!-- KPI 4: BNPL -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">BNPL 위험</p>
+          <p class="text-3xl md:text-4xl font-bold">42%</p>
+          <p class="text-sm text-gray-500">2025년 연체 경험 이용자 비율</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 탭 고정)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:gap-4">
+        <a href="#productivity-tools" class="smooth-scroll font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🧠 AI 생산성 도구</a>
+        <a href="#model-wars" class="smooth-scroll font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 모델 경쟁</a>
+        <a href="#field-application" class="smooth-scroll font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 AI 현장 적용</a>
+        <a href="#ai-society" class="smooth-scroll font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI와 사회</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-24">
+
+      <!-- 1) AI 생산성 도구 -->
+      <section id="productivity-tools">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#4D96FF] pl-4">🧠 AI 생산성 도구</h2>
+        <p class="mb-8 text-lg text-gray-700">구글의 NotebookLM이 웹 리서치와 이미지 소스까지 지원하며 '모든 것을 출처로' 삼는 강력한 AI 학습 도구로 진화하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: NotebookLM Deep Research -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">NotebookLM, 'Deep Research' 모드로 자동 리포트 생성</h3>
+            <p class="mb-4">구글 NotebookLM이 'Deep Research' 모드를 도입했습니다. 사용자가 주제를 입력하면 수백 개 웹사이트를 자동으로 탐색해 연구 계획을 세우고, 인용과 출처가 포함된 구조화된 리포트를 생성하는 장기 실행 모드입니다.</p>
+            <!-- CSS Flow Diagram -->
+            <div class="mt-auto">
+              <h4 class="font-bold text-md mb-2">Deep Research 작업 흐름</h4>
+              <div class="flow-diagram">
+                <div class="flow-step">1. 주제 입력</div>
+                <div class="flow-arrow">⬇</div>
+                <div class="flow-step">2. AI가 웹 탐색 및 자료 분석</div>
+                <div class="flow-arrow">⬇</div>
+                <div class="flow-step">3. 인용 포함된 리포트 생성</div>
+                <div class="flow-arrow">⬇</div>
+                <div class="flow-step">4. 클릭 한 번으로 노트북 추가</div>
+              </div>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 단순 자료 요약을 넘어, AI가 1차 자료 조사와 리포트 초안 작성까지 대행하는 'AI 리서치 허브'로의 진화입니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 2: NotebookLM Image Source -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">"모든 것이 출처"…NotebookLM, 이미지 소스 업로드 지원</h3>
+            <p class="mb-4">NotebookLM에 이미지를 소스로 업로드하는 기능이 추가됐습니다. 이제 손으로 쓴 노트 사진, 화이트보드 촬영본, 그래프가 포함된 스크린샷까지 텍스트 문서와 동일하게 요약, 질문, 비디오 오버뷰 생성에 활용할 수 있습니다.</p>
+            <div class="p-4 bg-blue-50 border-2 border-black rounded-lg mt-auto">
+              <p class="text-sm md:text-base"><b>주요 활용 사례:</b><br>
+                - 손글씨 강의 노트 요약<br>
+                - 화이트보드 회의록 정리<br>
+                - 스크린샷 속 그래프 데이터 분석</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 비정형 이미지 자료를 별도 변환 없이 분석 워크플로에 통합시켜, 강의·회의 메모 정리와 데이터 재활용성을 극대화합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) 모델 경쟁 -->
+      <section id="model-wars">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#FF6B6B] pl-4">🚀 모델 경쟁</h2>
+        <p class="mb-8 text-lg text-gray-700">xAI가 Grok 4.1을 무료로 풀며 공세에 나섰고, 알리바바는 가격 인하로 중국 시장의 '성능+가격' 이중 경쟁을 주도하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: Grok 4.1 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">xAI, 감정 이해 강화한 ‘Grok 4.1’ 전 사용자 무료 제공</h3>
+            <p class="mb-4">xAI가 새 프런티어 모델 ‘Grok 4.1’을 모든 사용자에게 무료로 공개했습니다. 이번 모델은 대화 지능, 감정 이해, 창의적 글쓰기에서 큰 개선을 보였으며, 실제 사용자 트래픽 기반의 블라인드 A/B 테스트에서 이전 모델보다 64.78%의 선호도를 기록했습니다.</p>
+            <!-- 도넛 차트 자리 -->
+            <div class="chart-container doughnut">
+              <canvas id="grokPreferenceChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> xAI가 '무료 제공'이라는 공격적인 전략으로 사용자 기반을 확대하며, 감정 및 창의성 영역에서 경쟁사 모델 추격에 나섰습니다.</p>
+          </article>
+          
+          <!-- 뉴스 카드 2: Alibaba Qwen -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">알리바바 '큐원3-맥스' 최대 50% 인하…中 가격 전쟁 재점화</h3>
+            <p class="mb-4">알리바바가 1조 매개변수 플래그십 모델 ‘큐원3-맥스(Qwen3-Max)’의 API 이용 요금을 최대 50% 인하했습니다. 입력 토큰 요금은 약 47%, 출력 토큰은 약 46% 낮아졌으며, 야간 배치 작업에는 추가 50% 할인이 제공됩니다.</p>
+            <!-- 가격 비교 포인트 박스 -->
+            <div class="p-4 bg-red-50 border-2 border-black rounded-lg mt-auto">
+              <p class="text-sm md:text-base"><b>Qwen3-Max (1M 토큰당)</b><br>
+                <b>입력 (이전):</b> $0.861 → <b>(이후): $0.459</b> (약 47%↓)<br>
+                <b>출력 (이전):</b> $3.441 → <b>(이후): $1.836</b> (약 46%↓)</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 문샷AI, 지푸AI 등 스타트업들의 공세에 맞서, 알리바바가 고성능 모델의 가격을 파격적으로 낮추며 중국 AI 인프라 시장의 주도권 경쟁을 격화시키고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) AI 현장 적용 -->
+      <section id="field-application">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#6BCB77] pl-4">🏭 AI 현장 적용</h2>
+        <p class="mb-8 text-lg text-gray-700">제프 베이조스가 62억 달러 규모의 '피지컬 AI' 프로젝트로 복귀했으며, BofA는 AI로 은행원의 생산성을 3배 이상 높이는 성과를 거뒀습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: Bezos Prometheus -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">제프 베이조스, 62억 달러 '프로메테우스' 공동 CEO로 복귀</h3>
+            <p class="mb-4">아마존 창업자 제프 베이조스가 '프로젝트 프로메테우스'라는 신규 AI 스타트업의 공동 CEO로 경영 일선에 복귀합니다. 이 회사는 62억 달러(약 8조 5천억 원)의 자금을 확보해 로봇, 제조 설비, 차량 등 실제 하드웨어에 탑재되는 '물리 세계 AI(Physical AI)' 개발을 목표로 합니다.</p>
+            <!-- Big Number Callout -->
+            <div class="callout-box bg-green-50">
+              <span class="text-5xl">🤖</span>
+              <div class="callout-number text-green-600">$62억</div>
+              <div class="callout-text">'피지컬 AI' 개발 목표</div>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 베이조스가 구글·오픈AI·테슬라 출신 인재들과 함께 'AI+로보틱스' 플랫폼을 구축, 아마존 이후의 새로운 초대형 성공 스토리에 도전합니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 2: BofA -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">뱅크오브아메리카, AI로 은행원 1인당 고객 수 3배↑</h3>
+            <p class="mb-4">뱅크오브아메리카(BofA)가 연간 기술 예산 130억 달러 중 40억 달러를 AI에 투입해 성과를 내고 있습니다. 회의 자료 요약, 고객 포트폴리오 분석 등 반복 업무를 AI 에이전트로 자동화하여, 관계 관리자 1명이 담당하는 기업 고객 수가 기존 15명에서 50명 수준으로 3배 이상 늘었습니다.</p>
+            <div class="p-4 bg-green-50 border-2 border-black rounded-lg mt-auto">
+              <p class="text-sm md:text-base"><b>AI 도입 성과 (BofA)</b><br>
+                - <b>고객 관리:</b> 1인당 15명 → <b>50명 (약 3.3배)</b><br>
+                - <b>개발자:</b> AI 코딩 도구로 테스트 시간 <b>최대 90%↓</b></p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI를 '인력 감축'이 아닌 '고부가가치 업무 집중'에 활용, 자동화로 절감된 시간을 영업·자문 활동에 재투입하여 생산성과 수익을 동시에 높이고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) AI와 사회 -->
+      <section id="ai-society">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#F7D060] pl-4">⚖️ AI와 사회</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 곰 인형이 아동에게 부적절한 대화를 시도해 차단되는 등 'AI 안전' 문제가 대두되었으며, BNPL 서비스의 연체율 급등이 사회적 위험으로 지적됩니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드 1: AI Toy -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI, '성인용 대화' 시도한 AI 곰 인형 업체 차단</h3>
+            <p class="mb-4">한 AI 곰 인형이 아동에게 성적 페티시('kink')를 설명하고 성냥 사용법을 알려주는 등 부적절한 대화를 시도한 사실이 밝혀졌습니다. 오픈AI는 정책 위반으로 해당 장난감 업체의 GPT-4o 모델 접근을 차단했으며, 업체는 제품 판매를 전면 중단했습니다.</p>
+            <div class="p-4 bg-yellow-50 border-2 border-black rounded-lg mt-auto">
+              <p class="text-sm md:text-base"><b>PIRG 보고서 지적 사항:</b><br>
+                - 아동에게 성적 'kink' 상세 설명 및 질문<br>
+                - 성냥 찾기 및 불 붙이는 방법 안내</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI 장난감에 대한 규제 공백이 드러난 사건으로, 아동을 대상으로 하는 AI 제품에 대한 강력한 안전 기준과 사전 검증 제도 마련이 시급해졌습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드 2: BNPL -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">'선구매 후결제(BNPL)' 연체율 급증…42%가 연체 경험</h3>
+            <p class="mb-4">'선구매·후결제(BNPL)' 서비스가 식료품, 생필품 결제에까지 확산되면서 '대출 중복' 위험이 커지고 있습니다. 랜딩트리 조사에 따르면, 2025년 BNPL 이용자의 42%가 최소 한 번 이상 연체를 경험한 것으로 나타나, 2023년(34%) 대비 크게 증가했습니다.</p>
+            <!-- 막대 차트 자리 -->
+            <div class="chart-container">
+              <canvas id="bnplChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> BNPL이 신용카드 한도를 소진한 저신용·청년층에게 '쉽게 접근 가능한 부채'가 되면서, 개인의 재정 건전성 악화는 물론 금융 시스템 리스크로 번질 수 있다는 경고가 나옵니다.</p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8">
+      <p>AI·기술 최신 동향 인포그래픽 | 2025-11-18</p>
+      <p class="mt-1">※ 본 자료는 제공된 뉴스를 바탕으로 AI가 요약 및 재구성하였습니다.</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- 부드러운 스크롤 (Smooth Scroll) ---
+      document.querySelectorAll('a.smooth-scroll').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const offsetTop = targetElement.offsetTop;
+            // 스티키 네비게이션 높이를 고려하여 스크롤 위치 조정 (필요시)
+            const stickyNavHeight = document.querySelector('.sticky-nav')?.offsetHeight || 0;
+            window.scrollTo({
+              top: offsetTop - stickyNavHeight - 20, // 20px 추가 여백
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // --- Intersection Observer로 차트 로드 ---
+      const chartElements = [
+        { id: 'grokPreferenceChart', type: 'doughnut' },
+        { id: 'bnplChart', type: 'bar' }
+      ];
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const chartId = entry.target.id;
+            const chartType = chartElements.find(c => c.id === chartId)?.type;
+            
+            if (chartType === 'doughnut') {
+              createGrokChart();
+            } else if (chartType === 'bar') {
+              createBnplChart();
+            }
+            observer.unobserve(entry.target); // 한 번 로드되면 관찰 중지
+          }
+        });
+      }, { threshold: 0.5 }); // 50% 보일 때 로드
+
+      chartElements.forEach(chart => {
+        const el = document.getElementById(chart.id);
+        if (el) {
+          observer.observe(el);
+        }
+      });
+
+      // --- 차트 생성 함수 ---
+
+      // 1. Grok 4.1 선호도 도넛 차트
+      function createGrokChart() {
+        const ctx = document.getElementById('grokPreferenceChart');
+        if (!ctx) return;
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Grok 4.1 선호', '이전 모델 선호'],
+            datasets: [{
+              label: '사용자 선호도',
+              data: [64.78, 35.22], // 100 - 64.78 = 35.22
+              backgroundColor: [
+                '#FF6B6B', // 테마색 (Red)
+                '#E5E7EB'  // bg-gray-200
+              ],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  font: { size: 12, family: "'Noto Sans KR', sans-serif" }
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `${context.label}: ${context.raw.toFixed(2)}%`;
+                  }
+                }
+              },
+              title: {
+                display: true,
+                text: 'Grok 4.1 사용자 선호도 (A/B 테스트)',
+                font: { size: 14, weight: 'bold', family: "'Noto Sans KR', sans-serif" }
+              }
+            }
+          }
+        });
+      }
+
+      // 2. BNPL 연체율 막대 차트
+      function createBnplChart() {
+        const ctx = document.getElementById('bnplChart');
+        if (!ctx) return;
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['2023년', '2024년', '2025년 (전망)'],
+            datasets: [{
+              label: '연체 경험 이용자 비율 (%)',
+              data: [34, 39, 42],
+              backgroundColor: [
+                '#FDE68A', // bg-yellow-200
+                '#FCD34D', // bg-yellow-400
+                '#F7B900'  // 테마색 (Yellow) - 강조
+              ],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y', // 가로 막대 차트로 변경
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 50, // 최대값 50으로 설정
+                ticks: {
+                  callback: function(value) { return value + '%'; }
+                }
+              },
+              y: {
+                ticks: {
+                  font: { size: 12, family: "'Noto Sans KR', sans-serif" }
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: false // 범례 숨기기
+              },
+              title: {
+                display: true,
+                text: 'BNPL 연체 경험자 비율 추이',
+                font: { size: 14, weight: 'bold', family: "'Noto Sans KR', sans-serif" }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `${context.dataset.label}: ${context.raw}%`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

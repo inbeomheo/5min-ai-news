@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>5분 AI 뉴스 인포그래픽 - 2025년 11월 30일</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 디자인 테마: Neo-Brutalism (Bold borders, hard shadows) */
+    :root {
+      --bg-color: #FDF0E0;
+      --card-bg: #FFFFFF;
+      --border-color: #1E1E1E;
+      --shadow-color: #1E1E1E;
+      --accent-red: #FF6B6B;
+      --accent-blue: #4D96FF;
+      --accent-yellow: #F7D060;
+      --accent-green: #6BCB77;
+    }
+
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: var(--bg-color);
+      color: var(--border-color);
+    }
+    
+    /* 공통 카드 스타일 */
+    .info-card { 
+      background: var(--card-bg); 
+      border: 3px solid var(--border-color); 
+      box-shadow: 6px 6px 0px var(--shadow-color); 
+      transition: all 0.2s ease-in-out; 
+      position: relative;
+      overflow: hidden;
+    }
+    .info-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0px var(--shadow-color); 
+    }
+
+    /* KPI 카드 스타일 */
+    .kpi-box {
+      background: white;
+      border: 2px solid black;
+      box-shadow: 4px 4px 0 black;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* 태그 스타일 */
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border: 1.5px solid black;
+      border-radius: 9999px;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      background-color: #f3f4f6;
+    }
+
+    /* Type B: VS Badge */
+    .vs-badge {
+      background: black;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-style: italic;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      border: 2px solid white;
+    }
+
+    /* 흐름 화살표 */
+    .arrow-right::after { content: "→"; font-weight: 900; margin-left: 0.5rem; color: var(--border-color); }
+    
+    /* Why it matters 박스 */
+    .insight-box {
+      background-color: #f8fafc;
+      border-top: 2px solid black;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: start;
+    }
+
+    /* 차트 컨테이너 */
+    .chart-container { position: relative; width: 100%; height: 200px; }
+  </style>
+</head>
+<body>
+
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    
+    <!-- HEADER -->
+    <header class="text-center my-10">
+      <div class="inline-block bg-black text-white px-4 py-1 text-sm font-black mb-3 transform -rotate-2 shadow-[4px_4px_0_rgba(0,0,0,0.2)]">
+        DAILY TECH INSIGHT
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight uppercase">AI·기술 동향 리포트</h1>
+      <p class="text-xl font-bold text-gray-700">2025년 11월 30일 (일)</p>
+    </header>
+
+    <!-- KPI DASHBOARD (최상단 핵심 지표) -->
+    <section class="mb-16">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="kpi-box">
+          <p class="text-xs font-bold text-gray-500 uppercase">Dev Paradigm</p>
+          <p class="text-3xl md:text-4xl font-black text-red-500 my-1">Vibe</p>
+          <p class="text-sm font-bold">Coding Era</p>
+        </div>
+        <div class="kpi-box">
+          <p class="text-xs font-bold text-gray-500 uppercase">Gov Cloud</p>
+          <p class="text-3xl md:text-4xl font-black text-blue-600 my-1">1.3<span class="text-xl">GW</span></p>
+          <p class="text-sm font-bold">AWS 증설</p>
+        </div>
+        <div class="kpi-box">
+          <p class="text-xs font-bold text-gray-500 uppercase">China AI Share</p>
+          <p class="text-3xl md:text-4xl font-black text-yellow-500 my-1">17<span class="text-xl">%</span></p>
+          <p class="text-sm font-bold">Global No.1</p>
+        </div>
+        <div class="kpi-box">
+          <p class="text-xs font-bold text-gray-500 uppercase">Security ROI</p>
+          <p class="text-3xl md:text-4xl font-black text-green-600 my-1">-$1.9<span class="text-xl">M</span></p>
+          <p class="text-sm font-bold">비용 절감</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STICKY NAV -->
+    <nav class="sticky top-4 z-50 mb-12 flex justify-center space-x-2 md:space-x-4 overflow-x-auto py-2">
+      <a href="#agents" class="bg-white border-2 border-black px-4 py-2 font-bold hover:bg-red-100 shadow-[4px_4px_0_black] transition-transform active:translate-y-1 active:shadow-[2px_2px_0_black]">🤖 에이전트</a>
+      <a href="#infra" class="bg-white border-2 border-black px-4 py-2 font-bold hover:bg-blue-100 shadow-[4px_4px_0_black] transition-transform active:translate-y-1 active:shadow-[2px_2px_0_black]">🏗️ 인프라</a>
+      <a href="#global" class="bg-white border-2 border-black px-4 py-2 font-bold hover:bg-yellow-100 shadow-[4px_4px_0_black] transition-transform active:translate-y-1 active:shadow-[2px_2px_0_black]">🌏 글로벌</a>
+      <a href="#law" class="bg-white border-2 border-black px-4 py-2 font-bold hover:bg-green-100 shadow-[4px_4px_0_black] transition-transform active:translate-y-1 active:shadow-[2px_2px_0_black]">⚖️ 규제</a>
+    </nav>
+
+    <!-- CONTENT GRID -->
+    <div class="space-y-20">
+
+      <!-- ==========================================
+           SECTION 1: AGENTS (Type C + Type A)
+           ========================================== -->
+      <section id="agents" class="scroll-mt-24">
+        <h2 class="text-3xl font-black mb-6 flex items-center">
+          <span class="bg-red-500 w-6 h-6 inline-block mr-3 border-2 border-black"></span>
+          슈퍼 에이전트 혁명
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- CARD 1: Type C (Process Flow) -->
+          <article class="info-card p-6">
+            <div class="mb-4">
+              <span class="tag bg-red-100">#ClaudeOpus4.5</span>
+              <span class="tag bg-gray-100">#NoCode</span>
+              <h3 class="text-2xl font-bold mt-2">바이브 코딩(Vibe Coding)의 시대</h3>
+            </div>
+            
+            <!-- Process Visualization -->
+            <div class="flex flex-col space-y-3 my-6">
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-black flex items-center justify-center text-xl bg-white shadow-[2px_2px_0_black] z-10">🗣️</div>
+                <div class="flex-1 ml-[-15px] pl-6 border-2 border-black py-2 pr-3 bg-gray-50 rounded-r-lg text-sm font-bold">
+                  "이런 앱 만들어줘" (자연어)
+                </div>
+              </div>
+              <div class="flex justify-center text-2xl font-black text-gray-300">⬇</div>
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-black flex items-center justify-center text-xl bg-red-100 shadow-[2px_2px_0_black] z-10">🤖</div>
+                <div class="flex-1 ml-[-15px] pl-6 border-2 border-black py-2 pr-3 bg-red-50 rounded-r-lg text-sm font-bold">
+                  AI가 풀스택 코드 작성
+                </div>
+              </div>
+              <div class="flex justify-center text-2xl font-black text-gray-300">⬇</div>
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-black flex items-center justify-center text-xl bg-white shadow-[2px_2px_0_black] z-10">📱</div>
+                <div class="flex-1 ml-[-15px] pl-6 border-2 border-black py-2 pr-3 bg-gray-50 rounded-r-lg text-sm font-bold">
+                  앱/서비스 즉시 배포
+                </div>
+              </div>
+            </div>
+
+            <div class="insight-box">
+              <span class="text-xl mr-2">💡</span>
+              <p><b>Insight:</b> 코딩 기술보다 '기획력'과 '지시 능력'이 개발자의 핵심 역량이 되는 패러다임 전환.</p>
+            </div>
+          </article>
+
+          <!-- CARD 2: Type A (Analysis with Big Number) -->
+          <article class="info-card p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <span class="tag bg-blue-100">#AgenticAI</span>
+                <span class="tag bg-gray-100">#Automation</span>
+                <h3 class="text-2xl font-bold mt-2 leading-tight">AI 에이전트,<br>기업 도입 본격화</h3>
+              </div>
+              <!-- Big Number Block -->
+              <div class="text-right">
+                <p class="text-xs font-bold text-gray-500">주류 채택까지</p>
+                <p class="text-5xl font-black text-blue-600">3~5<span class="text-2xl text-black">년</span></p>
+              </div>
+            </div>
+
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2 font-bold">✅</span>
+                <span class="text-sm font-medium">단순 챗봇 ➜ <b>자율 수행 파트너</b>로 진화</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-500 mr-2 font-bold">⚠️</span>
+                <span class="text-sm font-medium">데이터 통합 복잡성 & 책임 소재가 걸림돌</span>
+              </li>
+            </ul>
+
+            <div class="bg-gray-800 text-white p-3 rounded text-sm italic border border-black">
+              "에이전틱 AI는 어시스턴트에서 자율 협업자로의 도약이다." <br>
+              <span class="text-gray-400 not-italic text-xs block mt-1">- 톨가 쿠르톡루 (레노버 CTO)</span>
+            </div>
+            
+            <div class="insight-box">
+              <span class="text-xl mr-2">💡</span>
+              <p><b>Insight:</b> 기업 생산성의 다음 레벨은 '시키는 AI'가 아닌 '알아서 하는 AI'에 달려있음.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      <!-- ==========================================
+           SECTION 2: INFRASTRUCTURE (Type A + Type B)
+           ========================================== -->
+      <section id="infra" class="scroll-mt-24">
+        <h2 class="text-3xl font-black mb-6 flex items-center">
+          <span class="bg-blue-500 w-6 h-6 inline-block mr-3 border-2 border-black"></span>
+          인프라 & 에너지 전쟁
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- CARD 3: Type A (Big Number & Chart) -->
+          <article class="info-card p-6">
+            <div class="flex flex-col h-full">
+              <div class="mb-4">
+                <span class="tag bg-yellow-100">#AWS</span>
+                <span class="tag bg-yellow-100">#DataCenter</span>
+                <h3 class="text-2xl font-bold mt-2">AWS의 거침없는 질주</h3>
+              </div>
+
+              <div class="flex items-baseline mb-2">
+                 <span class="text-4xl font-black text-blue-600 mr-2">$1,320억</span>
+                 <span class="text-sm font-bold text-gray-500">연간 매출 Run-rate</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6 border border-black">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 85%"></div>
+              </div>
+
+              <p class="text-sm font-bold mb-2">🚀 주요 투자 포인트:</p>
+              <ul class="text-sm space-y-1 mb-4">
+                <li>• 미 정부용 1.3GW 전력 추가 확보</li>
+                <li>• 엔비디아 GPU + 자체 칩(Trainium) 투트랙</li>
+              </ul>
+
+              <div class="insight-box mt-auto">
+                <span class="text-xl mr-2">💡</span>
+                <p><b>Insight:</b> 클라우드 인프라 규모가 곧 AI 경쟁력의 척도가 됨.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 4: Type B (VS Layout) -->
+          <article class="info-card bg-gray-50 p-0">
+            <div class="p-4 bg-black text-white text-center font-bold border-b-2 border-black">
+              ⚡ 에너지 딜레마
+            </div>
+            <div class="relative grid grid-cols-2 h-full">
+              <!-- VS Badge -->
+              <div class="vs-badge">VS</div>
+              
+              <!-- Left: Tech -->
+              <div class="p-4 flex flex-col items-center justify-center text-center border-r-2 border-black border-dashed">
+                <div class="text-4xl mb-2">🤖</div>
+                <h4 class="font-bold text-blue-600 mb-1">AI 수요 폭발</h4>
+                <p class="text-xs font-medium">데이터센터 전력 급증</p>
+                <div class="mt-2 bg-blue-100 px-2 py-1 rounded text-xs font-bold border border-black">전력 부족 심화</div>
+              </div>
+
+              <!-- Right: Environment -->
+              <div class="p-4 flex flex-col items-center justify-center text-center">
+                <div class="text-4xl mb-2">🏭</div>
+                <h4 class="font-bold text-gray-600 mb-1">석탄의 부활</h4>
+                <p class="text-xs font-medium">발전소 폐쇄 연기</p>
+                <div class="mt-2 bg-gray-200 px-2 py-1 rounded text-xs font-bold border border-black text-gray-500">탈탄소 후퇴</div>
+              </div>
+            </div>
+            
+            <div class="p-4 border-t-2 border-black bg-white">
+                <p class="text-sm text-center font-bold">"AI 붐이 '어제의 에너지'인 석탄 수명을 연장시키고 있다."</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SECTION 3: GLOBAL (Chart Focus)
+           ========================================== -->
+      <section id="global" class="scroll-mt-24">
+        <h2 class="text-3xl font-black mb-6 flex items-center">
+          <span class="bg-yellow-400 w-6 h-6 inline-block mr-3 border-2 border-black"></span>
+          글로벌 패권: 🇨🇳 vs 🇺🇸
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- CARD 5: Type B (Chart & VS) -->
+          <article class="info-card p-6">
+             <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">오픈소스 모델 점유율</h3>
+                <span class="bg-yellow-100 border border-black px-2 py-1 text-xs font-bold">MIT/HuggingFace</span>
+             </div>
+             
+             <!-- Chart Area -->
+             <div class="flex justify-center mb-4">
+               <div class="chart-container" style="height: 180px; width: 180px;">
+                 <canvas id="opensourceChart"></canvas>
+               </div>
+             </div>
+
+             <div class="grid grid-cols-2 gap-2 text-center text-sm font-bold">
+               <div class="p-2 bg-yellow-50 rounded border border-yellow-200">
+                 <p class="text-yellow-600">중국 (DeepSeek)</p>
+                 <p class="text-xl">17.0%</p>
+               </div>
+               <div class="p-2 bg-blue-50 rounded border border-blue-200">
+                 <p class="text-blue-600">미국 (Llama 등)</p>
+                 <p class="text-xl">15.8%</p>
+               </div>
+             </div>
+             
+             <div class="insight-box">
+                <span class="text-xl mr-2">💡</span>
+                <p><b>Insight:</b> 중국은 '저비용 고효율' 오픈소스 전략으로 생태계 침투 중.</p>
+              </div>
+          </article>
+
+          <!-- CARD 6: Type A (Product Focus) -->
+          <article class="info-card p-6">
+            <span class="tag bg-orange-100">#Alibaba</span>
+            <span class="tag bg-black text-white">#Wearable</span>
+            <h3 class="text-2xl font-bold mt-2">알리바바 'Qwen' 안경</h3>
+
+            <div class="flex items-center space-x-4 my-6">
+              <div class="text-6xl">👓</div>
+              <div>
+                <p class="text-xs text-gray-500 font-bold uppercase">Starting Price</p>
+                <p class="text-3xl font-black">¥1,899 <span class="text-base font-normal text-gray-500">(~$268)</span></p>
+              </div>
+            </div>
+
+            <div class="bg-gray-100 p-3 rounded border border-gray-300">
+              <p class="text-xs font-bold text-gray-500 mb-2">KEY FEATURES</p>
+              <div class="flex gap-2">
+                <span class="bg-white border border-black px-2 py-1 text-xs font-bold rounded">실시간 번역</span>
+                <span class="bg-white border border-black px-2 py-1 text-xs font-bold rounded">가격 인식</span>
+                <span class="bg-white border border-black px-2 py-1 text-xs font-bold rounded">길 안내</span>
+              </div>
+            </div>
+
+            <div class="insight-box">
+              <span class="text-xl mr-2">💡</span>
+              <p><b>Insight:</b> 메타/애플 장악 시장에 '생활형/저가' 전략으로 틈새 공략.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SECTION 4: REGULATION & SECURITY
+           ========================================== -->
+      <section id="law" class="scroll-mt-24">
+        <h2 class="text-3xl font-black mb-6 flex items-center">
+          <span class="bg-green-500 w-6 h-6 inline-block mr-3 border-2 border-black"></span>
+          규제와 방어
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- CARD 7: Type A (Security Savings) -->
+          <article class="info-card p-6 bg-green-50">
+            <h3 class="text-xl font-bold mb-4">🛡️ AI 보안의 경제적 가치</h3>
+            
+            <div class="flex items-center justify-between bg-white p-4 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,0.1)] mb-4">
+              <div>
+                <p class="text-xs font-bold text-gray-500">침해 사고당 절감액</p>
+                <p class="text-3xl font-black text-green-600">$190만</p>
+              </div>
+              <div class="text-right">
+                <p class="text-xs font-bold text-gray-500">탐지 정확도</p>
+                <p class="text-xl font-bold text-black">>99%</p>
+              </div>
+            </div>
+
+            <p class="text-sm font-medium text-gray-700 mb-2">
+              "AI는 해커의 무기이자 방어자의 방패다."
+            </p>
+            <div class="w-full bg-gray-300 h-2 rounded overflow-hidden">
+               <div class="bg-green-500 h-full" style="width: 68%"></div>
+            </div>
+            <p class="text-right text-xs mt-1 font-bold">68% 조직이 이미 도입 중</p>
+
+            <div class="insight-box bg-white">
+              <span class="text-xl mr-2">💡</span>
+              <p><b>Insight:</b> AI 보안 도입은 선택이 아닌 비용 절감을 위한 필수 생존 전략.</p>
+            </div>
+          </article>
+
+          <!-- CARD 8: Type B (Regulation Conflict) -->
+          <article class="info-card p-0">
+             <div class="p-4 border-b-2 border-black">
+               <span class="tag bg-purple-100">#Policy</span>
+               <h3 class="text-xl font-bold mt-1">규제 전쟁: 주(State) vs 연방</h3>
+             </div>
+             
+             <div class="grid grid-cols-2 h-48 relative bg-white">
+                <div class="vs-badge border-2 border-black">VS</div>
+                
+                <!-- Texas -->
+                <div class="p-4 border-r border-black flex flex-col justify-center items-center text-center bg-red-50">
+                  <span class="text-3xl mb-2">🤠</span>
+                  <p class="font-black text-lg">텍사스 (TRAIGA)</p>
+                  <p class="text-xs text-gray-600 mt-1">"시민 보호 우선,<br>사회적 점수제 금지"</p>
+                </div>
+
+                <!-- Federal -->
+                <div class="p-4 flex flex-col justify-center items-center text-center bg-blue-50">
+                  <span class="text-3xl mb-2">🏛️</span>
+                  <p class="font-black text-lg">연방 정부</p>
+                  <p class="text-xs text-gray-600 mt-1">"단일 표준 필요,<br>빅테크 로비 영향"</p>
+                </div>
+             </div>
+
+             <div class="insight-box m-0 border-t-2 border-black bg-gray-50">
+              <span class="text-xl mr-2">💡</span>
+              <p><b>Insight:</b> 워싱턴의 일괄 규제 시도에 맞서 지방 정부의 입법 저항이 거세짐.</p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 pt-10 border-t-4 border-black text-center pb-10">
+      <p class="font-black text-xl mb-2">AI NEWS INFOGRAPHIC</p>
+      <p class="text-sm font-bold text-gray-500">Generated by AI Assistant • 2025.11.30</p>
+    </footer>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Chart.js Setup with Intersection Observer
+    const chartConfig = {
+      type: 'doughnut',
+      data: {
+        labels: ['중국(17%)', '미국(15.8%)', '기타'],
+        datasets: [{
+          data: [17, 15.8, 67.2],
+          backgroundColor: ['#F7D060', '#4D96FF', '#E5E7EB'],
+          borderColor: '#1E1E1E',
+          borderWidth: 2,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        cutout: '60%',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.id === 'opensourceChart' && !Chart.getChart('opensourceChart')) {
+             new Chart(document.getElementById('opensourceChart'), chartConfig);
+          }
+        }
+      });
+    });
+
+    document.querySelectorAll('canvas').forEach(canvas => observer.observe(canvas));
+  </script>
+</body>
+</html>

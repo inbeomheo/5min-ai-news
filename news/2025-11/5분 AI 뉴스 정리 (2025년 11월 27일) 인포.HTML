@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI·기술 동향 인포그래픽 - 2025년 11월 27일</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; background-color: #FDF0E0; color:#1E1E1E; }
+    
+    /* 레트로 카드 스타일 */
+    .kpi-card { background:#fff; border:2px solid #1E1E1E; box-shadow:4px 4px 0 #1E1E1E; transition: transform 0.2s; }
+    .kpi-card:hover { transform: translateY(-2px); }
+    
+    .news-card { background:#fff; border:2px solid #1E1E1E; box-shadow:6px 6px 0 #1E1E1E; transition: all .2s ease-in-out; border-radius: 12px; }
+    .news-card:hover { transform: translate(2px,2px); box-shadow:4px 4px 0 #1E1E1E; }
+    
+    .chart-container { position:relative; width:100%; height:250px; margin-top: 1rem; }
+    
+    .sticky-nav { position:sticky; top:0; z-index:50; }
+    
+    /* 흐름도 스타일 */
+    .flow-step { @apply bg-white border-2 border-black p-2 rounded text-center font-bold text-sm shadow-[2px_2px_0px_#000]; }
+    .flow-arrow { @apply text-2xl font-bold text-gray-400 rotate-90 md:rotate-0; }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+    <!-- =========================
+         HEADER
+         ========================= -->
+    <header class="text-center my-10 space-y-4">
+      <div class="inline-block bg-[#1E1E1E] text-[#FDF0E0] px-4 py-1 rounded-full text-sm font-bold mb-2">DAILY BRIEF</div>
+      <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight">AI·기술 최신 동향</h1>
+      <p class="text-xl font-medium text-gray-700" id="report-date">2025년 11월 27일 (목)</p>
+      <p class="text-sm text-gray-500">큐레이션: AI 뉴스 인포그래픽 어시스턴트</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW
+         ========================= -->
+    <section id="kpi-overview" class="mb-16">
+      <h2 class="sr-only">핵심 지표 요약</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <!-- KPI 1 -->
+        <div class="kpi-card p-4 rounded-xl text-center flex flex-col justify-center items-center bg-white">
+          <span class="text-2xl mb-2">🤖</span>
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">에이전트 확장</p>
+          <p class="text-3xl md:text-4xl font-black text-[#4D96FF]">23%</p>
+          <p class="text-xs text-gray-400 mt-1">기업 본격 도입 단계</p>
+        </div>
+        <!-- KPI 2 -->
+        <div class="kpi-card p-4 rounded-xl text-center flex flex-col justify-center items-center bg-white">
+          <span class="text-2xl mb-2">💰</span>
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">인프라 계약</p>
+          <p class="text-3xl md:text-4xl font-black text-[#FF6B6B]">$30억</p>
+          <p class="text-xs text-gray-400 mt-1">Nebius-Meta 파트너십</p>
+        </div>
+        <!-- KPI 3 -->
+        <div class="kpi-card p-4 rounded-xl text-center flex flex-col justify-center items-center bg-white">
+          <span class="text-2xl mb-2">🔬</span>
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">과학 미션</p>
+          <p class="text-2xl md:text-3xl font-black text-[#6BCB77]">Genesis</p>
+          <p class="text-xs text-gray-400 mt-1">美 백악관 국책 프로젝트</p>
+        </div>
+        <!-- KPI 4 -->
+        <div class="kpi-card p-4 rounded-xl text-center flex flex-col justify-center items-center bg-white">
+          <span class="text-2xl mb-2">⚖️</span>
+          <p class="text-sm md:text-base font-bold text-gray-500 mb-1">규제 유예</p>
+          <p class="text-3xl md:text-4xl font-black text-[#F7D060]">2027년</p>
+          <p class="text-xs text-gray-400 mt-1">EU AI법안 시행 연기</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/90 backdrop-blur-md py-4 mb-12 border-y-2 border-[#1E1E1E] -mx-4 md:-mx-8 px-4 md:px-8">
+      <div class="flex justify-between md:justify-center overflow-x-auto space-x-2 md:space-x-6 hide-scrollbar">
+        <a href="#science" class="whitespace-nowrap font-bold py-2 px-4 rounded-lg border border-transparent hover:bg-[#6BCB77] hover:border-black hover:text-white hover:shadow-[2px_2px_0px_#000] transition-all">🔬 AI와 과학</a>
+        <a href="#agents" class="whitespace-nowrap font-bold py-2 px-4 rounded-lg border border-transparent hover:bg-[#4D96FF] hover:border-black hover:text-white hover:shadow-[2px_2px_0px_#000] transition-all">🤖 에이전트</a>
+        <a href="#infra" class="whitespace-nowrap font-bold py-2 px-4 rounded-lg border border-transparent hover:bg-[#FF6B6B] hover:border-black hover:text-white hover:shadow-[2px_2px_0px_#000] transition-all">🚀 인프라</a>
+        <a href="#regulation" class="whitespace-nowrap font-bold py-2 px-4 rounded-lg border border-transparent hover:bg-[#F7D060] hover:border-black hover:text-white hover:shadow-[2px_2px_0px_#000] transition-all">⚖️ 규제와 사회</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-24">
+
+      <!-- SECTION 1: AI & Science -->
+      <section id="science" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <div class="w-2 h-8 bg-[#6BCB77] mr-3 border border-black"></div>
+          <h2 class="text-2xl md:text-3xl font-black">🔬 AI와 과학 혁명</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 leading-relaxed">미국 백악관이 'Genesis Mission'을 공식 런칭하며, 연방 과학 데이터와 AI를 결합해 과학적 발견의 속도를 획기적으로 높이겠다는 국가 전략을 발표했습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-3 leading-snug">백악관, 국가 AI 과학 프로젝트 'Genesis Mission' 런칭</h3>
+              <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                바이든 행정부가 AI를 활용해 신소재 개발, 기후 예측 등 난제 해결을 목표로 하는 범국가적 프로젝트를 시작했습니다. 수십 년간 축적된 연방 과학 데이터를 AI 학습에 전면 개방합니다.
+              </p>
+              <!-- Visualization: Flow Diagram -->
+              <div class="bg-green-50 p-4 rounded-lg border border-[#6BCB77] mb-4">
+                <p class="text-xs font-bold text-[#6BCB77] mb-2 text-center uppercase">Genesis 작업 흐름</p>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-2">
+                  <div class="flow-step">연방 데이터<br>개방</div>
+                  <div class="flow-arrow">➜</div>
+                  <div class="flow-step">AI 모델<br>학습</div>
+                  <div class="flow-arrow">➜</div>
+                  <div class="flow-step">과학적<br>가설 검증</div>
+                </div>
+              </div>
+            </div>
+            <p class="pt-4 border-t border-gray-100 text-sm font-medium text-gray-800">
+              💡 <span class="bg-[#6BCB77]/30 px-1">핵심:</span> 정부 주도의 'AI + 기초과학' 융합이 본격화되며 연구 패러다임이 전환되고 있습니다.
+            </p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-3 leading-snug">영국 정부, 'AI for Science' 전략 발표</h3>
+              <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                영국 역시 신약 개발 기간 단축과 핵융합 제어 최적화에 AI를 투입하는 로드맵을 공개했습니다. AI가 실험실의 보조자를 넘어 주도적인 연구자로 진화하고 있음을 시사합니다.
+              </p>
+            </div>
+            <div class="bg-gray-100 p-4 rounded text-center border border-gray-300">
+              <p class="text-xs text-gray-500 mb-1">기대 효과</p>
+              <p class="font-bold text-lg">신약 개발 기간 <span class="text-[#6BCB77]">50% 단축</span> 예상</p>
+            </div>
+            <p class="pt-4 mt-4 border-t border-gray-100 text-sm font-medium text-gray-800">
+              💡 <span class="bg-[#6BCB77]/30 px-1">핵심:</span> 과학 기술 주권 확보를 위한 선진국들의 AI 인프라 경쟁이 치열해지고 있습니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 2: AI Agents -->
+      <section id="agents" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <div class="w-2 h-8 bg-[#4D96FF] mr-3 border border-black"></div>
+          <h2 class="text-2xl md:text-3xl font-black">🤖 에이전트 전쟁</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 leading-relaxed">OpenAI의 새로운 모델 출시와 함께, 단순 챗봇을 넘어 스스로 작업을 수행하는 'AI 에이전트'가 기업 현장에 빠르게 침투하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6">
+            <h3 class="text-xl font-bold mb-3 leading-snug">OpenAI, 추론 능력 강화된 'GPT-5.1' 공개</h3>
+            <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+              복잡한 작업을 스스로 계획하고 수정하는 향상된 추론 능력을 갖춘 GPT-5.1이 출시되었습니다. 이는 Google Gemini와의 경쟁에서 기술적 우위를 점하기 위한 전략적 행보로 풀이됩니다.
+            </p>
+            <p class="text-sm font-medium text-gray-800 bg-blue-50 p-3 rounded border border-blue-200">
+              💡 <span class="bg-[#4D96FF]/30 px-1">핵심:</span> 대화형 AI를 넘어 '행동하는 AI'로의 전환이 가속화되고 있습니다.
+            </p>
+          </article>
+
+          <!-- News Card 2 (Chart) -->
+          <article class="news-card p-6">
+            <h3 class="text-xl font-bold mb-3 leading-snug">McKinsey 보고서: 에이전트 도입 본격화</h3>
+            <p class="text-gray-600 mb-2 text-sm">
+              설문조사 결과 기업의 AI 사용률은 88%로 증가했으며, 특히 23%의 기업이 에이전트 시스템을 확장(Scaling) 단계로 운영 중입니다.
+            </p>
+            <!-- Chart Container -->
+            <div class="chart-container">
+              <canvas id="agentChart"></canvas>
+            </div>
+            <p class="text-center text-xs text-gray-400 mt-2">출처: McKinsey State of AI 2025</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 3: Infrastructure -->
+      <section id="infra" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <div class="w-2 h-8 bg-[#FF6B6B] mr-3 border border-black"></div>
+          <h2 class="text-2xl md:text-3xl font-black">🚀 인프라 스트럭처</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 leading-relaxed">폭발적인 AI 연산 수요를 감당하기 위한 차세대 메모리 기술과 막대한 규모의 데이터센터 투자가 이어지고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-3 leading-snug">d-Matrix, 세계 최초 '3D DRAM' 기반 가속기 발표</h3>
+              <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                기존 메모리 병목 현상을 해결하기 위해 DRAM을 3차원으로 적층한 3DIMC 기술이 공개되었습니다. 이는 생성형 AI 추론 비용을 획기적으로 낮출 것으로 기대됩니다.
+              </p>
+            </div>
+            <!-- Big Number Callout -->
+            <div class="flex items-center justify-between bg-red-50 p-4 rounded-lg border-2 border-[#FF6B6B] shadow-[2px_2px_0px_#FF6B6B]">
+              <span class="font-bold text-gray-600">성능 효율</span>
+              <span class="text-2xl font-black text-[#FF6B6B]">▲ 44%</span>
+            </div>
+            <p class="pt-4 mt-4 border-t border-gray-100 text-sm font-medium text-gray-800">
+              💡 <span class="bg-[#FF6B6B]/30 px-1">핵심:</span> 값비싼 HBM을 대체할 새로운 메모리 아키텍처가 등장했습니다.
+            </p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-3 leading-snug">Nebius Group, Meta와 30억 달러 인프라 계약</h3>
+              <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                암스테르담 기반 클라우드 기업 Nebius가 Meta에 5년간 AI 인프라를 제공하는 대규모 계약을 체결했습니다. 빅테크들의 인프라 확보전이 외부 파트너십으로 확장되고 있습니다.
+              </p>
+            </div>
+            <p class="pt-4 border-t border-gray-100 text-sm font-medium text-gray-800">
+              💡 <span class="bg-[#FF6B6B]/30 px-1">핵심:</span> AI 학습/추론을 위한 '컴퓨팅 자원' 확보가 기업의 생존 경쟁력이 되었습니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 4: Regulation -->
+      <section id="regulation" class="scroll-mt-24">
+        <div class="flex items-center mb-6">
+          <div class="w-2 h-8 bg-[#F7D060] mr-3 border border-black"></div>
+          <h2 class="text-2xl md:text-3xl font-black">⚖️ 규제와 사회</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 leading-relaxed">혁신을 저해한다는 우려 속에 유럽은 규제 시행을 늦추는 반면, 호주는 안전 연구소를 설립하며 체계적인 관리 감독을 시작했습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 bg-yellow-50/50">
+            <h3 class="text-xl font-bold mb-3 leading-snug">EU, AI 법안 '고위험' 규제 2027년으로 연기</h3>
+            <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+              유럽연합이 기업들의 준비 부족과 경쟁력 저하 우려를 받아들여, AI Act의 핵심인 고위험 시스템 규제 시행 시점을 늦추기로 결정했습니다.
+            </p>
+            <div class="flex items-center gap-3 mt-4 text-sm font-bold border-t border-yellow-200 pt-3">
+              <span class="bg-black text-white px-2 py-1 rounded text-xs">STATUS</span>
+              <span>규제 속도 조절 🚦</span>
+            </div>
+            <p class="mt-2 text-sm text-gray-600">미국과의 기술 격차 확대를 우려한 '현실적 타협'으로 해석됩니다.</p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6">
+            <h3 class="text-xl font-bold mb-3 leading-snug">호주 정부, AI 안전 연구소(AISI) 설립</h3>
+            <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+              호주가 내년 초 운영을 목표로 AI 모델의 위험성을 평가하고 기술적 보증을 담당할 전담 기구를 발족했습니다. 글로벌 AI 안전 네트워크에 합류하려는 움직임입니다.
+            </p>
+            <p class="pt-4 border-t border-gray-100 text-sm font-medium text-gray-800">
+              💡 <span class="bg-[#F7D060]/30 px-1">핵심:</span> 주요국들이 '규제'보다는 '안전 평가 인프라' 구축에 집중하고 있습니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center mt-20 mb-10 pt-10 border-t-2 border-[#1E1E1E] text-gray-500">
+      <p class="text-sm font-bold text-[#1E1E1E] mb-2">AI News Infographic Generator</p>
+      <p class="text-xs">Generated by Gemini • Data source: Latest AI News Nov 2025</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPTS (Smooth Scroll & Charts)
+       ========================= -->
+  <script>
+    // 1. Smooth Scrolling for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // 2. Chart.js Initialization
+    // Wait until the chart element is visible on screen (IntersectionObserver)
+    document.addEventListener("DOMContentLoaded", function() {
+      const agentCtx = document.getElementById('agentChart');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            loadAgentChart();
+            observer.disconnect(); // Load once
+          }
+        });
+      }, { threshold: 0.1 });
+
+      if (agentCtx) {
+        observer.observe(agentCtx);
+      }
+
+      function loadAgentChart() {
+        new Chart(agentCtx, {
+          type: 'bar',
+          data: {
+            labels: ['2024년 AI 사용', '2025년 AI 사용', '에이전트 확장'],
+            datasets: [{
+              label: '기업 비율 (%)',
+              data: [78, 88, 23],
+              backgroundColor: [
+                'rgba(200, 200, 200, 0.5)', 
+                'rgba(77, 150, 255, 0.6)', 
+                'rgba(77, 150, 255, 1)'
+              ],
+              borderColor: [
+                'rgba(200, 200, 200, 1)',
+                '#1E1E1E',
+                '#1E1E1E'
+              ],
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return context.raw + '% 기업';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: { color: '#f0f0f0' }
+              },
+              x: {
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

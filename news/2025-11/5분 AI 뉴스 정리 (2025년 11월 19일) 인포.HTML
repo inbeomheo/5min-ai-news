@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 뉴스 인포그래픽 - 2025년 11월 19일</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts (Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; 
+      color: #1E1E1E; 
+      scroll-behavior: smooth;
+    }
+    /* 레트로 팝 스타일 카드 디자인 */
+    .kpi-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+      transition: transform 0.2s;
+    }
+    .kpi-card:hover { 
+      transform: translateY(-2px); 
+    }
+    .news-card { 
+      background: #FFFFFF; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; 
+      transition: all 0.2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      height: 250px; 
+      margin-top: 1rem; 
+    }
+    /* 네비게이션 바 */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+      background-color: rgba(253, 240, 224, 0.95);
+      backdrop-filter: blur(8px);
+      border-top: 2px solid #1E1E1E;
+      border-bottom: 2px solid #1E1E1E;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <div class="container mx-auto px-4 py-8 max-w-5xl">
+    
+    <!-- =========================
+         HEADER
+         ========================= -->
+    <header class="text-center mb-12 mt-6">
+      <div class="inline-block bg-black text-[#FDF0E0] px-4 py-1 rounded-full text-sm font-bold mb-3">
+        DAILY TECH BRIEFING
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight">AI·기술 최신 동향</h1>
+      <p class="text-xl md:text-2xl font-medium text-gray-700 border-b-4 border-black inline-block pb-1">
+        2025년 11월 19일 (수)
+      </p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4대 핵심 지표)
+         ========================= -->
+    <section id="kpi-overview" class="mb-16">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- KPI 1 -->
+        <div class="kpi-card p-5 rounded-xl flex flex-col justify-between text-center">
+          <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">GPT-5.1 수능</span>
+          <strong class="text-4xl md:text-5xl font-black text-[#FF6B6B] my-2">435.5<span class="text-2xl text-black">점</span></strong>
+          <span class="text-xs font-medium bg-gray-100 rounded px-2 py-1">역대 AI 최고점</span>
+        </div>
+        <!-- KPI 2 -->
+        <div class="kpi-card p-5 rounded-xl flex flex-col justify-between text-center">
+          <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">데이터센터 용량</span>
+          <strong class="text-4xl md:text-5xl font-black text-[#4D96FF] my-2">1<span class="text-2xl text-black">GW</span></strong>
+          <span class="text-xs font-medium bg-gray-100 rounded px-2 py-1">韓 'Stargate' 합류</span>
+        </div>
+        <!-- KPI 3 -->
+        <div class="kpi-card p-5 rounded-xl flex flex-col justify-between text-center">
+          <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">기상 예측 속도</span>
+          <strong class="text-4xl md:text-5xl font-black text-[#6BCB77] my-2">8<span class="text-2xl text-black">배</span></strong>
+          <span class="text-xs font-medium bg-gray-100 rounded px-2 py-1">WeatherNext 2</span>
+        </div>
+        <!-- KPI 4 -->
+        <div class="kpi-card p-5 rounded-xl flex flex-col justify-between text-center">
+          <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">2028년 전망</span>
+          <strong class="text-4xl md:text-5xl font-black text-[#F7D060] my-2">13<span class="text-2xl text-black">억개</span></strong>
+          <span class="text-xs font-medium bg-gray-100 rounded px-2 py-1">MS Agent 수</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAVIGATION
+         ========================= -->
+    <nav class="sticky-nav mb-12 py-3 overflow-x-auto whitespace-nowrap">
+      <div class="flex justify-center min-w-max px-4 space-x-2 md:space-x-6">
+        <a href="#models" class="px-4 py-2 rounded-lg font-bold hover:bg-black hover:text-white transition-colors border border-transparent hover:border-gray-800">
+          🤖 모델·에이전트
+        </a>
+        <a href="#infra" class="px-4 py-2 rounded-lg font-bold hover:bg-black hover:text-white transition-colors border border-transparent hover:border-gray-800">
+          🏗️ 인프라·칩
+        </a>
+        <a href="#science" class="px-4 py-2 rounded-lg font-bold hover:bg-black hover:text-white transition-colors border border-transparent hover:border-gray-800">
+          🧬 과학·발견
+        </a>
+        <a href="#society" class="px-4 py-2 rounded-lg font-bold hover:bg-black hover:text-white transition-colors border border-transparent hover:border-gray-800">
+          ⚖️ 사회·이슈
+        </a>
+      </div>
+    </nav>
+
+    <div class="space-y-20">
+      
+      <!-- =========================
+           SECTION 1: MODELS & AGENTS
+           ========================= -->
+      <section id="models">
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-[#FF6B6B] rounded-full flex items-center justify-center text-2xl mr-3 border-2 border-black shadow-[2px_2px_0_#000]">🤖</div>
+          <h2 class="text-3xl md:text-4xl font-black">모델·에이전트 전쟁</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 pl-4 border-l-8 border-[#FF6B6B]">
+          GPT-5.1이 수능 점수 신기록을 세우고, 구글은 코딩 에이전트와 검색을 통합하며 '에이전트 시대'의 주도권을 놓고 격돌합니다.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">GPT-5.1, 2026 수능 모의고사 1위 달성</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              오픈AI의 GPT-5.1이 국내 연구팀 실험에서 평균 435.5점을 기록했습니다. 복합 추론 능력이 대폭 향상되어 상위권 수험생 수준에 도달했으며, 교육 및 입시 시장에 큰 파장이 예상됩니다.
+            </p>
+            <!-- Chart Visualization -->
+            <div class="mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h4 class="text-sm font-bold text-center mb-2">📊 AI 모델 수능 점수 비교</h4>
+              <div class="chart-container" style="height: 180px;">
+                <canvas id="suneungChart"></canvas>
+              </div>
+            </div>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> AI가 단순 지식을 넘어 '복합 추론' 영역에서도 인간 상위권 수준을 달성함.
+            </p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">구글 Gemini 3 공개: "코딩·검색 전면 통합"</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              구글이 Gemini 3를 발표하며 코딩용 에이전트 'Antigravity'와 검색 AI 모드를 동시에 선보였습니다. 수학·과학 벤치마크 최고 기록 경신과 함께 개발 생태계와 검색 시장을 동시에 방어하려는 전략입니다.
+            </p>
+            <div class="grid grid-cols-2 gap-2 mb-4">
+              <div class="bg-blue-50 p-3 rounded border border-blue-100 text-center">
+                <div class="text-xs text-gray-500">타겟</div>
+                <div class="font-bold text-blue-600">개발자 + 검색</div>
+              </div>
+              <div class="bg-blue-50 p-3 rounded border border-blue-100 text-center">
+                <div class="text-xs text-gray-500">신규 기능</div>
+                <div class="font-bold text-blue-600">Antigravity</div>
+              </div>
+            </div>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> 검색, 앱, 클라우드 전 제품군에 최신 모델을 심어 에이전트 생태계를 선점하려는 시도.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- =========================
+           SECTION 2: INFRASTRUCTURE
+           ========================= -->
+      <section id="infra">
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-[#4D96FF] rounded-full flex items-center justify-center text-2xl mr-3 border-2 border-black shadow-[2px_2px_0_#000]">🏗️</div>
+          <h2 class="text-3xl md:text-4xl font-black">인프라·반도체 동맹</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 pl-4 border-l-8 border-[#4D96FF]">
+          1GW급 'Stargate' 데이터센터에 한국이 합류하고, 엔비디아는 ARM과 손잡으며 하드웨어 생태계를 확장합니다.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">한국, UAE 'Stargate' 프로젝트 합류</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              UAE와 마이크로소프트, 오픈AI가 주도하는 세계 최대 1GW급 데이터센터 프로젝트에 한국 정부와 기업이 파트너로 참여합니다. 미국 밖 최대 규모의 AI 캠퍼스 구축에 삼성, SK 등 국내 기업의 수혜가 기대됩니다.
+            </p>
+            <div class="flex items-center justify-center bg-[#E3F2FD] p-4 rounded-lg border-2 border-[#4D96FF] mb-4 border-dashed">
+              <div class="text-center">
+                <p class="text-sm font-bold text-blue-800">⚡ 프로젝트 규모</p>
+                <p class="text-4xl font-black text-[#1E1E1E]">1 Gigawatt</p>
+                <p class="text-xs text-gray-600 mt-1">미국 제외 최대 AI 캠퍼스</p>
+              </div>
+            </div>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> 글로벌 AI 인프라 확장에 한국이 핵심 파트너로 부상하며 반도체·건설 수출 기회 확보.
+            </p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">엔비디아-ARM 'NVLink' 통합 선언</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              엔비디아 GPU와 ARM CPU를 초고속으로 연결하는 기술 협력이 발표되었습니다. 클라우드 기업들이 자체 ARM 칩을 쓰면서도 엔비디아 GPU 성능을 극대화할 수 있게 되어, '반-인텔' 연합이 가속화될 전망입니다.
+            </p>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> CPU 시장을 일부 개방하더라도, GPU 중심의 거대 생태계를 공고히 하려는 엔비디아의 전략.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- =========================
+           SECTION 3: SCIENCE & DISCOVERY
+           ========================= -->
+      <section id="science">
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-[#6BCB77] rounded-full flex items-center justify-center text-2xl mr-3 border-2 border-black shadow-[2px_2px_0_#000]">🧬</div>
+          <h2 class="text-3xl md:text-4xl font-black">과학·자연의 재발견</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 pl-4 border-l-8 border-[#6BCB77]">
+          AI가 기상 예측 속도를 8배 높이고, 3,000년 전 고대 음악과 돌고래의 언어를 해석해냅니다.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">구글 딥마인드 'WeatherNext 2' 공개</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              기존보다 8배 빠르고 저렴한 AI 기상 모델이 공개되었습니다. 열대성 폭풍 경로 예측 정확도가 획기적으로 개선되었으며, 에너지 트레이더를 위한 시간 단위 정밀 예보도 지원합니다.
+            </p>
+            <!-- Chart Visualization -->
+            <div class="mb-4 bg-green-50 p-4 rounded-lg border border-green-200">
+              <h4 class="text-sm font-bold text-center mb-2">⏱️ 예측 속도 비교 (배수)</h4>
+              <div class="chart-container" style="height: 150px;">
+                <canvas id="weatherChart"></canvas>
+              </div>
+            </div>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> AI 기상 모델이 연구실을 넘어 물류, 에너지 등 산업 현장의 필수 도구로 진입.
+            </p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">AI로 되살린 3,000년 전 바빌로니아 찬가</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              점토판의 쐐기문자와 고대 음악 이론을 AI가 학습해, 미해독 상태였던 3,000년 전 멜로디를 복원했습니다. 돌고래 휘파람 분석 등 데이터가 희소한 고고학·생물학 분야에서 AI의 패턴 인식 능력이 빛나고 있습니다.
+            </p>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> 인간의 직관으로 풀기 어려웠던 고대 유물 복원과 자연 신호 해석에 AI가 돌파구 제공.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- =========================
+           SECTION 4: SOCIETY & ISSUES
+           ========================= -->
+      <section id="society">
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-[#F7D060] rounded-full flex items-center justify-center text-2xl mr-3 border-2 border-black shadow-[2px_2px_0_#000]">⚖️</div>
+          <h2 class="text-3xl md:text-4xl font-black">사회와 AI 이슈</h2>
+        </div>
+        <p class="mb-8 text-lg text-gray-700 pl-4 border-l-8 border-[#F7D060]">
+          13억 개의 에이전트가 올 미래를 준비하는 한편, 안전 필수 분야에서는 AI 도입에 신중론이 제기됩니다.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- News Card 1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">MS 'Agent 365' 공개: 에이전트 관리 시대</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              마이크로소프트가 2028년까지 13억 개에 달할 업무용 AI 에이전트를 통합 관리하는 플랫폼을 발표했습니다. 프롬프트 인젝션이나 권한 오남용 같은 보안 위협을 방지하기 위한 필수 인프라입니다.
+            </p>
+            <div class="p-3 bg-yellow-50 border border-yellow-200 rounded mb-4 text-sm text-yellow-800 font-bold text-center">
+              📢 2028년 예상 에이전트 수: 13억 개
+            </div>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> AI 도입이 늘어날수록 이들을 통제하고 관리하는 '거버넌스 플랫폼' 시장이 커질 것.
+            </p>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 leading-tight">美 항공 관제사 부족, "AI 대체는 불가"</h3>
+            <p class="text-gray-700 mb-4 flex-grow">
+              심각한 관제사 인력난에도 불구하고 전문가는 AI가 '보조 도구'에 머물 것이라 진단했습니다. 안전 인증 절차와 인프라 교체 문제로 전면 도입에는 긴 시간이 소요될 전망입니다.
+            </p>
+             <!-- Chart Visualization -->
+             <div class="mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200 flex items-center justify-between">
+                <div style="width: 100px; height: 100px;">
+                  <canvas id="trafficChart"></canvas>
+                </div>
+                <div class="text-right pl-4">
+                    <p class="text-xs text-gray-500">전문가 전망</p>
+                    <p class="font-bold text-blue-600">보조 수단 (80%)</p>
+                    <p class="font-bold text-red-400">완전 대체 (20%)</p>
+                </div>
+              </div>
+            <p class="mt-auto text-sm bg-black text-white p-3 rounded-lg">
+              💡 <b>핵심:</b> 생명과 직결된 안전 인프라 영역에서는 AI가 인간을 돕는 'Co-pilot' 역할에 국한될 것.
+            </p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8 pt-8 border-t border-gray-300">
+      <p>Generated by NewsInfo AI • Based on Daily Tech News</p>
+      <p class="mt-2"> 2025 News Info Graphic</p>
+    </footer>
+
+  </div>
+
+  <!-- =========================
+       SCRIPTS (Chart.js Configurations)
+       ========================= -->
+  <script>
+    // 1. 수능 점수 차트 (Bar Chart)
+    const suneungCtx = document.getElementById('suneungChart');
+    if (suneungCtx) {
+      new Chart(suneungCtx, {
+        type: 'bar',
+        data: {
+          labels: ['GPT-5.1', '기존 최상위 AI', '인간 상위권'],
+          datasets: [{
+            label: '점수',
+            data: [435.5, 380, 400],
+            backgroundColor: ['#FF6B6B', '#E5E7EB', '#E5E7EB'],
+            borderWidth: 2,
+            borderColor: '#1E1E1E',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: false, min: 200, max: 500 }
+          }
+        }
+      });
+    }
+
+    // 2. 기상 예측 속도 차트 (Horizontal Bar Chart)
+    const weatherCtx = document.getElementById('weatherChart');
+    if (weatherCtx) {
+      new Chart(weatherCtx, {
+        type: 'bar',
+        indexAxis: 'y',
+        data: {
+          labels: ['WeatherNext 2', '기존 수치 모델'],
+          datasets: [{
+            label: '속도(배)',
+            data: [8, 1],
+            backgroundColor: ['#6BCB77', '#E5E7EB'],
+            borderWidth: 2,
+            borderColor: '#1E1E1E',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { x: { beginAtZero: true } }
+        }
+      });
+    }
+
+    // 3. 항공 관제 의견 차트 (Doughnut Chart)
+    const trafficCtx = document.getElementById('trafficChart');
+    if (trafficCtx) {
+      new Chart(trafficCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['보조 수단', '완전 대체'],
+          datasets: [{
+            data: [80, 20],
+            backgroundColor: ['#4D96FF', '#FF8A80'],
+            borderColor: '#1E1E1E',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          cutout: '60%'
+        }
+      });
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

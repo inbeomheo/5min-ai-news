@@ -1,0 +1,508 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 기술 동향 인포그래픽 (2025-11-15)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR 웹 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 프롬프트에서 요청된 필수 스타일:
+      - Noto Sans KR 폰트
+      - 배경색: #FDF0E0 (Light Peach)
+      - 기본 글자색: #1E1E1E
+      - 카드 스타일 (테두리 + 굵은 그림자)
+    */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; 
+      color: #1E1E1E; 
+      scroll-behavior: smooth; /* 부드러운 스크롤을 위한 기본 설정 */
+    }
+    .kpi-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    .news-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; 
+      transition: all .2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    /* 차트 컨테이너 크기 조절 */
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      max-width: 500px; 
+      margin: 1.5rem auto; 
+      height: 280px; 
+    }
+    .chart-container.doughnut { 
+      max-width: 280px; 
+      height: 280px;
+    }
+    @media (min-width: 768px) {
+      .chart-container { height: 300px; }
+      .chart-container.doughnut { height: 300px; max-width: 300px; }
+    }
+    /* 스티키 네비게이션 */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+    }
+    /* CSS 순서도 스타일 */
+    .flow-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+    .flow-item {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
+    .flow-arrow {
+      font-size: 1.25rem;
+      color: #6b7280;
+      margin: 0 0.25rem;
+    }
+    /* NEW 배지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-8 md:my-12">
+      <h1 class="text-4xl md:text-6xl font-bold mb-3">AI·기술 최신 동향 <span class="badge-new">NEW</span></h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 15일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4가지 핵심 지표)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12 md:mb-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">오늘의 핵심 지표</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div class="kpi-card p-5 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">💰 AI 가치 투자</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">$43억 달러</p>
+          <p class="text-sm text-gray-500">버크셔, 알파벳 '깜짝 매수'</p>
+        </div>
+        <div class="kpi-card p-5 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">📈 서버 CPU 점유율</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">40%</p>
+          <p class="text-sm text-gray-500">AMD, AI 데이터센터 공략</p>
+        </div>
+        <div class="kpi-card p-5 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">🏥 이식 '헛수고' 감소</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">-60%</p>
+          <p class="text-sm text-gray-500">스탠퍼드, 사망 시점 예측 AI</p>
+        </div>
+        <div class="kpi-card p-5 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">🤝 인간+AI 협업 성과</p>
+          <p class="text-3xl md:text-4xl font-bold my-1">1.7배</p>
+          <p class="text-sm text-gray-500">업워크 "인간 협업 시 1.7배"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 테마 앵커)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 md:mb-12 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:gap-4">
+        <!-- 
+          참고: <a> 태그의 href="#..."는 <section>의 id="..."와 일치해야 합니다.
+          부드러운 스크롤을 위해 하단 <script>에 JS 코드 추가
+        -->
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">⚡ 인프라 & 투자</a>
+        <a href="#agents" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🤖 AI 플랫폼</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 현장 적용</a>
+        <a href="#humans" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI와 인간</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS (테마별 기사)
+         ========================= -->
+    <div class="space-y-16 md:space-y-20">
+
+      <!-- 1) 인프라 & 투자 -->
+      <section id="infra">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#FF6B6B] pl-4">⚡ 인프라 & 투자</h2>
+        <p class="mb-8 text-lg text-gray-700">AI의 장기 가치에 대한 대규모 투자(버크셔)와 칩, 데이터센터 등 인프라 선점을 위한 기술 경쟁(AMD, 구글)이 동시에 격화되고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 시각화 카드: Berkshire (Doughnut Chart) -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">버크셔, 43억 달러 '깜짝 매수'로 AI 베팅</h3>
+            <p class="mb-4 text-gray-800">워렌 버핏의 버크셔 해서웨이가 3분기 애플 지분을 줄이고, 구글 모회사 알파벳 지분 43억 달러어치를 신규 편입했습니다. 이는 AI를 버블이 아닌 장기 수익 사업으로 인정한 신호로 해석됩니다.</p>
+            
+            <!-- Chart.js 도넛 차트 -->
+            <div class="chart-container doughnut mx-auto">
+              <canvas id="berkshireChart" data-chart-loaded="false"></canvas>
+            </div>
+            
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> 대표적 가치투자자가 AI 플랫폼(알파벳)을 핵심 포트폴리오로 편입하며, AI의 장기적 산업 가치를 인정한 상징적 사건입니다.</p>
+          </article>
+
+          <!-- 기사 카드: AMD -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">AMD, "AI 데이터센터 시장 1조 달러"...공격적 성장 전략</h3>
+            <p class="mb-4 text-gray-800">AMD가 AI 데이터센터 시장 공략을 위한 차세대 CPU·GPU 로드맵을 공개했습니다. 2030년까지 AI 시장 잠재 가치를 1조 달러로 상향 전망하고, 현재 약 40%인 서버 CPU 점유율을 더욱 확대해 3~5년 내 데이터센터 매출을 60% 이상 늘리겠다고 밝혔습니다.</p>
+            
+            <!-- CSS 순서도 (Callout) -->
+            <div class="my-4">
+              <h4 class="font-bold text-center mb-2">AMD의 핵심 목표</h4>
+              <div class="flow-diagram bg-red-50 border border-gray-300 gap-4">
+                <div class="flow-item text-center">
+                  <span class="text-2xl">📈</span>
+                  <span class="block">서버 CPU 점유율 40%</span>
+                </div>
+                <div class="flow-item text-center">
+                  <span class="text-2xl">💰</span>
+                  <span class="block">D/C 매출 60% </span>
+                </div>
+              </div>
+            </div>
+
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> 엔비디아, 인텔, 빅테크 자체 칩과의 경쟁이 격화되는 가운데, AMD가 대형 고객사(오픈AI, 오라클)를 기반으로 공격적인 AI 칩 성장 목표를 제시했습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) AI 플랫폼 -->
+      <section id="agents">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#4D96FF] pl-4">🤖 AI 플랫폼</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 모델이 더 똑똑해지고(GPT-5.1), 협업 기능(그룹 채팅)을 갖추며, 사용자의 일상과 업무에 더 깊숙이 파고들고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 기사 카드: GPT-5.1 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI 'GPT-5.1' 출시...추론 속도와 개인화 강화</h3>
+            <p class="mb-4 text-gray-800">오픈AI가 GPT-5.1을 출시하며 복잡한 지시 처리 능력과 대화 맥락 유지력을 개선했습니다. 특히 사용자의 선호 어조, 관심사, 작업 패턴을 기반으로 각 사용자에게 맞춤형 경험을 제공하는 '개인형 AI 비서' 구현에 초점을 맞췄습니다.</p>
+            
+            <!-- CSS 순서도 -->
+            <div class="my-4">
+              <h4 class="font-bold text-center mb-2">개인형 AI 비서의 진화</h4>
+              <div class="flow-diagram bg-blue-50 border border-gray-300">
+                <div class="flow-item">👤 사용자</div>
+                <div class="flow-arrow">➡️</div>
+                <div class="flow-item">🗣️ 선호/관심사 학습</div>
+                <div class="flow-arrow">➡️</div>
+                <div class="flow-item">🧠 GPT-5.1</div>
+                <div class="flow-arrow">➡️</div>
+                <div class="flow-item">🤖 맞춤형 비서</div>
+              </div>
+            </div>
+
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI가 모두에게 동일한 답변을 주는 것을 넘어, 사용자의 맥락을 기억하고 맞춤형 응답을 제공하는 '퍼스널 AI'로 진화하고 있습니다.</p>
+          </article>
+
+          <!-- 기사 카드: OpenAI Group Chat -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">오픈AI, 한국 포함 4개국에 '챗GPT 그룹 채팅' 시범 도입</h3>
+            <p class="mb-4 text-gray-800">오픈AI가 여러 사용자가 동시에 챗GPT와 대화하는 '그룹 채팅' 기능을 한국, 일본 등 4개국에 시범 도입했습니다. 사용자는 동료를 초대해 여행 계획, 회의 안건 정리 등 공동 작업을 진행할 수 있으며, 그룹별로 챗GPT의 말투를 조정하는 '맞춤 지침' 설정도 가능합니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> 1:1 대화형 AI가 여러 사용자의 공동 작업을 돕는 '협업 도구'로 확장되며, AI의 새로운 사회적 상호작용 기능이 테스트되고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) 현장 적용 -->
+      <section id="apps">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#6BCB77] pl-4">🏭 현장 적용</h2>
+        <p class="mb-8 text-lg text-gray-700">헬스케어, 미디어, 공공 서비스, 소상공인까지 산업 현장 곳곳에서 AI가 '헛수고'를 줄이고 새로운 가치를 창출하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 시각화 카드: Stanford Health (Doughnut Chart) -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">스탠퍼드 AI, 장기 이식 '헛수고 시술' 60% 줄인다</h3>
+            <p class="mb-4 text-gray-800">스탠퍼드대 의료진이 장기 기증자의 사망 시점을 예측하는 AI 모델을 개발했습니다. 심정지 후 45분 내 사망 여부를 예측해, 이식 준비를 했다가 취소되는 '헛수고 시술'을 최대 60%까지 줄일 수 있습니다.</p>
+            
+            <!-- Chart.js 도넛 차트 -->
+            <div class="chart-container doughnut mx-auto">
+              <canvas id="healthChart" data-chart-loaded="false"></canvas>
+            </div>
+            
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI가 숙련된 외과의의 경험적 판단보다 높은 정확도를 제공하며, 의료 자원의 낭비를 줄이고 이식 기회를 확대하는 데 기여합니다.</p>
+          </article>
+          
+          <!-- 기사 카드: SME -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">美 소상공인, "AI로 주문·재고·마케팅" 실질적 활용 늘어</h3>
+            <p class="mb-4 text-gray-800">미국 소상공인들이 챗봇, 이미지 생성, 분석 도구를 실용적으로 도입하고 있습니다. 메뉴 설명, SNS 콘텐츠 작성을 AI에 맡기고, POS와 연동해 재고 부족이나 가격 전략을 자동 조정하는 등 비용 절감과 매출 증대에 활용하고 있습니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI가 거대 기업의 전유물이 아니라, 월 수십 달러의 구독료만으로도 매출 증대와 비용 절감을 돕는 '실용형 도구'로 자리 잡고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) AI와 인간 -->
+      <section id="humans">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#F7D060] pl-4">⚖️ AI와 인간</h2>
+        <p class="mb-8 text-lg text-gray-700">AI는 인간을 대체하는 것이 아니라, 인간과의 협업(Upwork) 및 교육(Boise)을 통해 그 가치가 극대화되고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 시각화 카드: Upwork (Bar Chart) -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">업워크 "AI 혼자선 무용지물...인간 협업 시 성과 1.7배"</h3>
+            <p class="mb-4 text-gray-800">업워크 연구 결과, AI 단독 수행보다 인간이 개입(Human-in-the-loop)할 때 업무 성공률이 평균 1.4~1.7배 높았습니다. 특히 전략, 맥락 이해가 필요한 복잡한 업무에서 인간 개입의 효과가 뚜렷했습니다.</p>
+            
+            <!-- Chart.js 막대 차트 -->
+            <div class="chart-container mx-auto">
+              <canvas id="collaborationChart" data-chart-loaded="false"></canvas>
+            </div>
+            
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI는 인간 전문가를 보조할 때 프로젝트 완료율이 극적으로 오르며, 향후 업무 환경은 '인간 중심 AI'로 재편될 것입니다.</p>
+          </article>
+          
+          <!-- 기사 카드: Boise State & Em Dash -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">AI 디지털 격차 해소...고령층 교육과 '문체' 개선</h3>
+            <p class="mb-4 text-gray-800">미국 보이시주립대가 성인·고령층을 대상으로 AI 활용법과 사기 예방 등 안전 교육을 포함한 입문형 AI 과정을 개설했습니다. 이와 동시에, 오픈AI는 AI가 쓴 글의 상징처럼 여겨지던 '엠 대시(—)' 과다 사용 문제를 해결해, 사용자가 문체를 더 세밀하게 제어할 수 있도록 업데이트했습니다.</p>
+            <p class="mt-auto text-sm font-medium">💡 <b>핵심:</b> AI 기술이 사회에 확산되면서 디지털 격차 해소를 위한 '안전 교육'과, AI가 인간의 문체를 더 잘 따르도록 하는 'UX 개선'이 동시에 중요해지고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+    </div> <!-- end .space-y-20 -->
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-16 mb-8">
+      <p>AI·기술 최신 동향 인포그래픽 | 2025-11-15</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       SCRIPT
+       ========================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // --- 1. 부드러운 스크롤 (Smooth Scroll) ---
+      // 네비게이션 앵커 링크에 클릭 이벤트 추가
+      document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault(); // 기본 앵커 동작 방지
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            // 스티키 네비게이션의 높이를 계산하여 오프셋 설정
+            const navHeight = document.querySelector('.sticky-nav').offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 20; // 20px 추가 여백
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // --- 2. Chart.js 차트 생성 (Intersection Observer 사용) ---
+      const chartCanvases = document.querySelectorAll('canvas[data-chart-loaded="false"]');
+
+      // IntersectionObserver 콜백 함수
+      const chartObserverCallback = (entries, observer) => {
+        entries.forEach(entry => {
+          // 차트가 화면에 보이고, 아직 로드되지 않았다면
+          if (entry.isIntersecting && entry.target.dataset.chartLoaded === 'false') {
+            const chartId = entry.target.id;
+            
+            // ID에 따라 적절한 차트 생성 함수 호출
+            if (chartId === 'berkshireChart') {
+              createBerkshireChart(entry.target);
+            } else if (chartId === 'healthChart') {
+              createHealthChart(entry.target);
+            } else if (chartId === 'collaborationChart') {
+              createCollaborationChart(entry.target);
+            }
+            
+            entry.target.dataset.chartLoaded = 'true'; // 로드되었음 표시
+            observer.unobserve(entry.target); // 관찰 중지
+          }
+        });
+      };
+
+      // Observer 인스턴스 생성
+      const chartObserver = new IntersectionObserver(chartObserverCallback, {
+        root: null, // 뷰포트 기준
+        threshold: 0.5 // 50% 보일 때 실행
+      });
+
+      // 모든 차트 캔버스 관찰 시작
+      chartCanvases.forEach(canvas => {
+        chartObserver.observe(canvas);
+      });
+
+      // --- 차트 생성 함수들 ---
+
+      // 1. 버크셔 포트폴리오 (도넛 차트)
+      function createBerkshireChart(ctx) {
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['애플', '아멕스', '뱅크오브아메리카', '처브', '알파벳(신규)'],
+            datasets: [{
+              label: '버크셔 3분기 주요 포트폴리오 (억달러)',
+              data: [607, 504, 293, 88, 43], // 기사 내용 기반 단순화
+              backgroundColor: ['#A0A0A0', '#0061A8', '#E3002D', '#00A3A1', '#FF6B6B'],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: chartOptions('bottom', '버크셔 3분기 주요 포트폴리오 (억달러)')
+        });
+      }
+
+      // 2. 스탠퍼드 헬스 (도넛 차트)
+      function createHealthChart(ctx) {
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ["'헛수고 시술' 감소분", '기존 시술'],
+            datasets: [{
+              label: '장기 이식 헛수고 시술 감소 효과',
+              data: [60, 40],
+              backgroundColor: ['#6BCB77', '#E0E0E0'],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: chartOptions('bottom', '장기 이식 헛수고 시술 감소 효과')
+        });
+      }
+
+      // 3. 업워크 협업 (막대 차트)
+      function createCollaborationChart(ctx) {
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['AI 단독 수행', '인간+AI 협업'],
+            datasets: [{
+              label: '업무 성과 비교 (AI 단독=1)',
+              data: [1, 1.7],
+              backgroundColor: ['#E0E0E0', '#F7D060'],
+              borderColor: '#1E1E1E',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            ...chartOptions('bottom', '업무 성과 비교 (AI 단독=1)'),
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: '#1E1E1E',
+                  font: { family: "'Noto Sans KR', sans-serif", weight: 500 }
+                }
+              },
+              x: {
+                ticks: {
+                  color: '#1E1E1E',
+                  font: { family: "'Noto Sans KR', sans-serif", weight: 500, size: 13 }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // --- 공통 차트 옵션 ---
+      function chartOptions(legendPos = 'top', titleText = '') {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: legendPos,
+              labels: {
+                font: {
+                  family: "'Noto Sans KR', sans-serif",
+                  size: 13,
+                  weight: 500
+                },
+                color: '#1E1E1E'
+              }
+            },
+            title: {
+              display: true,
+              text: titleText,
+              font: {
+                family: "'Noto Sans KR', sans-serif",
+                size: 14,
+                weight: 'bold'
+              },
+              color: '#1E1E1E'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  let label = context.label || '';
+                  if (label) {
+                    label += ': ';
+                  }
+                  if (context.parsed.y !== null) {
+                    label += context.parsed.y;
+                  } else if (context.parsed !== null) {
+                    label += context.parsed;
+                  }
+                  // 도넛 차트 데이터셋 레이블에 (억달러)가 있는 경우 추가
+                  if (context.dataset.label.includes('억달러')) {
+                    label += '억 달러';
+                  } else if (context.dataset.label.includes('감소 효과')) {
+                     label += '%';
+                  } else if (context.dataset.label.includes('업무 성과')) {
+                     label += '배';
+                  }
+                  return ` ${label}`;
+                }
+              }
+            }
+          }
+        };
+      }
+      
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

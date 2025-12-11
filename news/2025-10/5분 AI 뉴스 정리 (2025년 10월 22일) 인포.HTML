@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 동향 인포그래픽 (2025-10-22)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- 
+    Narrative Plan: This infographic for Oct 22, 2025, is structured around four critical narratives: 1) The New Frontier: AI Browsers (highlighting OpenAI's 'Atlas' browser as a direct challenge to Google Chrome, signaling a shift in the primary human-computer interface), 2) The Automation of Expertise (showcasing OpenAI's 'Project Mercury' which aims to automate high-skill financial analysis, raising profound questions about the future of professional work), 3) The Infodemic (analyzing the alarming EBU/BBC report on the high error rate of AI news summaries, underscoring the growing crisis of information reliability), and 4) The Efficiency Breakthrough (exploring UCSD's 'BiDoRA' technology, which dramatically lowers the cost of AI model customization, democratizing access to powerful AI). This structure captures the tension between AI's disruptive potential, its inherent flaws, and the innovations that could make it more accessible and reliable.
+
+    Visualization Choices:
+    - OpenAI's 'Atlas' Browser: Goal=Inform. Viz=An illustrative HTML/CSS block with a browser icon merged with an AI brain icon to represent the new product category. Justification=Visually communicates the fusion of browsing and AI into a single, powerful tool. Confirmed NO SVG.
+    - China's GenAI User Growth: Goal=Compare. Viz=A Bar Chart (Chart.js) to show the explosive 106.6% growth in generative AI users in China over just six months. Justification=A bar chart effectively visualizes the staggering speed and scale of AI adoption in a key market. Confirmed NO SVG.
+    - AI News Summary Error Rate: Goal=Compare. Viz=A Doughnut Chart (Chart.js) to starkly highlight the 81% error rate found in AI-generated news summaries. Justification=A doughnut chart is perfect for displaying a powerful, attention-grabbing statistic about a critical reliability issue. Confirmed NO SVG.
+    - UCSD's 'BiDoRA' Cost Reduction: Goal=Inform. Viz=A large number callout (400x) with a cost reduction arrow icon to emphasize the massive efficiency gain of the new tuning technology. Justification=Creates a strong visual impact for a major technological breakthrough. Confirmed NO SVG.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDF0E0; /* Light Peach */
+            color: #1E1E1E;
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .news-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 6px 6px 0px #1E1E1E;
+            transition: all 0.2s ease-in-out;
+        }
+        .news-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 1.5rem auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .chart-container.doughnut {
+            max-width: 400px;
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container.doughnut {
+                height: 350px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">AI·기술 최신 동향</h1>
+            <p class="text-xl text-gray-700">2025년 10월 22일</p>
+        </header>
+
+        <section id="kpi-overview" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">핵심 지표 요약</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">OpenAI, 브라우저 출시</p>
+                    <p class="text-5xl font-bold text-[#FF6B6B]">Atlas</p>
+                    <p class="text-sm text-gray-500">(구글 크롬에 도전)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">中 AI 사용자</p>
+                    <p class="text-5xl font-bold text-[#4D96FF]">5억명 돌파</p>
+                    <p class="text-sm text-gray-500">(6개월 만에 106%↑)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">AI 뉴스 요약 오류율</p>
+                    <p class="text-5xl font-bold text-[#F7D060]">81%</p>
+                    <p class="text-sm text-gray-500">(EBU-BBC 공동 연구)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">LLM 튜닝 비용 절감</p>
+                    <p class="text-5xl font-bold text-[#6BCB77]">400배</p>
+                    <p class="text-sm text-gray-500">(UCSD 'BiDoRA' 기술)</p>
+                </div>
+            </div>
+        </section>
+
+        <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-4 mb-12 border-b-2 border-t-2 border-[#1E1E1E]">
+            <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+                <a href="#platform" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 플랫폼 전쟁</a>
+                <a href="#workforce" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">💼 노동의 미래</a>
+                <a href="#trust" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">🤔 신뢰의 위기</a>
+                <a href="#research" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🔬 기술 혁신</a>
+            </div>
+        </nav>
+
+        <div class="space-y-20">
+            <section id="platform">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#FF6B6B] pl-4">🚀 플랫폼 전쟁: AI, 브라우저를 삼키다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술 경쟁의 새로운 격전지가 '웹브라우저'로 이동하고 있습니다. OpenAI가 AI 에이전트 기능을 탑재한 자체 브라우저를 출시하며 구글 크롬의 아성에 정면으로 도전장을 내밀었습니다. 이는 인터넷의 관문인 브라우저를 선점하여 미래 AI 플랫폼의 주도권을 잡으려는 빅테크들의 치열한 경쟁을 예고합니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI, AI 브라우저 'ChatGPT Atlas' 공개</h3>
+                        <p class="mb-4">macOS 버전으로 우선 공개된 '아틀라스'는 웹페이지 요약을 넘어, 여행 예약이나 쇼핑과 같은 복잡한 작업을 자동으로 처리하는 '에이전트 모드'를 탑재했습니다. 이는 웹 사용의 패러다임을 정보 '검색'에서 AI를 통한 '작업 대행'으로 전환하려는 시도입니다.</p>
+                        <div class="my-8 p-8 bg-red-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🌐</p>
+                            <p class="text-3xl font-bold">ChatGPT Atlas</p>
+                            <p class="text-lg mt-2">AI 네이티브 브라우저의 탄생</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 미래의 브라우저는 단순히 웹페이지를 보여주는 도구를 넘어, 우리의 모든 온라인 활동을 돕는 '지능형 운영체제'가 될 것입니다. 이 경쟁의 승자가 미래 인터넷의 관문을 지배하게 될 것입니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="workforce">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#4D96FF] pl-4">💼 노동의 미래: AI, 전문직을 겨냥하다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI가 단순 반복 업무를 넘어, 고도의 전문 지식을 요구하는 화이트칼라 직업까지 대체할 수 있다는 가능성이 현실로 다가오고 있습니다. OpenAI가 금융 모델링과 같은 고액 연봉의 전문직 업무를 자동화하는 프로젝트를 가동하면서, AI가 노동 시장에 미칠 파장에 대한 논의가 새로운 차원으로 접어들었습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI, 금융 모델링 자동화 '머큐리' 프로젝트 가동</h3>
+                        <p class="mb-4">OpenAI는 전직 투자은행 애널리스트들을 고용해 IPO나 기업 구조조정 등 주니어 애널리스트들이 수행하는 복잡한 금융 모델링 업무를 AI로 자동화하는 테스트를 진행 중입니다. 이는 AI가 창의성과 복잡한 판단을 요구하는 전문직 영역까지 넘보고 있음을 보여줍니다.</p>
+                        <div class="chart-container">
+                            <canvas id="chinaUserChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 시대의 노동 시장 재편은 블루칼라와 화이트칼라를 가리지 않습니다. 중요한 것은 AI와 협력하여 더 높은 가치를 창출할 수 있는 새로운 역량을 갖추는 것입니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="trust">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#F7D060] pl-4">🤔 신뢰의 위기: AI 뉴스, 10개 중 8개는 오류</h2>
+                <p class="mb-10 text-lg text-gray-700">AI가 생성하는 정보의 양이 폭발적으로 증가하고 있지만, 그 신뢰성은 심각한 수준임이 드러났습니다. 유럽방송연합과 BBC의 공동 연구 결과, 주요 AI 어시스턴트가 생성한 뉴스 관련 답변 10개 중 8개 이상에서 오류가 발견되어, AI를 통한 정보 소비에 대한 강력한 경고등이 켜졌습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                     <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">AI 뉴스 요약, 81%가 오류…정보 신뢰도 '빨간불'</h3>
+                        <p class="mb-4">연구에 따르면, AI가 생성한 뉴스 요약 답변 중 81%가 오류를 포함하고 있었으며, 특히 45%는 사실을 왜곡하거나 출처를 조작하는 등 '중대한 문제'가 있었습니다. 이는 AI가 아직 신뢰할 수 있는 정보 채널이 아니며, 사용자의 비판적인 미디어 리터러시가 그 어느 때보다 중요해졌음을 의미합니다.</p>
+                        <div class="chart-container doughnut">
+                             <canvas id="errorRateChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI가 생성한 정보는 '초안'일 뿐, '진실'이 아닙니다. AI 시대의 정보 소비자는 이제 모두가 '사실 확인 전문가'가 되어야 합니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="research">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#6BCB77] pl-4">🔬 기술 혁신: AI, 더 싸고 더 똑똑해진다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 기술의 발전이 가속화되면서, 더 적은 비용으로 더 강력한 AI를 만들 수 있는 혁신적인 기술들이 속속 등장하고 있습니다. 캘리포니아 샌디에이고 대학에서 개발한 새로운 튜닝 기술은 AI 모델 맞춤화 비용을 400배나 절감하며, AI 기술의 민주화를 앞당기고 있습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">UCSD, LLM 튜닝 비용 400배 절감 기술 'BiDoRA' 공개</h3>
+                        <p class="mb-4">'BiDoRA' 기술은 훨씬 적은 데이터와 컴퓨팅 자원으로도 AI 모델을 특정 목적에 맞게 미세조정(튜닝)할 수 있게 합니다. 이는 거대 자본을 가진 빅테크 기업뿐만 아니라, 소규모 기업이나 연구실도 자신만의 고성능 특화 AI 모델을 구축할 수 있는 길을 열었다는 점에서 큰 의미를 가집니다.</p>
+                        <div class="my-8 p-8 bg-green-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">💡</p>
+                            <p class="text-3xl font-bold">400배 비용 절감</p>
+                            <p class="text-lg mt-2">AI 기술 민주화의 가속</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 기술의 진입장벽이 낮아지면서, 이제 경쟁의 핵심은 '모델의 크기'가 아닌, '창의적인 아이디어'와 '효율적인 튜닝 역량'이 될 것입니다.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const chartColors = {
+            red: '#FF6B6B',
+            blue: '#4D96FF',
+            yellow: '#F7D060',
+            green: '#6BCB77',
+            grey: '#C0C0C0'
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const chinaUserData = {
+            labels: ['2024년 12월', '2025년 6월'],
+            datasets: [{
+                label: '생성형 AI 이용자 수 (백만 명)',
+                data: [249, 515],
+                backgroundColor: chartColors.blue,
+                borderWidth: 2,
+                borderColor: '#1E1E1E'
+            }]
+        };
+
+        const chinaUserConfig = {
+            type: 'bar',
+            data: chinaUserData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: '중국 생성형 AI 사용자 수 급증 (6개월간 106.6% ↑)', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                scales: { 
+                    y: { 
+                        beginAtZero: true
+                    } 
+                }
+            }
+        };
+
+        const errorRateData = {
+            labels: ['오류 포함 답변', '정상 답변'],
+            datasets: [{
+                data: [81, 19],
+                backgroundColor: [chartColors.yellow, chartColors.grey],
+                borderColor: '#FDF0E0',
+                borderWidth: 4
+            }]
+        };
+
+        const errorRateConfig = {
+            type: 'doughnut',
+            data: errorRateData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: { display: true, text: 'AI 뉴스 요약 답변 오류율 (%)', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                cutout: '50%'
+            }
+        };
+
+        let chinaChart, errorChart;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'chinaUserChart' && !chinaChart) {
+                        chinaChart = new Chart(entry.target, chinaUserConfig);
+                    }
+                    if (entry.target.id === 'errorRateChart' && !errorChart) {
+                        errorChart = new Chart(entry.target, errorRateConfig);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.getElementById('chinaUserChart'));
+        observer.observe(document.getElementById('errorRateChart'));
+
+    </script>
+
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>

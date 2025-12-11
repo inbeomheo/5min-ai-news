@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 동향 인포그래픽 (2025-10-21)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- 
+    Narrative Plan: This infographic for Oct 21, 2025, is structured around four pivotal narratives: 1) The Agent Revolution (highlighting Anthropic's 'Claude Skills' which transform the chatbot into a practical workflow automation tool, intensifying the race for the 'AI agent' market), 2) The Line in the Sand (focusing on OpenAI's major policy shift regarding deepfakes and adult content, establishing critical new precedents for platform responsibility), 3) The Silicon Realignment (showcasing the landmark achievement of the first US-made advanced Nvidia chips from the TSMC Arizona fab, a major milestone in the global semiconductor supply chain realignment), and 4) The Next Frontier: Home Robotics (introducing Figure AI's mass-production-ready humanoid robot, signaling the imminent arrival of robotics in the consumer space). This structure captures a moment of profound transition, from digital assistants to physical agents and from technological capability to societal accountability.
+
+    Visualization Choices:
+    - Anthropic's 'Claude Skills': Goal=Organize. Viz=A flow diagram showing how 'Claude Skills' connects to enterprise systems like MS 365 to automate complex workflows. Justification=Visually explains how the AI agent moves beyond chat to become a core business process tool. Confirmed NO SVG/Mermaid.
+    - OpenAI's Policy Shift: Goal=Organize. Viz=A styled HTML/CSS diagram with icons representing the two key policy changes (blocking historical figure deepfakes, allowing adult content with age verification) to illustrate the company's new governance framework. Justification=Clearly visualizes the dual nature of the new content moderation rules. Confirmed NO SVG/Mermaid.
+    - US-Made Nvidia 'Blackwell' Chips: Goal=Inform. Viz=An illustrative HTML/CSS block with a US flag on a semiconductor wafer to represent the milestone of US-based advanced chip manufacturing. Justification=Creates a strong, memorable visual for a major geopolitical and industrial achievement. Confirmed NO SVG.
+    - Figure AI's Humanoid Robot: Goal=Compare. Viz=A Bar Chart (Chart.js) to show the planned mass production scale (12,000 units/year) of the new humanoid robot, contextualizing its ambition. Justification=A bar chart effectively visualizes the scale and readiness for the consumer market. Confirmed NO SVG.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDF0E0; /* Light Peach */
+            color: #1E1E1E;
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .news-card {
+            background-color: #FFFFFF;
+            border: 2px solid #1E1E1E;
+            box-shadow: 6px 6px 0px #1E1E1E;
+            transition: all 0.2s ease-in-out;
+        }
+        .news-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px #1E1E1E;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 1.5rem auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">AI·기술 최신 동향</h1>
+            <p class="text-xl text-gray-700">2025년 10월 21일</p>
+        </header>
+
+        <section id="kpi-overview" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">핵심 지표 요약</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">앤스로픽 '클로드 스킬'</p>
+                    <p class="text-5xl font-bold text-[#FF6B6B]">업무 자동화</p>
+                    <p class="text-sm text-gray-500">(MS 365 연동)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">엔비디아·TSMC</p>
+                    <p class="text-5xl font-bold text-[#4D96FF]">미국산 칩</p>
+                    <p class="text-sm text-gray-500">(첫 웨이퍼 공개)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">피규어 AI 로봇</p>
+                    <p class="text-5xl font-bold text-[#F7D060]">1.2만대/년</p>
+                    <p class="text-sm text-gray-500">(대량생산 목표)</p>
+                </div>
+                <div class="kpi-card p-6 rounded-lg text-center">
+                    <p class="text-lg font-semibold text-gray-600">OpenAI 정책 변경</p>
+                    <p class="text-5xl font-bold text-[#6BCB77]">책임 강화</p>
+                    <p class="text-sm text-gray-500">(딥페이크·성인물)</p>
+                </div>
+            </div>
+        </section>
+
+        <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-4 mb-12 border-b-2 border-t-2 border-[#1E1E1E]">
+            <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+                <a href="#agent" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🤖 에이전트 혁명</a>
+                <a href="#responsibility" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🛡️ 플랫폼의 책임</a>
+                <a href="#hardware" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">칩 공급망 재편</a>
+                <a href="#robotics" class="font-bold text-lg py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">🦾 로봇의 대중화</a>
+            </div>
+        </nav>
+
+        <div class="space-y-20">
+            <section id="agent">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#FF6B6B] pl-4">🤖 에이전트 혁명: AI, '일하는 동료'가 되다</h2>
+                <p class="mb-10 text-lg text-gray-700">AI가 단순한 질의응답을 넘어, 실제 업무 프로세스를 이해하고 실행하는 'AI 에이전트' 경쟁이 본격화되었습니다. 앤스로픽은 마이크로소프트 365 생태계와 직접 연동되는 기능을 출시하며, AI가 반복적인 사무 업무를 자동화하는 새로운 시대의 서막을 열었습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">앤스로픽, MS 365 연동 '클로드 스킬' 출시</h3>
+                        <p class="mb-4">이제 사용자들은 '클로드 스킬'을 통해 "지난주 영업 실적을 요약해서 팀즈 채널에 공유해줘"와 같은 복잡한 명령을 내릴 수 있습니다. AI가 SharePoint에서 데이터를 찾고, Outlook 이메일을 참조하여 보고서를 작성한 뒤 Teams로 공유하는 전 과정을 자동화합니다. 이는 AI가 단순한 챗봇을 넘어 기업의 핵심 워크플로우를 담당하는 '디지털 직원'으로 진화하고 있음을 보여줍니다.</p>
+                        <div class="mt-6 p-6 bg-red-50 border-2 border-black rounded-lg">
+                            <h4 class="font-bold text-lg mb-4 text-center">AI 워크플로우 자동화</h4>
+                            <div class="flex items-center justify-center space-x-2 md:space-x-4 text-center text-sm md:text-base">
+                                <div class="p-3 bg-white border-2 border-black rounded-md">MS 365 데이터</div>
+                                <div class="font-bold text-2xl text-gray-400">↔</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-md">클로드 AI 에이전트</div>
+                                <div class="font-bold text-2xl text-gray-400">→</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-md">업무 결과물 생성</div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 에이전트 경쟁의 승패는 어떤 모델이 더 똑똑한가를 넘어, 어떤 모델이 더 많은 기업용 시스템과 연동되어 실질적인 업무를 '실행'할 수 있는가에 달려있습니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="responsibility">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#6BCB77] pl-4">🛡️ 플랫폼의 책임: 딥페이크와 성인물, 선을 긋다</h2>
+                <p class="mb-10 text-lg text-gray-700">생성형 AI 기술의 사회적 영향력이 커지면서, 플랫폼의 윤리적 책임에 대한 논의가 뜨거워지고 있습니다. OpenAI는 마틴 루터 킹 주니어 목사의 딥페이크 영상 생성 논란에 대해 유족의 요청을 받아들여 생성을 중단하고, 동시에 연령 인증 기반의 성인 콘텐츠 허용 정책을 발표하며 기술의 자유와 책임 사이에서 어려운 줄타기를 시작했습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">OpenAI, 딥페이크·성인 콘텐츠 정책 대대적 개편</h3>
+                        <p class="mb-4">OpenAI의 이번 결정은 역사적 인물의 초상권을 보호하는 중요한 정책 선례를 남겼습니다. 동시에, '성인은 성인으로 대우한다'는 원칙 아래 표현의 자유를 존중하되, 강력한 연령 확인 시스템으로 미성년자를 보호하겠다는 이중적인 접근 방식을 보여줍니다. 이는 AI 플랫폼이 이제 기술 개발뿐만 아니라, 사회적 규범을 설정하는 '거버넌스'의 주체로 나서야 함을 의미합니다.</p>
+                        <div class="mt-6 p-6 bg-green-50 border-2 border-black rounded-lg flex flex-col md:flex-row justify-around items-center text-center gap-4">
+                           <div class="p-4 bg-white border-2 border-black rounded-md">
+                                <p class="text-3xl mb-2">🚫</p>
+                                <p class="font-bold">역사적 인물 딥페이크</p>
+                                <p>생성 중단</p>
+                            </div>
+                             <div class="p-4 bg-white border-2 border-black rounded-md">
+                                <p class="text-3xl mb-2">🔞</p>
+                                <p class="font-bold">성인 콘텐츠</p>
+                                <p>연령 인증 후 허용</p>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** AI 시대의 플랫폼 경쟁력은 기술적 우위를 넘어, 사회적 신뢰를 얻고 책임 있는 거버넌스 체계를 구축하는 능력에서 나옵니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="hardware">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#4D96FF] pl-4">칩 공급망 재편: 'Made in USA'의 귀환</h2>
+                <p class="mb-10 text-lg text-gray-700">AI 시대의 핵심 자원인 반도체 공급망에 거대한 지각변동이 일어나고 있습니다. 엔비디아와 TSMC가 미국 애리조나 공장에서 생산한 첫 '블랙웰' 웨이퍼를 공개하며, 수십 년간 아시아에 집중되었던 최첨단 반도체 생산 기지가 미국 본토로 돌아오는 '리쇼어링' 전략의 가시적인 성과를 보여주었습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                     <div class="news-card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">엔비디아·TSMC, 미국산 첫 '블랙웰' 웨이퍼 공개</h3>
+                        <p class="mb-4">미국 정부의 반도체 지원법(CHIPS Act)에 힘입어 추진된 이번 성과는, AI 기술의 핵심 부품인 최첨단 GPU가 미국 본토에서 생산되기 시작했다는 점에서 큰 의미를 가집니다. 이는 글로벌 반도체 공급망의 지정학적 리스크를 줄이고, 미국의 기술 주권을 강화하는 중요한 전환점입니다.</p>
+                        <div class="my-8 p-8 bg-blue-50 border-4 border-black rounded-xl">
+                            <p class="text-6xl mb-4">🇺🇸</p>
+                            <p class="text-3xl font-bold">Made in USA</p>
+                            <p class="text-lg mt-2">첨단 반도체 공급망의 재편</p>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 반도체 공급망은 이제 단순한 경제 논리를 넘어, 국가 안보와 기술 패권이 걸린 전략적 자산이 되었습니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="robotics">
+                <h2 class="text-3xl font-bold mb-8 border-l-8 border-[#F7D060] pl-4">🦾 로봇의 대중화: 가정용 휴머노이드 시대의 서막</h2>
+                <p class="mb-10 text-lg text-gray-700">공상 과학 영화 속 이야기가 현실로 다가오고 있습니다. 휴머노이드 로봇 개발의 선두주자 피규어 AI가 가정용으로 설계된 3세대 모델을 공개하고 구체적인 대량생산 계획을 발표하며, 로봇이 산업 현장을 넘어 우리 일상으로 들어오는 대중화 시대가 임박했음을 알렸습니다.</p>
+                <div class="grid md:grid-cols-1 gap-10">
+                    <div class="news-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4">피규어 AI, 가정용 휴머노이드 '피규어 03' 공개</h3>
+                        <p class="mb-4">5시간 지속되는 배터리, 무선 충전 등 실용성을 높인 '피규어 03'은 연간 12,000대 생산 라인을 구축하고 4년 내 10만 대 생산이라는 구체적인 목표를 제시했습니다. 이는 로봇이 더 이상 연구실의 시제품이 아닌, 실제 가정에 보급되는 가전제품이 될 수 있다는 가능성을 보여줍니다.</p>
+                        <div class="chart-container">
+                             <canvas id="robotProductionChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-sm">💡 **핵심:** 휴머노이드 로봇 경쟁의 승패는 '누가 더 똑똑한가'를 넘어, '누가 더 안전하고 저렴하게 대량생산하여 시장에 보급하는가'의 문제로 전환되고 있습니다.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const chartColors = {
+            red: '#FF6B6B',
+            blue: '#4D96FF',
+            yellow: '#F7D060',
+            green: '#6BCB77',
+            grey: '#C0C0C0'
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const robotProductionData = {
+            labels: ['초기 연간 생산 목표'],
+            datasets: [{
+                label: '생산 대수',
+                data: [12000],
+                backgroundColor: [chartColors.yellow],
+                borderWidth: 2,
+                borderColor: '#1E1E1E'
+            }]
+        };
+
+        const robotProductionConfig = {
+            type: 'bar',
+            data: robotProductionData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: '피규어 AI 휴머노이드 로봇 생산 목표 (연간)', font: { size: 16, weight: 'bold' } },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                scales: { 
+                    y: { 
+                        beginAtZero: true
+                    } 
+                }
+            }
+        };
+
+        let robotChart;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'robotProductionChart' && !robotChart) {
+                        robotChart = new Chart(entry.target, robotProductionConfig);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.getElementById('robotProductionChart'));
+
+    </script>
+
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>
+

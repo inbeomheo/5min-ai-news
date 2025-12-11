@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 기술 동향 인포그래픽 (2025-11-02)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR 웹 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 기본 스타일: 폰트, 배경색, 글자색 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach 배경 */
+      color:#1E1E1E; /* 기본 글자색 */
+      scroll-behavior: smooth; /* 부드러운 스크롤 */
+    }
+    /* 카드 스타일: 흰 배경, 검정 테두리, 굵은 그림자 (레트로) */
+    .kpi-card { 
+      background:#fff; 
+      border:2px solid #1E1E1E; 
+      box-shadow:4px 4px 0 #1E1E1E; /* KPI 카드는 4px 그림자 */
+    }
+    .news-card { 
+      background:#fff; 
+      border:2px solid #1E1E1E; 
+      box-shadow:6px 6px 0 #1E1E1E; /* 뉴스 카드는 6px 그림자 */
+      transition: all .2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px,2px); /* 호버 시 살짝 이동 */
+      box-shadow:4px 4px 0 #1E1E1E; /* 호버 시 그림자 축소 */
+    }
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position:relative; 
+      width:100%; 
+      max-width:600px; 
+      margin:1.5rem auto; 
+      height:300px; 
+      max-height:400px; 
+    }
+    .chart-container.doughnut { 
+      max-width:400px; 
+    }
+    @media (min-width:768px){ 
+      .chart-container { height:350px; } 
+      .chart-container.doughnut { height:350px; } 
+    }
+    /* 스티키 네비게이션 */
+    .sticky-nav { 
+      position:sticky; 
+      top:0; 
+      z-index:50; 
+    }
+    /* NEW 뱃지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2">
+        AI·기술 최신 동향
+        
+      </h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 02일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4장 고정)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">오늘의 핵심 지표</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1: 한국 GPU 확보 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🇰🇷 韓, AI 인프라 구축</p>
+          <p class="text-3xl md:text-4xl font-bold">26만+ 대</p>
+          <p class="text-sm text-gray-500">NVIDIA GPU 공급 협력 (공공+민간)</p>
+        </div>
+        <!-- KPI 2: AI 보안 에이전트 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🛡️ AI 보안 에이전트</p>
+          <p class="text-3xl md:text-4xl font-bold">92%</p>
+          <p class="text-sm text-gray-500">Aardvark(OpenAI) 취약점 탐지율 (내부)</p>
+        </div>
+        <!-- KPI 3: AI와 저작권 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🤝 AI와 저작권</p>
+          <p class="text-3xl md:text-4xl font-bold">+50%</p>
+          <p class="text-sm text-gray-500">게티(Getty) 주가, 퍼플렉시티 계약 후 급등</p>
+        </div>
+        <!-- KPI 4: 정밀 농업 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">🌾 정밀 농업</p>
+          <p class="text-3xl md:text-4xl font-bold">-91%</p>
+          <p class="text-sm text-gray-500">콜로라도 농가, AI로 농약 살포 절감</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 탭 고정)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라 전쟁</a>
+        <a href="#agents" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🤖 AI 에이전트 & 도구</a>
+        <a href="#governance" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI와 사회: 거버넌스</a>
+        <a href="#adoption" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 현장 적용: 산업의 변화</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS (4개 테마)
+         ========================= -->
+    <div class="space-y-20">
+
+      <!-- 1) 인프라 전쟁 -->
+      <section id="infra">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라 전쟁</h2>
+        <p class="mb-8 text-lg text-gray-700">GPU부터 스토리지, 클라우드까지 AI를 지탱하는 핵심 자원 확보 경쟁이 국가와 기업 단위로 격화되고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 1-1: 韓 GPU 확보 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">🇰🇷 韓 정부·기업, 엔비디아와 26만+ GPU 공급 협력</h3>
+            <p class="mb-4">엔비디아가 APEC을 계기로 한국 정부 및 삼성, SK, 현대차, 네이버 등과 26만 대 이상의 GPU 공급 및 AI 팩토리, 생태계 구축을 발표했습니다. 이는 공공(5만) 및 민간(각 5만+) 클라우드와 기업별 AI 팩토리 구축을 포함합니다.</p>
+            <!-- CSS 강조 블록 -->
+            <div class="p-4 bg-red-50 border-2 border-black rounded-lg flex items-center justify-center space-x-4">
+              <span class="text-5xl">⚡</span>
+              <div>
+                <p class="text-3xl md:text-4xl font-bold text-[#FF6B6B]">26만+</p>
+                <p class="text-lg font-semibold">NVIDIA GPU 공급</p>
+              </div>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘국가+빅테크+대기업’ 삼각 협력으로 연산·모델·산업 응용의 동시 확장 전략이 본격화.</p>
+          </article>
+
+          <!-- 카드 1-2: 스토리지 병목 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">💾 "GPU 다음은 스토리지"… WDC·시게이트 주가 200%+ 급등</h3>
+            <p class="mb-4">AI 학습 및 추론 데이터 저장 수요가 급증하면서 웨스턴디지털(WDC)과 시게이트(STX)의 주가가 YTD 200% 이상 급등했습니다. 하이퍼스케일러 고객들의 장기 구매 계약(PO)이 2026년까지 확보되며 실적 가이던스가 상향 조정되었습니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-gray-100 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 2026년까지 HDD 공급 강세 전망, AI 데이터 레이크 TCO 중요성 부각.</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> GPU 다음 병목이 ‘저장’으로 이동—AI 데이터 레이크의 TCO가 투자판단의 핵심.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) AI 에이전트 & 도구 -->
+      <section id="agents">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#4D96FF] pl-4">🤖 AI 에이전트 & 도구</h2>
+        <p class="mb-8 text-lg text-gray-700">코딩, 보안, 검색 등 전문 영역에서 인간의 작업을 돕거나 자동화하는 AI 에이전트와 개발 도구의 진화가 가속화되고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 2-1: OpenAI Aardvark -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">🛡️ OpenAI, GPT-5 기반 코드 보안 에이전트 'Aardvark' 공개</h3>
+            <p class="mb-4">OpenAI가 소스코드의 취약점 탐지, 검증, 패치 제안까지 자동화하는 'Aardvark'를 프라이빗 베타로 발표했습니다. 내부 테스트에서 10건의 CVE를 식별하고 '골든' 리포지토리의 92%를 탐지하는 성과를 보였습니다.</p>
+            <!-- CSS 순서도 -->
+            <div class="p-4 bg-blue-50 border-2 border-black rounded-lg text-center">
+              <p class="text-sm font-semibold text-blue-800">Commit 모니터링 → 취약점 도출 → 샌드박스 검증 → 패치 제안</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘리뷰 도우미’를 넘어, 지속 감시·검증·패치까지 아우르는 보안 전용 에이전트의 상용화 신호탄.</p>
+          </article>
+
+          <!-- 카드 2-2: 일회용 앱 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">⚡ '일회용 앱' 트렌드 부상… Vercel v0 등 '바이브 코딩' 확산</h3>
+            <p class="mb-4">Vercel v0 같은 AI 코딩 도구의 등장으로, 특정 과업(대시보드, 일정 관리)을 위해 즉석에서 만들고 버리는 '일회용 앱(disposable apps)' 트렌드가 부상하고 있습니다. 비개발자도 데이터만 붙여넣으면 즉시 앱을 배포할 수 있게 되었습니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-blue-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 개발 시간·비용 급감으로 특정 과업용 경량 앱을 ‘만들고 쓰고 버리는’ 문화 등장.</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> “프로덕트=지속 운용” 공식을 흔들며 ‘문제-해결’ 단위의 초경량 SW가 일상화.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) AI와 사회: 거버넌스 -->
+      <section id="governance">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#F7D060] pl-4">⚖️ AI와 사회: 거버넌스</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 기술이 확산됨에 따라 데이터 저작권, AI의 법적 인격, 공공 부문에서의 신뢰와 책임성 문제가 핵심 화두로 떠오르고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 3-1: 퍼플렉시티 + 게티 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">🤝 퍼플렉시티, 게티이미지와 다년 라이선스 계약 체결</h3>
+            <p class="mb-4">AI 검색 엔진 퍼플렉시티가 게티이미지와 다년 라이선스를 체결했습니다. 이제 검색 결과에 노출되는 이미지는 저작자, 출처, 원문 링크가 포함된 합법적 이미지가 표시됩니다. 이 소식으로 게티의 주가는 장중 +50% 급등했습니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-yellow-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>포인트:</b> 게티(Getty) 주가 장중 <b class="text-lg">+50%</b> 급등 (2025-10-31)</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 생성·검색 AI가 ‘표시 권리’에 비용을 지불하는 흐름이 본격화.</p>
+          </article>
+          
+          <!-- 카드 3-2: 미시간 경찰 AI 도입률 (도넛 차트) -->
+          <div class="news-card p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-3">미시간 경찰 감시 기술 도입률 (2024)</h4>
+            <!-- 도넛 차트 -->
+            <div class="chart-container doughnut">
+              <canvas id="govChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-gray-600">AI/예측 도구 도입은 3%에 불과, '신뢰 부족'이 병목으로 작용.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘도입률’보다 ‘신뢰·책임성’이 공공부문 AI 확산의 병목임을 확인.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) 현장 적용: 산업의 변화 -->
+      <section id="adoption">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#6BCB77] pl-4">🏭 현장 적용: 산업의 변화</h2>
+        <p class="mb-8 text-lg text-gray-700">농업, 광고, 커머스 등 전통 산업 현장에서 AI가 비용 절감, 마케팅, 고객 경험(UX)을 혁신하는 구체적인 사례가 늘고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 4-1: 콜로라도 농가 (막대 차트) -->
+          <div class="news-card p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-3">AI 정밀 농업 농약 사용량 비교</h4>
+            <!-- 막대 차트 -->
+            <div class="chart-container">
+              <canvas id="appChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-gray-600">콜로라도 농가 사례에서 AI 정밀 살포로 농약 사용 최대 91% 절감.</p>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI·정밀농업은 경영여건 악화 지역에서 ‘비용 절감형 혁신’으로 기능.</p>
+          </div>
+
+          <!-- 카드 4-2: 구글 Veo 광고 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">📺 구글, Veo 3로 자사 첫 AI 생성 TV 광고 방영</h3>
+            <p class="mb-4">구글이 자사의 첫 AI 생성 TV 광고를 Veo 3로 제작해 10월 31일부터 방영했습니다. '불쾌한 계곡'을 피하기 위해 사람 대신 '칠면조' 캐릭터를 활용했으며, AI 제작 표시는 비노출하기로 결정했습니다.</p>
+            <!-- 포인트 박스 -->
+            <div class="p-4 bg-green-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base"><b>전략:</b> '칠면조' 캐릭터로 '불쾌한 계곡(Uncanny Valley)' 회피</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 메이저 플랫폼이 ‘사람형 회피’ 전략으로 생성영상 상업 활용의 안전지대 탐색.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8">
+      <p>AI 기술 동향 인포그래픽 (2025-11-02)</p>
+      <p>이 콘텐츠는 제공된 뉴스 스니펫을 기반으로 AI에 의해 생성되었습니다.</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       JAVASCRIPT (Smooth Scroll & Charts)
+       ========================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // --- 부드러운 스크롤 (앵커 태그) ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if(targetElement) {
+            // 스티키 네비게이션 높이만큼 오프셋 조절 (약 60px)
+            const headerOffset = 70;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
+
+      // --- 차트 생성 (Intersection Observer) ---
+      const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+          },
+          tooltip: {
+            bodyFont: {
+              family: 'Noto Sans KR',
+            },
+            titleFont: {
+              family: 'Noto Sans KR',
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              font: {
+                family: 'Noto Sans KR',
+              }
+            }
+          },
+          y: {
+            ticks: {
+              font: {
+                family: 'Noto Sans KR',
+              }
+            }
+          }
+        }
+      };
+
+      const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const canvasId = entry.target.id;
+            
+            if (canvasId === 'govChart') {
+              // 3-2. 거버넌스: 미시간 경찰 AI 도입률 (도넛 차트)
+              new Chart(entry.target, {
+                type: 'doughnut',
+                data: {
+                  labels: ['ALPR (번호판)', '안면인식', 'AI/예측', '기타 기술'],
+                  datasets: [{
+                    label: '기술 도입률 (%)',
+                    data: [26, 10, 3, 61], // 26 + 10 + 3 = 39, Other = 61
+                    backgroundColor: [
+                      'rgba(255, 159, 64, 0.7)', // Orange
+                      'rgba(75, 192, 192, 0.7)', // Teal
+                      'rgba(255, 99, 132, 0.7)', // Red
+                      'rgba(201, 203, 207, 0.5)'  // Gray
+                    ],
+                    borderColor: [
+                      '#1E1E1E',
+                      '#1E1E1E',
+                      '#1E1E1E',
+                      '#1E1E1E'
+                    ],
+                    borderWidth: 2
+                  }]
+                },
+                options: { ...chartOptions, plugins: { legend: { position: 'bottom' } } }
+              });
+            }
+            
+            if (canvasId === 'appChart') {
+              // 4-1. 현장 적용: 농약 절감 (막대 차트)
+              new Chart(entry.target, {
+                type: 'bar',
+                data: {
+                  labels: ['기존 방식', 'AI 정밀 살포'],
+                  datasets: [{
+                    label: '농약 사용량 (상대값)',
+                    data: [100, 9], // 100% vs 9% (91% 절감)
+                    backgroundColor: [
+                      'rgba(255, 159, 64, 0.7)',
+                      'rgba(107, 203, 119, 0.7)' // Green
+                    ],
+                    borderColor: [
+                      '#1E1E1E',
+                      '#1E1E1E'
+                    ],
+                    borderWidth: 2
+                  }]
+                },
+                options: { ...chartOptions, scales: { y: { beginAtZero: true, max: 100 } } }
+              });
+            }
+            
+            observer.unobserve(entry.target); // 한 번만 로드
+          }
+        });
+      }, { threshold: 0.5 }); // 50% 보일 때 로드
+
+      // 옵저버 타겟 등록
+      const govChartCanvas = document.getElementById('govChart');
+      if (govChartCanvas) chartObserver.observe(govChartCanvas);
+      
+      const appChartCanvas = document.getElementById('appChart');
+      if (appChartCanvas) chartObserver.observe(appChartCanvas);
+
+    });
+  </script>
+  <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 방문자 추적 스크립트 -->
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

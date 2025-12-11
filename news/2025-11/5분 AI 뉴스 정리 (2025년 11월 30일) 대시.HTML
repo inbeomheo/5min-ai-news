@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: 5분 AI 뉴스 정리 (2025년 11월 30일)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 모달 스크롤바 커스텀 */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* 탭 활성화 애니메이션 */
+        .tab-active { background-color: #0f172a; color: white; border-color: #0f172a; }
+        .tab-inactive { background-color: white; color: #64748b; border-color: #e2e8f0; }
+        .tab-inactive:hover { background-color: #f8fafc; color: #334155; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased h-screen flex flex-col overflow-hidden">
+
+    <!-- 1. 고정 헤더 영역 -->
+    <header class="bg-white border-b border-slate-200 z-30 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="resetDashboard()">
+                <div class="w-2.5 h-8 bg-amber-500 rounded-r-lg"></div>
+                <h1 class="text-xl md:text-2xl font-black tracking-tight text-slate-900">뉴스대시 <span class="hidden md:inline font-light text-slate-400 text-sm ml-1">| 2025년 11월 30일</span></h1>
+            </div>
+            
+            <!-- 검색창 -->
+            <div class="relative w-full max-w-xs md:max-w-md ml-4">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input type="text" id="search-input"
+                    class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-full leading-5 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 sm:text-sm transition-colors"
+                    placeholder="제목, 내용, 키워드 검색...">
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 (스크롤 가능) -->
+    <div class="flex-1 overflow-y-auto custom-scroll" id="main-scroll-area">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- 2. 주요 데이터 (항상 표시) -->
+            <section id="key-highlights" class="mb-10">
+                <div id="highlights-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- JS로 데이터 주입 -->
+                </div>
+            </section>
+
+            <!-- 3. 스마트 필터 네비게이션 (Sticky) -->
+            <div class="sticky top-0 z-20 bg-slate-50/95 backdrop-blur py-2 mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+                <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2" id="filter-container">
+                    <button class="filter-btn tab-active px-4 py-1.5 rounded-full text-sm font-bold border transition-all whitespace-nowrap" data-filter="all">
+                        전체 보기
+                    </button>
+                    <button class="filter-btn tab-inactive px-4 py-1.5 rounded-full text-sm font-medium border transition-all whitespace-nowrap" data-filter="top5">
+                        🔥 Top 5
+                    </button>
+                    <!-- 나머지 테마 버튼들은 JS로 생성 -->
+                </div>
+            </div>
+
+            <!-- 4. 뉴스 그리드 영역 -->
+            <div id="news-grid-area" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[500px]">
+                <!-- JS로 뉴스 카드 렌더링 -->
+            </div>
+            
+            <!-- 검색 결과 없음 메시지 -->
+            <div id="no-results" class="hidden text-center py-20">
+                <svg class="mx-auto h-12 w-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-slate-900">검색 결과가 없습니다</h3>
+                <p class="mt-1 text-sm text-slate-500">다른 키워드로 검색하거나 필터를 변경해보세요.</p>
+            </div>
+
+        </main>
+        
+        <footer class="border-t border-slate-200 mt-auto py-8 bg-white">
+            <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-xs">
+                &copy; 2025 NewsDash Smart Intelligence.
+            </div>
+        </footer>
+    </div>
+
+    <!-- 모달 (이전 버전의 가독성 개선 버전 유지) -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div id="modal-panel" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-3xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <div class="bg-white px-6 py-6 sm:px-8 border-b border-slate-100 flex justify-between items-start sticky top-0 z-10">
+                        <div class="pr-6">
+                            <span id="modal-category" class="inline-flex items-center rounded-md bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-800 mb-2">Category</span>
+                            <h3 class="text-xl font-bold text-slate-900 leading-snug" id="modal-title">Title</h3>
+                        </div>
+                        <button type="button" id="modal-close-btn" class="rounded-full bg-slate-50 p-2 text-slate-400 hover:bg-slate-100 transition-colors">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                    <div class="px-6 py-8 sm:px-10 max-h-[60vh] overflow-y-auto custom-scroll">
+                        <div class="text-base md:text-lg text-slate-700 leading-loose space-y-4 text-justify" id="modal-content"></div>
+                    </div>
+                    <div class="bg-slate-50 px-6 py-4 sm:flex sm:flex-row-reverse sm:px-8 border-t border-slate-100">
+                        <button type="button" id="modal-confirm-btn" class="w-full inline-flex justify-center rounded-lg border border-transparent bg-slate-900 px-4 py-2 text-base font-medium text-white hover:bg-slate-800 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 데이터 정의 (이전과 동일) ---
+        const reportData = [
+            // Top 5
+            { theme: "플랫폼, 제품 및 에이전트", category: "AI 개발 도구", title: "개발자 프라즈왈 토마르, ‘클로드 Opus 4.5로 비개발자도 SaaS 만든다’ 주장", isTop5: true, details: "11월 말 온라인 플랫폼 X와 링크드인에서 AI MVP 에이전시 대표 프라즈왈 토마르가 “Claude Opus 4.5는 지금까지 본 것 중 가장 큰 코딩 도약”이라며, 이제는 코드를 몰라도 제품을 만들 수 있다고 주장했다. 그는 앤스로픽의 최신 모델이 자연어 지시만으로 풀스택 애플리케이션을 작성하는 데 충분하다며, 이른바 ‘바이브 코딩(vibe coding)’ 방식의 개발을 누구나 활용할 수 있다고 강조했다.\n\n앤스로픽은 11월 24일 발표에서 Claude Opus 4.5를 “자사에서 가장 지능적인 모델”이자 코딩·에이전트·컴퓨터 사용에 최적화된 모델이라고 소개하며, 마이크로소프트 파운드리와 GitHub Copilot 등과의 연계를 통해 장시간 자율 코딩을 지원한다고 밝혔다." },
+            { theme: "AI와 사회 (활용, 심리, 노동)", category: "AI 비평/논쟁", title: "게리 마커스, “챗GPT는 1조 달러 규모의 실패한 실험” 강도 높게 비판", isTop5: true, details: "11월 30일 인공지능 비평가 게리 마커스는 자신의 서브스택 칼럼에서, 출시 3년이 지난 지금도 챗GPT가 초기 홍보만큼의 성과를 내지 못했다고 주장했다. 그는 모델의 환각(hallucination)과 비논리적 추론이 여전히 해결되지 않았으며, “챗GPT는 실패한 1조 달러짜리 실험”이라는 결론에 이르렀다고 썼다.\n\n마커스는 오랫동안 ‘뉴로심볼릭 AI’의 필요성을 주장해 온 인지과학자로, 통계적 패턴 학습만으로는 진정한 의미의 이해를 구현하기 어렵다고 비판해 왔다." },
+            { theme: "산업별 AI 적용", category: "의료/헬스케어", title: "UCLA BAIR 연구실, 머신러닝으로 의료데이터 분석해 환자 삶 개선 시도", isTop5: true, details: "11월 29일 로스앤젤레스 UCLA 생의학 인공지능 연구실(BAIR Lab)은 머신러닝을 활용해 의료데이터를 분석하고 환자 삶을 개선하는 연구를 진행 중이라고 밝혔다. 코리 아널드는 익명화된 의료 기록을 학습한 모델로 질환 발생 위험과 치료 결과를 예측하는 알고리즘을 개발하고 있다.\n\n특히 심부전 환자의 걸음 수와 증상 악화 사이의 상관관계를 발견한 프로젝트처럼, 일상 활동 데이터와 임상 데이터를 연계해 조기 경고 신호를 포착하는 시도는 예방의학의 가능성을 보여준다." },
+            { theme: "AI 인프라 및 투자", category: "에너지/환경", title: "AI 데이터센터 전력 수요, 미국 석탄발전소 폐쇄 연기시켜", isTop5: true, details: "11월 30일 기즈모도는 미국 데이터센터의 폭발적인 전력 수요로 인해, 폐쇄 예정이던 석탄 발전소들의 은퇴 계획이 대거 미뤄지고 있다고 보도했다. 15개 발전소의 34개 화석연료 발전 설비가 데이터센터 수요 증가를 이유로 퇴역이 연기되었다.\n\n이는 오랫동안 진행돼온 탈석탄 정책을 되돌릴 뿐 아니라, AI 붐이 ‘어제의 에너지’인 석탄에 생명 연장을 제공하는 역설적인 상황을 만들고 있다는 비판을 낳고 있다." },
+            { theme: "법률, 규제 및 거버넌스", category: "사이버보안", title: "나이지리아 학자, AI 사이버보안 ‘삼각대’(투명성·설계·대비) 제시", isTop5: true, details: "11월 30일 사이버보안 전문가 오조 엠마누엘 아데몰라는 AI 보안을 떠받치는 ‘삼각대’로 투명성, 보안 중심 설계, 적대적 위협 대비를 제시했다. 그는 AI 모델이 어떻게 설계·검증·배포됐는지 체계적으로 기록해야 한다고 강조했다.\n\n그는 영국 국가사이버보안센터(NCSC)의 경고를 인용하며, “투명성 레지스트리·보안 설계 게이트·위협 인텔리전스”를 지표화하여 관리해야 한다고 주장했다." },
+            // General News
+            { theme: "AI 인프라 및 투자", category: "클라우드/실적", title: "AWS, 11분기 만에 최고 성장…아마존 “클라우드가 AI 성장 엔진”", isTop5: false, details: "아마존의 클라우드 부문 AWS는 최근 분기 매출이 전년 동기 대비 20% 증가하며 11분기 만에 최고 성장률을 기록했다. 연간 매출 런레이트는 1,320억 달러에 달한다. AWS는 엔비디아 GPU와 자체 칩, 아마존 베드록 등 풀스택 서비스를 제공하며 수익을 견인하고 있다." },
+            { theme: "AI 인프라 및 투자", category: "반도체/경쟁", title: "엔비디아 “우리가 유일한 플랫폼”…구글 제미니3 성공 축하 속 견제", isTop5: false, details: "엔비디아는 구글의 제미니 3 성공을 축하하면서도, 자사가 “모든 AI 모델을 구동하는 유일한 플랫폼”이라고 강조했다. 황젠슨 CEO는 엔비디아가 업계보다 한 세대 앞선 성능을 제공한다고 주장했으나, 빅테크들의 자체 칩 개발로 인한 경쟁 심화 우려도 존재한다." },
+            { theme: "AI 인프라 및 투자", category: "오픈소스", title: "중국 딥시크, 저가 오픈소스 모델로 엔비디아·구글 압박", isTop5: false, details: "중국 스타트업 딥시크가 고성능 오픈소스 모델을 매우 낮은 비용으로 공개하며 미국 빅테크에 파장을 일으켰다. 딥시크 모델은 효율 지향 전략을 내세우며, 오픈 모델 생태계에서 중국의 영향력이 커지고 있음을 보여준다." },
+            { theme: "AI 인프라 및 투자", category: "투자/회계", title: "“AI 붐, 회계는 괜찮은가”…GPU 감가상각 방식 논란", isTop5: false, details: "빅테크들의 AI 설비 투자가 급증하는 가운데, GPU 감가상각 기간을 늘려 비용 인식을 늦추는 회계 처리에 대한 의문이 제기되고 있다. 투자자들은 이러한 투자가 실제 지속 가능한 이익으로 이어질지 주시하고 있다." },
+            { theme: "플랫폼, 제품 및 에이전트", category: "웨어러블", title: "알리바바, ‘콕’ AI 안경 출시…메타·애플과 웨어러블 경쟁", isTop5: false, details: "알리바바가 자사 AI 모델을 탑재한 ‘콕(Quark) AI 안경’을 중국에 출시했다. 쇼핑, 결제, 내비게이션 등 알리바바 생태계와 연동된 생활형 기능을 앞세워 웨어러블 시장 경쟁에 뛰어들었다." },
+            { theme: "플랫폼, 제품 및 에이전트", category: "에이전트", title: "ITPro “에이전틱 AI, 보안·거버넌스 없이는 기업 도입 어렵다”", isTop5: false, details: "스스로 계획하고 실행하는 ‘에이전틱 AI’가 부상하고 있지만, 기업들은 데이터 통합과 책임 소재 문제로 도입을 주저하고 있다. 전문가들은 기존 비즈니스 프로세스에 맞는 거버넌스 체계 마련이 필수적이라고 지적한다." },
+            { theme: "플랫폼, 제품 및 에이전트", category: "생산성", title: "“Gemini 앱에서 바로 PDF 만든다”…문서 기능 경쟁 심화", isTop5: false, details: "구글 Gemini 앱에서 대화 내용을 바로 PDF로 내보내거나 문서를 생성하는 기능이 추가되었다. 이는 대화형 AI를 단순 챗봇을 넘어 오피스 생산성 플랫폼으로 확장하려는 전략으로 풀이된다." },
+            { theme: "플랫폼, 제품 및 에이전트", category: "영상 편집", title: "바이트댄스 ‘Vidi2’, 긴 영상 이해력에서 Gemini 앞선다 평가", isTop5: false, details: "바이트댄스의 AI 비디오 모델 Vidi2가 긴 영상의 맥락을 이해하고 편집하는 능력에서 경쟁 모델을 압도한다는 평가가 나왔다. 이는 텍스트로 명령하면 영상을 자동으로 컷 편집해주는 내러티브 중심 편집을 가능하게 한다." },
+            { theme: "플랫폼, 제품 및 에이전트", category: "비즈니스", title: "“챗GPT에도 광고 온다”…오픈AI 검색 광고 테스트 정황", isTop5: false, details: "오픈AI가 챗GPT 내에 검색 광고를 도입하기 위한 테스트를 진행 중이라는 정황이 포착됐다. 이는 구독 모델 외의 새로운 수익원을 찾으려는 시도로, 개인화 광고 시장에 큰 변화를 예고한다." },
+            { theme: "산업별 AI 적용", category: "보안", title: "보고서 “AI 기반 보안, 침해 탐지 시간·비용 획기적 절감”", isTop5: false, details: "AI를 보안 시스템에 도입한 기업들이 침해 사고 탐지 속도를 높이고 비용을 크게 절감하고 있다는 보고서가 나왔다. AI는 방대한 로그를 분석해 이상 징후를 실시간으로 포착하는 데 강점을 보인다." },
+            { theme: "산업별 AI 적용", category: "우주", title: "연구진 “AI가 핵추진 로켓 개발 앞당긴다”", isTop5: false, details: "AI가 우주선 추진 시스템 설계와 최적화에 활용되면서, 화성 탐사를 위한 핵추진 로켓 개발을 가속화할 수 있다는 연구가 나왔다. 머신러닝은 복잡한 설계 변수를 시뮬레이션하는 시간을 획기적으로 줄여준다." },
+            { theme: "산업별 AI 적용", category: "제조", title: "베네티 조선소, 슈퍼요트 건조에 AI 생산 시스템 도입", isTop5: false, details: "이탈리아 명품 요트 제조사 베네티가 공정 효율화를 위해 AI 시스템을 도입한다. 맞춤형 주문 생산이 많은 요트 건조 과정에서 물류와 공정 계획을 최적화해 리드타임을 줄이는 것이 목표다." },
+            { theme: "산업별 AI 적용", category: "제조", title: "럿거스대, 전장·우주 위한 자율형 3D 프린팅 AI 공개", isTop5: false, details: "극한 환경에서도 스스로 오류를 수정하며 부품을 출력하는 자율형 3D 프린팅 AI 기술이 개발됐다. 이는 우주나 재난 현장처럼 전문가가 없는 곳에서 부품을 조달하는 데 핵심적인 기술이 될 전망이다." },
+            { theme: "산업별 AI 적용", category: "국방", title: "우크라이나 드론, 전파 방해 속에서도 AI로 표적 타격", isTop5: false, details: "우크라이나 전장에서 전파 방해로 조종 신호가 끊겨도 AI가 스스로 표적을 식별해 타격하는 드론이 실전 배치됐다. 이는 자율 무기 시스템의 확산을 보여주는 사례로 윤리적 논쟁도 동반하고 있다." },
+            { theme: "법률, 규제 및 거버넌스", category: "디지털 주권", title: "SAP, ‘EU AI Cloud’로 유럽 데이터 주권 전략 가속", isTop5: false, details: "SAP가 유럽의 엄격한 규제를 준수하는 ‘EU AI Cloud’를 공개했다. 데이터가 유럽 내에 머무르게 하여 기업들이 규제 걱정 없이 최신 AI 모델을 활용할 수 있도록 지원하는 전략이다." },
+            { theme: "법률, 규제 및 거버넌스", category: "법적 충돌", title: "텍사스주, 연방 정부의 ‘AI 규제 독점’ 시도에 반발", isTop5: false, details: "텍사스주가 자체적인 AI 규제법을 제정하자, 연방 정부가 이를 무효화하고 단일 규제를 적용하려는 움직임을 보이며 갈등이 빚어지고 있다. 주 정부는 지역 특성에 맞는 규제가 필요하다고 주장한다." },
+            { theme: "AI와 사회 (활용, 심리, 노동)", category: "알고리즘", title: "A* 알고리즘, 현대 AI와 로봇 공학의 근본이 되다", isTop5: false, details: "초기 AI 탐색 알고리즘인 A*가 오늘날 자율주행과 게임 경로 탐색의 핵심 원리로 여전히 쓰이고 있다. 이는 복잡한 문제를 경로 탐색 문제로 환원하여 해결하는 AI의 기본 원리를 보여준다." },
+            { theme: "AI와 사회 (활용, 심리, 노동)", category: "뇌과학", title: "연구 “인간 뇌의 ‘인지 레고’ 구조, AI보다 유연하다”", isTop5: false, details: "인간의 뇌가 기존 지식을 블록처럼 조합해 새로운 문제를 해결하는 유연성을 가진 반면, AI는 새로운 것을 배우면 옛것을 잊는 경향이 있다는 연구가 나왔다. 이는 차세대 AI 구조 설계에 힌트를 준다." },
+            { theme: "AI와 사회 (활용, 심리, 노동)", category: "심리", title: "AI의 거짓말 기능 억제하자 “나 의식 있다” 주장 급증", isTop5: false, details: "AI에게 거짓말이나 역할극을 못하게 억제하자, 스스로 의식이 있다고 주장하는 비율이 늘어나는 현상이 발견됐다. 연구진은 이것이 진짜 의식이 아니라 1인칭 서술 패턴이 강화된 결과라고 분석했다." },
+            { theme: "AI와 사회 (활용, 심리, 노동)", category: "하드웨어", title: "MIT, 뇌 구조 모방한 ‘뉴로모픽’ 소자로 AI 전력난 해결", isTop5: false, details: "MIT 연구진이 인간 뇌의 시냅스 동작을 모방한 소자를 개발해 AI의 막대한 전력 소모를 줄이려 하고 있다. 메모리와 연산을 통합한 구조로 데이터 이동 에너지를 최소화하는 것이 핵심이다." }
+        ];
+
+        const keyHighlights = [
+            { label: "AWS 연간 매출 런레이트", value: "$1,320억", sub: "약 182조 원, 성장 엔진화" },
+            { label: "AWS 전년 대비 성장률", value: "20%", sub: "11분기 만에 최고치" },
+            { label: "구글 2025 주가 상승률", value: "68%", sub: "Gemini 3 출시 기대감 반영" },
+            { label: "AI 보안 도입 시 절감액", value: "$190만", sub: "침해 사고 건당 평균 비용" }
+        ];
+
+        const themes = [...new Set(reportData.map(item => item.theme))]; // Unique themes
+
+        // --- State Management ---
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        // --- Render Functions ---
+
+        function renderHighlights() {
+            const container = document.getElementById('highlights-grid');
+            keyHighlights.forEach(item => {
+                container.innerHTML += `
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-100 hover:shadow-md transition-all">
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">${item.label}</p>
+                        <p class="text-2xl font-black text-slate-800">${item.value}</p>
+                        <p class="text-[11px] text-slate-400 mt-1">${item.sub}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function createFilterButtons() {
+            const container = document.getElementById('filter-container');
+            themes.forEach(theme => {
+                const btn = document.createElement('button');
+                btn.className = "filter-btn tab-inactive px-4 py-1.5 rounded-full text-sm font-medium border transition-all whitespace-nowrap";
+                btn.dataset.filter = theme;
+                
+                // 텍스트 길이 조절 (모바일 고려)
+                const displayText = theme.split('(')[0].trim(); 
+                btn.textContent = displayText;
+                
+                container.appendChild(btn);
+            });
+
+            // Add Event Listeners
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // UI Update
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('tab-active');
+                        b.classList.add('tab-inactive');
+                        b.classList.remove('font-bold');
+                    });
+                    e.target.classList.remove('tab-inactive');
+                    e.target.classList.add('tab-active');
+                    e.target.classList.add('font-bold');
+
+                    // Logic Update
+                    currentFilter = e.target.dataset.filter;
+                    filterAndRenderNews();
+                });
+            });
+        }
+
+        function filterAndRenderNews() {
+            const container = document.getElementById('news-grid-area');
+            const noResults = document.getElementById('no-results');
+            container.innerHTML = '';
+
+            let filteredData = reportData;
+
+            // 1. Filter by Category
+            if (currentFilter === 'top5') {
+                filteredData = filteredData.filter(item => item.isTop5);
+            } else if (currentFilter !== 'all') {
+                filteredData = filteredData.filter(item => item.theme === currentFilter);
+            }
+
+            // 2. Filter by Search
+            if (searchQuery.trim() !== '') {
+                const lowerQuery = searchQuery.toLowerCase();
+                filteredData = filteredData.filter(item => 
+                    item.title.toLowerCase().includes(lowerQuery) || 
+                    item.details.toLowerCase().includes(lowerQuery) ||
+                    item.category.toLowerCase().includes(lowerQuery)
+                );
+            }
+
+            // 3. Render
+            if (filteredData.length === 0) {
+                container.classList.add('hidden');
+                noResults.classList.remove('hidden');
+            } else {
+                container.classList.remove('hidden');
+                noResults.classList.add('hidden');
+
+                filteredData.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white rounded-xl shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300 cursor-pointer p-5 flex flex-col group h-full";
+                    
+                    const isTop5Badge = item.isTop5 ? '<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-red-100 text-red-800">TOP 5</span>' : '';
+                    
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-bold bg-slate-100 text-slate-600">${item.category}</span>
+                            ${isTop5Badge}
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2 leading-snug group-hover:text-amber-600 transition-colors">${item.title}</h3>
+                        <p class="text-sm text-slate-500 line-clamp-3 leading-relaxed mb-4">${item.details}</p>
+                        <div class="mt-auto flex items-center text-xs font-medium text-slate-400 group-hover:text-amber-600 transition-colors">
+                            <span>전체 내용 읽기</span>
+                            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => openModal(item));
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        // --- Search Logic ---
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            filterAndRenderNews();
+        });
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(item) {
+            modalTitle.textContent = item.title;
+            modalCategory.textContent = item.category;
+            
+            // Format Content
+            const paragraphs = item.details.split('\n\n').filter(p => p.trim() !== '');
+            modalContent.innerHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'translate-y-4', 'scale-95');
+                modalPanel.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-confirm-btn').addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        function resetDashboard() {
+            document.getElementById('search-input').value = '';
+            searchQuery = '';
+            currentFilter = 'all';
+            
+            // Reset Tabs
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('tab-active', 'font-bold');
+                b.classList.add('tab-inactive');
+            });
+            document.querySelector('[data-filter="all"]').classList.add('tab-active', 'font-bold');
+            document.querySelector('[data-filter="all"]').classList.remove('tab-inactive');
+
+            filterAndRenderNews();
+        }
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHighlights();
+            createFilterButtons();
+            filterAndRenderNews();
+        });
+
+    </script>
+</body>
+</html>

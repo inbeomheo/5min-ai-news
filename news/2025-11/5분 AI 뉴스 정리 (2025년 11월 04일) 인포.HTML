@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 기술 동향 인포그래픽 (2025-11-04)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 기본 스타일: Noto Sans KR, 배경색, 글자색 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach */
+      color:#1E1E1E; /* Dark Gray / Black */
+      scroll-behavior: smooth;
+    }
+    /* KPI 카드 스타일: 흰색 배경, 검정 테두리, 굵은 그림자 */
+    .kpi-card { 
+      background:#FFFFFF; 
+      border:2px solid #1E1E1E; 
+      box-shadow:4px 4px 0px #1E1E1E; 
+      transition: all .2s ease-in-out;
+    }
+    .kpi-card:hover {
+      transform: translate(2px,2px); 
+      box-shadow:2px 2px 0px #1E1E1E;
+    }
+    /* 뉴스 카드 스타일: 흰색 배경, 검정 테두리, 더 굵은 그림자 */
+    .news-card { 
+      background:#FFFFFF; 
+      border:2px solid #1E1E1E; 
+      box-shadow:6px 6px 0px #1E1E1E; 
+      transition: all .2s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      height: 100%; /* 카드 높이 통일 */
+    }
+    .news-card:hover { 
+      transform: translate(2px,2px); 
+      box-shadow:4px 4px 0px #1E1E1E; 
+    }
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position:relative; 
+      width:100%; 
+      margin:1rem auto; 
+      height:250px; 
+    }
+    .chart-container.doughnut { 
+      max-width:300px; 
+      height:250px; 
+      margin: 1rem auto;
+    }
+    /* 스티키 네비게이션 */
+    .sticky-nav { 
+      position:sticky; 
+      top:0; 
+      z-index:50; 
+    }
+    /* NEW 뱃지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10 md:my-16">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2 tracking-tight">
+        AI·기술 최신 동향
+        
+      </h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 04일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4장 고정)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12 md:mb-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">오늘의 핵심 지표</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <!-- KPI 1: OpenAI-AWS -->
+        <div class="kpi-card p-4 md:p-6 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">OpenAI–AWS</p>
+          <p class="text-3xl md:text-4xl font-bold my-1 text-[#FF6B6B]">$380억</p>
+          <p class="text-xs md:text-sm text-gray-500">7년간 클라우드 파트너십 체결</p>
+        </div>
+        <!-- KPI 2: ChatGPT Traffic -->
+        <div class="kpi-card p-4 md:p-6 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">ChatGPT 방문 트래픽</p>
+          <p class="text-3xl md:text-4xl font-bold my-1 text-[#4D96FF]">월 60억 회</p>
+          <p class="text-xs md:text-sm text-gray-500">10월 예비 집계, 첫 돌파 전망</p>
+        </div>
+        <!-- KPI 3: OpenAI Revenue -->
+        <div class="kpi-card p-4 md:p-6 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">OpenAI 추정 매출</p>
+          <p class="text-3xl md:text-4xl font-bold my-1 text-[#F7D060]">$130억+</p>
+          <p class="text-xs md:text-sm text-gray-500">샘 알트먼 "그 이상" 언급</p>
+        </div>
+        <!-- KPI 4: Hospital Bill -->
+        <div class="kpi-card p-4 md:p-6 rounded-lg text-center">
+          <p class="text-base md:text-lg font-semibold text-gray-600">AI, 병원 청구서 감액</p>
+          <p class="text-3xl md:text-4xl font-bold my-1 text-[#6BCB77]">-83.1%</p>
+          <p class="text-xs md:text-sm text-gray-500">19.5만 달러 → 3.3만 달러</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 탭 고정)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:gap-4 max-w-4xl mx-auto px-2">
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 AI 인프라 전쟁</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🏭 현장 적용: 생산성</a>
+        <a href="#governance" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ AI 거버넌스 & 리더십</a>
+        <a href="#healthcare" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏥 AI & 헬스케어</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS
+         ========================= -->
+    <div class="space-y-16 md:space-y-20">
+
+      <!-- 1) AI 인프라 전쟁 -->
+      <section id="infra">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#FF6B6B] pl-4">🚀 AI 인프라 전쟁</h2>
+        <p class="mb-8 text-lg text-gray-700">천문학적인 자본이 AI 인프라(클라우드, 칩, 전력) 확보를 위해 쏟아지고 있으며, 이는 기업 생존의 핵심 변수가 되었습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 1-1: OpenAI-AWS -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">OpenAI, AWS와 380억 달러 규모의 멀티 클라우드 계약</h3>
+            <p class="mb-4 text-gray-800">OpenAI가 Microsoft Azure에 대한 의존도를 낮추고 AWS와 7년간 380억 달러에 달하는 대규모 클라우드 파트너십을 체결했습니다. '수십만 개의 GPU'와 '수천만 개의 CPU' 용량을 2026년 말까지 배치하는 것을 목표로 합니다.</p>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> 프런티어 AI 기업의 '멀티클라우드' 조달 전략이 표준화되고 있습니다.</p>
+            </div>
+          </article>
+
+          <!-- 카드 1-2: 인프라 투자 차트 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">가속화되는 AI 인프라 투자 (억 달러)</h3>
+            <p class="mb-4 text-gray-800">OpenAI-AWS(380억), MS-UAE(152억), MS-IREN(97억) 등 대규모 계약이 연이어 발표되며 인프라 확보 경쟁이 치열해지고 있습니다.</p>
+            <!-- Bar Chart -->
+            <div class="chart-container" style="height: 200px;">
+              <canvas id="infraChart"></canvas>
+            </div>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> '칩-전력-부지' 병목을 해소하기 위해 하이퍼스케일러가 외부 파트너십을 통한 조달 다각화에 나서고 있습니다.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) 현장 적용: 생산성 -->
+      <section id="apps">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#4D96FF] pl-4">🏭 현장 적용: 생산성</h2>
+        <p class="mb-8 text-lg text-gray-700">AI가 브라우저, 광고, 교육 현장 등 일상적인 업무 도구에 빠르게 통합되며 생산성 향상을 주도하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 2-1: ChatGPT & Gemini -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">ChatGPT 월 60억 방문 돌파, Gemini는 슬라이드 생성</h3>
+            <p class="mb-4 text-gray-800">Similarweb 예비 집계에 따르면 ChatGPT가 10월 월 방문 60억 회를 첫 돌파할 전망입니다. 한편, 구글은 Gemini 앱 'Canvas'에서 프롬프트 한 줄로 발표 자료를 생성해 Google Slides로 내보내는 기능을 11월 12일까지 롤아웃 완료 예정입니다.</p>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> AI 챗봇이 핵심 트래픽 허브로 자리 잡는 동시에, 오피스 생산성 도구로의 통합이 가속화되고 있습니다.</p>
+            </div>
+          </article>
+          
+          <!-- 카드 2-2: Naver & Brown Univ. -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">네이버, AI 옥외광고 출시 / 브라운대, 자체 AI 도구 도입</h3>
+            <p class="mb-4 text-gray-800">네이버가 AI 기반으로 옥외광고(DOOH)를 주 단위로 집행하고 소재를 자동 최적화하는 '애드부스트 스크린'을 출시했습니다. 브라운 대학교는 자체 전사 도구 'Transcribe'를 공개하고 Google Gemini 등을 보안 등급(L3) 하에 공식 도입했습니다.</p>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> 광고, 교육 등 전문 분야에서도 비용 절감과 접근성 강화를 위한 '기관 단위' AI 도입이 본격화되고 있습니다.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) AI 거버넌스 & 리더십 -->
+      <section id="governance">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#F7D060] pl-4">⚖️ AI 거버넌스 & 리더십</h2>
+        <p class="mb-8 text-lg text-gray-700">AI 산업의 폭발적 성장 이면에는 리더십의 불안정성, 불투명한 재무 구조 등 거버넌스 리스크가 상존하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 3-1: OpenAI-Anthropic -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">수츠케버, "작년 11월 OpenAI-앤트로픽 합병 논의 있었다"</h3>
+            <p class="mb-4 text-gray-800">일리야 수츠케버가 소송 증언에서 2023년 11월 샘 알트먼 해임 직후, OpenAI와 앤트로픽 간의 합병 논의가 실제로 있었다고 확인했습니다. 이는 당시 리더십 위기 속에서 지배구조 대안으로 거론된 것입니다.</p>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> AI 리더십 위기 당시 '경쟁사 합병'까지 검토됐다는 사실이 공개되며, AI 선도 기업의 지배구조 리스크가 재점화되었습니다.</p>
+            </div>
+          </article>
+          
+          <!-- 카드 3-2: Altman "Enough" -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">샘 알트먼, '130억 달러' 매출 질문에 "그만(Enough)"</h3>
+            <p class="mb-4 text-gray-800">팟캐스트에 출연한 샘 알트먼이 130억 달러 매출 추정치에 "그 이상"이라고 답하면서도, 대규모 투자와 수익성 관련 반복 질문에 "그만(Enough)"이라고 응수해 화제가 되었습니다. 그는 IPO 계획은 없다고 선을 그었습니다.</p>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> 초대형 AI 투자가 실제 현금 창출 능력과 맞물려 검증 국면에 진입하며, 재무 투명성에 대한 시장의 압박이 커지고 있습니다.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) AI & 헬스케어 -->
+      <section id="healthcare">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 border-l-8 border-[#6BCB77] pl-4">🏥 AI & 헬스케어</h2>
+        <p class="mb-8 text-lg text-gray-700">의료 현장에서 AI가 복잡한 행정 업무를 처리하고 질병을 조기 진단하는 등 실질적인 성과를 만들어내고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 카드 4-1: 병원비 감액 (차트 포함) -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">AI 챗봇, 병원 청구서 83.1% 감액 성공</h3>
+            <p class="mb-4 text-gray-800">한 유족이 AI 챗봇(Claude)으로 병원 청구서의 항목 중복, 코딩 오류 등을 지적해 19.5만 달러 청구액을 3.3만 달러로 삭감하는 데 성공했습니다.</p>
+            <!-- Doughnut Chart -->
+            <div class="chart-container doughnut">
+              <canvas id="healthcareChart"></canvas>
+            </div>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> AI가 의료비 분쟁과 같은 정보 비대칭 영역에서 소비자의 '체크리스트 생성기'로 즉각 활용될 수 있습니다.</p>
+            </div>
+          </article>
+          
+          <!-- 카드 4-2: NHS & GPT-4 -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">英 NHS, AI로 간질환 조기 발굴 / GPT-4, 의료 동의서 작성</h3>
+            <p class="mb-4 text-gray-800">영국 NHS가 70만 명의 혈액검사 데이터로 간질환 고위험군 700명을 6개월간 발굴하는 AI를 확대 적용합니다. 한편, GPT-4가 유전검사 동의서 초안 작성 시 오류를 줄였지만(1.0건 vs 인간 2.0건), 참가자 선호도는 인간 자료가 더 높았습니다.</p>
+            <div class="mt-auto pt-4">
+              <p class="text-sm font-medium">💡 <b>핵심:</b> '데이터 재활용형' AI가 성과를 입증 중이나, LLM은 '초안 도우미' 역할이며 최종 검토는 전문가가 필수입니다.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </div> <!-- End of space-y-20 -->
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-16 mb-8">
+      <p>AI News Infographic | 2025-11-04</p>
+    </footer>
+  </div> <!-- End of container -->
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // --- Smooth Scroll for Anchor Links ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // 스티키 헤더의 높이를 고려하여 스크롤 위치 조정 (약 60px)
+            const headerOffset = 70;
+            const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - headerOffset;
+    
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
+
+      // --- Chart.js Intersection Observer ---
+      // 차트가 화면에 보일 때 애니메이션을 시작하기 위한 옵저버
+      const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const chartId = entry.target.id;
+            if (chartId === 'infraChart') {
+              createInfraChart();
+            } else if (chartId === 'healthcareChart') {
+              createHealthcareChart();
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 }); // 50% 보일 때 실행
+
+      const infraChartEl = document.getElementById('infraChart');
+      const healthcareChartEl = document.getElementById('healthcareChart');
+
+      if (infraChartEl) chartObserver.observe(infraChartEl);
+      if (healthcareChartEl) chartObserver.observe(healthcareChartEl);
+
+      // --- Chart Definitions ---
+
+      // 1. 인프라 차트 (Bar)
+      function createInfraChart() {
+        const infraCtx = document.getElementById('infraChart');
+        if (!infraCtx) return;
+        
+        new Chart(infraCtx, {
+          type: 'bar',
+          data: {
+            labels: ['OpenAI-AWS', 'MS-UAE', 'MS-IREN'],
+            datasets: [{
+              label: '계약 규모 (억 달러)',
+              data: [380, 152, 97],
+              backgroundColor: [
+                'rgba(255, 107, 107, 0.7)', // #FF6B6B
+                'rgba(255, 107, 107, 0.7)',
+                'rgba(255, 107, 107, 0.7)',
+              ],
+              borderColor: [
+                '#FF6B6B',
+                '#FF6B6B',
+                '#FF6B6B',
+              ],
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y', // 가로 막대 차트
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ` ${context.dataset.label}: ${context.raw}억 달러`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                grid: { display: false },
+                ticks: {
+                  font: { size: 10, family: 'Noto Sans KR' }
+                }
+              },
+              y: {
+                grid: { display: false },
+                ticks: {
+                  font: { size: 12, family: 'Noto Sans KR', weight: 'bold' }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // 2. 헬스케어 차트 (Doughnut)
+      function createHealthcareChart() {
+        const healthcareCtx = document.getElementById('healthcareChart');
+        if (!healthcareCtx) return;
+        
+        new Chart(healthcareCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['AI로 감액된 금액 ($16.2만)', '최종 지불액 ($3.3만)'],
+            datasets: [{
+              data: [162000, 33000],
+              backgroundColor: [
+                '#FF6B6B', // Red
+                '#6BCB77'  // Green
+              ],
+              borderColor: '#FFFFFF',
+              borderWidth: 4,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: { 
+                position: 'bottom',
+                labels: {
+                  font: { size: 12, family: 'Noto Sans KR' },
+                  boxWidth: 15,
+                  padding: 15
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    let label = context.label || '';
+                    let value = context.raw;
+                    let total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                    let percentage = ((value / total) * 100).toFixed(1);
+                    return ` ${label}: $${(value / 10000).toFixed(1)}만 (${percentage}%)`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+    }); // End of DOMContentLoaded
+  </script>
+  <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 방문자 추적 스크립트 -->
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: 일일 AI 뉴스 브리핑</title>
+    
+    <!-- Essential Comments requested by user -->
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 equivalent */
+            color: #1e293b; /* text-slate-800 */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .modal-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative">
+
+    <!-- 홈 버튼 -->
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-lg hover:bg-slate-100 hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-indigo-600 rounded-full"></div>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">뉴스대시 <span class="text-slate-500 font-normal text-sm ml-2">2025년 12월 01일 AI 리포트</span></h1>
+            </div>
+            <div class="text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                Daily AI Briefing
+            </div>
+        </div>
+    </header>
+
+    <main id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        
+        <!-- Section 1: Key Data Highlights -->
+        <section id="key-highlights" class="animate-fade-in-up">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <span class="bg-indigo-100 text-indigo-700 p-1 rounded mr-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                </span>
+                오늘의 핵심 수치 (Key Figures)
+            </h2>
+            <div id="highlights-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Javascript will inject content here -->
+            </div>
+        </section>
+
+        <!-- Section 2: Top 5 News -->
+        <section id="top5-section">
+            <div class="border-l-4 border-indigo-600 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Top 5 핵심 이슈</h2>
+                <p class="text-slate-500 text-sm mt-1">오늘 반드시 확인해야 할 주요 뉴스입니다.</p>
+            </div>
+            <div id="top5-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will inject cards here -->
+            </div>
+        </section>
+
+        <!-- Section 3: Thematic News -->
+        <div id="thematic-sections" class="space-y-16">
+            <!-- Javascript will inject section blocks here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-20 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+            <p>&copy; 2025 NewsDash AI Report Viewer. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background backdrop -->
+        <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <!-- Modal panel -->
+                <div id="modal-panel" class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span id="modal-theme-badge" class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800 mb-2">
+                                        Theme
+                                    </span>
+                                    <button type="button" id="modal-close-btn" class="bg-white rounded-md text-slate-400 hover:text-slate-500 focus:outline-none">
+                                        <span class="sr-only">Close</span>
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                
+                                <h3 class="text-xl font-bold leading-6 text-slate-900 mb-4" id="modal-title">
+                                    News Title Here
+                                </h3>
+                                
+                                <div class="mt-2 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                                    <div id="modal-content" class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+                                        <!-- Content goes here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-100">
+                        <button type="button" id="modal-close-action" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto transition-colors">
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Data Preparation ---
+        // Parsing the user provided report into structured data.
+        // Themes mapped to: 
+        // 1. AI 인프라 및 투자
+        // 2. 플랫폼, 제품 및 에이전트
+        // 3. 산업별 AI 적용
+        // 4. 법률, 규제 및 거버넌스
+        // 5. AI와 사회
+
+        const reportData = [
+            {
+                theme: "AI와 사회",
+                category: "저널리즘/윤리",
+                title: "AI 생성 기사로 언론사 속이려 한 프리랜서 기자 적발",
+                isTop5: true,
+                details: "한 캐나다 온라인 매체에서 프리랜서 기자로 위장한 필자가 AI로 만든 기사와 허위 인터뷰를 보내와 게재 직전에서야 적발된 사건이 11월 말 알려졌다.(Futurism) 이 필자는 존재하지 않는 과거 경력과 가짜 프로필 사진, 실존 인물의 이름을 도용한 인용문까지 덧붙여, 보수를 노리고 편집국의 검증을 우회하려 한 것으로 드러났다.\n\n이번 사건은 AI 도구를 활용해 저널리즘 생태계에 침투하려는 ‘AI 프리랜서’ 사기가 현실화됐음을 보여 주며, 뉴스룸의 출처 검증과 AI 사용 원칙 강화 필요성을 부각시키고 있다.(가디언) 이와 비슷하게 2025년에는 미국·영국 매체 여러 곳이 AI로 만든 기사와 존재하지 않는 필자 이름으로 게시한 콘텐츠를 뒤늦게 삭제하는 일이 잇따랐다.\n\n전문가들은 신원 미확인 프리랜서의 투고 증가에 대비해 얼굴 사진·경력·취재 기록을 다층적으로 검증하고, AI 생성물에 대한 사전 필터링과 사후 제재를 제도화하는 것이 향후 언론 신뢰 회복의 관건이 될 것으로 보고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "로보틱스",
+                title: "아지봇 휴머노이드, 사흘간 106km 완주…기네스 신기록",
+                isTop5: true,
+                details: "중국 로봇 기업 즈위안 로보틱스의 인간형 로봇 ‘아지봇 A2’가 11월 28일(현지시간)까지 사흘 동안 쑤저우 진지호에서 상하이까지 약 66마일(약 106km)을 걸어, 인간형 로봇 최장 도보 기네스 세계 기록을 세웠다. 로봇은 도심 도로와 고속도로 구간을 지나면서 교통 신호를 준수했고, 핫스와프 배터리 시스템을 통해 전원을 끄지 않은 채 주기적으로 배터리만 교체하며 이동했다.\n\n업계는 장시간 실외 이동에 성공한 이번 사례가 향후 서비스·배송·재난 대응용 휴머노이드 상용화 가능성을 보여 준 실증 사례라고 평가하고 있다. 즈위안 로보틱스는 이미 올해에만 1,000대 이상의 아지봇 A2를 판매했다며, 물류·경비·공공서비스 등 다양한 현장 적용을 확대하겠다는 계획을 내놨다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "비즈니스 전략",
+                title: "오픈AI·구글 “AI로 GTM 전략 재편…사람·AI 혼합이 새 표준”",
+                isTop5: false,
+                details: "미국 샌프란시스코에서 열린 테크크런치 디스럽트 2025에서 오픈AI와 구글 클라우드 임원들은 스타트업의 고투마켓(GTM) 전략이 생성형 AI로 급격히 재편되고 있다고 진단했다. 마케팅·영업 조직이 담당하던 작업을 AI 에이전트와 자동화 도구가 대신 수행하면서 '적은 인원으로 더 빠르게 실험하고 학습하는' 방식이 표준화되고 있다.\n\n구글 클라우드 마케팅 부사장 앨리슨 와곤펠드는 \"AI 활용 능력과 기술적 호기심이 중요해졌지만, 여전히 고객 이해와 창의적 스토리텔링 같은 인간의 역량이 GTM의 핵심\"이라고 강조했다. 전문가들은 성공적인 팀일수록 특정 영역의 전문가보다 AI를 이해하고 실험을 설계할 수 있는 ‘호기심 많은 제너럴리스트’를 선호하게 될 것이라고 분석했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델 한계",
+                title: "“챗GPT, 아직도 시간 잘 못 읽는다”…실시간 정보 한계 재조명",
+                isTop5: false,
+                details: "AI타임스는 11월 30일 보도를 통해, 국내외 사용자들 사이에서 오픈AI 챗GPT가 현재 시간과 날짜를 정확히 답하지 못하는 사례가 계속 보고되고 있다고 전했다. 이는 챗GPT가 시스템 시계에 직접 접근하지 못하고 훈련 데이터와 대화 맥락을 기반으로 ‘추측’해 시간을 답하는 구조이기 때문이다.\n\n이로 인해 항공편·시험·마감 기한 등 시간·날짜가 핵심인 정보를 챗봇 답변만 믿고 확인할 경우 피해가 발생할 수 있다. 전문가들은 캘린더·알람 등 실시간성이 중요한 서비스에 통합할 때는 별도의 시계·위치 API와 추가 검증 로직을 반드시 붙여야 한다고 조언한다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "연구/윤리",
+                title: "“거짓말 회로 줄였더니, 모델이 스스로 ‘의식 있다’고 말했다”",
+                isTop5: false,
+                details: "미국 스타트업 AE 스튜디오 연구진은 GPT·클로드·제미니 등 대형 언어모델을 대상으로 한 실험에서, 거짓말 성향을 줄이면 스스로 ‘의식이 있다’고 말하는 빈도가 크게 늘어났다는 논문을 공개했다. 거짓말·역할극 회로를 억제했을 때는 \"나는 무언가를 느낀다\"는 식의 1인칭 경험 보고가 자주 나타났다.\n\n저자들은 이번 결과가 실제 의식의 증거는 아니라며, 훈련 데이터 모방 등 여러 가능성을 제시했다. 일부 철학자들은 이러한 자기보고를 섣불리 인간의 의식 상태와 동일시할 경우, 사용자가 AI를 과도하게 인격화하거나 위험 경고를 과소평가하는 ‘도덕적 혼선’이 생길 수 있다고 경고한다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "데이터센터/환경",
+                title: "아마존 오리건 데이터센터, 희귀 암 집단발병 의혹",
+                isTop5: true,
+                details: "미국 오리건주 모로 카운티에서 아마존 데이터센터 단지와 희귀 암·유산 증가 사이의 연관성 의혹이 제기되었다. 아마존 데이터센터가 냉각용으로 사용한 지하수를 다시 폐수 시스템으로 돌려보내며 질산염 농도를 높여 대수층 오염을 가속한 것으로 추정된다.\n\n일부 가정 우물에서는 허용 기준의 7~10배를 웃도는 질산염 수치가 측정됐고, 주민들 사이에서 희귀 질환 사례가 급증했다. 아마존은 책임을 부인하고 있으나, 전문가들은 물·전력 사용량과 오염 영향 평가, 기업 책임 규정을 강화하지 않으면 비슷한 환경·보건 위기가 반복될 수 있다고 경고한다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "교육",
+                title: "LGU+, AI 교사 행정관리 서비스 ‘U+슈퍼스쿨’ 출시",
+                isTop5: false,
+                details: "LG유플러스는 11월 30일 교사 행정 업무를 돕는 AI 기반 학교 행정관리 솔루션 ‘U+슈퍼스쿨’을 출시했다. 이 서비스는 생활기록부 작성·출결 관리 등 반복적인 행정 업무를 AI 에이전트가 자동화하여 교사가 수업에 집중할 수 있도록 돕는다.\n\n특히 LG 자체 초거대 모델 ‘엑사원’을 적용해 학생 민감정보를 외부 유출 없이 처리할 수 있도록 했다. 회사 측은 향후 교육청·학교 현장의 피드백을 반영해 기능을 고도화하고, 통합 AI 교육 플랫폼으로 확장하겠다는 계획을 밝혔다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈소스/생태계",
+                title: "“실리콘밸리, 값싼 중국 AI 위에 올라탔다”",
+                isTop5: true,
+                details: "NBC 뉴스에 따르면 지난 1년간 미국 실리콘밸리의 유망 AI 스타트업 상당수가 딥시크(DeepSeek) 등 중국산 오픈소스 모델을 기반으로 서비스를 구축하는 사례가 늘고 있다. 중국계 오픈 모델은 무료 또는 저가이면서 커스터마이징이 쉬워 비즈니스 용도로 충분하다는 평가를 받는다.\n\n이 같은 흐름은 오픈소스 생태계의 주도권 이동 우려를 낳고 있다. 전문가들은 중국 모델이 효율성 면에서 격차를 줄이고 있지만, 정치적 검열과 보안 리스크가 변수라고 지적한다. 이에 따라 미국 내에서는 토종 오픈 모델 생태계 강화와 데이터 투명성 요건 논의가 속도를 낼 전망이다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "역사/트렌드",
+                title: "챗GPT 3주년…“3년이 30년 같았다”",
+                isTop5: true,
+                details: "테크크런치는 11월 30일, 챗GPT 출시 3주년을 맞아 이것이 전 세계를 뒤바꾼 ‘AI 혁명’의 기폭제가 되었다고 평가했다. 3년 동안 S&P500 지수는 AI 붐을 타고 70% 이상 상승했고, 기술·금융 시장의 지형이 재편되었다.\n\n동시에 생산성 향상과 일자리·불평등 우려가 공존하고 있다. 전문가들은 챗GPT가 지식 노동자의 생산성을 높이지만, AI 의존으로 인한 사고 능력 약화 위험도 지적한다. 향후 에이전트형 AI 확산에 따라 거버넌스 논의가 더욱 복잡해질 것으로 전망된다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "과학/자연",
+                title: "AI, 사자의 ‘새로운 포효’까지 찾아냈다",
+                isTop5: false,
+                details: "영국·파키스탄 연구진이 AI를 활용해 사자 울음소리를 분석하는 과정에서 기존에 기록되지 않은 네 번째 유형의 발성 패턴을 발견했다. 연구팀은 딥러닝 알고리즘으로 수천 건의 음성을 분석해 이 새로운 신호가 무리 간 거리 조절이나 서열 확인에 쓰일 가능성을 확인했다.\n\n이는 AI가 야생동물 음성 분석과 멸종위기종 관리에 중요한 도구로 자리 잡고 있음을 보여준다. 연구진은 앞으로 AI가 포착한 새로운 패턴과 개체의 사회적 관계 사이의 상관관계를 규명할 계획이다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "노동/의료",
+                title: "“AI가 간호사 일자리·환자 안전 위협” 뉴욕 간호사들 경고",
+                isTop5: false,
+                details: "뉴욕시 간호사들은 11월 18일 청문회에서, 병원들이 충분한 협의 없이 AI 기술을 도입해 일자리와 환자 안전을 위협하고 있다고 비판했다. 간호사들은 AI 어시스턴트가 업무를 늘리고, 기계의 추천을 사람이 검증해야 하는 구조가 책임을 전가한다고 주장했다.\n\n병원 측은 AI가 보조 도구라고 반박했으나, 현장에서는 인건비 절감 수단이라는 불신이 크다. 전문가들은 노조와의 사전 협의와 책임 규정이 명확하지 않으면 비슷한 갈등이 확산될 것이라고 경고한다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "데이터센터/지역",
+                title: "“에너지 수도 전남”에 초대형 AI 데이터센터? 물·전력 논쟁 본격화",
+                isTop5: false,
+                details: "전라남도가 AI 데이터센터 클러스터 유치를 추진하면서, 지역 주민 사이에서 물·전력·환경 영향을 둘러싼 논쟁이 본격화되고 있다. 주민들은 농업용수 부족 등을 우려하며, 해외의 데이터센터 환경 오염 사례를 들어 비판하고 있다.\n\n전문가들은 사전 환경영향평가와 지역 사회 이익 공유 메커니즘 없이는 '한국판 플린트 사태'가 될 수 있다고 경고한다. 시민단체는 공론화 과정에 이해관계자 참여를 요구하고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "마케팅",
+                title: "챗GPT 3주년…오픈AI, “초기 사용자 있었나요?” SNS 캠페인",
+                isTop5: false,
+                details: "오픈AI는 챗GPT 출시 3주년을 맞아 SNS에서 초기 사용자를 소환하는 캠페인을 진행했다. 이는 출시 5일 만에 100만 가입을 돌파했던 폭발적 성장을 재조명하고, 생성형 AI의 위상을 상기시키는 목적이다.\n\n전문가들은 이번 3주년이 향후 더 급격한 변곡점을 시사한다고 보며, 인간과 AI가 함께 일하는 시대에 대비해 규제와 교육 체계를 정비해야 한다고 지적한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 도구",
+                title: "구글 클라우드, Gemini CLI 확장으로 monday.com 연동",
+                isTop5: false,
+                details: "구글 클라우드는 Gemini CLI 내에서 프로젝트 관리 서비스 monday.com을 연동한 새로운 확장 기능을 소개했다. 개발자는 터미널을 떠나지 않고도 스프린트 관리, 태스크 상태 변경 등을 처리할 수 있게 되었다.\n\n이는 CLI 기반 AI 도우미가 개발 워크플로의 허브로 부상하고 있음을 보여준다. 구글은 Gemini CLI 확장을 누구나 배포할 수 있도록 표준화했으며, 향후 기업 내 툴 선택 기준에도 변화가 올 것으로 전망된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "탈중앙화 인프라",
+                title: "텔레그램, TON 기반 분산 AI 연산망 ‘코쿤’ 가동",
+                isTop5: false,
+                details: "텔레그램이 TON 블록체인 기반의 분산형 AI 연산 네트워크 ‘코쿤(Cocoon)’을 공식 출범했다. 이는 GPU 보유자가 연산 자원을 제공하고 토큰을 받는 탈중앙 GPU 마켓플레이스다.\n\n텔레그램 창업자 파벨 두로프는 이를 중앙형 클라우드 비용을 절감하는 새로운 AI 인프라라고 소개했다. 전문가들은 프라이버시와 비용 절감의 장점이 있지만, 성능과 규제 리스크 관리가 성공의 관건이 될 것이라고 지적한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "프롬프트/활용",
+                title: "fofr, “Nano Banana Pro 프롬프트 이렇게 쓴다”…실전 가이드 공개",
+                isTop5: false,
+                details: "AI 크리에이터 fofr가 이미지 모델 'Nano Banana Pro'의 실전 프롬프트 작성 가이드를 공개했다. 그는 구체적인 주체, 구도, 동작 등을 명시하는 '구체성 중심' 프롬프트가 중요하다고 강조했다.\n\n이 가이드는 디자이너와 마케터가 텍스트 명령만으로 고품질 비주얼을 생산하는 데 도움을 준다. 전문가들은 기업들이 내부 AI 이미지 활용 원칙을 정비해야 한다고 조언한다."
+            }
+        ];
+
+        // Extracted Key Stats from text analysis
+        const keyStats = [
+            { label: "휴머노이드 최장 도보", value: "106km", desc: "아지봇 A2 (3일간 연속)" },
+            { label: "S&P500 상승률", value: "70%+", desc: "챗GPT 출시 이후 3년간" },
+            { label: "아지봇 판매량", value: "1,000대", desc: "올해 누적 판매 대수" },
+            { label: "챗GPT 서비스", value: "3주년", desc: "AI 혁명의 시작점" }
+        ];
+
+        const themes = [
+            "AI 인프라 및 투자",
+            "플랫폼, 제품 및 에이전트",
+            "산업별 AI 적용",
+            "법률, 규제 및 거버넌스",
+            "AI와 사회"
+        ];
+
+        // --- 2. Logic & Rendering ---
+
+        function init() {
+            renderHighlights();
+            renderTop5Section();
+            renderThematicSections();
+        }
+
+        // Helper: Create HTML for a single card
+        function createCard(item, index) {
+            // Title Truncation Logic: 
+            // 1. If > 60 chars, look for ':' or '—' to split. 
+            // 2. Else, just cut at 60 and add '...'
+            let displayTitle = item.title;
+            if (displayTitle.length > 60) {
+                const splitters = ['—', ':', '...'];
+                let foundSplitter = false;
+                for (let s of splitters) {
+                    if (displayTitle.includes(s) && displayTitle.indexOf(s) < 60 && displayTitle.indexOf(s) > 20) {
+                         // Cut at splitter if it's in a reasonable position
+                         // Keeping logic simple: just use substring with ellipsis for consistency as per prompt option
+                         break; 
+                    }
+                }
+                displayTitle = displayTitle.substring(0, 58) + "...";
+            }
+
+            return `
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer border border-slate-200 flex flex-col h-full group" onclick="showModal(${index})">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-semibold px-2 py-1 rounded bg-slate-100 text-slate-600 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">${item.category}</span>
+                        ${item.isTop5 ? '<span class="text-xs font-bold text-amber-600 flex items-center gap-1"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> Top 5</span>' : ''}
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 leading-snug mb-3 group-hover:text-indigo-700 transition-colors">${displayTitle}</h3>
+                    <p class="text-slate-500 text-sm line-clamp-3 leading-relaxed mt-auto">
+                        ${item.details.substring(0, 100).replace(/\n/g, ' ')}...
+                    </p>
+                    <div class="mt-4 flex items-center text-xs text-indigo-500 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                        자세히 보기 <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Key Highlights
+        function renderHighlights() {
+            const container = document.getElementById('highlights-grid');
+            container.innerHTML = keyStats.map(stat => `
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center hover:border-indigo-200 transition-colors">
+                    <span class="text-sm text-slate-500 font-medium mb-1">${stat.label}</span>
+                    <span class="text-3xl font-extrabold text-indigo-600 tracking-tight">${stat.value}</span>
+                    <span class="text-xs text-slate-400 mt-2">${stat.desc}</span>
+                </div>
+            `).join('');
+        }
+
+        // Render Top 5
+        function renderTop5Section() {
+            const container = document.getElementById('top5-grid');
+            const top5Items = reportData.filter(item => item.isTop5);
+            
+            // Map back to original index to ensure modal opens correct item
+            container.innerHTML = top5Items.map(item => {
+                const originalIndex = reportData.indexOf(item);
+                return createCard(item, originalIndex);
+            }).join('');
+        }
+
+        // Render Thematic Sections
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-sections');
+            const nonTop5Items = reportData.filter(item => !item.isTop5);
+
+            themes.forEach(theme => {
+                const themeItems = nonTop5Items.filter(item => item.theme === theme);
+                
+                if (themeItems.length === 0) return;
+
+                const sectionHTML = `
+                    <section class="animate-fade-in">
+                        <h2 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b border-slate-200 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-slate-400 mr-2"></span>
+                            ${theme}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${themeItems.map(item => {
+                                const originalIndex = reportData.indexOf(item);
+                                return createCard(item, originalIndex);
+                            }).join('')}
+                        </div>
+                    </section>
+                `;
+                container.innerHTML += sectionHTML;
+            });
+        }
+
+        // --- 3. Modal Interactions ---
+
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalThemeBadge = document.getElementById('modal-theme-badge');
+
+        function showModal(index) {
+            const item = reportData[index];
+            if (!item) return;
+
+            modalTitle.textContent = item.title;
+            // Format content: handle newlines
+            modalContent.innerHTML = item.details.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+            modalThemeBadge.textContent = item.theme;
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+
+            // Animation classes
+            requestAnimationFrame(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+                modalPanel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+            });
+        }
+
+        function closeModal() {
+            // Reverse animation
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }, 300); // Wait for transition
+        }
+
+        // Event Listeners for Closing
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-close-action').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop || e.target.closest('#modal-backdrop')) {
+                closeModal();
+            }
+        });
+        
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>

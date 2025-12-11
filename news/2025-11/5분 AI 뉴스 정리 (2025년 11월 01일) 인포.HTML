@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 기술 동향 인포그래픽 (2025-11-01)</title>
+  <!-- Tailwind & Chart.js (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Noto Sans KR 웹 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Noto Sans KR 폰트 및 필수 스타일 적용 */
+    body { 
+      font-family: 'Noto Sans KR', sans-serif; 
+      background-color: #FDF0E0; /* Light Peach 배경 */
+      color: #1E1E1E; /* 기본 텍스트 색상 */
+    }
+    /* 카드 스타일 (레트로) */
+    .kpi-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 4px 4px 0px #1E1E1E; /* 굵은 그림자 */
+    }
+    .news-card { 
+      background: #fff; 
+      border: 2px solid #1E1E1E; 
+      box-shadow: 6px 6px 0px #1E1E1E; /* 굵은 그림자 */
+      transition: all .2s ease-in-out; 
+    }
+    .news-card:hover { 
+      transform: translate(2px, 2px); 
+      box-shadow: 4px 4px 0px #1E1E1E; 
+    }
+    /* 차트 컨테이너 */
+    .chart-container { 
+      position: relative; 
+      width: 100%; 
+      max-width: 600px; 
+      margin: 1.5rem auto; 
+      height: 300px; 
+      max-height: 400px; 
+    }
+    .chart-container.doughnut { 
+      max-width: 400px; 
+    }
+    @media (min-width: 768px) { 
+      .chart-container { height: 350px; } 
+      .chart-container.doughnut { height: 350px; } 
+    }
+    /* 스티키 네비게이션 */
+    .sticky-nav { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+    }
+    /* HTML 스크롤 부드럽게 */
+    html {
+      scroll-behavior: smooth;
+    }
+    /* NEW 뱃지 스타일 */
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+      letter-spacing: 0.5px;
+      animation: pulse 2s ease-in-out infinite;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <header class="text-center my-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-2">
+        AI·기술 최신 동향
+        
+      </h1>
+      <p class="text-xl text-gray-700" id="report-date">2025년 11월 1일</p>
+    </header>
+
+    <!-- =========================
+         KPI OVERVIEW (4개 핵심 지표)
+         ========================= -->
+    <section id="kpi-overview" class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">핵심 지표 요약</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- KPI 1: 인프라 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">OpenAI 증설 목표</p>
+          <p class="text-3xl md:text-4xl font-bold">⚡ 1GW / 주</p>
+          <p class="text-sm text-gray-500">Sam Altman이 제시한 주당 컴퓨트 증설 목표</p>
+        </div>
+        <!-- KPI 2: 플랫폼 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">Google x Jio</p>
+          <p class="text-3xl md:text-4xl font-bold">5억+ 명</p>
+          <p class="text-sm text-gray-500">인도 Jio 가입자 대상 Gemini Pro 18개월 무료</p>
+        </div>
+        <!-- KPI 3: 거버넌스 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">UMG + Udio</p>
+          <p class="text-3xl md:text-4xl font-bold">🎵 2026년 출시</p>
+          <p class="text-sm text-gray-500">저작권 소송 합의, 라이선스 기반 플랫폼 예고</p>
+        </div>
+        <!-- KPI 4: 현장 적용 -->
+        <div class="kpi-card p-6 rounded-lg text-center">
+          <p class="text-lg font-semibold text-gray-600">AI 병원비 검토</p>
+          <p class="text-3xl md:text-4xl font-bold">-83.1%</p>
+          <p class="text-sm text-gray-500">유족이 'Claude'로 병원비 청구 오류 감액</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKY NAV (4개 테마)
+         ========================= -->
+    <nav class="sticky-nav bg-[#FDF0E0]/80 backdrop-blur-md py-3 mb-10 border-b-2 border-t-2 border-[#1E1E1E]">
+      <div class="flex justify-center flex-wrap gap-2 md:space-x-4">
+        <a href="#infra" class="font-bold py-2 px-4 rounded-md hover:bg-[#FF6B6B] hover:text-white transition-colors">🚀 인프라</a>
+        <a href="#platform" class="font-bold py-2 px-4 rounded-md hover:bg-[#4D96FF] hover:text-white transition-colors">🧠 플랫폼·에이전트</a>
+        <a href="#data" class="font-bold py-2 px-4 rounded-md hover:bg-[#F7D060] hover:text-white transition-colors">⚖️ 데이터·거버넌스</a>
+        <a href="#apps" class="font-bold py-2 px-4 rounded-md hover:bg-[#6BCB77] hover:text-white transition-colors">🏭 현장 적용</a>
+      </div>
+    </nav>
+
+    <!-- =========================
+         BODY SECTIONS (테마별 큐레이션)
+         ========================= -->
+    <div class="space-y-20">
+
+      <!-- 1) 인프라 -->
+      <section id="infra">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#FF6B6B] pl-4">🚀 인프라</h2>
+        <p class="mb-8 text-lg text-gray-700">빅테크의 AI 인프라 경쟁이 'GW' 단위로 격상됐습니다. OpenAI, 아마존, 네이버 등이 천문학적 규모의 칩, 데이터센터, 전력 확보에 나섰습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: OpenAI 1GW -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">OpenAI, '주당 1GW' 증설 목표... 30GW 인프라 구축</h3>
+            <p class="mb-4">Sam Altman이 '유용한 AGI' 달성을 위해 주당 1GW의 컴퓨트 증설 목표를 밝혔습니다. 이는 총 30GW 규모, 약 1.4조 달러의 의무가 따르는 초대형 인프라 계획의 일환으로, AGI 성능이 모델보다 컴퓨팅에 좌우된다는 판단입니다.</p>
+            <!-- 포인트 박스 (Big Number) -->
+            <div class="mt-auto p-4 bg-red-50 border-2 border-black rounded-lg text-center">
+              <p class="text-2xl md:text-3xl font-bold">⚡ 1GW / 주</p>
+              <p class="text-sm font-semibold">총 30GW (약 $1.4T) 규모</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘컴퓨트=전략 자산’ 시대가 본격화되며, 빅테크-에너지 동맹이 가속화되고 있습니다.</p>
+          </article>
+
+          <!-- 차트 카드: Amazon Rainier -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="font-bold text-xl md:text-2xl mb-3">아마존 '프로젝트 레이니어', 50만 칩으로 가동</h3>
+            <p class="mb-4">AWS가 자체 AI 칩 'Trainium2' 약 50만 개 규모의 대형 클러스터 '프로젝트 레이니어'를 본격 가동합니다. 연말까지 100만 개 이상의 칩을 목표로 하며, 앤트로픽의 Claude 모델 학습을 지원합니다.</p>
+            <div class="chart-container">
+              <canvas id="infraChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘클라우드+자체칩+앱(모델)’의 수직 통합 경쟁이 본격화되고 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2) 플랫폼·에이전트 -->
+      <section id="platform">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#4D96FF] pl-4">🧠 플랫폼·에이전트</h2>
+        <p class="mb-8 text-lg text-gray-700">AI가 대화를 넘어 '행동'을 시작합니다. OpenAI, MS, 구글이 브라우저와 OS에 에이전트를 탑재하며, 특화 검색(Perplexity)도 고도화됩니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: ChatGPT Agent Mode -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">ChatGPT '에이전트 모드', 브라우저 작업 자동화</h3>
+            <p class="mb-4">ChatGPT Atlas에서 '에이전트 모드'가 활성화되어, 웹 탐색, 양식 작성, 리서치 등 다단계 작업을 자동 수행합니다. Plus 요금제는 월 40건, Pro는 월 400건 한도로 미리보기가 제공됩니다.</p>
+            <!-- 포인트 박스 (Flow Diagram) -->
+            <div class="mt-auto p-4 bg-blue-50 border-2 border-black rounded-lg">
+              <p class="text-center font-semibold mb-2">에이전트 모드 작업 흐름</p>
+              <div class="flex items-center justify-center flex-wrap gap-2 text-sm">
+                <span class="font-bold p-2 bg-blue-100 border border-black rounded">요청</span>
+                <span class="font-bold">&rarr;</span>
+                <span class="p-2 bg-gray-100 border border-black rounded">작업수행</span>
+                <span class="font-bold">&rarr;</span>
+                <span class="p-2 bg-gray-100 border border-black rounded">승인</span>
+                <span class="font-bold">&rarr;</span>
+                <span class="font-bold p-2 bg-green-100 border border-black rounded">완료</span>
+              </div>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘대화 → 행동’의 전환이 본격화되며, 브라우저가 에이전트 실행의 핵심 무대가 되었습니다.</p>
+          </article>
+
+          <!-- 뉴스 카드: Perplexity Patents -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">Perplexity, 'Patents' 베타 출시... 자연어 특허 검색</h3>
+            <p class="mb-4">Perplexity가 자연어로 특허와 선행 기술을 탐색하는 'Perplexity Patents' 베타를 공개했습니다. 복잡한 키워드 검색의 장벽을 낮추고, 베타 기간 동안 무료로 제공됩니다.</p>
+             <!-- 포인트 박스 (Callout) -->
+            <div class="mt-auto p-4 bg-blue-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base text-center"><b>특징:</b> "세계 최초 AI 특허 리서치 에이전트" 표방</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 에이전트가 '사실 사슬(chain-of-thought)' 기반의 IP 리서치를 대중화하는 신호탄입니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3) 데이터·거버넌스 -->
+      <section id="data">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#F7D060] pl-4">⚖️ 데이터·거버넌스</h2>
+        <p class="mb-8 text-lg text-gray-700">AI의 확산이 저작권, 영업비밀, 공공데이터 활용 등 기존 법·제도와 충돌하며 새로운 표준을 요구하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: UMG + Udio -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">UMG, Udio와 저작권 소송 합의... 2026년 플랫폼 예고</h3>
+            <p class="mb-4">Universal Music Group(UMG)이 AI 음악 생성 스타트업 Udio와의 저작권 소송을 합의했습니다. 양사는 '라이선스 음악'으로 학습된 새로운 AI 음악 플랫폼을 2026년 출시할 계획이며, 합의 금액은 비공개입니다.</p>
+            <!-- 포인트 박스 (Callout) -->
+            <div class="p-4 bg-yellow-50 border-2 border-black rounded-lg">
+              <p class="text-sm md:text-base text-center"><b>포인트:</b> 🎵 무단 학습 논란 ➡️ 라이선스 모델로 합의</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘무단 학습 vs 라이선스’ 대립에서 업계 표준을 시험할 첫 대형 합의입니다.</p>
+          </article>
+
+          <!-- 차트 카드: 공공문서 91.1% -->
+          <article class="news-card p-6 rounded-xl">
+            <h3 class="font-bold text-xl md:text-2xl mb-3">공공문서 91.1%, AI가 읽지 못하는 '비정형'</h3>
+            <p class="mb-4">국감 자료에 따르면, 국내 공공문서의 91.1%가 HWP, 스캔 PDF 등 AI가 즉시 활용하기 어려운 비정형 데이터입니다. 이는 행정 AI 도입의 핵심 병목으로 지적됩니다.</p>
+            <div class="chart-container doughnut">
+              <canvas id="govChart"></canvas>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> 시스템 도입보다 ‘데이터 구조화’가 행정 AI 성공의 선결 과제임을 보여줍니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4) 현장 적용 -->
+      <section id="apps">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-l-8 border-[#6BCB77] pl-4">🏭 현장 적용</h2>
+        <p class="mb-8 text-lg text-gray-700">의료, 법무, 교육, 디자인 등 전문 분야는 물론 일상 업무에서도 AI가 실질적인 생산성 향상과 비용 절감 효과를 입증하고 있습니다.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 뉴스 카드: 클로드 병원비 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">유족, 'Claude'로 병원비 청구서 83.1% 감액 성공</h3>
+            <p class="mb-4">한 유족이 아버님의 병원 청구서(약 $195,000)를 AI 'Claude'로 분석, 중복 청구와 코딩 오류를 발견했습니다. AI가 작성한 이의제기 문안을 통해 병원과 협상, 최종 $33,000로 감액에 성공했습니다.</p>
+            <!-- 포인트 박스 (Big Number) -->
+            <div class="mt-auto p-4 bg-green-50 border-2 border-black rounded-lg text-center">
+              <p class="text-2xl md:text-3xl font-bold text-red-600">-83.1%</p>
+              <p class="text-sm font-semibold">$195,000 &rarr; $33,000</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> AI가 정보 비대칭을 완화하고, 소비자 권익 보호에 실질적 도구로 활용될 수 있음을 보여준 사례입니다.</p>
+          </article>
+
+          <!-- 뉴스 카드: LSE 조사 -->
+          <article class="news-card p-6 rounded-xl flex flex-col">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">LSE 조사 "생성형 AI, 주당 평균 7.5시간 절감"</h3>
+            <p class="mb-4">런던정경대(LSE)가 3천 명의 직원을 대상으로 조사한 결과, 생성형 AI 사용자가 주당 평균 7.5시간을 절감하는 것으로 나타났습니다. 이는 연간 약 £14,000의 생산성 가치로 환산됩니다.</p>
+            <!-- 포인트 박스 (Big Number) -->
+            <div class="mt-auto p-4 bg-green-50 border-2 border-black rounded-lg text-center">
+              <p class="text-2xl md:text-3xl font-bold text-blue-600">주 7.5 시간</p>
+              <p class="text-sm font-semibold">(연간 약 £14,000 가치)</p>
+            </div>
+            <p class="mt-4 text-sm">💡 <b>핵심:</b> ‘시간 절감 → 업무 재배치’가 본격화되며, AI 활용 교육이 ROI의 핵심 변수로 부상했습니다.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="text-center text-sm text-gray-500 mt-20 mb-8">
+      <p>AI·기술 최신 동향 인포그래픽 | 2025-11-01</p>
+    </footer>
+  </div>
+
+  <!-- =========================
+       JAVASCRIPT (차트 및 상호작용)
+       ========================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- 차트 데이터 ---
+      const infraChartData = {
+        type: 'bar',
+        data: {
+          labels: ['현재 (Rainier)', '연말 목표 (Rainier)'],
+          datasets: [{
+            label: 'AWS Trainium2 칩 (개)',
+            data: [500000, 1000000],
+            backgroundColor: ['rgba(255, 107, 107, 0.7)'], // #FF6B6B
+            borderColor: ['rgba(255, 107, 107, 1)'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => `${context.dataset.label}: ${context.formattedValue} 개`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: (value) => `${value / 1000}K` // 500K, 1000K
+              }
+            }
+          }
+        }
+      };
+
+      const govChartData = {
+        type: 'doughnut',
+        data: {
+          labels: ['비정형 (AI 활용 어려움)', '정형 (활용 가능)'],
+          datasets: [{
+            label: '공공문서 현황',
+            data: [91.1, 8.9],
+            backgroundColor: [
+              'rgba(247, 208, 96, 0.7)', // #F7D060
+              'rgba(30, 30, 30, 0.1)'
+            ],
+            borderColor: [
+              'rgba(247, 208, 96, 1)',
+              'rgba(30, 30, 30, 0.2)'
+            ],
+            borderWidth: 2,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      };
+
+      // --- Intersection Observer로 차트 로드 ---
+      let chartObservers = {};
+
+      const createChartObserver = (canvasId, chartData) => {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // 이미 차트가 생성되었다면 다시 그리지 않음
+              if (canvas.chartInstance) {
+                return;
+              }
+              // 차트 생성
+              canvas.chartInstance = new Chart(canvas.getContext('2d'), chartData);
+              observer.unobserve(canvas); // 관찰 중지
+            }
+          });
+        }, { threshold: 0.5 }); // 50% 보일 때 로드
+
+        observer.observe(canvas);
+      };
+
+      createChartObserver('infraChart', infraChartData);
+      createChartObserver('govChart', govChartData);
+
+    });
+  </script>
+  <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 방문자 추적 스크립트 -->
+  <script src="visitor-tracker.js"></script>
+</body>
+</html>

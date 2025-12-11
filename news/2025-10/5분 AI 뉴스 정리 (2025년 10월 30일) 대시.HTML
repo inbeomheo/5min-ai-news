@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 최신 동향 대시보드 (2025년 10월 30일)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by thematic sections based on the report's own structure. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News, 4. Thematic Sections from the report (Big Tech/Cloud, AI Dev/Platform, Semiconductors, Policy, Industry Applications, Defense, Data/Research). This hierarchical structure guides the user from a high-level overview to specific topics, making the dense report digestible. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries and has been successfully used in previous versions. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #e2e8f0; /* slate-200 */
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #94a3b8; /* slate-400 */
+            border-radius: 10px;
+            border: 2px solid #e2e8f0; /* slate-200 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm sticky top-0 z-30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <h1 class="text-2xl font-bold text-slate-900">AI·기술 최신 동향 리포트</h1>
+                <p class="text-sm text-slate-500">2025년 10월 30일</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div id="content-area">
+                <!-- Content sections will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h2 id="modal-title" class="text-lg font-bold text-slate-900"></h2>
+                <button id="modal-close-btn" class="text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto modal-content">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            { theme: "거대테크·클라우드", category: "기업/전략", title: "OpenAI, '영리 PBC' 전환 완료... MS 지분 27%·Azure 2500억$ 계약", isTop5: true, details: { 
+                what: "OpenAI가 법적 구조를 비영리 재단 산하의 'OpenAI Group PBC(공익회사)'로 전환하는 작업을 완료했습니다. 이 과정에서 마이크로소프트(MS)와의 파트너십도 재정비하며, MS는 OpenAI의 지분 약 27%를 확보하고 장기 클라우드 구매 약정(Azure 구매약정 $250B)을 체결했습니다.", 
+                impact: "MS 시총은 이 소식에 힘입어 $4T(4조 달러)를 재돌파했습니다. 이는 AI 선두 주자의 지배구조를 확정하며 '공익 임무'와 '영리 활동'의 균형을 맞추는 새 모델을 제시한 것으로, MS는 막대한 투자를 통해 AI 모멘텀을 입증했습니다." 
+            } },
+            { theme: "거대테크·클라우드", category: "인프라", title: "AWS, 자체 칩 50만 개 '프로젝트 레이니어' 가동... Anthropic 활용", isTop5: true, details: { 
+                what: "아마존(AWS)이 자체 개발한 AI 칩(Trainium2) 기반의 대규모 AI 컴퓨팅 클러스터 '프로젝트 레이니어(Project Rainier)' 가동을 발표했습니다. 초기 탑재 규모는 Trainium2 약 50만 개에 달하며, 파트너사인 Anthropic은 2025년 말까지 100만 개 이상의 칩을 Claude 모델 개발 및 운영에 사용할 계획입니다.", 
+                impact: "이는 클라우드 기업들이 GPU 의존도를 낮추고 '자체 칩-전용 고객(모델)'으로 이어지는 수직 계열화에 속도를 내고 있음을 보여줍니다." 
+            } },
+            { theme: "거대테크·클라우드", category: "인프라/에너지", title: "Google, AI 데이터센터 전력난 해소 위해 아이오와 원전 재가동 추진", isTop5: true, details: { 
+                what: "구글이 AI 및 클라우드 데이터센터의 막대한 전력 수요를 감당하기 위해, 2020년 폐쇄되었던 아이오와주의 듀언 아널드 원자력 발전소(615MW) 재가동 프로젝트에 참여합니다. 넥스트에라 에너지와 협력하여 2029년 초 재가동을 목표로 25년간 전력을 장기 구매합니다.", 
+                impact: "AI 발전의 최대 병목으로 지적되는 '전력난'을 해결하기 위해, 빅테크가 무탄소 전력원(원자력)에 직접 투자하는 핵심 사례입니다." 
+            } },
+            { theme: "AI 개발·플랫폼", category: "플랫폼", title: "GitHub, 멀티 AI 에이전트 통합 관제 플랫폼 'Agent HQ' 전격 공개", isTop5: true, details: { 
+                what: "GitHub가 'Agent HQ'를 전격 공개했습니다. 이는 OpenAI, Google, Anthropic, xAI 등 다양한 업체의 코딩 에이전트를 하나의 플랫폼에서 통합 관리(오케스트레이션)하고 제어할 수 있는 기능입니다.", 
+                impact: "AI 개발 환경의 패러다임이 '단일 에이전트' 사용에서 '다중 에이전트 운영체제(관제)'로 이동하고 있음을 보여줍니다. Copilot 구독 기반으로 제공되어 개발툴 생태계의 표준화 압력이 커질 것입니다." 
+            } },
+            { theme: "거대테크·클라우드", category: "인프라/투자", title: "AWS, 한국 AI 인프라에 7조원 추가 투자 (총 130억 달러 유치)", isTop5: true, details: { 
+                what: "경주 APEC CEO 서밋을 계기로 AWS, 르노, 코닝 등 7개 글로벌 기업이 한국에 총 130억 달러(약 13조원) 규모의 투자를 발표했습니다. 이 중 AWS는 데이터센터 및 AI 인프라 확충을 위해 2031년까지 7조원을 추가 투자합니다.", 
+                impact: "이는 한국이 글로벌 AI 및 첨단제조 허브로서의 입지를 강화하고, 해외 자본 유치를 통해 '수요-공급-인프라'의 선순환 구조를 구축하는 계기가 될 전망입니다." 
+            } },
+            { theme: "거대테크·클라우드", category: "실적/장애", title: "MS, 1분기 호실적(설비투자 349억$) 및 Azure 장애", details: { 
+                what: "마이크로소프트(MS)가 FY26 1분기(9월 30일 종료) 실적 발표에서 매출 777억 달러(+18%), EPS 3.72달러로 시장 예상을 상회했습니다. 특히 주목할 점은 AI 인프라 투자를 위한 분기 설비투자(CapEx)가 349억 달러에 달했으며, 장기 수주잔고(RPO)는 3,920억 달러(+51%)를 기록했습니다.", 
+                impact: "하지만 실적 발표일(10/29), 구성 변경 오류로 인해 전 세계적인 Azure 장애가 발생하여 알래스카 항공 등 주요 고객이 영향을 받으며, AI 인프라 확장과 안정성 유지가 동시에 중요함을 시사했습니다." 
+            } },
+            { theme: "AI 개발·플랫폼", category: "플랫폼", title: "MS 코파일럿, 'App Builder'로 노코드 앱 생성", details: { 
+                what: "마이크로소프트가 M365 코파일럿에 '앱 빌더(App Builder)'와 '워크플로우(Workflows)' 기능을 도입한다고 발표했습니다.", 
+                impact: "사용자가 자연어 대화로 명령하면 코파일럿이 직접 앱이나 업무 자동화 흐름을 생성해줍니다. 코딩 없이 자연어만으로 업무용 앱과 자동화 워크플로우를 생성, 배포할 수 있게 되어 비개발자의 생산성을 극대화하고 '업무 UI = 코파일럿'으로의 전환을 가속화할 전망입니다." 
+            } },
+            { theme: "AI 개발·플랫폼", category: "오픈소스/안전", title: "OpenAI, 'gpt-oss-safeguard' 오픈소스 안전 모델 공개", details: { 
+                what: "OpenAI가 'gpt-oss-safeguard' (120B, 20B 2종)를 아파치 2.0 라이선스의 오픈 가중치 모델로 공개했습니다. 이 모델은 기존의 고정된 분류기와 달리, 개발자가 정의한 정책(Policy)을 모델이 추론(Reasoning)하여 콘텐츠의 유해성을 판단합니다.", 
+                impact: "또한 CoT(Chain-of-Thought)를 제공해 '왜 그렇게 판단했는지' 설명가능성을 확보했습니다. 기술 보고서를 통해 정책 기반 분류 성능과 평가 절차를 공개하며, 서비스별 커스텀 안전 정책 적용이 유연해질 전망입니다." 
+            } },
+            { theme: "AI 개발·플랫폼", category: "리브랜딩", title: "Grammarly, 'Superhuman' 리브랜딩 및 AI 비서 출시", details: { 
+                what: "3천만 명 이상의 사용자를 보유한 작문 보조 도구 'Grammarly(그래머리)'가 'Superhuman(슈퍼휴먼)'으로 사명을 변경하고, 범용 AI 비서 'Superhuman Go'를 출시합니다.", 
+                impact: "이는 단순한 '작문 보조' 도구에서 이메일, 일정, 문서 작업을 모두 지원하는 '업무 보조' 플랫폼으로 AI 주도권이 이동하고 있음을 보여주며, MS 코파일럿 등과의 본격적인 통합 경쟁을 예고합니다." 
+            } },
+            { theme: "AI 개발·플랫폼", category: "개발툴", title: "Cursor 2.0, 자체 코딩 모델 'Composer' 공개", details: { 
+                what: "AI 특화 IDE인 Cursor가 2.0 버전을 발표하며, 다중 에이전트 인터페이스와 자체 코딩 모델 'Composer'를 공개했습니다.", 
+                impact: "'Composer'는 동급 모델 대비 4배 빠른 속도를 주장하며, 대형 코드베이스 대응 및 병렬 에이전트 활용으로 개발 생산성 향상을 목표로 합니다. 이는 개발 환경 패러다임이 '다중 에이전트 + 전용 모델'로 전환되고 있음을 보여줍니다." 
+            } },
+            { theme: "AI 개발·플랫폼", category: "기술/OCR", title: "DeepSeek-OCR, 비전 토큰 압축으로 비용 절감 (최대 20배)", details: { 
+                what: "DeepSeek 연구팀이 문서 이미지를 고밀도 비전 토큰으로 압축한 뒤 텍스트로 복원하는 'DeepSeek-OCR' 기술을 발표했습니다.", 
+                impact: "이 기술은 LLM의 장문 컨텍스트 처리 비용을 획기적으로 줄일 수 있으며, 벤치마크에서 토큰 사용량을 7배에서 최대 20배까지 절감하고, 저압축 구간(7배)에서 복원 정확도 최대 97%를 달성했다고 주장했습니다." 
+            } },
+            { theme: "반도체·하드웨어", category: "시장/정책", title: "엔비디아 시총 5조$ 돌파... 미·중 칩 정책 혼선", details: { 
+                what: "AI 랠리가 지속되며 10월 29일(현지시간) 엔비디아의 시가총액이 사상 처음으로 5조 달러를 돌파했습니다. 하지만 같은 날 트럼프 행정부가 엔비디아, AMD의 대중(對中) AI 칩 판매 정책을 재조정하며 혼선을 빚고 있습니다.", 
+                impact: "트럼프 대통령은 시진핑 주석과 '블랙웰' 칩 판매 문제를 논의할 의향이 있다고 표명했습니다. 안보, 통상, 재정이 결합된 칩 수출 정책의 불확실성이 기업 전략의 최대 변수로 부상했습니다." 
+            } },
+            { theme: "반도체·하드웨어", category: "양자/연결", title: "엔비디아, GPU-QPU 저지연 연결 'NVQLink'", details: { 
+                what: "엔비디아가 GTC 워싱턴 D.C.에서 GPU(그래픽 처리 장치)와 QPU(양자 프로세서)를 직접 연결하는 'NVQLink' 기술을 공개했습니다.", 
+                impact: "이는 양자-클래식 하이브리드 컴퓨팅의 병목을 해결하기 위한 것으로, 저지연(< 4.0µs)과 고대역폭(400Gb/s)을 특징으로 합니다. 17개 양자 기업 및 9개 국립연구소와 협력하며, 'AI 슈퍼컴 + 양자' 병행이 현실적인 상용화 경로로 부상하고 있습니다." 
+            } },
+            { theme: "반도체·하드웨어", category: "네트워킹", title: "NVIDIA-Cisco, AI 스위치 레퍼런스 아키텍처", details: { 
+                what: "Cisco와 NVIDIA가 데이터센터용 AI 스위치 레퍼런스 아키텍처와 통합 솔루션을 발표했습니다.", 
+                impact: "이는 NVIDIA의 Spectrum-X와 Cisco의 Nexus 기술을 기반으로 대규모 AI 이더넷 설계를 위한 지침을 제시합니다. 기업의 AI 팩토리(훈련/추론) 설계 및 구축 리드타임을 단축하고, 이더넷 기반 AI 네트워킹 표준화를 가속화할 전망입니다." 
+            } },
+            { theme: "반도체·하드웨어", category: "실적", title: "ASM, 3분기 수주 부진 (중국 수요 감소)", details: { 
+                what: "네덜란드의 대표적인 반도체 장비업체 ASM 인터내셔널(ASMI)의 2025년 3분기 신규 수주(북킹스)가 €637m로 시장 추정치(€719m)를 밑돌았습니다.", 
+                impact: "이는 전분기 대비 –9%, 전년 동기 대비 –22% 감소한 수치입니다. 중국 고객사의 발주 감소가 예상보다 컸고 AI 관련 수요 증가는 기대에 미치지 못했습니다." 
+            } },
+            { theme: "반도체·하드웨어", category: "신기술", title: "Counterintuitive, '추론-네이티브' ARU 칩 공개", details: { 
+                what: "스타트업 'Counterintuitive'가 기존 LLM의 비결정성, 검증 불가성 등 '트윈 트랩'을 해결하기 위한 \"추론-네이티브\" 신형 칩/소프트웨어 'ARU(Artificial Reasoning Unit)' 구상을 공개했습니다.", 
+                impact: "메모리 주도 인과 논리를 실리콘에 구현했다고 주장하며, 80건 이상의 특허를 출원했습니다. '속도 중심'에서 '추론/가시성' 중심으로 AI 하드웨어 경쟁축이 다변화될 가능성을 시사합니다." 
+            } },
+            { theme: "국내·국제 정책", category: "국제협력", title: "미국, 한국·일본과 AI·반도체 기술협력 합의", details: { 
+                what: "미국 정부가 APEC 정상회의를 계기로, 일본 및 한국과 각각 '기술 번영 합의(Technology Prosperity Deal)'를 체결했습니다.", 
+                impact: "이는 AI, 반도체, 바이오 등 핵심 기술 분야의 공조를 강화하는 내용입니다. 동맹국 중심의 '규범+공급망' 패키지 협력으로 기술 패권 구도를 강화하고, 공동 연구, 투자, 표준화 작업이 가속화될 전망입니다." 
+            } },
+            { theme: "국내·국제 정책", category: "국내/APEC", title: "이재명 대통령, APEC서 '모두를 위한 AI' 제안", details: { 
+                what: "이재명 대통령이 2025년 10월 29일 경주에서 열린 APEC CEO 서밋 특별연설에서 '모두를 위한 AI(AI for all)' 비전을 천명하고, APEC 차원의 AI 이니셔티브 추진을 제안했습니다.", 
+                impact: "이는 한국이 AI 거버넌스 및 공급망 의제에서 규범 설정자(first mover)로 나서겠다는 신호로 해석됩니다." 
+            } },
+            { theme: "산업별 적용·사례", category: "금융보안", title: "SKT, AI 금융보안 'FAME' 출시", details: { 
+                what: "SK텔레콤이 통신 데이터 기반의 AI 금융범죄 탐지 솔루션 'FAME'을 출시하고, 신한카드와 1호 공급 계약을 체결했습니다.", 
+                impact: "이 솔루션은 통신(위치, 통화, 문자) 데이터와 금융 데이터를 실시간으로 융합하여 보이스피싱, 부정거래 등을 탐지합니다. 이기종 데이터 결합 모델이 금융 보안의 새로운 기본 옵션이 될 전망입니다." 
+            } },
+            { theme: "산업별 적용·사례", category: "제조", title: "DNP(대일본인쇄), ChatGPT 도입 성과", details: { 
+                what: "일본의 대일본인쇄(DNP)가 2025년 2월 ChatGPT Enterprise를 10개 부서에 배포한 결과, 자동화율 87%, 특허 리서치 시간 95% 단축 등의 성과를 확인했다고 OpenAI가 공식 스토리를 통해 공개했습니다.", 
+                impact: "\"측정 가능한 KPI\"와 부서별 롤아웃이 대기업 생성형 AI 확산의 실무적 기준을 제공했다는 점에서 의미가 있습니다." 
+            } },
+            { theme: "산업별 적용·사례", category: "결제", title: "PayPal, NVIDIA 오픈 모델로 출시 5배 단축", details: { 
+                what: "PayPal이 NVIDIA의 'Nemotron', 'NIM' 등 오픈 모델을 도입하여 AI 솔루션의 출시 리드타임(Time-to-Market)을 5배 단축했다고 발표했습니다.", 
+                impact: "이는 상용 대형 서비스가 오픈 모델과 가속 소프트웨어를 채택하여 실측 성과를 제시한 사례로, 벤더 종속성을 완화하는 실무적 레퍼런스가 될 것입니다." 
+            } },
+            { theme: "산업별 적용·사례", category: "미디어", title: "YouTube TV, AI 업스케일링 및 QR 쇼핑 도입", details: { 
+                what: "유튜브가 TV 시청 경험 개선을 위해 AI 업스케일링(240p→720p), QR코드 기반 쇼핑, 썸네일 용량 확대(2MB→50MB) 등을 순차적으로 반영합니다.", 
+                impact: "TV가 가장 빠르게 성장하는 이용 환경이 됨에 따라, 저화질 콘텐츠의 체감 화질을 개선하고 CTV 커머스(TV-커머스 연계)를 확대하려는 전략입니다." 
+            } },
+            { theme: "산업별 적용·사례", category: "항공", title: "에미레이트 항공, AI로 난기류 예측", details: { 
+                what: "에미레이트 항공이 AI 및 실시간 데이터(SkyPath, IATA Turbulence Aware, Lido mPilot 등 다중 플랫폼 연계)를 통합하여 '예고 없는 심한 난기류' 발생을 유의미하게 줄였다고 발표했습니다.", 
+                impact: "'기상+항공기 센싱+AI' 융합이 난기류 안전관리의 사실상 표준으로 부상하고 있음을 보여줍니다." 
+            } },
+            { theme: "산업별 적용·사례", category: "소매/보안", title: "소매업, AI 사기 탐지 확산 (AI vs AI)", details: { 
+                what: "Pymnts에 따르면, 소매업체의 과반(>50%)이 계정 탈취, 신원 도용 등 복합 사기 적발에 AI를 도입한 것으로 나타났습니다.", 
+                impact: "동시에 사기범들 또한 AI를 기반으로 공격을 고도화하고 있어, 방어측의 AI와 공격측의 AI가 동시 진화하는 'AI 대 AI' 구도가 본격화되고 있습니다." 
+            } },
+            { theme: "국방·공공·안보", category: "공공/인프라", title: "美 DOE, NVIDIA·Oracle과 AI 슈퍼컴 구축", details: { 
+                what: "미국 에너지부(DOE)가 NVIDIA, Oracle과 협력하여 DOE 최대 규모의 AI 슈퍼컴퓨터 'Solstice'(Blackwell GPU 10만개)와 'Equinox'(1만개) 구축에 합의했습니다.", 
+                impact: "이는 과학 발견 및 국가 전략 연구를 가속화하기 위한 것으로, 공공 연구용 '초대형 AI'가 제도권 인프라로 정착되고 있음을 보여줍니다." 
+            } },
+            { theme: "국방·공공·안보", category: "국방", title: "IBM, 국방 특화 'Defense Model' 출시", details: { 
+                what: "IBM이 Janes와 협력하여 개발한 국방 특화 AI 'IBM Defense Model'의 일반 공급을 개시했습니다. Granite 모델을 기반으로 하며, 에어갭 환경, 비밀망, 엣지 배치를 지원합니다.", 
+                impact: "범용 LLM의 환각 및 보안 한계를 보완하는 도메인 특화 모델로, \"작전 현장 배치 가능한 특화 LLM\"이 국방 조달의 핵심 스펙으로 부상하고 있습니다." 
+            } },
+            { theme: "국방·공공·안보", category: "국방/데이터", title: "미 육군-팔란티어, 국경 임무 데이터 연동", details: { 
+                what: "미 육군과 미 북부사령부(NORTHCOM)가 팔란티어의 Army Vantage(육군 데이터 허브)와 Maven Smart(합동 데이터) 시스템을 연동하여 미-멕시코 국경 임무의 데이터 공유를 강화한다고 밝혔습니다.", 
+                impact: "군과 민간(법집행·DHS) 데이터를 융합하여 표적 감시 및 상황 인식을 고도화하는 사례입니다." 
+            } },
+            { theme: "국방·공공·안보", category: "시장/전망", title: "군사용 AI 시장, 2030년 192.9억 달러 전망", details: { 
+                what: "시장조사기관 Grand View Research는 글로벌 군사용 AI 시장이 2024년 93.1억 달러에서 2030년 192.9억 달러로 성장(CAGR 13.0%)할 것으로 전망했습니다.", 
+                impact: "국방 디지털화, AI 무기체계 R&D 지출 증가 등이 주요 동력으로, 민군 겸용 AI 기술이 방산 밸류체인의 핵심 투자 지표로 자리 잡고 있습니다." 
+            } },
+            { theme: "데이터·연구·오피니언", category: "데이터", title: "Mercor, AI 랩의 비공개 데이터 접근 중개", details: { 
+                what: "TechCrunch는 AI 연구소들이 데이터 중개·가공 스타트업 'Mercor'를 통해 기업이 공유하지 않는 고품질의 도메인 특화 데이터(금융, 의료 등)에 접근하고 있다고 보도했습니다.", 
+                impact: "이는 '모델 = 데이터' 시대에 데이터 중개 및 전문화 플랫폼이 AI 가치사슬의 핵심으로 부상하고 있음을 보여줍니다." 
+            } },
+            { theme: "데이터·연구·오피니언", category: "교육/표준", title: "'SAIL4ALL' 성인 AI 리터러시 척도 개발", details: { 
+                what: "Nature HSS Communications 저널에 'SAIL4ALL'이라는 성인 대상 AI 리터러시 표준 척도 개발 논문이 게재되었습니다.", 
+                impact: "4개 영역 56개 문항으로 구성된 이 척도는 \"AI 이해도\"를 수치화하여 정부, 기업, 교육기관이 AI 리터러시 정책 및 교육을 설계하는 데 필요한 근거를 제공할 수 있습니다." 
+            } },
+            { theme: "데이터·연구·오피니언", category: "노동/전망", title: "오피니언: AI, PM·개발자 등 직무 대체 가능성", details: { 
+                what: "Dagens.com은 OpenAI의 'GDPval' 평가(44개 직업 중 약 49%에서 AI가 인간과 동률/우위)를 근거로, 프로젝트 매니저(PM), 소프트웨어 개발자, 콘텐츠 프로듀서 직무가 빠르게 대체될 수 있다고 보도했습니다.", 
+                impact: "이는 '대체'보다 '재편'의 신호로, AI와의 역할분담 설계가 핵심 과제로 부상하고 있습니다." 
+            } },
+            { theme: "데이터·연구·오피니언", category: "환경/전망", title: "오피니언: AI, 에너지 배출 5% 감축 기여", details: { 
+                what: "ModernGhana 칼럼은 IEA(국제에너지기구) 분석을 인용하며, AI가 글로벌 에너지 시스템 최적화를 통해 \"2035년까지 에너지 관련 배출을 최대 5% 감축 가능하다\"고 제언했습니다.", 
+                impact: "AI가 전력 부하를 증가시키는 동시에, 효율화 및 감축 도구로도 기능할 수 있음을 강조하며 'AI=부하' 인식을 전환할 필요가 있음을 시사했습니다." 
+            } },
+            { theme: "데이터·연구·오피니언", category: "노동/전망", title: "오피니언: 인간+AI 에이전트 팀워크", details: { 
+                what: "Vocal.Media에 기고된 칼럼은 미래의 업무 방식이 \"인간+AI 에이전트 팀\"의 형태로 전환될 것을 제안했습니다.", 
+                impact: "데이터 집약적이고 반복적인 작업은 에이전트가 자동화하고, 인간은 창의성 및 전략적 의사결정에 집중하는 '동료형 협업' 모델을 제시했으나, 아직은 아이디어 차원으로 구체적인 실증 연구가 더 필요합니다." 
+            } }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            const modal = document.getElementById('news-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            // Themes based on the report's own structure
+            const themes = [
+                '거대테크·클라우드',
+                'AI 개발·플랫폼',
+                '반도체·하드웨어',
+                '국내·국제 정책',
+                '산업별 적용·사례',
+                '국방·공공·안보',
+                '데이터·연구·오피니언'
+            ];
+
+
+            function init() {
+                renderContent();
+            }
+
+            function createKeyNumbersSection() {
+                 const keyNumbers = [
+                    { value: "$2500억", label: "MS-OpenAI Azure 계약" },
+                    { value: "50만 개", label: "AWS 자체 칩 '레이니어'" },
+                    { value: "7조원", label: "AWS 한국 추가 투자" },
+                    { value: "$349억", label: "MS 1분기 설비투자" }
+                ];
+
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-4 text-slate-900 border-b pb-3">주요 데이터 하이라이트</h2>
+                        <p class="text-slate-600 mb-6">이번 주 보고서에서 주목해야 할 핵심 수치들을 요약했습니다. 각 데이터는 특정 조건 하의 결과이며, 자세한 내용은 관련 뉴스 항목을 참고해 주십시오.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                            ${keyNumbers.map(kn => `
+                                <div class="bg-white p-6 rounded-lg shadow-sm text-center border border-slate-200">
+                                    <p class="text-4xl font-bold text-amber-600">${kn.value}</p>
+                                    <p class="text-base text-slate-600 mt-2">${kn.label}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+
+            function renderTop5Section() {
+                const top5Data = reportData.filter(item => item.isTop5);
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">오늘의 Top 5 뉴스</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${top5Data.map((item) => createNewsCard(item, reportData.indexOf(item))).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+            
+             function renderThematicSections() {
+                const groupedByTheme = reportData.reduce((acc, item) => {
+                    if (!item.isTop5) {
+                        const themeKey = item.theme;
+                        if (!acc[themeKey]) {
+                            acc[themeKey] = [];
+                        }
+                        acc[themeKey].push(item);
+                    }
+                    return acc;
+                }, {});
+
+                let html = '';
+                themes.forEach(themeKey => {
+                    if (groupedByTheme[themeKey] && groupedByTheme[themeKey].length > 0) {
+                        html += `
+                            <section class="mb-12">
+                                <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">${themeKey}</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    ${groupedByTheme[themeKey].map(item => createNewsCard(item, reportData.indexOf(item))).join('')}
+                                </div>
+                            </section>
+                        `;
+                    }
+                });
+                return html;
+            }
+
+
+            function renderContent() {
+                contentArea.innerHTML = `
+                    ${createKeyNumbersSection()}
+                    ${renderTop5Section()}
+                    ${renderThematicSections()}
+                `;
+                addCardClickListeners();
+            }
+
+            function createNewsCard(item, index) {
+                 const imageTag = item.category === "인프라" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Infrastructure" class="w-full h-full object-cover rounded-t-lg"></div>` : 
+                                 item.category === "인프라/에너지" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Nuclear+Power" class="w-full h-full object-cover rounded-t-lg"></div>` :
+                                 item.category === "플랫폼" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Agent+HQ" class="w-full h-full object-cover rounded-t-lg"></div>` : '';
+
+
+                return `
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col border border-slate-200" data-index="${index}">
+                         ${imageTag}
+                        <div class="p-5 flex-grow">
+                            <span class="text-xs font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.category}</span>
+                            <h3 class="mt-3 font-bold text-lg text-slate-800">${item.title}</h3>
+                        </div>
+                        <div class="p-4 bg-slate-50 ${imageTag ? '' : 'rounded-b-lg'} text-sm text-blue-600 font-medium">
+                            자세히 보기 &rarr;
+                        </div>
+                    </div>
+                `;
+            }
+
+            function addCardClickListeners() {
+                document.querySelectorAll('[data-index]').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const index = e.currentTarget.dataset.index;
+                        showModal(reportData[index]);
+                    });
+                });
+            }
+
+            function showModal(item) {
+                modalTitle.textContent = item.title;
+                modalContent.innerHTML = `
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.theme} &gt; ${item.category}</span>
+                        </div>
+                        ${Object.entries(item.details).map(([key, value]) => {
+                            const keyMap = {
+                                what: "무엇을 (What)",
+                                impact: "영향 (Impact)"
+                            };
+                            return `
+                                <div>
+                                    <h4 class="font-bold text-base text-slate-800 mb-1">${keyMap[key] || key}</h4>
+                                    <p class="text-slate-600 whitespace-pre-wrap leading-relaxed">${value}</p>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            modalCloseBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+
+            init();
+        });
+    </script>
+    <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 방문자 추적 스크립트 -->
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI·기술 최신 동향 대시보드 (2025년 10월 29일)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by thematic sections based on the report's own structure. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News, 4. Thematic Sections from the report (NVIDIA GTC, OpenAI Strategy, Labor Impact, Security, Daily AI, Platform Competition, Investment, Professional AI, Regulation). This hierarchical structure guides the user from a high-level overview to specific topics, making the dense report digestible. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries and has been successfully used in previous versions. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #e2e8f0; /* slate-200 */
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #94a3b8; /* slate-400 */
+            border-radius: 10px;
+            border: 2px solid #e2e8f0; /* slate-200 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm sticky top-0 z-30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <h1 class="text-2xl font-bold text-slate-900">AI·기술 최신 동향 리포트</h1>
+                <p class="text-sm text-slate-500">2025년 10월 29일</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div id="content-area">
+                <!-- Content sections will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h2 id="modal-title" class="text-lg font-bold text-slate-900"></h2>
+                <button id="modal-close-btn" class="text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto modal-content">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            { theme: "NVIDIA GTC 워싱턴", category: "인프라/정책", title: "NVIDIA, GTC에서 5,000억 달러 수주 잔고 공개 및 7대 美 정부 AI 슈퍼컴퓨터 구축 발표", isTop5: true, details: { 
+                what: "NVIDIA GTC 2025 컨퍼런스에서 젠슨 황 CEO는 AI 칩 주문 잔고가 5,000억 달러에 이른다고 밝히며, 미국 에너지부(DoE)와 협력해 7대의 AI 슈퍼컴퓨터 구축 계획을 발표했습니다. 가장 큰 시스템은 10만 개의 블랙웰 GPU를 탑재합니다.", 
+                impact: "그는 '미국에서 발명하고, 미국에서 생산한다'는 구호를 내세우며 미국 내 제조를 강조했습니다. 또한 노키아와 6G 협력, Palantir와 Nemotron 통합, Uber와 로보택시 네트워크 구축 등 생태계 전방위 확장을 발표했습니다." 
+            } },
+            { theme: "OpenAI의 새판 짜기", category: "기업/전략", title: "OpenAI, 5,000억 달러 가치로 공익기업(PBC) 전환 완료 및 Microsoft와 지분 27% 신규 계약 확정", isTop5: true, details: { 
+                what: "OpenAI가 1년간의 조사를 마치고 5,000억 달러 가치로 공익기업(PBC) 전환을 완료했습니다. 비영리 재단이 지배 통제권을 유지하는 구조입니다.", 
+                impact: "Microsoft와는 27% 지분 보유 및 2,500억 달러 Azure 구매를 약속하는 신규 계약을 확정했습니다. AGI 달성 검증에 독립 전문가 패널이 필요하다는 조항이 포함되었습니다. 샘 알트먼 CEO는 30GW 인프라에 1.4조 달러 투자 계획을 밝혔습니다." 
+            } },
+            { theme: "AI가 촉발한 고용 충격", category: "노동/감원", title: "Amazon 1만 4천 명, Chegg 45% 감원... AI 도입으로 인한 대규모 구조조정 현실화", isTop5: true, details: { 
+                what: "AI 도입이 기업 효율화와 맞물리며 대규모 구조조정이 가시화되고 있습니다. Amazon은 1만 4천 명(약 4%)의 해고를 공식화했으며, 최종 규모는 3만 명에 이를 수 있습니다.", 
+                impact: "온라인 학습 플랫폼 Chegg는 2025년 한 해에만 총 67%의 인력을 감축하며 'AI의 새로운 현실'을 원인으로 명시했습니다. 반면 Zoom CEO는 AI 아바타가 업무를 대신해 5년 내 주 3~4일 근무가 가능할 것이라 예측했습니다." 
+            } },
+            { theme: "보안 및 정확성 위기", category: "보안/결함", title: "OpenAI의 ChatGPT Atlas 브라우저에서 사용자의 AI 메모리를 영구 오염시키는 심각한 보안 결함 발견", isTop5: true, details: { 
+                what: "OpenAI의 AI 브라우저 'ChatGPT Atlas'에서 심각한 '오염된 메모리(Tainted Memories)' 보안 취약점이 발견되었습니다. 악성 링크를 클릭하는 것만으로 AI의 영구 메모리에 악성 명령이 주입되어, 이후 세션에서도 공격자가 원하는 코드를 실행할 수 있습니다.", 
+                impact: "또한 Atlas는 악성 피싱 페이지의 94.2%를 차단하지 못해 기존 브라우저보다 10배가량 취약한 것으로 나타났습니다. EBU/BBC 공동 연구에서도 AI 뉴스 요약의 81%에서 오류가 발견되는 등 AI의 신뢰성 문제가 동시에 대두되고 있습니다." 
+            } },
+            { theme: "AI, 일상 속으로", category: "커머스/결제", title: "PayPal, OpenAI와 파트너십 체결... ChatGPT 내에서 직접 결제하는 '에이전트 상거래' 시대 개막", isTop5: true, details: { 
+                what: "PayPal이 OpenAI와 파트너십을 맺고 ChatGPT에 디지털 지갑을 통합한다고 발표했습니다. 이는 사용자가 AI와 대화하며 상품을 추천받고 즉시 결제까지 완료하는 '에이전트 상거래'의 시작을 의미합니다.", 
+                impact: "카카오톡 역시 'ChatGPT for Kakao'를 출시해 앱 내에서 검색, 예약, 선물하기 등을 연동하며 AI를 일상 플랫폼으로 확장하고 있습니다. OpenAI는 인도 시장에 'ChatGPT Go'를 1년간 무료로 제공하며 신흥 시장 공략에도 나섰습니다." 
+            } },
+            { theme: "AI 모델 및 플랫폼 경쟁", category: "모델/경쟁", title: "중국 MiniMax, 100억 파라미터 M2 모델로 Google Gemini 2.5 Pro 능가", details: { 
+                what: "중국 상하이 스타트업 MiniMax가 2,000억 파라미터 규모지만 실제 활성 파라미터는 100억 개인 MoE 모델 'M2'를 출시했습니다.", 
+                impact: "Artificial Analysis 지능 지수에서 Google Gemini 2.5 Pro를 능가하며 전 세계 Top 5에 진입했고, 추론 속도는 Claude Sonnet의 약 2배, 가격은 8% 수준입니다." 
+            } },
+            { theme: "AI 모델 및 플랫폼 경쟁", category: "플랫폼/경쟁", title: "xAI, '그로키피디아(Grokipedia)' 출시... Wikipedia 대안 표방", details: { 
+                what: "일론 머스크의 xAI가 '그로키피디아(Grokipedia)'를 출시했습니다. 88만 5천 개 항목으로 시작했으며, 머스크가 비판해 온 Wikipedia의 '좌파 편향성'에 대한 보수적 대안을 표방했습니다.", 
+                impact: "하지만 출시 직후 일부 항목이 Wikipedia와 단어 하나 다르지 않다는 비판에 직면했습니다." 
+            } },
+            { theme: "AI 모델 및 플랫폼 경쟁", category: "플랫폼/경쟁", title: "Adobe, Photoshop·Express용 'AI Assistant' 발표... '에이전트' 방식 도입", details: { 
+                what: "Adobe가 Adobe MAX 컨퍼런스에서 Photoshop과 Express용 'AI Assistant'를 발표했습니다.", 
+                impact: "자연어 채팅 사이드바를 통해 레이어를 자동 인식하고 배경 제거, 색상 변경 등 복잡한 그래픽 작업을 수행하는 '에이전트' 방식입니다. 또한 Google Gemini 등 파트너 모델을 통합하는 'Project Moonlight'도 공개했습니다." 
+            } },
+            { theme: "조 단 위 투자 격돌", category: "인프라/투자", title: "Foxconn, 13.7억 달러 투자해 대만에 AI 컴퓨팅 클러스터 구축", details: { 
+                what: "Foxconn이 13.7억 달러(약 1.8조 원)를 투자해 2026년까지 대만에 100MW 전력과 1만 개의 Blackwell GPU를 포함하는 AI 컴퓨팅 클러스터 및 슈퍼컴퓨팅 센터를 건설합니다.", 
+                impact: "Foxconn의 AI 서버 매출은 사상 처음으로 스마트폰 매출을 넘어섰으며, 전년 대비 60% 이상 성장했습니다." 
+            } },
+            { theme: "조 단 위 투자 격돌", category: "인프라/설계", title: "NVIDIA, 1GW급 '기가와트 AI 데이터센터' 참조 설계 공개", details: { 
+                what: "NVIDIA가 단일 데이터센터가 원자로 1기 분량(1GW 이상)의 전력을 소비하는 '기가와트급 AI 데이터센터' 참조 설계(Omniverse DSX)를 공개했습니다.", 
+                impact: "텍사스의 'Stargate' 시설은 1.2GW 규모로 45만 개 이상의 GB200 GPU를 탑재할 예정입니다." 
+            } },
+            { theme: "조 단 위 투자 격돌", category: "반도체/경쟁", title: "Qualcomm, AI200/AI250 추론 가속기 발표... 2026년 출시", details: { 
+                what: "Qualcomm이 2026년 출시 목표인 'AI200'(768GB 메모리)과 2027년 출시 목표인 'AI250'(Near-Memory Computing) 추론 가속기를 발표했습니다.", 
+                impact: "NVIDIA가 주도하는 훈련 시장이 아닌, 전력 효율이 중요한 추론 시장을 공략하는 전략입니다." 
+            } },
+            { theme: "조 단 위 투자 격돌", category: "인프라/수요", title: "Oracle CEO, \"AI 수요 공급 초과\"... 버블 우려 일축", details: { 
+                what: "Oracle CEO 마이크 시칠리아는 \"AI 수요가 공급을 훨씬 초과한다\"며 버블 우려를 일축했습니다.", 
+                impact: "Oracle의 잔여 성과 의무(RPO)는 전년 대비 359% 증가한 4,550억 달러에 달합니다." 
+            } },
+            { theme: "전문 영역의 AI", category: "국방", title: "미 국방부, \"AI는 미래가 아니라 지금 사용되고 있다\"", details: { 
+                what: "미 국방부(펜타곤) 관계자들이 \"AI는 미래가 아니라 지금 사용되고 있다\"고 강조했습니다.", 
+                impact: "실제로 미 해병대원 2명이 작년 태평양에서 ChatGPT와 유사한 챗봇을 사용해 감시 데이터를 분석하고 위협을 경고하는 등 생성형 AI의 첫 실전 사용 사례로 알려졌습니다." 
+            } },
+            { theme: "전문 영역의 AI", category: "법률", title: "노스캐롤라이나 로스쿨, 'AI 배심원' 모의 재판", details: { 
+                what: "노스캐롤라이나 로스쿨에서 ChatGPT, Grok, Claude로 구성된 'AI 배심원' 모의 재판이 열렸습니다.", 
+                impact: "AI 배심원은 가상의 피고인에게 무죄 평결을 내렸는데, 이는 몇 년 전 실제 인간 판사의 유죄 판결과 대비되었습니다. AI는 법률을 정확히 이해했으나, 증인의 신체 언어를 읽지 못하는 등 인간 경험 부재의 한계도 노출했습니다." 
+            } },
+            { theme: "전문 영역의 AI", category: "의료/신약", title: "Nature Microbiology, AI로 12,623개 항균 활성 분자 식별", details: { 
+                what: "Nature Microbiology에 발표된 연구는 딥러닝을 사용해 233개의 고세균 프로테옴을 분석, 12,623개의 항균 활성 가능 분자를 식별했습니다.", 
+                impact: "합성된 80개의 'archaeasins' 중 93%가 실제 항균 활성을 보였으며, 이는 약물 내성 슈퍼박테리아에 대응할 새로운 항생제 원천이 될 수 있습니다." 
+            } },
+            { theme: "규제와 지정학", category: "국가전략/중국", title: "중국 Alibaba CEO, 'ASI 로드맵' 공개", details: { 
+                what: "중국 Alibaba의 CEO 에디 우가 '인공 초지능(ASI)으로 가는 로드맵'을 공개하며, AGI를 넘어선 ASI 달성을 공개적으로 선언했습니다.", 
+                impact: "이는 중국 주요 빅테크 리더가 AGI/ASI를 명시적으로 언급한 첫 사례로, 미-중 기술 패권 경쟁이 '초지능' 단계로 격상되었음을 시사합니다." 
+            } },
+            { theme: "규제와 지정학", category: "규제/미국", title: "미국 오하이오주, 'AI 결혼 금지법' 발의", details: { 
+                what: "미국 오하이오주에서 \"AI 시스템은 법적 인격이 없다\"고 명시하고 AI와 인간의 결혼을 금지하는 법안(HB 469)이 발의되었습니다.", 
+                impact: "이는 AI 챗봇과 감정적 유대(22%)나 연애 감정(3%)을 형성하는 사람들이 늘어남에 따라, AI로 인한 피해 발생 시 인간 소유자나 개발자에게 책임을 묻고 인간의 법적 지위를 명확히 하려는 선제적 규제 시도입니다." 
+            } }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            const modal = document.getElementById('news-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            // Themes based on the report's own structure
+            const themes = [
+                'NVIDIA GTC 워싱턴',
+                'AI가 촉발한 고용 충격',
+                'AI 모델 및 플랫폼 경쟁',
+                '보안 및 정확성 위기',
+                '조 단 위 투자 격돌',
+                'OpenAI의 새판 짜기',
+                'AI, 일상 속으로',
+                '전문 영역의 AI',
+                '규제와 지정학'
+            ];
+
+
+            function init() {
+                renderContent();
+            }
+
+            function createKeyNumbersSection() {
+                 const keyNumbers = [
+                    { value: "$5,000억", label: "NVIDIA 수주 잔고" },
+                    { value: "$5,000억", label: "OpenAI 기업 가치" },
+                    { value: "1.4만명", label: "Amazon 감원" },
+                    { value: "45%", label: "Chegg 감원" }
+                ];
+
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-4 text-slate-900 border-b pb-3">주요 데이터 하이라이트</h2>
+                        <p class="text-slate-600 mb-6">이번 주 보고서에서 주목해야 할 핵심 수치들을 요약했습니다. 각 데이터는 특정 조건 하의 결과이며, 자세한 내용은 관련 뉴스 항목을 참고해 주십시오.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                            ${keyNumbers.map(kn => `
+                                <div class="bg-white p-6 rounded-lg shadow-sm text-center border border-slate-200">
+                                    <p class="text-4xl font-bold text-amber-600">${kn.value}</p>
+                                    <p class="text-base text-slate-600 mt-2">${kn.label}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+
+            function renderTop5Section() {
+                const top5Data = reportData.filter(item => item.isTop5);
+                return `
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">오늘의 Top 5 뉴스</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${top5Data.map((item) => createNewsCard(item, reportData.indexOf(item))).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+            
+            function createNewsCard(item, index) {
+                const imageTag = item.category === "인프라/정책" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=NVIDIA+GTC" class="w-full h-full object-cover rounded-t-lg"></div>` :
+                                 item.category === "노동/감원" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=Layoffs" class="w-full h-full object-cover rounded-t-lg"></div>` :
+                                 item.category === "커머스/결제" ? `<div class="aspect-w-16 aspect-h-9"><img src="https://placehold.co/600x400/e2e8f0/334155?text=AI+Commerce" class="w-full h-full object-cover rounded-t-lg"></div>` : '';
+
+                return `
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col border border-slate-200" data-index="${index}">
+                        ${imageTag}
+                        <div class="p-5 flex-grow">
+                            <span class="text-xs font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.category}</span>
+                            <h3 class="mt-3 font-bold text-lg text-slate-800">${item.title}</h3>
+                        </div>
+                        <div class="p-4 bg-slate-50 ${imageTag ? '' : 'rounded-b-lg'} text-sm text-blue-600 font-medium">
+                            자세히 보기 &rarr;
+                        </div>
+                    </div>
+                `;
+            }
+
+             function renderThematicSections() {
+                const groupedByTheme = reportData.reduce((acc, item) => {
+                    if (!item.isTop5) {
+                        const themeKey = item.theme;
+                        if (!acc[themeKey]) {
+                            acc[themeKey] = [];
+                        }
+                        acc[themeKey].push(item);
+                    }
+                    return acc;
+                }, {});
+
+                let html = '';
+                themes.forEach(themeKey => {
+                    if (groupedByTheme[themeKey] && groupedByTheme[themeKey].length > 0) {
+                        html += `
+                            <section class="mb-12">
+                                <h2 class="text-3xl font-bold mb-6 text-slate-900 border-b pb-3">${themeKey}</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    ${groupedByTheme[themeKey].map(item => createNewsCard(item, reportData.indexOf(item))).join('')}
+                                </div>
+                            </section>
+                        `;
+                    }
+                });
+                return html;
+            }
+
+
+            function renderContent() {
+                contentArea.innerHTML = `
+                    ${createKeyNumbersSection()}
+                    ${renderTop5Section()}
+                    ${renderThematicSections()}
+                `;
+                addCardClickListeners();
+            }
+
+            function addCardClickListeners() {
+                document.querySelectorAll('[data-index]').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const index = e.currentTarget.dataset.index;
+                        showModal(reportData[index]);
+                    });
+                });
+            }
+
+            function showModal(item) {
+                modalTitle.textContent = item.title;
+                modalContent.innerHTML = `
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-sm font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">${item.theme} &gt; ${item.category}</span>
+                        </div>
+                        ${Object.entries(item.details).map(([key, value]) => {
+                            const keyMap = {
+                                what: "무엇을 (What)",
+                                impact: "영향 (Impact)"
+                            };
+                            return `
+                                <div>
+                                    <h4 class="font-bold text-base text-slate-800 mb-1">${keyMap[key] || key}</h4>
+                                    <p class="text-slate-600 whitespace-pre-wrap leading-relaxed">${value}</p>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            modalCloseBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+
+            init();
+        });
+    </script>
+    <!-- Supabase JS 클라이언트 (Realtime 지원) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 방문자 추적 스크립트 -->
+    <script src="visitor-tracker.js"></script>
+</body>
+</html>
+

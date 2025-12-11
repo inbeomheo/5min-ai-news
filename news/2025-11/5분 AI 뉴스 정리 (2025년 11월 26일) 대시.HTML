@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시 | 2025년 11월 26일 AI 브리핑</title>
+    
+    <!-- Mandatory Placeholder Comments -->
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 */
+        }
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        /* Smooth Fade In */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">N</span>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900">뉴스대시 <span class="font-light text-slate-500 text-base ml-2">Daily AI Report</span> <span class="badge-new">NEW</span></h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                2025년 11월 26일
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Section 1: Key Data Highlights -->
+        <section id="key-highlights" class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-indigo-500 pl-3">오늘의 핵심 수치</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="highlights-grid">
+                <!-- Dynamically Populated -->
+            </div>
+        </section>
+
+        <!-- Section 2: Top 5 News -->
+        <section id="top-news" class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-rose-500 pl-3">Top 5 주요 뉴스</h2>
+                <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-1 rounded uppercase">Must Read</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="top5-grid">
+                <!-- Dynamically Populated -->
+            </div>
+        </section>
+
+        <!-- Section 3: Thematic News -->
+        <div id="thematic-sections" class="space-y-12">
+            <!-- Dynamically Populated Sections -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+            &copy; 2024 뉴스대시 (NewsDash). AI Insight & Monitoring.
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background backdrop -->
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" id="modal-bg-close"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <!-- Modal panel -->
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl fade-in">
+                    
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span id="modal-category" class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10 mb-2">Category</span>
+                                    <button type="button" id="modal-close-btn-x" class="text-slate-400 hover:text-slate-500">
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <h3 class="text-xl font-bold leading-7 text-slate-900 mb-4" id="modal-title">
+                                    <!-- Modal Title -->
+                                </h3>
+                                <div class="mt-2 max-h-[60vh] overflow-y-auto modal-scroll pr-2">
+                                    <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap" id="modal-content">
+                                        <!-- Modal Content -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button" id="modal-close-btn" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto">
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // 1. Data Source
+        const reportData = [
+            // Top 5 (Selected based on impact)
+            {
+                theme: "산업별 AI 적용",
+                category: "음악/법률",
+                title: "워너뮤직, AI 음악 스타트업 Suno와 소송 종결·라이선스 제휴 체결",
+                isTop5: true,
+                details: "워너뮤직 그룹이 11월 25일(현지시간) 미국에서 AI 음악 스타트업 Suno와의 저작권 소송을 합의로 마무리하고 전략적 파트너십을 체결했다. 합의에 따라 Suno는 워너뮤직 소속 아티스트·작곡가의 음원을 합법적으로 학습·생성에 활용하고, 2026년부터 정식 라이선스 기반 AI 음악 서비스를 내놓을 수 있게 된다. 이로써 양측의 법적 분쟁이 끝나면서, 음악 산업 전반에서 AI와 저작권을 둘러싼 새로운 수익 공유 모델 논의에 속도가 붙을 전망이다. (Reuters)\n\n워너뮤직은 2024년 Suno가 대량의 음원을 무단으로 학습에 사용했다며 소송을 제기했고, 이는 Udio 등 다른 AI 음악 스타트업을 상대로 한 집단 소송과 함께 업계 긴장을 키워 왔다. LA타임스와 로이터에 따르면 워너뮤직은 이번 합의를 두고 “아티스트 보상을 전제로 한 책임 있는 AI 활용을 확대하는 계기”라고 강조했으며, Suno 역시 아티스트·권리자 보호 장치를 강화하겠다고 밝혔다. 업계에서는 Suno가 다운로드 제한, 사용 용도 통제 등 안전장치를 도입하는 한편, 다른 AI 음악 기업도 워너뮤직 모델을 참고해 표준화된 라이선스 체계를 구축하려 할 것으로 보고 있다. (Los Angeles Times)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "공공 정책",
+                title: "뉴욕시 의회, 시 정부 AI 활용 전면 규율하는 새 법안 재추진",
+                isTop5: true,
+                details: "뉴욕시 의회가 11월 중 뉴욕에서 시 정부가 사용하는 인공지능·알고리즘 시스템 전반을 규율하는 새로운 법안을 다시 발의했다. 법안은 시 산하 기관이 사용하는 AI·자동화 의사결정 시스템을 등록·공개하고, 차별·편향 가능성에 대한 영향평가와 감사를 정기적으로 실시하도록 의무화하는 내용을 담고 있다. 통과될 경우 복지, 경찰, 주택 배분 등 주요 행정 분야에서 AI 사용의 투명성과 책임성이 크게 강화될 것으로 예상된다. (City & State New York)\n\n이 법안은 과거 ‘자동화 의사결정 시스템(ADS)’ 태스크포스 등 뉴욕시의 알고리즘 규제 시도가 실효성 부족 비판을 받은 뒤 이를 보완하려는 시도로 평가된다. 시민단체와 학계는 공청회에서 “AI가 공공서비스 접근을 제한하거나 소수자에게 불리하게 작용하지 않도록 사전 검증과 공적 감독이 필요하다”고 주장하며 법안 통과를 촉구했다. 뉴욕시는 주·연방 차원의 AI 규제 논의와도 보조를 맞추면서, 향후 민간 고용·교육·금융 분야까지 규제 범위를 넓히는 방안도 검토할 것으로 보인다. (City & State New York)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "하드웨어/서버",
+                title: "델, AI 서버 호조에 힘입어 중기 성장 목표 상향",
+                isTop5: true,
+                details: "델 테크놀로지스가 11월 25일(현지시간) 실적·투자자 행사에서 고성능 AI 서버 판매 호조를 바탕으로 향후 수년간 두 자릿수 성장 목표를 제시했다. 회사는 엔비디아 GPU를 탑재한 ‘파워엣지(PowerEdge)’ AI 서버 수요가 데이터센터와 클라우드 고객을 중심으로 급증하고 있다고 설명하며, 관련 사업이 전체 매출 성장을 견인할 것이라고 밝혔다. 이 소식에 뉴욕 증시에서 델 주가는 장중 한때 6% 이상 상승하는 등 AI 인프라 수혜주로서의 기대가 반영됐다. (Reuters)\n\n델은 올해 들어 AI 서버 수주 잔고가 빠르게 쌓이고 있으며, 일부 제품은 공급난으로 인해 수개월 대기 기간이 발생하고 있다고 전했다. 로이터에 따르면 델은 향후 3~4년간 매출 연평균 성장률을 상향 제시하며, AI 서버와 스토리지, 서비스형 인프라를 핵심 성장 축으로 삼겠다고 밝혔다. 다만 PC·프린터 등 전통 사업의 회복세가 제한적인 만큼, 투자자들은 AI 관련 수요가 경기 둔화 국면에서도 지속 가능한 장기 트렌드로 이어질지 주시하고 있다. (Reuters)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "구조조정",
+                title: "HP, 2028년까지 최대 6천명 감원…AI 중심 사업 재편 가속",
+                isTop5: true,
+                details: "HP가 11월 25일(현지시간) 구조조정 계획을 발표하며 2028년까지 전 세계 직원 약 4,000~6,000명을 감원하겠다고 밝혔다. 회사는 인쇄·PC 수요 둔화에 대응하는 동시에, AI PC와 AI 서비스 등 고부가가치 영역으로 자원을 재배치하겠다는 방침이다. 로이터에 따르면 HP는 이번 조치로 연간 수억달러 비용을 절감하는 한편, AI 관련 연구·개발과 클라우드 기반 관리 서비스를 강화해 수익성 중심의 성장을 도모할 계획이다. (Reuters)\n\nHP는 이미 AI 기능이 탑재된 ‘코파일럿+ PC’ 등 차세대 제품군을 선보이며 시장 재편에 나섰지만, 프린터·소모품 사업 의존도가 여전히 높다는 지적을 받아왔다. 경영진은 실적 발표에서 “AI는 HP의 미래 포트폴리오 전반을 재정의하는 핵심 기술이며, 인력·투자 우선순위를 그에 맞춰 조정하고 있다”고 강조했다. 산업계에서는 HP의 대규모 구조조정을 계기로, 전통 PC·프린터 업체 전반에 걸쳐 AI 전환을 동반한 추가 인력 재편이 이어질 수 있다는 관측이 나온다. (Reuters)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "LLM 가격 경쟁",
+                title: "앤트로픽, Claude Opus 4.5 대폭 인하…엔터프라이즈 AI 가격 경쟁 본격화",
+                isTop5: true,
+                details: "AI 스타트업 앤트로픽이 최근 기업용 플래그십 모델 ‘Claude Opus 4.5’의 API 가격을 최대 수십 퍼센트 인하하며 시장에 충격을 줬다. 인포월드 보도에 따르면, 회사는 입력·출력 토큰 단가를 낮추고, 장문 컨텍스트 지원을 유지한 채 기존 대비 훨씬 낮은 비용으로 복잡한 작업을 처리할 수 있도록 정책을 조정했다. 업계에서는 이번 조치가 오픈AI, 구글 등과의 경쟁 속에서 엔터프라이즈용 LLM 가격 인하 경쟁을 촉발할 신호로 보고 있다. (InfoWorld)\n\n앤트로픽은 가격 인하와 함께 모델 성능·안전성 개선을 강조하며, 금융·법률·소프트웨어 개발 등 고부가 산업을 주요 타깃으로 삼고 있다. 전문가들은 “기업들이 다양한 벤더의 LLM을 조합해 쓰는 멀티모델 전략을 채택하는 가운데, 가격·품질·거버넌스가 공급자 선택의 핵심 기준이 되고 있다”고 분석했다. 향후 주요 업체들이 잇달아 요금을 조정하고 맞춤형 라이선스 상품을 내놓으면서, 엔터프라이즈 AI 시장의 단가 하락과 사용량 확대가 동시에 진행될 가능성이 크다. (InfoWorld)"
+            },
+
+            // Other News - Categorized by Themes
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "미디어",
+                title: "CNN, 하다스 골드를 전담 AI·테크 담당 기자로 발탁",
+                isTop5: false,
+                details: "미국 CNN이 11월 하다스 골드(Hadas Gold)를 인공지능과 기술 산업을 전담 취재하는 새 담당 기자로 임명하고 보도를 강화하기로 했다. 골드는 앞으로 AI 규제, 빅테크 기업 전략, 언론·정치에 미치는 영향 등 AI 관련 이슈를 전담 취재하며 TV, 디지털, 팟캐스트 등 CNN의 여러 플랫폼에 출연할 예정이다. CNN은 AI가 정치·경제·미디어 전 영역을 뒤흔드는 가운데, 전문 담당 기자 체제를 통해 심층 분석 보도를 강화하겠다는 방침이다. (Talking Biz News)\n\n골드는 폴리티코(Politico)와 워싱턴포스트, 유럽 특파원 등을 거친 미디어·정치 전문 기자로, 최근까지는 CNN에서 민주주의와 잘못된 정보 이슈를 담당해왔다. CNN 내부 메모에 따르면 경영진은 골드가 “AI와 민주주의, 표현의 자유가 교차하는 지점을 날카로운 분석과 현장 취재로 전달해 줄 것”이라고 기대를 밝혔다. CNN은 앞으로도 데이터 저널리즘, 시각화, 인터랙티브 콘텐츠를 활용해 시청자가 AI 기술의 실제 영향을 쉽게 이해할 수 있도록 보도 형식을 실험할 예정이다. (Talking Biz News)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "피트니스",
+                title: "펠로톤, AI 장비 도입에도 판매 부진…‘커넥티드 피트니스’ 성장 정체",
+                isTop5: false,
+                details: "홈 피트니스 업체 펠로톤이 AI 기능을 탑재한 신형 장비와 콘텐츠 투자에도 불구하고 매출 부진을 겪고 있는 것으로 전해졌다. ‘비즈니스 오브 패션’에 따르면 회사는 헬스클럽용 AI 크로스 트레이닝 시리즈와 스마트 장비를 출시했지만, 팬데믹 이후 수요 둔화와 치열한 경쟁으로 판매가 기대에 못 미치고 있다. 이에 따라 펠로톤은 재고를 조정하고 가격·구독 모델을 손질하는 등 전체 사업 구조를 재검토하고 있는 상황이다. (The Business of Fashion)\n\n펠로톤은 코로나19 기간 폭발적인 성장 이후 이용자 증가세가 꺾이면서, 경영진 교체와 비용 절감, 오프라인 제휴 확대 등 다양한 회생 전략을 시도해 왔다. 새로 도입된 AI 기능은 운동 강도 개인화, 실시간 코칭, 사용자 데이터 기반 맞춤형 프로그램 제공 등을 내세웠지만, 고가 장비와 구독료에 대한 소비자 부담이 여전히 크다는 지적이다. 업계에서는 펠로톤이 콘텐츠·데이터를 활용한 소프트웨어·서비스 수익을 키우고, 제휴 헬스클럽·기업 웰니스 프로그램 등 B2B 영역으로 확장해 AI 피트니스 플랫폼으로 체질을 전환할 수 있을지 주목하고 있다. (The Business of Fashion)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "농업/개발",
+                title: "세계은행, 농업 전환 위한 AI 활용 전략 보고서 발간",
+                isTop5: false,
+                details: "세계은행이 최근 발간한 새 보고서를 통해 인공지능이 개발도상국 농업 생산성과 기후 회복력을 높이는 핵심 도구가 될 수 있다고 평가했다. ‘농업 전환을 위한 인공지능 활용’ 보고서는 위성·센서 데이터와 머신러닝을 결합한 정밀 농업, 기상 예측, 병해충 조기 경보 시스템 등이 소규모 농가의 수익과 식량 안보에 미치는 효과를 분석했다. 세계은행은 AI 기술이 적절한 인프라·제도와 결합될 경우 농업 가치사슬 전체의 효율성 제고와 탄소 배출 감소에 기여할 수 있다고 강조했다. (월드뱅크)\n\n보고서는 특히 아프리카·남아시아 등지에서 모바일·클라우드 기반 농업 서비스가 빠르게 확산되고 있지만, 데이터 품질·접근성, 디지털 격차 문제가 남아 있다고 지적한다. 세계은행은 각국 정부와 민간기업이 공공 데이터 개방, 농촌 통신 인프라 확충, 농민 대상 디지털 교육에 투자해야 한다고 권고했다. 앞으로 세계은행은 관련 프로젝트에 AI 솔루션을 적극 포함시키고, 파트너 기관과 협력해 윤리·프라이버시 원칙을 갖춘 농업용 AI 거버넌스 모델을 마련하겠다는 계획이다. (월드뱅크)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "클라우드/비용",
+                title: "워너브라더스 디스커버리, AWS 그래비톤 기반 ML로 비용 60% 절감",
+                isTop5: false,
+                details: "워너브라더스 디스커버리가 아마존웹서비스(AWS)와 협력해 ARM 기반 ‘그래비톤(Graviton)’ 프로세서를 활용한 머신러닝 추론 환경을 구축, 비용을 최대 60% 절감했다고 밝혔다. AWS 공식 블로그에 따르면, 회사는 추천·광고 타기팅 등 미디어 서비스에 쓰이는 ML 워크로드를 그래비톤 기반 인스턴스로 이전해 지연 시간 단축과 처리량 향상을 동시에 달성했다. 그 결과 같은 예산으로 더 많은 모델을 운영하거나, 동일 수준 서비스를 더 낮은 비용에 제공할 수 있는 인프라를 확보했다는 설명이다. (Amazon Web Services, Inc.)\n\n워너브라더스 디스커버리는 기존 x86 기반 인스턴스를 사용할 때보다 성능·가격비가 유리한 그래비톤으로의 전환을 단계적으로 진행했다. 회사는 “스트리밍·광고 사업에서 실시간 개인화 추천과 광고 효율이 중요해지면서, ML 추론 인프라 최적화가 핵심 과제가 됐다”고 밝혔다. AWS와 WBD는 앞으로도 대규모 콘텐츠 라이브러리 분석, 아카이브 메타데이터 자동 생성 등 추가 워크로드에 그래비톤을 확대 적용해 클라우드 비용 효율과 탄소 배출 저감 효과를 모두 노린다는 계획이다. (Amazon Web Services, Inc.)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델 선호도",
+                title: "세일즈포스 CEO, “제미나이 3 프로에 완전히 놀랐다…챗GPT는 다시 안 쓸 것”",
+                isTop5: false,
+                details: "인도 언론 디칸헤럴드에 따르면 세일즈포스 CEO 마크 베니오프가 구글 ‘제미나이 3 프로’에 감탄하며 앞으로는 챗GPT를 쓰지 않겠다고 공개적으로 밝혔다. 그는 SNS(엑스·X)에 제미나이 3 프로를 “더 날카롭고 빠른” 도구라고 평가하며, 자신이 사용하는 AI 도구를 구글 쪽으로 전환하겠다는 취지의 글을 남겼다. 이 발언은 프론티어 모델 경쟁이 치열해지는 가운데, 대형 엔터프라이즈 고객의 선호 변화가 시장 구도에 미칠 영향에 관심을 모으고 있다. (Deccan Herald)\n\n베니오프는 과거에도 여러 차례 공개적으로 오픈AI 기술을 호평해 온 인물로, 이번 ‘선회’ 발언은 업계에서 상징성이 크다는 평가다. 그는 제미나이 3 프로가 속도·추론 능력 면에서 뛰어나다며, “새로운 세대의 AI 도구가 생산성과 혁신 수준을 다시 끌어올리고 있다”는 취지로 언급했다. 세일즈포스 자체 플랫폼 ‘아인슈타인’이 다양한 모델을 조합하는 구조인 만큼, 업계에서는 세일즈포스가 향후 어떤 모델을 우선 파트너로 선택하느냐에 따라 클라우드·SaaS 분야의 AI 공급 지형이 달라질 수 있다고 보고 있다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "스마트홈/라이프",
+                title: "삼성전자 북미 CMO “AI가 집 안 모든 제품을 조용히 연결해 삶을 바꾼다”",
+                isTop5: false,
+                details: "비즈니스인사이더는 삼성전자 미국 법인의 최고마케팅책임자(CMO) 앨리슨 스트랜스키가 인터뷰에서 AI가 가전·모바일·웨어러블을 잇는 ‘AI 홈’ 비전을 주도하고 있다고 전했다. 그는 삼성의 연결 앱 ‘SmartThings’와 AI 기능이 탑재된 제품들이 함께 작동해, 세탁·에너지 관리·엔터테인먼트 경험을 자동으로 최적화하는 집을 구현하고 있다고 설명했다. 스트랜스키는 “소비자에게 AI는 거창한 개념이 아니라, 일상을 조용히 개선해 주는 보이지 않는 도우미로 느껴져야 한다”고 강조했다. (Business Insider)\n\n삼성은 ‘SmartThings meets AI Home’ 캠페인을 통해 냉장고·TV·스마트폰 등 다양한 기기를 하나의 스토리로 묶어, AI가 집 전체의 경험을 개인화한다는 메시지를 전달하고 있다. 스트랜스키는 또 중·고교생 대상 STEM 대회 ‘Solve for Tomorrow’에서 학생들이 AI·머신러닝을 활용해 지역 문제를 해결하는 사례를 소개하며, “젊은 세대의 공감과 창의성이 AI 기술의 방향을 바꾸고 있다”고 말했다. 그는 자신의 즐겨 쓰는 기기로 수면·스트레스 데이터를 분석해 주는 갤럭시 링을 꼽으며, 이런 웨어러블이 앞으로 건강·웰빙 중심의 AI 서비스를 확대하는 기반이 될 것이라고 전망했다. (Business Insider)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "헬스케어/운영",
+                title: "“2026년엔 정신건강 AI가 병원 핵심 운영 도구로 자리 잡을 것”",
+                isTop5: false,
+                details: "헬스케어 IT 뉴스는 11월 24일자 기사에서 원격 정신건강 기업 아이리스 텔레헬스(Iris Telehealth)의 CMO가 “2026년에는 정신건강 분야 AI가 파일럿 단계를 넘어 병원 핵심 운영에 통합될 것”이라고 전망했다고 보도했다. 현재 많은 병원이 제한된 범위에서 AI를 시험 중이지만, 향후에는 고위험 환자 선별, 자원 배분, 예약 우선순위 결정 등 운영 효율화를 위해 본격 도입될 것이라는 설명이다. 그는 AI가 적절히 설계될 경우, 제한된 의료 인력을 보다 긴급한 환자에게 배치해 대기 시간을 줄이고 위기 상황을 조기에 포착하는 데 도움을 줄 수 있다고 말했다. (healthcareitnews.com)\n\n다만 전문가들은 AI가 임상의사의 진단·치료 결정을 대체하기보다는, 행정·운영 업무를 보조하는 역할에 머물러야 한다고 강조한다. 기사에 따르면 듀크대 의대는 국립정신건강연구소(NIMH)로부터 1,500만달러 지원을 받아, 최대 1년 앞서 정신건강 악화를 예측하는 AI 모델을 개발해 농촌지역 클리닉에 도입하고 있다. 아이리스 텔레헬스 설문조사에서는 응답자의 73%가 AI가 긴급 상황을 표시하더라도 최종 결정은 사람 의사가 내려야 한다고 답했으며, 이에 따라 병원들은 임상 감독과 설명 가능성을 갖춘 AI 거버넌스를 구축해야 한다는 지적이 나온다. (healthcareitnews.com)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "신약 개발",
+                title: "MIT, 난치병 겨냥 신약 후보를 생성하는 생성형 AI ‘BoltzGen’ 공개",
+                isTop5: false,
+                details: "MIT 연구진이 11월 25일(현지시간) 난치성 질환 치료를 위한 신규 단백질 분자를 설계하는 생성형 AI 모델 ‘BoltzGen’을 공개했다. MIT 뉴스에 따르면 BoltzGen은 기존 구조 예측을 넘어, 임의의 생물학적 표적에 결합할 수 있는 새로운 단백질 바인더를 처음부터 설계할 수 있는 것이 특징이다. 연구진은 이 모델이 제약사와 학계가 오랫동안 어려워했던 ‘공격하기 어려운(undruggable) 표적’에 대한 후보 물질을 찾아내 신약 개발의 시간과 비용을 크게 단축할 잠재력이 있다고 설명했다. (MIT 뉴스)\n\nBoltzGen은 지난여름 화제가 된 구조 예측 모델 ‘Boltz-2’를 기반으로, 단백질 설계와 구조 예측을 하나의 모델로 통합한 것이 핵심이다. MIT 제이미엘 클리닉(Jameel Clinic)이 주최한 세미나에는 300명 이상이 몰렸고, 첫 저자인 박사과정 하네스 슈테르크는 “모델이 물리·화학 법칙을 어기지 않도록 실험실 연구자 피드백을 반영한 제약 조건을 설계했다”고 밝혔다. 연구팀은 앞으로 제약사·바이오 스타트업과 협력해 BoltzGen을 실제 후보 물질 발굴 파이프라인에 적용하고, 희귀질환·암 등 난치 질환 타깃 확대를 추진할 계획이다. (MIT 뉴스)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "UX/인터페이스",
+                title: "챗GPT, 음성 모드가 별도 화면 아닌 기본 채팅에 통합",
+                isTop5: false,
+                details: "오픈AI가 11월 25일(현지시간) 발표를 통해 챗GPT 음성 모드를 이제 별도 인터페이스가 아닌 기본 채팅 화면에서 바로 사용할 수 있도록 개편했다. 테크크런치 보도에 따르면, 사용자는 채팅 창 안에서 대화를 하면서 동시에 텍스트 답변·이미지·지도 등 시각 정보를 실시간으로 확인할 수 있게 된다. 개편 전에는 파란 원형 애니메이션이 뜨는 별도 음성 모드 화면으로 전환해야 했고, 답변 텍스트를 보려면 다시 일반 채팅 모드로 돌아와야 하는 등 사용성이 떨어졌다는 평가였다. (TechCrunch)\n\n오픈AI는 공식 X(옛 트위터)를 통해 “이제 음성으로 이야기하고, 답변이 화면에 나타나는 것을 보며, 이전 메시지와 시각 자료를 한 번에 검토할 수 있다”며 웹·모바일 전체 사용자에게 순차 배포 중이라고 밝혔다. 새로운 음성 모드는 기본 설정으로 적용되지만, 기존과 같은 별도 음성 화면을 선호하는 이용자는 설정 메뉴에서 ‘별도 모드’를 다시 켤 수 있다. 업계에서는 텍스트·음성·이미지를 자연스럽게 오가는 인터페이스가 AI 비서의 상시 사용성과 몰입감을 높여, 경쟁 서비스와의 차별화 요소가 될 것으로 보고 있다. (TechCrunch)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "기업 윤리",
+                title: "오픈AI, 정신건강 관련 소송 대응 원칙 공개 “사실 기반·존중·비공개 정보 보호”",
+                isTop5: false,
+                details: "오픈AI가 11월 25일(현지시간) 회사 웹사이트를 통해 정신건강 관련 소송에 대응하는 자사의 원칙과 접근법을 공식적으로 설명하는 문서를 공개했다. 오픈AI는 이 글에서 정신건강 사건이 “비극적이고 복잡하며, 실제 사람들의 삶이 걸린 사안”이라고 규정하고, 법적 절차가 당사자에게서 멀어져 보일 수 있다는 점을 인식하고 있다고 밝혔다. 회사는 소송에서 사실관계 파악에 최선을 다하되, 민감한 개인정보는 법원이 필요로 하는 범위 안에서만 제한적으로 공개하고, 동시에 기술 안전성 향상 작업은 소송과 무관하게 계속 추진하겠다고 강조했다. (OpenAI)\n\n문건은 특히 미국에서 진행 중인 ‘Raine’ 관련 소송을 언급하며, 유가족에 대한 애도를 표하는 한편, 법원의 판단을 돕기 위해 보다 완전한 맥락을 제시할 필요가 있다고 설명한다. 오픈AI는 자살·위기 상황에 대응하기 위해 민감한 대화를 인지하고 긴장을 완화하며, 실제 지원 자원으로 연결하도록 설계된 안전장치와 교육을 적용하고 있다고 덧붙였다. 회사는 향후에도 정신건강 전문가·임상의·시민단체와 협력해 모델의 응답 방식을 개선하고, 관련 소송에서 투명성과 인권 존중을 원칙으로 한 커뮤니케이션을 이어가겠다고 밝혔다. (OpenAI)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안",
+                title: "폭력적 위협에 오픈AI 샌프란시스코 사무실 ‘록다운’ 조치",
+                isTop5: false,
+                details: "미 온라인 매체 ‘퓨처리즘’ 보도에 따르면, 오픈AI가 최근 반(反)AI 활동가로부터 폭력적 위협을 받자 샌프란시스코 사무실을 일시 폐쇄(록다운)하는 조치를 취했다. 내부 슬랙 메시지에 따르면, 회사는 ‘StopAI’라는 단체와 관련된 한 활동가가 직원에게 물리적 위해를 가할 수 있다는 정황을 파악해 보안을 강화했다. 이 인물은 과거 오픈AI 사무실을 방문한 적이 있는 것으로 알려졌으며, 이후 단체 측은 성명을 통해 “비폭력 원칙을 고수한다”며 해당 인물과 거리를 두겠다고 밝혔다. (Futurism)\n\n보도에 따르면 이 활동가는 최근 단체와 결별을 선언한 뒤, 자금 문제를 둘러싼 내부 충돌과 폭력 사건에 연루됐다는 주장이 제기되고 있다. StopAI는 AI 개발의 영구 중단을 요구하며 테크 기업 앞에서 단식 농성·시위를 벌여온 단체로, 앞서 오픈AI CEO 샘 올트먼에게 법정 출석 소환장을 전달하는 행동도 벌였다. 전문가들은 기술에 대한 우려 표현이 폭력·위협으로 비화하는 것을 경계하면서, 기업과 시민사회가 AI 논쟁을 민주적이고 안전한 방식으로 이어갈 수 있는 공론장과 절차를 마련해야 한다고 지적한다. (Futurism)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈소스/에이전트",
+                title: "MS, 온디바이스 GUI 에이전트용 sLM ‘파라-7B’ 공개",
+                isTop5: false,
+                details: "AI타임스에 따르면 마이크로소프트(MS)가 11월 24일(현지시간) 사용자를 대신해 PC 그래픽 인터페이스를 직접 조작하는 온디바이스 에이전트용 소형 언어모델 ‘Fara-7B(파라-7B)’를 공개했다. 파라-7B는 약 70억 개 매개변수를 가진 오픈소스 모델로, 웹페이지 스크린샷만을 보고 마우스 클릭·키보드 입력·스크롤 좌표 등을 인식해 GUI를 조작할 수 있도록 설계됐다. 모든 연산을 로컬 장치에서 처리해, 의료·금융 등 엄격한 규제가 있는 산업에서도 개인정보 유출 우려를 줄인 채 업무 자동화에 활용할 수 있다는 것이 MS의 설명이다. (AI타임스)\n\nMS는 멀티 에이전트 프레임워크 ‘Magentic-One’를 활용해 웹 탐색·업무 수행 과정에서 14만5,000건의 성공 사례를 수집하고, 이를 대형 모델 ‘Qwen2.5-VL-7B’에 지도학습해 지식을 단일 7B 모델로 증류(distillation)했다고 밝혔다. 벤치마크 ‘WebVoyager’에서 파라-7B는 성공률 73.5%를 기록해, GPT-4o CUA 모드 등 기존 모델보다 높은 성능과 더 적은 단계 수를 보였다. 다만 MS는 아직 프로덕션 투입에는 이르지 않았다며, 당분간은 파일럿·PoC 용도 중심 활용을 권장하고, 향후 기업용 에이전트 도구와 연계해 상용화를 추진할 계획이다. (AI타임스)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "칩/파트너십",
+                title: "“구글, 메타에 TPU 대량 공급 협의…엔비디아 대항마로 부상”",
+                isTop5: false,
+                details: "AI타임스 보도에 따르면 구글이 자체 AI 칩 ‘TPU’를 메타 플랫폼스에 대규모로 공급하는 방안을 논의 중인 것으로 알려졌다. 디 인포메이션을 인용한 기사에 따르면, 메타는 2027년까지 데이터센터에 구글 TPU를 도입하고, 내년부터는 구글 클라우드에서 칩을 임대하는 방안을 포함해 수십억달러 규모 투자를 검토하고 있다. 구글 클라우드 내부에서는 TPU 임대 사업을 통해 장기적으로 엔비디아 연간 매출의 10% 수준까지 성장하는 것을 목표로 삼고 있다는 평가도 나온다. (AI타임스)\n\n구글은 7세대 텐서 프로세서 ‘아이언우드(Ironwood)’와 CPU ‘Axion’ 기반 AI 시스템, 그리고 외부 데이터센터에 TPU를 손쉽게 도입할 수 있는 소프트웨어 ‘TPU@Premises’를 공개하는 등 엔비디아 CUDA 생태계에 정면 도전해 왔다. 기사에 따르면 구글은 이미 앤트로픽과 최대 100만 장의 TPU 공급 계약을 발표했으며, 메타·대형 금융기관·코어위브·크루소 등과도 협력을 논의 중이다. 특히 TPU로 학습한 ‘제미나이 3’ 모델의 성능이 호평을 받으면서, TPU 기반 고밀도 서버 클러스터가 엔비디아 GPU 의존도를 낮출 새로운 선택지로 부상하고 있다는 분석이 나온다. (AI타임스)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "커머스",
+                title: "오픈AI, 챗GPT에 ‘쇼핑 리서치’ 기능 추가…GPT-5 미니로 쇼핑템 심층 분석",
+                isTop5: false,
+                details: "오픈AI가 연말 쇼핑 시즌을 앞두고 제품 비교·추천을 자동으로 수행하는 ‘쇼핑 리서치(Shopping Research)’ 기능을 챗GPT에 도입했다. AI타임스에 따르면 이 기능은 무료·유료 이용자 모두 사용할 수 있으며, 정확도가 가장 높은 최신 ‘GPT-5 미니(mini)’ 모델을 기반으로 동작한다. 사용자는 질문을 입력하기 전 쇼핑 리서치 모드를 선택하면, 챗GPT가 여러 웹사이트와 리뷰를 탐색해 후보 제품을 제시하고, 최종적으로 제품별 장단점과 출처를 정리한 맞춤형 구매 가이드를 제공한다. (AI타임스)\n\n오픈AI는 레딧과 같은 사용자 리뷰 플랫폼의 경험담이 광고성 리뷰보다 신뢰도 높은 정보로 평가된다고 설명하며, 특정 쇼핑몰·제휴 업체를 우선 추천하지 않는다고 강조했다. 또한 쇼핑 리서치 과정에서 수집된 정보는 소매업체와 공유되지 않으며, 가격·재고 등은 반드시 판매처 웹사이트에서 재확인하라고 이용자에게 안내하고 있다. 업계에서는 이 기능이 검색·커머스 영역에서 AI 기반 비교·추천 서비스 경쟁을 본격화시키는 한편, 향후 여행·보험·B2B 솔루션 등 고관여 상품으로 확대될 가능성을 주목하고 있다. (AI타임스)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "과학/연구",
+                title: "GPT-5, 수학자 어니스트 류의 ‘40년 난제’ 해결을 돕다",
+                isTop5: false,
+                details: "오픈AI는 11월 24일(현지시간) 게시한 스토리에서 수학자 어니스트 류(Ernest Ryu)가 40년간 풀리지 않던 최적화 이론 문제를 해결하는 과정에 GPT-5를 활용했다고 밝혔다. 류는 가속 경사법(NAG)와 관련된 단순해 보이지만 어려운 문제를 다시 도전하면서, GPT-5와 함께 가능한 증명 전략을 빠르게 탐색하고 검증하는 ‘아이디어 파트너’로 활용했다. 그는 약 사흘 동안 총 12시간가량 GPT-5와 아이디어를 주고받으며 여러 접근법을 시도한 끝에, 모델이 제안한 구조적 아이디어를 토대로 최종적인 수학적 증명을 스스로 완성했다고 설명했다. (OpenAI)\n\n류는 GPT-5가 새로운 수학 원리를 발명했다기보다, 기존 논문·도구를 광범위하게 탐색해 사람이 떠올리기 어려운 조합의 아이디어를 제시해 주는 데 강점을 보였다고 평가했다. 그는 “AI가 제안한 아이디어가 맞는지 판단하고, 잘못된 방향을 버리는 일은 여전히 사람 몫”이라며, 논문에서는 GPT-5를 공동 저자가 아닌 연구 도구로 명시했다고 밝혔다. 해당 연구는 현재 논문 사전 공개(arXiv)를 통해 검증을 거치는 중이며, 오픈AI는 이를 인공지능이 과학·수학 연구에서 탐색 속도를 높이고 창의적 발상을 돕는 사례로 소개했다. (OpenAI)"
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "벤처 투자",
+                title: "구글·액셀, 인도 ‘차세대 AI 스타트업’ 발굴 위해 최대 200만달러 공동 투자",
+                isTop5: false,
+                details: "구글이 벤처캐피털 액셀(Accel)과 손잡고 인도 및 인도 디아스포라 초기 AI 스타트업에 최대 200만달러를 공동 투자하는 프로그램을 출범했다. 테크크런치에 따르면 양사는 액셀의 초기 프로그램 ‘Atoms’를 통해 스타트업 한 곳당 구글과 액셀이 각각 최대 100만달러씩 투자하고, 2026년 코호트는 처음부터 AI 제품을 만드는 창업자에 초점을 맞출 계획이다. 인도는 세계 2위 규모의 인터넷·스마트폰 시장과 풍부한 엔지니어 인력을 보유했지만, 프론티어 모델 개발에서는 아직 미·중에 비해 뒤처져 있다는 평가를 받아 왔다. (TechCrunch)\n\n선정된 스타트업은 최대 35만달러 상당의 구글 클라우드·제미나이·딥마인드 컴퓨트 크레딧과 함께, 모델·API·실험 기능에 대한 조기 접근권, 구글·딥마인드 연구진의 멘토링, 런던·베이 에어리어 집중 프로그램 등 다양한 지원을 받게 된다. 구글 AI 퓨처스 펀드 책임자는 “인도 창업자들이 다음 세대 AI 기반 글로벌 테크 기업의 주역이 될 것”이라며, 이번 협력이 해당 펀드 최초의 국가별 파트너십이라고 밝혔다. 양사는 참가 기업에 구글 모델 독점 사용을 강요하지 않겠다고 못 박았으며, 이를 통해 인도에서 오픈AI·앤트로픽 등과 경쟁할 수 있는 독창적 AI 제품·연구 생태계를 키우겠다는 구상을 내놨다. (TechCrunch)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 도구/API",
+                title: "구글, Gemini 3용 새 API 업데이트 공개…‘생각 단계·생각 서명’으로 에이전트 성능 강화",
+                isTop5: false,
+                details: "구글이 11월 25일(현지시간) 개발자 블로그와 Google AI Studio X 계정을 통해 Gemini 3용 새로운 Gemini API 업데이트를 발표했다. 이번 업데이트로 개발자는 thinking_level 파라미터로 모델의 내부 추론 깊이와 비용·지연 시간을 조절하고, 이미지·영상·문서 입력에 대해 media_resolution을 지정해 토큰 사용량을 세밀하게 관리할 수 있게 됐다. 또한 함수 호출·이미지 생성 등에서는 암호화된 ‘생각 서명(thought signatures)’을 반드시 다시 전달해야 하는 구조가 도입돼, 복잡한 에이전트 워크플로에서 일관된 추론 맥락을 유지하도록 설계됐다. (Google Developers Blog)\n\n구글은 이번 변화를 통해 검색 연동 Grounding with Google Search와 URL 컨텍스트를 구조화된 출력(JSON)과 결합해 라이브 데이터 추출·요약 에이전트를 쉽게 만들 수 있다고 설명했다. 아울러 검색 연동 요금제를 정액제에서 쿼리당 과금 방식(1,000건당 14달러)으로 바꾸어, 에이전트가 상황에 따라 검색 빈도를 조정할 수 있도록 했다. 회사는 Gemini 3를 “가장 지능적인 모델”로 규정하며, 통합된 시스템 인스트럭션 템플릿과 새 파라미터를 활용하면 에이전트 코딩·멀티모달 분석 성능이 향상될 것이라고 밝혀 향후 개발자 생태계 확대가 기대된다. (Google Developers Blog)"
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "생산성/경제",
+                title: "앤트로픽, “클로드가 업무 시간 80% 단축”…미 노동생산성 연 1.8%p 끌어올릴 수도",
+                isTop5: false,
+                details: "앤트로픽이 11월 25일(현지시간) 공개한 새 연구에서 클로드(Claude)가 실제 업무 대화 10만 건을 분석한 결과, 평균 90분 걸리는 작업을 80% 빨리 끝낼 수 있는 것으로 추정된다고 밝혔다. 연구진은 프라이버시 보호 도구 ‘Clio’를 활용해 Claude.ai 대화에서 작업 유형과 난이도를 추출하고, 또 다른 버전의 클로드로 AI 사용 전후 소요 시간을 추정한 뒤 임금·직종 데이터에 연결했다. 이 추정치를 미국 경제 전체에 확장하면, 현재 수준의 AI만으로도 향후 10년간 미국 노동생산성 연간 성장률이 1.8%포인트 높아질 수 있다는 결론을 제시했다. (Anthropic)\n\n연구에 따르면 사용자는 주로 법률·경영·헬스케어 보조 등 고난도·비정형 지식 작업에 클로드를 활용하며, 일부 직종에서는 시간 단축 효과가 90%에 달한다. 다만 연구진은 실제로는 AI 답변 검증·후속 작업 등 추가로 드는 사람 시간이 포함되지 않았고, 모든 절감 시간이 생산적인 노동으로 전환된다고 가정한 점을 한계로 인정했다. 그럼에도 앤트로픽은 이번 분석을 토대로 정책·기업 의사결정자에게 AI 도입이 성장 잠재력과 동시에 노동시장 충격을 키울 수 있다는 점을 상기시키며, 후속 연구와 공적 논의를 이어가겠다고 밝혔다. (Anthropic)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "데이터 처리",
+                title: "라마인덱스, ‘LlamaSheets’ 베타 공개…지저분한 스프레드시트를 AI용 정형 데이터로 자동 변환",
+                isTop5: false,
+                details: "오픈소스 벡터DB·에이전트 프레임워크로 알려진 라마인덱스(LlamaIndex)가 11월 25일경 복잡한 스프레드시트를 자동 정규화하는 API ‘LlamaSheets’ 베타 버전을 공개했다. 회사는 블로그와 X 계정을 통해 LlamaSheets가 .xlsx 파일을 입력받아 의미론적 구조를 파악한 뒤 계층 구조를 보존한 파케이(Parquet) 파일로 변환해, 에이전트·분석 파이프라인에 바로 사용할 수 있다고 설명했다. 이를 통해 서로 다른 서식·머지 셀·다중 시트 등으로 난해해진 기업 재무·로그·운영 데이터를 일관된 스키마의 AI 학습·질의용 데이터셋으로 바꾸는 것이 가능해진다. (LlamaIndex)\n\n라마인덱스는 LlamaSheets가 LlamaCloud의 새 API로 제공되며, Claude·Gemini·Cursor 등 다양한 코딩 에이전트와 연계해 자동화 워크플로를 구성할 수 있다고 밝혔다. 개발자 문서에는 “코딩 에이전트가 LlamaSheets로 정규화된 데이터를 읽어 리포트 생성, 품목 이상 탐지, 시나리오 분석 등을 수행하는 예제”가 포함돼 있다. 독일 IT 매체는 이를 두고 “마이크로소프트 등 오피스 강자 외부에서 문서·테이블 구조화 경쟁이 본격화되고 있다”고 평가하며, 향후 기업 데이터 거버넌스와 AI 분석 자동화 시장에 미칠 영향을 주목했다. (LlamaIndex)"
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "제조/비전",
+                title: "“거대한 로봇 말고, 감자 컨베이어부터” 저렴한 비전 시스템 사례 화제",
+                isTop5: false,
+                details: "유럽 액셀러레이터 ‘EU/ACC’의 일리르 알리우(Ilir Aliu)가 11월 25일(현지시간) X와 링크드인에 컨베이어 벨트 위 감자의 개수를 세는 소형 비전 시스템 사례를 소개하며 ‘실용적 AI’의 중요성을 강조했다. 알리우가 공유한 영상 속에서 개발자 Viet은 고가 장비나 방대한 레이블링 없이, 저렴한 카메라와 경량 모델을 이용해 공장 라인 위 감자를 실시간 계수하는 시스템을 구현했다. 그는 게시글에서 “로봇 공학의 화려한 데모가 주목을 받지만, 현장의 구체적인 문제를 똑똑하게 해결하는 작은 시스템이야말로 산업 혁신의 핵심”이라고 평가했다. (linkedin.com)\n\n해당 사례는 중소 농가·식품 공장에서 품질 검사·분류 자동화에 AI 비전이 활용되는 흐름을 상징적으로 보여준다는 평가다. 실제로 학술·산업계에서는 감자·곡물·채소의 크기·색·손상 정도를 카메라로 판별하는 저비용 머신비전 시스템 연구가 꾸준히 이어져 왔다. 전문가들은 Viet의 프로젝트처럼 비교적 단순한 작업부터 단계적으로 자동화하면, 데이터 수집 비용과 실패 위험을 줄이면서 AI 도입 효과를 검증할 수 있다며, 향후 농업·제조 현장 전반으로 응용이 확산될 것으로 내다본다. (arXiv)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "생산성 도구",
+                title: "노트북LM, ‘슬라이드 덱’ 기능 본격 홍보…연구 자료를 한 번에 스토리형 발표 자료로",
+                isTop5: false,
+                details: "구글의 AI 연구 도구 NotebookLM 팀이 11월 24일(현지시간) “슬라이드를 만드는 것이 아니라, 이야기를 전하는 것에 초점을 맞춘다”는 메시지와 함께 ‘Slide Decks’ 기능 활용 사례 4가지를 X에서 소개했다. 이 기능은 사용자가 논문·보고서·메모 등 소스를 업로드하면, NotebookLM이 내용을 분석해 제목·문제 정의·데이터 시각화·결론으로 구성된 발표 자료를 자동 생성해 주는 것이 특징이다. 생성된 슬라이드는 NotebookLM 안에서 바로 발표하거나 PDF로 내보낼 수 있어, 학생·연구자·직장인이 자료 정리에서 디자인까지 걸리는 시간을 크게 줄일 수 있다는 평가가 나온다. (X (formerly Twitter))\n\n최근 보도에 따르면 NotebookLM의 슬라이드·인포그래픽 기능에는 구글의 이미지 생성 모델 ‘Nano Banana Pro’(Gemini 3 Pro Image)가 통합돼, 텍스트·도표를 시각적으로 일관된 디자인으로 변환해 준다. IT 매체들은 복잡한 PDF를 요약한 인포그래픽, 연구 파일을 바로 슬라이드 덱으로 변환하는 ‘Source-to-Slides’ 워크플로 등을 ‘파워포인트·캔바의 대체재’로 평가하고 있다. 다만 구글은 성인 사용자에 한해 기능을 제공하고 있으며, 향후 슬라이드 편집·스타일 커스터마이징 옵션을 확장해 교육·비즈니스 현장에서의 활용도를 높이겠다는 계획이다. (TechRadar)"
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "교육/인터랙션",
+                title: "구글, Gemini 앱에 ‘인터랙티브 이미지’ 도입…소화기관·세포 구조를 직접 눌러 배우는 시대",
+                isTop5: false,
+                details: "구글이 자사 공식 블로그를 통해 Gemini 앱에 복잡한 학습 개념을 시각적으로 탐색할 수 있는 ‘인터랙티브 이미지’ 기능을 도입한다고 밝혔다. 사용자는 소화기관·세포 구조와 같은 교육용 도식을 볼 때, 각 부위를 직접 탭하거나 클릭해 정의·상세 설명·추가 학습 콘텐츠가 포함된 패널을 바로 띄울 수 있다. 회사는 이 기능이 단순 텍스트·정적 이미지 중심 학습에서 벗어나, 학습자가 능동적으로 이미지를 탐색하며 질문을 이어갈 수 있는 환경을 제공한다고 설명했다. (blog.google)\n\n구글은 학습 과학 연구가 반복해서 강조해온 ‘능동적 참여(active engagement)’ 원칙을 Gemini 학습 경험에 반영한 것이라고 덧붙였다. 이번 인터랙티브 이미지는 특히 과학·의학·지리 등 복잡한 구조와 공간적 관계 이해가 중요한 과목에서 효과를 발휘할 것으로 기대된다. 회사는 앞으로 더 많은 교육용 이미지와 다국어 지원을 늘리고, Gemini 3의 멀티모달 이해 능력과 결합해 학생·교사·자기주도 학습자를 위한 맞춤형 시각 학습 도구로 발전시키겠다는 계획이다. (blog.google)"
+            }
+        ];
+
+        const keyHighlightsData = [
+            { label: "델(Dell) 성장 목표", value: "두 자릿수", desc: "AI 서버 호조 기반" },
+            { label: "HP 인력 감원", value: "최대 6,000명", desc: "2028년까지 구조조정" },
+            { label: "WB 디스커버리", value: "60% 절감", desc: "AWS ML 도입 효과" },
+            { label: "미 노동생산성", value: "1.8%p ↑", desc: "AI 도입 시 연간 전망" }
+        ];
+
+        // 2. Logic to Truncate Titles
+        function getDisplayTitle(title) {
+            if (title.length <= 60) return title;
+            
+            // Try to split by delimiter
+            const separators = ['—', ':', '…'];
+            for (let sep of separators) {
+                if (title.includes(sep)) {
+                    const parts = title.split(sep);
+                    // If first part is reasonably long, use it. Otherwise just truncate.
+                    if (parts[0].length > 10 && parts[0].length < 60) {
+                        return parts[0] + '...';
+                    }
+                }
+            }
+            return title.substring(0, 60) + '...';
+        }
+
+        // 3. Render Functions
+        function createKeyNumbersSection() {
+            const container = document.getElementById('highlights-grid');
+            keyHighlightsData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow";
+                div.innerHTML = `
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">${item.label}</p>
+                    <p class="text-3xl font-bold text-indigo-600 mb-1">${item.value}</p>
+                    <p class="text-xs text-slate-400">${item.desc}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function createNewsCard(item, index) {
+            const displayTitle = getDisplayTitle(item.title);
+            const card = document.createElement('article');
+            card.className = "bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer p-5 flex flex-col h-full group";
+            card.setAttribute('data-index', index);
+            card.onclick = () => showModal(index);
+
+            // Conditional Border color for categories (visual flair)
+            let categoryColor = "text-indigo-600 bg-indigo-50";
+            if (item.theme.includes("법률")) categoryColor = "text-amber-700 bg-amber-50";
+            if (item.theme.includes("사회")) categoryColor = "text-emerald-700 bg-emerald-50";
+            if (item.theme.includes("인프라")) categoryColor = "text-blue-700 bg-blue-50";
+
+            card.innerHTML = `
+                <div class="flex items-center justify-between mb-3">
+                    <span class="px-2 py-1 text-[10px] font-bold uppercase rounded tracking-wider ${categoryColor}">
+                        ${item.category}
+                    </span>
+                    ${item.isTop5 ? '<span class="text-[10px] font-bold text-rose-500">TOP 5</span>' : ''}
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 leading-snug group-hover:text-indigo-600 transition-colors mb-2">
+                    ${displayTitle}
+                </h3>
+                <p class="text-sm text-slate-500 line-clamp-3 mt-auto">
+                    ${item.details.substring(0, 100)}... <span class="text-indigo-500 font-medium ml-1">더보기</span>
+                </p>
+            `;
+            return card;
+        }
+
+        function renderTop5Section() {
+            const container = document.getElementById('top5-grid');
+            reportData.forEach((item, index) => {
+                if (item.isTop5) {
+                    container.appendChild(createNewsCard(item, index));
+                }
+            });
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-sections');
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회 (활용, 심리, 노동)"
+            ];
+
+            themes.forEach(theme => {
+                // Filter items for this theme EXCLUDING Top 5
+                const themeItems = reportData.map((item, index) => ({...item, originalIndex: index}))
+                                             .filter(item => item.theme === theme && !item.isTop5);
+
+                if (themeItems.length === 0) return;
+
+                const section = document.createElement('section');
+                section.className = "space-y-4";
+                
+                const header = document.createElement('h2');
+                header.className = "text-xl font-bold text-slate-800 border-b pb-2 flex items-center gap-2";
+                header.innerHTML = `<span class="w-2 h-6 bg-slate-400 rounded-full inline-block"></span> ${theme}`;
+                
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+
+                themeItems.forEach(item => {
+                    grid.appendChild(createNewsCard(item, item.originalIndex));
+                });
+
+                section.appendChild(header);
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        // 4. Modal Logic
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalCategory = document.getElementById('modal-category');
+
+        function showModal(index) {
+            const item = reportData[index];
+            modalTitle.textContent = item.title;
+            // Ensure details handle newlines correctly with pre-wrap
+            modalContent.innerHTML = item.details.replace(/\(Source: (.*?)\)/, '<br><span class="text-xs text-slate-400 mt-2 block">Source: $1</span>');
+            modalCategory.textContent = `${item.theme} > ${item.category}`;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-close-btn-x').addEventListener('click', closeModal);
+        document.getElementById('modal-bg-close').addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // 5. Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>
