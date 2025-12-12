@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: AI 일일 보고서 (2025-12-11)</title>
+    
+    <!-- Mandatory Placeholder Comments -->
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F8FAFC; /* bg-slate-50 equivalent */
+        }
+        /* Custom Scrollbar for Modal */
+        .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-body::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        /* Line clamp utility just in case */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">N</span>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900">뉴스대시 <span class="font-light text-slate-500 text-base ml-2">2025년 12월 11일 AI 리포트</span></h1>
+            </div>
+            <div class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                Daily AI Briefing
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Section 1: Key Data Highlights -->
+        <section id="key-highlights" class="animate-fade-in-up">
+            <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
+                <span class="w-1.5 h-6 bg-amber-500 rounded-full mr-2"></span>
+                오늘의 핵심 숫자 (Key Highlights)
+            </h2>
+            <div id="highlights-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Javascript will inject data here -->
+            </div>
+        </section>
+
+        <!-- Section 2: Top 5 News -->
+        <section id="top-5-section">
+            <div class="flex items-end justify-between mb-4 border-b border-slate-200 pb-2">
+                <h2 class="text-2xl font-extrabold text-slate-900 flex items-center">
+                    <span class="text-amber-600 mr-2">★</span> TOP 5 빅테크 뉴스
+                </h2>
+                <span class="text-sm text-slate-500">오늘 가장 주목해야 할 이슈</span>
+            </div>
+            <div id="top-5-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will inject data here -->
+            </div>
+        </section>
+
+        <!-- Section 3: Thematic News -->
+        <div id="thematic-sections" class="space-y-16">
+            <!-- Javascript will inject thematic sections here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-2 font-bold text-slate-200">뉴스대시 (NewsDash)</p>
+            <p class="text-sm">Source: 5분 AI 뉴스 정리 (2025.12.11) | Developed by AI Architect</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background backdrop -->
+        <div id="modal-bg-close" class="fixed inset-0 bg-slate-900/70 transition-opacity backdrop-blur-sm cursor-pointer"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                
+                <div class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border border-slate-200">
+                    
+                    <!-- Modal Header -->
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-start">
+                        <div>
+                            <span id="modal-theme" class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 mb-2">Theme</span>
+                            <h3 class="text-xl font-bold leading-6 text-slate-900 pr-4" id="modal-title">
+                                <!-- Title goes here -->
+                            </h3>
+                        </div>
+                        <button type="button" id="modal-close-btn" class="rounded-md bg-slate-50 text-slate-400 hover:text-slate-500 focus:outline-none p-1">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="px-6 py-6 max-h-[70vh] overflow-y-auto modal-body">
+                        <div class="prose prose-slate prose-sm max-w-none text-slate-600 leading-relaxed space-y-4" id="modal-content">
+                            <!-- Content goes here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Modal Footer -->
+                    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-100">
+                        <button type="button" id="modal-close-btn-bottom" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto transition-colors">
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- 1. Data Source (Parsed from Report) ---
+        // Themes: "AI 인프라 및 투자", "플랫폼, 제품 및 에이전트", "산업별 AI 적용", "법률, 규제 및 거버넌스", "AI와 사회"
+        
+        const reportData = [
+            // Top 5 (Big Tech Focus)
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Google",
+                title: "구글, Gemini 2.5 TTS 대규모 업데이트…감정·속도·다화자까지 세밀 제어",
+                isTop5: true,
+                details: "구글 AI 개발자팀은 12월 10일(현지시간) 공식 X 계정을 통해 Gemini 2.5 Flash와 Pro 텍스트-투-스피치(TTS) 미리보기 모델 업데이트를 발표했다. 이번 개편은 감정과 스타일을 세밀하게 조절하는 표현력, 문맥을 고려한 발화 속도 제어, 여러 화자가 등장하는 대화에서의 일관된 목소리 유지를 특징으로 한다. 개발자는 'cheerful'이나 'somber' 같은 자연어 프롬프트로 스타일을 지정해 '연기하는 듯한 음성'을 만들 수 있다. 구글은 이 모델들을 2026 회계연도 초 생산 환경에 도입할 계획이며, 향후 음성 비서 및 교육 콘텐츠 시장에서 경쟁력을 강화할 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "OpenAI / Adobe",
+                title: "ChatGPT에서 포토샵·Express·Acrobat 무료 사용…어도비-오픈AI 전략적 통합",
+                isTop5: true,
+                details: "어도비가 자사 핵심 앱(Photoshop, Express, Acrobat)을 ChatGPT 내장 앱 형태로 통합해 무료로 제공한다고 TestingCatalog가 보도했다. 이는 사용자가 별도 앱 실행 없이 ChatGPT 대화창 내에서 이미지 수정, PDF 편집, 디자인 작업을 수행할 수 있게 하는 조치다. 데스크톱·웹·iOS용 ChatGPT에서 이미 제공 중이며, 안드로이드 지원도 예정되어 있다. 이는 어도비의 생성형 AI 수익 확대 전략과 OpenAI의 앱 플랫폼 확장 전략이 맞물린 결과로 분석된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Google",
+                title: "구글 코딩 에이전트 ‘Jules’, “먼저 도와주는” 프로액티브 모드로 진화",
+                isTop5: true,
+                details: "구글의 자율 코딩 에이전트 'Jules'가 사용자의 요청 전 작업을 제안하는 '프로액티브 모드'를 업데이트했다. 코드 저장소를 상시 스캔해 #todos를 찾아 작업을 제안하거나, 반복 작업을 예약 실행하고, 배포 실패 시 수정 PR을 자동 생성한다. Gemini 2.5 Pro 및 3 Pro Thinking 모드를 기반으로 하며, 단순 도구를 넘어 '개발 파트너' 역할을 수행한다. 현재 Google AI Pro·Ultra 사용자에게 순차 적용 중이다."
+            },
+            {
+                theme: "인프라 및 투자",
+                category: "Google Cloud",
+                title: "구글클라우드, 전 서비스 대상 완전관리형 MCP 서버 공식 발표",
+                isTop5: true,
+                details: "구글클라우드는 앤트로픽이 제안한 Model Context Protocol(MCP)을 구글 API 인프라 전반에 적용하는 완전관리형 원격 MCP 서버를 출시했다. 이를 통해 AI 에이전트가 구글 지도, BigQuery, 인프라 리소스 등에 표준화된 방식으로 안전하게 접근할 수 있게 되었다. 개발자들은 복잡한 커스텀 커넥터 없이 단일 엔드포인트로 에이전트 앱을 구축할 수 있으며, 구글은 향후 지원 서비스를 지속 확대할 방침이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Google",
+                title: "구글, 뉴스 '선호 출처(Preferred Sources)' 전 세계 출시 및 AI 모드 링크 강화",
+                isTop5: true,
+                details: "구글이 뉴스 검색에서 사용자가 좋아하는 매체를 지정하면 해당 기사를 더 자주 노출하는 'Preferred Sources' 기능을 전 세계에 출시했다. 이미 9만 개 사이트가 선택되었으며, 해당 매체로의 클릭률이 2배 증가하는 효과를 보였다. 또한, 구글은 젬니(Gemini) 앱과 AI Overview에 구독 언론사 전용 캐러셀을 도입하고, AI 응답 내 인라인 링크를 강화하는 등 언론사와의 파트너십을 확대를 추진 중이다."
+            },
+            
+            // AI Infrastructure & Investment
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Investment",
+                title: "카타르·브룩필드, 200억달러 규모 AI 인프라 합작사 설립",
+                isTop5: false,
+                details: "카타르 국부펀드 산하 '콰이(Qai)'와 캐나다 브룩필드가 200억 달러 규모의 AI 인프라 합작 법인을 출범했다. 카타르에 초고성능 '통합 컴퓨트 센터'와 데이터센터를 구축해 중동 AI 허브로 도약하려는 목표다. 브룩필드는 최대 1,000억 달러 규모의 AI 인프라 펀드를 조성 중이며, 2030년까지 전 세계적으로 5조 2,000억 달러 규모의 데이터센터 투자가 필요할 것으로 전망된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Chips / Geopolitics",
+                title: "중국 딥시크(DeepSeek), 밀수 의혹 블랙웰 칩으로 차기 모델 준비…춘절 전후 공개 관측",
+                isTop5: false,
+                details: "중국 AI 스타트업 딥시크가 미국 제재를 우회하여 엔비디아 블랙웰 GPU 수천 개를 밀수, 차기 모델을 훈련 중이라는 의혹이 제기되었다. 제3국 데이터센터를 경유해 칩을 분해 후 반입한 것으로 보이며, 내년 2월 춘절 전후로 새 모델을 공개할 것으로 예상된다. 엔비디아는 이를 부인했으나, 미국의 대중 반도체 제재 실효성 논란이 재점화되고 있다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Personnel",
+                title: "구글, AI 인프라 총괄에 아민 바흐닷 임명…AI ‘컴퓨트 전쟁’ 본격화",
+                isTop5: false,
+                details: "구글이 아민 바흐닷(Amin Vahdat)을 AI 인프라 구축 총괄 CTO로 임명했다. 구글은 AI 워크로드 투자를 900억 달러 이상으로 늘리며 인프라를 핵심 전략으로 격상했다. 이는 단순 모델 경쟁을 넘어 자체 칩과 데이터센터 용량을 확보하려는 '컴퓨트 전쟁'의 신호탄으로 해석되며, 마이크로소프트, 아마존과의 인프라 경쟁이 심화될 전망이다."
+            },
+
+            // Platforms, Products & Agents (Non-Top 5)
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Social / Curation",
+                title: "AI 인플루언서 ‘ai_for_success’, 글로벌 생성형 AI 동향 큐레이션 지속",
+                isTop5: false,
+                details: "AI 뉴스 큐레이터 애슈토시 스리바스타바(ai_for_success)가 X를 통해 Gemini 3 라인업 등 최신 정보를 발 빠르게 전하며 영향력을 확대하고 있다. 이러한 개인 계정들이 대형 기업의 발표보다 빠르게 정보를 요약 전달하며, 업계의 실시간 리뷰 및 요약 채널로 자리 잡고 있다는 분석이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Research",
+                title: "챗GPT 메모리 구조, 개발자 역공학 분석으로 드러난 4단계 시스템",
+                isTop5: false,
+                details: "인도 개발자 만탄 굽타가 챗GPT의 메모리 시스템을 역공학하여 4단계(세션 메타데이터, 장기 사용자 메모리, 최근 대화 요약, 현재 대화) 구조를 밝혀냈다. 벡터 DB나 RAG 없이 경량 요약 목록을 사용하는 구조로 추정되며, 이는 비용 효율성과 개인화 사이의 균형을 맞춘 설계로 평가된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Startups / Agents",
+                title: "유토리, 웹 모니터링 에이전트 'Scouts' 정식 출시…“구글 알리미를 넘는 백그라운드 에이전트”",
+                isTop5: false,
+                details: "스타트업 유토리(Yutori)가 웹 모니터링 에이전트 'Scouts'를 출시했다. 사용자가 자연어로 요청하면 에이전트가 24시간 웹을 순찰하며 가격 변동, 재고, 뉴스 등을 추적해 이메일로 리포트한다. '구글 알리미의 확장판'으로 평가받으며, 차세대 생산성 도구 시장을 겨냥하고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Media / Dev",
+                title: "TestingCatalog, 구글 완전관리형 MCP 서버 론칭 상세 분석",
+                isTop5: false,
+                details: "테크 미디어 TestingCatalog는 구글의 MCP 서버 출시를 에이전트 개발자 관점에서 분석했다. 구글의 조치가 에이전트가 실제 위치, 데이터웨어하우스 등을 통합 활용할 수 있게 하여 여행 계획, 리테일 등 고난도 시나리오 구현을 용이하게 할 것이라 전망했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Enterprise / ERP",
+                title: "워크데이, 차세대 ERP 비전 제시…“기록 시스템에서 행동 시스템으로”",
+                isTop5: false,
+                details: "워크데이가 AI를 업무 흐름에 탑재해 ERP를 단순 기록 시스템(System of Record)에서 행동 시스템(System of Action)으로 전환하겠다는 비전을 제시했다. AI 에이전트가 인사이트를 선제 제공하고, 의사결정을 지원하는 지능형 엔터프라이즈 플랫폼 구축을 목표로 한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Pricing / Strategy",
+                title: "구글, 인도에 월 5달러 미만 ‘AI 플러스’ 출시…ChatGPT Go와 정면 승부",
+                isTop5: false,
+                details: "구글이 인도에서 월 5달러 미만의 저가형 'AI Plus' 구독 상품을 출시했다. 오픈AI의 'ChatGPT Go'에 대응하는 전략으로, Gemini 3 Pro 사용 한도 상향 및 구글 드라이브 통합 용량 등을 제공한다. 이머징 마켓을 타겟으로 한 로컬라이즈드 구독 모델 경쟁이 본격화되고 있다."
+            },
+
+            // Industry Applications
+            {
+                theme: "산업별 AI 적용",
+                category: "Energy / Utilities",
+                title: "전력망 지식 시험에서 ‘GPT-5 포함 AI 모델’ 줄줄이 낙제",
+                isTop5: false,
+                details: "미 전력연구소(EPRI) 벤치마크 결과, GPT-5, Gemini 2.5 Pro 등 주요 LLM이 전력망 관련 고난도 주관식 문제에서 낙제점을 받았다. EPRI는 현재 범용 LLM이 전력망 운영을 단독 수행하기엔 신뢰성이 부족하며, 도메인 특화 AI 도구와 인간이 최종 책임을 지는 혼합형 모델이 필요하다고 분석했다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Legal",
+                title: "로펌에 필요한 건 ‘용기 있는 AI 전도사’가 아니라 작은 성공 사례",
+                isTop5: false,
+                details: "로이터 기고문에 따르면, 법률 업계의 AI 도입 장애물은 기술이 아닌 변화 저항이다. 거창한 비전보다는 문서 검토(e-discovery), 이슈 태깅 등 구체적 영역에서 작은 성공 사례를 만들어 신뢰를 쌓는 전략이 효과적이다. AI 기반 특권 검토의 정확도는 약 90%에 달해 비용 절감 효과가 큰 것으로 나타났다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Bio / Pharma",
+                title: "산학 협력단, AI 기반 새로운 약물 독성 예측 모델 공동 개발",
+                isTop5: false,
+                details: "산업계와 학계가 협력해 AI 기반 약물 독성(특히 약물 유발 간손상) 예측 모델 개발에 착수했다. 임상 실패와 리스크를 줄이기 위해 대규모 독성 데이터를 학습하며, 규제 당국이 신뢰할 수 있는 설명 가능성을 확보하는 것이 목표다. 향후 심장, 신장 독성 등으로 확장할 계획이다."
+            },
+
+            // Legal, Regulation & Governance
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "National Security",
+                title: "미 의회, 국방부에 ‘AGI 대비’ 공식 지시…AI Futures Steering Committee 신설",
+                isTop5: false,
+                details: "미 의회가 2026 회계연도 국방수권법을 통해 국방부에 AGI(인공지능 일반) 대비를 공식 지시했다. 'AI 미래 조정위원회'를 신설하여 AGI가 군사·안보에 미칠 영향과 위험 완화 방안(휴먼 오버라이드 프로토콜 등)을 검토해야 한다. 이는 AGI를 이론적 가능성이 아닌 구체적 국방 과제로 규정한 첫 사례다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Policy / Health",
+                title: "미 보건복지부, AI를 보건 혁신의 핵심 인프라로 격상하는 전략 발표",
+                isTop5: false,
+                details: "미 보건복지부(HHS)가 AI 전략을 발표하며 AI를 부처 전반의 핵심 혁신 도구로 격상했다. FDA, CDC 등 산하기관에 AI를 통합 확산하고, 고위험 AI 시스템에 대한 규범을 명시했다. AI가 업무를 대체하는 것이 아니라 보조하는 방향으로 활용되며, 민간과의 오픈소스 협력도 확대할 방침이다."
+            },
+
+            // AI & Society
+            {
+                theme: "AI와 사회",
+                category: "Labor / Employment",
+                title: "설문: “AI가 대규모 감원은 없지만, 성과 낮은 개발자 퇴출 가속”",
+                isTop5: false,
+                details: "카랫(Karat)의 설문조사에 따르면, 엔지니어링 리더 85%는 향후 3년간 개발자 인력이 유지되거나 증가할 것으로 보았다. 그러나 성과가 낮은 엔지니어의 가치는 급락하고 있으며, 상위 개발자와의 격차가 벌어지고 있다. AI 활용 능력(코드 생성 등)이 중요한 평가 요소로 떠오르고 있다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "Marketing / Culture",
+                title: "구글코리아, ‘제미나이 3’ 활용 연말 캠페인 영상 공개…돌고래유괴단 참여",
+                isTop5: false,
+                details: "구글코리아가 돌고래유괴단 신우석 감독과 협업해 제미나이 3와 나노 바나나 프로를 활용한 연말 캠페인 영상을 공개했다. 생성형 AI 기술을 감성적 스토리텔링에 접목해 일상적인 순간을 특별하게 만드는 브랜드 경험을 목표로 한다. 국내 마케팅 시장에서 AI 활용 콘텐츠 제작이 본격화되는 사례로 꼽힌다."
+            }
+        ];
+
+        // --- 2. Helper Functions ---
+
+        // Truncate title logic (max 60 chars, split by delimiters if possible)
+        function formatTitle(title) {
+            const MAX_LENGTH = 60;
+            if (title.length <= MAX_LENGTH) return title;
+
+            // Try to split by common delimiters first to keep meaning
+            const delimiters = ['…', ':', ' - '];
+            for (let d of delimiters) {
+                if (title.includes(d)) {
+                    const parts = title.split(d);
+                    if (parts[0].length < MAX_LENGTH && parts[0].length > 10) {
+                        return parts[0] + '...';
+                    }
+                }
+            }
+            
+            // Fallback: Hard cut
+            return title.substring(0, MAX_LENGTH) + '...';
+        }
+
+        // --- 3. Component Rendering Functions ---
+
+        function createKeyNumbersSection() {
+            // Data extracted manually from the report text for the "Key Data Highlights"
+            const highlights = [
+                { value: "200억 달러", label: "AI 인프라 투자 규모", sub: "카타르-브룩필드 합작" },
+                { value: "5조 2천억 달러", label: "데이터센터 필요 투자액", sub: "2030년 예상 규모" },
+                { value: "34%", label: "평균 생산성 증가율", sub: "AI 도입 시 예상치" },
+                { value: "$5 미만", label: "구글 인도 AI 구독료", sub: "저가형 구독 경쟁 점화" }
+            ];
+
+            const grid = document.getElementById('highlights-grid');
+            grid.innerHTML = highlights.map(item => `
+                <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm flex flex-col items-center text-center hover:border-amber-400 transition-colors duration-300">
+                    <span class="text-3xl font-black text-amber-500 mb-1">${item.value}</span>
+                    <span class="text-sm font-bold text-slate-800">${item.label}</span>
+                    <span class="text-xs text-slate-500 mt-1">${item.sub}</span>
+                </div>
+            `).join('');
+        }
+
+        function createCardHTML(item, index) {
+            const displayTitle = formatTitle(item.title);
+            const badgeColor = item.isTop5 ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-600";
+            const borderClass = item.isTop5 ? "border-amber-200" : "border-slate-200";
+
+            return `
+                <article 
+                    class="bg-white rounded-lg border ${borderClass} shadow-sm p-5 cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group"
+                    onclick="openModal(${index})"
+                >
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center rounded-md ${badgeColor} px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10">
+                            ${item.category}
+                        </span>
+                        ${item.isTop5 ? '<span class="text-amber-500 text-xs font-bold">★ TOP 5</span>' : ''}
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors leading-snug">
+                        ${displayTitle}
+                    </h3>
+                    <p class="text-sm text-slate-500 line-clamp-3 mt-auto">
+                        ${item.details}
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center text-xs text-blue-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                        자세히 보기 <span class="ml-1">→</span>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderTop5Section() {
+            const container = document.getElementById('top-5-grid');
+            const top5Items = reportData.filter(item => item.isTop5);
+            
+            // Find global index for each item to map click events correctly
+            container.innerHTML = top5Items.map(item => {
+                const globalIndex = reportData.indexOf(item);
+                return createCardHTML(item, globalIndex);
+            }).join('');
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-sections');
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회"
+            ];
+
+            themes.forEach(theme => {
+                // Filter items for this theme AND NOT Top 5 (since Top 5 are already shown)
+                const items = reportData.filter(item => item.theme === theme && !item.isTop5);
+                
+                if (items.length === 0) return;
+
+                const sectionHTML = `
+                    <section class="animate-fade-in">
+                        <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center border-l-4 border-blue-600 pl-3">
+                            ${theme}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${items.map(item => {
+                                const globalIndex = reportData.indexOf(item);
+                                return createCardHTML(item, globalIndex);
+                            }).join('')}
+                        </div>
+                    </section>
+                `;
+                container.insertAdjacentHTML('beforeend', sectionHTML);
+            });
+        }
+
+        // --- 4. Interaction Logic (Modal) ---
+
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalTheme = document.getElementById('modal-theme');
+        const modalContent = document.getElementById('modal-content');
+        const closeBtn = document.getElementById('modal-close-btn');
+        const closeBtnBottom = document.getElementById('modal-close-btn-bottom');
+        const modalBg = document.getElementById('modal-bg-close');
+
+        window.openModal = function(index) {
+            const item = reportData[index];
+            modalTitle.textContent = item.title;
+            modalTheme.textContent = item.theme + " > " + item.category;
+            
+            // Format details with paragraph breaks for readability
+            // Assuming input text is a single block, we wrap it in a p tag.
+            // If \n exists, replace with <br>
+            modalContent.innerHTML = `<p>${item.details.replace(/\n/g, '<br><br>')}</p>`;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        };
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        closeBtnBottom.addEventListener('click', closeModal);
+        modalBg.addEventListener('click', closeModal);
+
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // --- 5. Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>
