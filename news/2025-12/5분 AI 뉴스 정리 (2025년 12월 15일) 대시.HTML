@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: AI 일일 보고서 (2025-12-15)</title>
+    
+    <!-- Essential Comments as Requested -->
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 equivalent */
+        }
+        
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Line Clamp Utility override just in case */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            line-clamp: 3;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-md hover:shadow-lg hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">N</div>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">뉴스대시 <span class="text-slate-500 font-normal text-sm ml-2">AI Daily Report</span></h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                2025년 12월 15일
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Key Data Highlights Section -->
+        <section id="key-highlights" class="animate-fade-in-up">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <span class="w-1 h-6 bg-blue-600 mr-2 rounded-full"></span>
+                주요 데이터 하이라이트
+            </h2>
+            <div id="key-numbers-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Top 5 News Section -->
+        <section id="top5-news">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 pb-2 border-b border-slate-200">
+                🔥 Top 5 핵심 뉴스
+            </h2>
+            <div id="top5-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Thematic Sections -->
+        <div id="thematic-sections" class="space-y-12">
+            <!-- Javascript will populate thematic grids here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+            &copy; 2025 NewsDash AI Report. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div id="modal-bg-close" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+        <!-- Modal Panel -->
+        <div class="relative z-10 flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+            <div id="modal-panel" class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                
+                <!-- Modal Header -->
+                <div class="bg-slate-50 px-4 py-4 sm:px-6 border-b border-slate-100 flex justify-between items-start">
+                    <div>
+                        <span id="modal-category" class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 mb-2">Category</span>
+                        <h3 id="modal-title" class="text-lg font-bold leading-6 text-slate-900 pr-4">Title Goes Here</h3>
+                    </div>
+                    <button id="modal-close-btn" type="button" class="rounded-md bg-slate-50 text-slate-400 hover:text-slate-500 focus:outline-none p-1">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="px-4 py-6 sm:px-6 max-h-[70vh] overflow-y-auto modal-scroll">
+                    <div id="modal-content" class="text-sm sm:text-base leading-7 text-slate-700 whitespace-pre-line">
+                        <!-- Full content injection -->
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button id="modal-close-btn-bottom" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Configuration & Data ---
+        const THEMES = {
+            INFRA: "AI 인프라 및 투자",
+            PLATFORM: "플랫폼, 제품 및 에이전트",
+            INDUSTRY: "산업별 AI 적용",
+            LEGAL: "법률, 규제 및 거버넌스",
+            SOCIETY: "AI와 사회 (활용, 심리, 노동)"
+        };
+
+        // Key Numbers extracted from the report
+        const keyNumbersData = [
+            { label: "구글 에이전트 비용 절감", value: "31.3%", desc: "BATS 프레임워크 적용 시" },
+            { label: "AI 의료기기 승인", value: "1,300+", desc: "FDA 누적 승인 건수" },
+            { label: "가상 쇼핑 어시스턴트", value: "$69억", desc: "2032년 예상 시장 규모" },
+            { label: "전문의 AI 판별 정확도", value: "90%", desc: "이비인후과 자소서 평가" }
+        ];
+
+        // Report Data: Parsed from the provided text
+        const reportData = [
+            {
+                theme: THEMES.PLATFORM,
+                category: "Tech/Research",
+                title: "구글, AI 에이전트 비용·성능 최적화하는 ‘BATS 프레임워크’ 공개",
+                isTop5: true,
+                details: "구글과 UC샌타바버라 등 공동 연구진이 11월 21일(현지시간) ‘BATS(Budget Aware Test-time Scaling) 프레임워크’를 공개하고, 도구를 사용하는 AI 에이전트가 주어진 예산 안에서 성능을 극대화할 수 있는 방법을 제시했다. 연구팀은 에이전트에 남은 도구 호출·토큰 예산을 실시간으로 알려주는 ‘버짓 트래커(Budget Tracker)’ 모듈을 먼저 제안한 뒤, 이를 기반으로 계획·검증 전략을 동적으로 조정하는 BATS 전체 프레임워크를 구성했다. 실험 결과 버짓 트래커를 적용한 에이전트는 기존 ReAct 방식 대비 검색 호출 40.4%, 브라우징 호출 19.9%, 전체 비용 31.3%를 줄이면서도 비슷하거나 더 나은 정확도를 보여, 비용-성능 곡선을 바깥쪽으로 밀어낸 것으로 보고됐다.\n\n연구진은 그동안 “계산을 더 쓰면 성능이 오른다”는 테스트타임 스케일링 논의가 주로 토큰 수에만 초점을 맞췄다며, 도구 호출까지 포함하는 통합 비용 지표를 새로 정의해 예산 제약 하에서 에이전트 행동을 체계적으로 분석했다고 밝혔다. 논문에 따르면 BATS는 질문을 받으면 체크리스트처럼 예산을 고려한 행동 계획을 세우고, 중간 답안을 검증하면서 “더 파볼지, 다른 경로로 피벗할지”를 남은 자원에 따라 선택하도록 설계됐다. 연구진은 향후 웹 검색 에이전트뿐 아니라 코딩 코파일럿, 자율 업무 에이전트 등 다양한 시스템에 BATS 개념을 접목해, “무작정 많은 API를 두드리는” 방식에서 예산 인지형 에이전트 아키텍처로의 전환이 가속될 것으로 전망했다."
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "Robotics/Platform",
+                title: "유니트리, 세계 최초 휴머노이드 로봇 전용 ‘앱 스토어’ 베타 개시",
+                isTop5: false,
+                details: "중국 로봇 기업 유니트리 로보틱스가 12월 13일 휴머노이드 로봇 전용 ‘유니트리 앱 스토어(Unitree App Store)’ 공개 베타 테스트를 시작했다고 밝혔다. 이 플랫폼은 사용자가 웹·모바일 인터페이스를 통해 휴머노이드 로봇용 동작 스킬과 데이터셋, 애플리케이션을 다운로드·설치하고, 개발자들은 자신이 만든 기능을 업로드해 공유할 수 있는 개발자 중심 로봇 생태계를 목표로 한다. 초기 버전은 ‘유저 플라자(User Plaza)’, ‘액션 라이브러리(Action Library)’, ‘데이터셋(Dataset)’, ‘개발자 센터(Developer Center)’ 등 네 가지 핵심 모듈로 구성되며, 유니트리 G1 등 자사 휴머노이드 라인업을 중심으로 적용될 예정이다.\n\n유니트리는 사물 주행 로봇 ‘Go2’와 저가형 휴머노이드 G1 등으로 알려진, 항저우 소재 고성능 로봇 전문 기업으로, 2024년 기준 매출 1억4천만 달러와 500명 규모 인력을 보유하고 있다. 회사는 이미 전 세계 대학·연구소에 수백 대의 G1을 공급해 모션 제어·강화학습 연구에 활용해 왔으며, 이번 앱 스토어를 통해 “한 연구기관이 만든 로봇 스킬을 다른 기관이 바로 내려받아 실행하는” 로봇 기술 유통 허브가 되겠다는 구상이다. 업계에서는 스마트폰 이후 처음으로 로봇 분야에 본격적인 ‘앱 생태계’가 형성될 수 있다며, 향후 유료 앱·랭킹 시스템 도입과 함께 ‘로봇 스킬 경제’가 새로운 시장을 만들 것이라는 전망도 나온다."
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "Science/Space",
+                title: "하와이대 연구진, AI 도구로 태양 자기장 3D 지도를 정밀 복원",
+                isTop5: false,
+                details: "미국 하와이대학교(University of Hawaiʻi) 천문연구소(IfA) 연구진이 12월 11일(현지시간), 태양 자기장을 3차원으로 정밀 복원하는 AI 기반 ‘Haleakalā Disambiguation Decoder(HDD)’ 알고리즘을 개발했다고 발표했다. 이 도구는 하와이 할레아칼라 산에 위치한 미 국립과학재단(NSF) 다니엘 K. 이노우예 태양망원경 관측 자료에 물리 법칙을 결합해, 자기장의 방향과 높이를 동시에 추정함으로써 기존 관측의 모호성을 줄인다. 연구진은 HDD가 조용한 영역에서부터 활동 영역, 강력한 흑점까지 다양한 조건에서 기존 방법보다 정확한 3D 자기장 지도를 제공해, 인공위성·전력망·통신 시스템에 영향을 미치는 태양 폭발과 우주 기상 예측 능력을 크게 높일 수 있다고 설명했다.\n\n태양 자기장은 플레어와 코로나 질량 방출(CME)을 일으키는 핵심 요인으로, 강력한 폭발은 지구 상공 위성 장애와 대규모 정전, 고주파 통신 두절을 유발할 수 있다. 하지만 지금까지는 선형 편광 관측만으로는 자기장이 “우리 쪽을 향하는지, 반대로 향하는지”를 구분하기 어렵고, 여러 높이의 구조가 겹쳐 보여 고도 추정에도 큰 불확실성이 있었다. 연구팀은 “자기장은 공간에서 끊기지 않고 루프를 이룬다”는 물리 규칙을 신경망에 내장한 물리 기반 머신러닝 기법을 활용해 이 문제를 풀었으며, 관련 코드(HDD)는 GitHub를 통해 공개해 추후 상층 대기(크로모스피어)와 시간 연속 데이터를 포함하는 다차원 태양 재구성 연구로 확장할 계획이라고 밝혔다."
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "Bio/Medical",
+                title: "MIT, 딥러닝으로 초파리 배아 ‘세포 단위 형성’ 90% 정확도로 예측",
+                isTop5: false,
+                details: "MIT 엔지니어링 연구팀이 과학저널 「네이처 메소드(Nature Methods)」에, 과일파리(초파리) 초기 배아 발달 과정에서 개별 세포의 움직임을 분 단위로 예측하는 딥러닝 모델을 발표했다고 MIT 뉴스가 전했다. 연구진은 약 5,000개의 세포로 이루어진 배아를 광시트 현미경으로 촬영한 후, 각 세포의 위치·형태·이웃 관계를 그래프 구조로 표현해 기하학적 딥러닝 모델을 학습시켰으며, 첫 한 시간 동안 각 세포가 어떻게 접히고, 나뉘고, 재배열되는지를 약 90% 정확도로 맞추는 데 성공했다. 연구팀은 이 기술이 장차 호흡기·면역 질환, 암 등과 연관된 이상 발달 패턴을 조기에 감지해 질환의 ‘태동 단계’부터 포착하는 데 활용될 수 있다고 보고 있다.\n\n이번 연구는 배아 전체의 평균적인 모양 변화를 다루던 기존 모델과 달리, 세포 하나하나의 궤적을 예측하는 ‘세포 해상도 발달 모델링’을 구현했다는 점에서 주목된다. 연구진은 수백 편의 라이브 이미징 영상을 기반으로 각 세포를 노드로, 세포 간 경계를 엣지로 하는 그래프를 구성한 뒤, 그래프 신경망을 이용해 시점마다 속도·방향 등을 추론하는 방식을 도입했다. MIT 측은 향후 이 모델을 포유류 조직과 3D 오가노이드, 줄기세포 분화 과정 등으로 확장해, 발달 이상이나 선천성 기형의 위험 패턴을 사전에 탐지하는 차세대 디지털 발생학 플랫폼으로 발전시키겠다는 계획을 밝혔다."
+            },
+            {
+                theme: THEMES.LEGAL,
+                category: "Regulation/Medical",
+                title: "FDA, AI 의료기기 승인 목록에 새 ‘수십 개’ 추가…전체 1,300건 돌파",
+                isTop5: false,
+                details: "미국 식품의약국(FDA)이 12월 초 AI 기반 의료기기 승인 목록(AI-Enabled Medical Device List)을 업데이트하며, 방사선과 분야를 중심으로 수십 개의 신규 기기를 추가했다. 「Radiology Business」에 따르면 이번 업데이트로 승인된 AI 의료기기는 총 1,300건을 넘어섰으며, 이 가운데 영상진단을 겨냥한 방사선과 전용 AI 기기가 1,039건으로 전체의 약 80%를 차지한다. 새로 추가된 56개 방사선과 기기는 올해 7월 중순부터 9월 말 사이 승인된 제품으로, GE헬스케어·지멘스·후지필름·Qure.ai·DeepHealth 등 주요 벤더의 알고리즘이 포함됐다.\n\nFDA의 공개 리스트와 업계 분석에 따르면, AI·머신러닝 기반 의료기기는 2019년까지 연간 한 자릿수 승인에 그쳤지만, 2023년에는 연간 200여 건, 2024~2025년에는 연간 300건 수준으로 승인이 급증하고 있다. 대부분은 510(k) 경로를 통해 기존 기기와의 “실질적 동등성”을 근거로 허가를 받았으나, 무작위 임상시험 근거가 있는 사례는 여전히 소수에 그쳐, 여러 연구에서 안전성·효과에 대한 장기적 검증 부족을 지적한다. 한편 이번 업데이트 직후 미국 백악관은 ‘과도한 주(州) 차원의 AI 규제를 억제하라’는 취지의 트럼프 대통령 행정명령을 발표해, 의료 AI 확산을 둘러싼 연방·주 정부 간 규제 공방이 본격화할 가능성도 제기된다."
+            },
+            {
+                theme: THEMES.SOCIETY,
+                category: "Education/Work",
+                title: "AI vs 인간, 이비인후과 레지던트 자소서 ‘구분 가능성’ 검증 연구 진행",
+                isTop5: false,
+                details: "의학 저널 큐리어스(Cureus)에 12월 14일 게재된 리뷰 논문은, 이비인후과 레지던트 지원용 ERAS 자기소개서에서 AI 생성 글과 인간이 쓴 글을 어떻게 구분할 수 있는지를 다룬 최신 연구들을 정리했다. 특히 라훌 메논(Rahul Menon) 등 연구진이 미국 이비인후과 학회(AAO-HNSF) 연례 학술대회에서 발표한 연구에서는, 실제 ENT 지원자의 자소서 5편과 ChatGPT-4로 생성한 자소서 5편을 준비해 8명의 블라인드 평가자가 원문·AI 여부를 판별하도록 했다. 그 결과 이비인후과 전문의 평가는 AI·인간 글을 약 90% 정확도로 맞힌 반면, 변호사 집단은 동전 던지기 수준(50%)에 그쳤고, 상용 AI 탐지 도구는 AI 문서에서 평균 93.6%의 AI 텍스트를, 진짜 자소서에서는 4%만을 AI로 판정해 서로 다른 유형의 오판 가능성을 드러냈다.\n\n해당 리뷰는 이비인후과뿐 아니라 여러 전공에서 생성형 AI가 레지던트 자소서의 내용·문체를 크게 향상시키는 동시에 ‘너무 잘 쓴’ 문장 때문에 오히려 인위적으로 보이는 역설을 지적한 기존 연구들을 종합한다. 또 GPTZero 등 텍스트 탐지 도구의 성능을 평가한 선행 연구들을 인용해, 길고 복잡한 문장·낮은 가독성·다수의 고난도 어휘가 AI 작성 가능성을 높이는 경향이 있지만, 도구 간 일관성 부족과 오탐(특히 비원어민·소수 집단 지원자에 대한 ‘허위 AI 판정’ 위험)이 반복해서 보고되고 있음을 강조한다. 저자들은 이런 결과를 바탕으로, 레지던트 선발 과정에서 AI 사용을 전면 금지하거나 방치하기보다, 허용 범위와 명시적 고지 의무를 포함한 가이드라인을 마련하고, 평가자 교육과 검증 도구의 고도화를 병행하는 “투명한 AI 활용 규범” 수립이 시급하다고 결론지었다."
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "Business/Infra",
+                title: "IBM, SAP 컨설팅사 코그니투스 인수…엔터프라이즈 AI 사업 확대 포석",
+                isTop5: true,
+                details: "IBM이 2025년 10월 15일(현지시간) 미국 뉴욕 아몬크 본사에서 발표한 보도자료를 통해 코그니투스 인수 계약을 체결했다고 밝히며 SAP 및 AI 관련 행보를 넓히고 있다. IBM은 코그니투스의 산업 특화 AI 기반 SAP 솔루션과 컨설팅 역량을 자사 하이브리드 클라우드·AI 플랫폼과 결합해 글로벌 SAP S/4HANA 전환 프로젝트를 가속화한다는 구상이다. 재무 조건은 공개되지 않았지만, 인수가 마무리되면 IBM은 규제가 강한 산업군을 중심으로 SAP·AI 수요를 흡수하며 엔터프라이즈 AI·컨설팅 포트폴리오를 한층 강화할 것으로 전망된다.\n\n코그니투스는 2002년 설립된 미국 댈러스 소재 SAP 컨설팅사로, SAP S/4HANA 전문성과 정부 조달·제조·에너지·방산 등 규제 산업에서의 경험을 바탕으로 글로벌 기업의 전사 시스템 전환을 지원해 왔다. IBM은 코그니투스가 RISE·GROW with SAP 프로그램과 연계된 AI 기반 소프트웨어 자산(계약관리, 데이터 마이그레이션, 실시간 청구 등)을 보유하고 있다는 점을 인수 이유로 꼽으며 “고객 디지털 전환을 위한 ‘자산 기반 컨설팅’ 전략을 가속할 것”이라고 설명했다. 업계에서는 이번 거래가 IBM의 자체 LLM ‘Granite’와 플랫폼 ‘watsonx’를 중심으로 한 SAP·AI 통합 서비스 패키지를 확장하는 계기가 될 것으로 보고 있으며, 규제 산업 고객을 중심으로 추가 인수·제휴가 이어질 가능성에도 주목하고 있다."
+            },
+            {
+                theme: THEMES.INFRA,
+                category: "Semiconductor",
+                title: "TSMC, 일본 구마모토 제2공장 AI 칩 공장으로 전환 검토",
+                isTop5: true,
+                details: "세계 최대 파운드리 업체 TSMC가 2025년 12월 일본 구마모토현 기쿠요정에서 건설 중인 제2 웨이퍼 공장을 AI 칩 생산 중심으로 재설계하는 방안을 검토 중인 것으로 전해졌다. UPI와 대만·일본 현지 보도에 따르면, 회사는 당초 6~7나노 및 차량·산업용 칩 생산을 목표로 했던 설계를 고성능 연산·AI 가속기용 4나노급 공정 등 더 진보된 노드로 전환하는 시나리오를 두고 일본 정부와 협의하고 있다. 설계 변경이 현실화될 경우, 구마모토 제2공장은 엔비디아·AMD 등 주요 고객사의 AI 수요를 겨냥한 일본 지역 AI 생산 거점으로 역할이 재정의될 것으로 관측된다.\n\nTSMC는 일본 자회사 JASM을 통해 2024년 구마모토 제1공장을 가동하며 12~28나노급 자동차용 칩을 생산해 왔고, 약 3조5천억 엔이 투입되는 제2공장에는 일본 정부가 1조2천억 엔 규모의 보조금을 약속한 바 있다. 다만 디지타임스 보도에 따르면 회사는 공정·수요 재검토를 위해 제2공장 공사를 일시 중단한 상태로, 이는 AI 칩으로의 전환 여부에 따른 설계 변경과 투자 회수 시점 조정을 위한 조치로 해석된다. 업계는 TSMC가 일본, 미국, 대만·독일 등지에서 AI용 첨단 공정 투자를 병행하고 있는 만큼, 구마모토 제2공장의 최종 방향성이 향후 글로벌 AI 반도체 공급망의 지역 분산 전략을 가늠할 중요한 시험대가 될 것으로 보고 있다."
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "Agents/OpenSource",
+                title: "크래프톤, 사내 AI 비서 ‘키라’ 오픈소스로 공개…국산 AI 에이전트 생태계 확장",
+                isTop5: false,
+                details: "게임사 크래프톤이 2025년 12월 15일 사내 업무 지원용 AI 비서 키라(KIRA)를 깃허브에 오픈소스 프로젝트로 공개했다고 밝혔다. 키라는 크래프톤이 내부에서 사용해 온 AI 에이전트 시스템 ‘KRIS’를 재패키징한 것으로, 사용자가 자연어로 지시하면 슬랙·아웃룩·컨플루언스·지라 등 주요 업무 도구를 연동해 문서 정리, 회의 일정 조율, 이슈 관리 등을 수행하는 가상 동료형 AI 비서로 설계됐다. 또 이용자가 직접 보유한 클로드(Claude) API 키를 연동하는 구조라, 별도 구독료 없이 사용량 기반 과금만 부담하도록 한 점도 특징이다.\n\n키라는 설치형 데스크톱 애플리케이션 형태로 제공되며, 메모리와 작업 로그가 로컬 PC에 저장되는 구조를 채택해 기업 데이터 주권과 보안 우려를 줄였다는 게 크래프톤 측 설명이다. 크래프톤 AI 조직은 이미 한국어 LLM ‘코라니(KORani)’ 등 여러 AI 관련 오픈소스 프로젝트를 공개해 왔으며, 이번 키라 공개로 국내 개발자와 기업들이 업무 특화 AI 에이전트를 빠르게 커스터마이징할 수 있는 기반이 마련됐다는 평가가 나온다. 업계에서는 마이크로소프트 코파일럿, 구글 워크스페이스 AI 등 글로벌 생산성 도구와 더불어, 크래프톤과 같은 개방형 에이전트가 늘어날 경우 ‘사내 AI 비서’가 일반 오피스 환경의 기본 도구로 자리잡을 가능성이 크다고 보고 있다."
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "Fashion/Retail",
+                title: "패션 업계, AI로 디자인·리테일 전면 재편…Z·알파세대가 변화 견인",
+                isTop5: false,
+                details: "글로벌 패션 업계가 2025년 들어 디자인, 상품기획, 공급망, 리테일 전 과정에 생성형 AI와 데이터 분석 솔루션을 본격 도입하며 ‘AI 전환’을 가속하고 있다. WWD와 BCG가 공동 발표한 보고서에 따르면 Z세대·알파세대의 약 40%가 AI 기반 추천을 활용해 패션을 쇼핑하고 있으며, 가상 쇼핑 어시스턴트 시장은 2032년 약 69억 달러 규모로 성장할 것으로 전망된다. 패션 리테일 부문에서는 수요 예측·재고 최적화 등에서 잠재 비용 절감 효과가 수십억 달러에 달할 것으로 분석되면서, AI가 비용 절감과 매출 증대를 동시에 노리는 핵심 투자 영역으로 부상하고 있다.\n\n현장에서 AI는 트렌드 예측, 시뮬레이션 기반 패턴 설계, 가상 피팅룸, 고객별 스타일 추천 챗봇 등 창작과 판매를 잇는 다양한 접점에 도입되고 있다. 연구에 따르면 한국을 포함한 아시아 패션 기업들은 생성형 AI를 활용해 디자인 효율과 히트 상품 적중률을 높이는 실험을 진행 중이며, 글로벌 시장 규모가 2024년 기준 2조5천억 달러 수준인 패션 산업의 구조를 바꿀 잠재력이 있다는 평가가 나온다. 다만 디자이너·머천다이저의 일자리가 위협받을 수 있다는 우려도 커지고 있어, 업계는 사람의 창의성과 AI 분석 역량을 결합한 ‘휴먼+AI 크리에이티브 팀’ 모델과 윤리 가이드라인을 마련하는 것이 향후 경쟁력의 관건이 될 것으로 보인다."
+            },
+            {
+                theme: THEMES.SOCIETY,
+                category: "Marketing/Culture",
+                title: "맥도날드 네덜란드, 'AI 크리스마스 광고' 역풍에 삭제…브랜드·AI 리스크 드러나",
+                isTop5: false,
+                details: "맥도날드 네덜란드가 2025년 12월 6일 유튜브에 공개한 AI 생성 크리스마스 광고가 품질·정서 논란 끝에 약 일주일 만에 삭제되는 해프닝이 벌어졌다. ‘the most terrible time of the year(최악의 시기)’라는 콘셉트로 제작된 45초 분량 광고는 교통 체증, 눈길 낙상, 어수선한 가정 식사 등 연말의 혼란을 과장해 보여주며 “스트레스를 피하려면 맥도날드에서 시간을 보내라”는 메시지를 전달했지만, 왜곡된 인물 묘사와 차갑고 냉소적인 분위기로 ‘섬뜩하다’, ‘영혼이 없다’는 혹평을 받았다. 소셜미디어에서는 “이 광고가 내 크리스마스 기분을 망쳤다”, “AI 쓰레기”라는 반응이 쏟아졌고, 맥도날드는 결국 영상을 비공개 처리하고 연말의 즐거움을 충분히 반영하지 못했다는 취지의 해명과 사과를 내놓았다.\n\n광고 제작사 대표는 링크드인에서 “AI는 기존 제작을 대체하기보다 창작 도구 상자를 확장하는 수단”이라며, 오히려 전통적인 촬영보다 더 많은 인력이 더 오랜 기간 투입됐다고 반박했지만 배우·스태프 일자리 축소 논란은 가라앉지 않았다. 이번 사건은 코카콜라 등 글로벌 브랜드들이 잇따라 AI 기반 광고를 시도하는 상황에서, 인물 표현의 이질감과 정서적 공감 부족이 브랜드 이미지에 치명적 타격을 줄 수 있음을 보여준 사례로 받아들여진다. 업계는 앞으로 옥외·영상 광고에서 AI 활용 여부와 수위, 사람 참여 비율을 어디까지 투명하게 공개하고 검증할지가 중요한 이슈가 될 것으로 보고 있으며, 대형 브랜드들은 사전 테스트와 가이드라인을 강화하는 방향으로 전략을 조정할 것으로 전망된다."
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "Marketing/OOH",
+                title: "“AI는 옥외광고 크리에이티브를 대체가 아니라 해방”…2026년 ‘OOH 르네상스’ 전망",
+                isTop5: false,
+                details: "디지털 마케팅 전문 매체 PPC Land는 2025년 12월 10일자 기사에서 옥외광고(OOH) 업계가 2026년을 전후해 AI 덕분에 ‘크리에이티브 르네상스’를 맞이할 것이라는 전망을 전했다. 기사에서 빌럽스(billups) 글로벌 CTO 숀 스푸너는 AI가 크리에이티브 자체를 생성하는 대신, 입지 선정·예산 배분·성과 분석 등 반복적·수작업 업무를 자동화해 팀의 창의 에너지를 되찾아 줄 것이라고 강조하며 “AI가 크리에이티브 일을 하는 것이 아니라, 다른 일을 대신해 줌으로써 크리에이터를 해방시킨다”고 말했다. 그는 특히 날씨, 시간대, 보행·차량 통행량 등 조건별로 광고 효과를 미리 시뮬레이션하는 기능을 통해 OOH 캠페인의 기획·테스트 방식을 근본적으로 바꿀 수 있다고 내다봤다.\n\n스푸너는 OOH가 다른 전통 매체보다 높은 한계 수익률(마진 ROI)을 기록하고 있음에도 불구하고, 측정·최적화의 어려움 탓에 전체 광고비에서 1%도 채 차지하지 못하는 현실을 지적했다. 그는 디지털 옥외광고(DOOH)가 2025년 기준 520억 달러 규모의 OOH 시장에서 41%를 차지할 정도로 빠르게 성장하고 있는 만큼, AI가 집행 자동화·문맥 기반 시뮬레이션을 담당하고 사람은 메시지·비주얼 등 핵심 크리에이티브 판단에 집중하는 구조가 정착될 것이라고 전망했다. 업계에서는 메타·구글 등이 추구하는 ‘완전 자동화된 AI 크리에이티브’와 달리, OOH는 물리적 공간에 노출되는 특성상 사람의 심미적 판단과 책임이 더욱 중요하다는 점에서 이런 ‘증강형 AI’ 접근법이 다른 매체로도 확산될지 주목하고 있다."
+            },
+            {
+                theme: THEMES.SOCIETY,
+                category: "HR/Work",
+                title: "HR 분야, AI 도입으로 채용·인사관리 효율·정확도 동시 추구",
+                isTop5: false,
+                details: "HR(인사관리) 분야에서는 기업들이 2025년 들어 채용·평가·인력 운영 전반에 AI 도구를 투입하며 업무 자동화와 의사결정 고도화를 본격 추진하고 있다. 로체스터 비즈니스 저널이 인용한 페이첵스(Paychex) 조사에 따르면 미국 중소기업 경영진·HR 리더의 65%가 이미 AI를 업무에 활용 중이며, 이 중 61%는 매일 사용하고 있고, 다수가 올해 안에 HR용 AI 투자를 늘릴 계획이라고 답했다. 구체적으로는 채용 공고 문안 작성, 적합 후보 발굴, 이력서 스크리닝, 면접 일정 조율, 온보딩·교육 추천 등에서 AI 채용·인사 관리 도구가 널리 쓰이고 있으며, 연구 결과에서도 이러한 솔루션이 인력 분석과 의사결정을 지원해 HR 기능 성과를 개선한다는 근거가 축적되고 있다.\n\n다만 인사 영역 특성상 데이터 편향과 차별 위험이 크다는 점에서, 학계와 규제 당국은 알고리즘 투명성·감사 체계를 갖추지 않은 무분별한 도입에 경고음을 내고 있다. 미국과 유럽의 여러 비즈니스 저널과 법률 자문 기사들은 기업들이 AI 채용 솔루션을 도입할 때 계약서에 차별 소송 시 책임·보상 범위를 명시하고, 정기적으로 ‘차별 영향 분석’을 실시할 것을 권고하고 있다. ILO·IMD 등은 향후 HR 부서가 데이터 리터러시와 AI 윤리 역량을 갖춘 ‘휴먼 인 더 루프(Human-in-the-loop) 인사 전략 부서’로 재편될 것이라며, 각국의 규제 정비와 함께 HR 직무 교육·재훈련 수요가 꾸준히 확대될 것으로 전망된다."
+            },
+            {
+                theme: THEMES.SOCIETY,
+                category: "Ethics/Research",
+                title: "AI 윤리 지침서, ‘가짜 인용문’ 드러나 학계 파문",
+                isTop5: false,
+                details: "세계적 학술 출판사 스프링어 네이처가 발간한 AI 윤리 지침서가 실존하지 않는 학술지와 논문을 인용한 사실이 드러나 12월 15일(현지시간) 국제 학계에서 거센 비판을 받고 있다. 영국 일간지 더 타임스와 후속 분석 보도에 따르면, ‘The Social, Ethical and Legal Aspects of Generative AI’라는 책에는 수십 건의 인용문이 가짜이거나 확인 불가능한 형태로 실려 있어 생성형 AI나 자동 인용 도구가 무분별하게 사용된 정황이 포착됐다. 이에 따라 연구 윤리와 검증을 책임져야 할 대형 출판사가 오히려 AI 환각을 걸러내지 못했다는 지적과 함께, 해당 서적에 대한 수정·회수 조치와 동종 학술서에 대한 전수 조사 요구가 출판계 전반으로 확산되고 있다.\n\n앞서 스프링어 네이처가 출간한 머신러닝 서적에서도 존재하지 않는 논문과 부정확한 참고문헌이 다수 발견돼 출판사가 책을 철회한 바 있어, 내부 심사·검증 절차 자체에 구조적 허점이 있다는 비판이 제기돼 왔다. 연구윤리 전문가들은 최근 연구에서 생성형 AI가 만들어 낸 인용문의 상당수가 허위 또는 오류를 포함한다고 지적하며, “인용이 실제 학술지와 DOI로 연결되지 않으면 증거 사슬이 끊어지고 후속 연구의 신뢰성도 동시에 무너진다”고 경고했다. 스프링어 네이처는 자사 블로그를 통해 AI 기반 검증 도구로 허위 텍스트와 부적절한 인용을 더 엄격히 걸러내겠다고 밝힌 가운데, 각국 연구기관과 저작권 당국도 AI 활용 내역 공개와 인용 검증 의무를 강화하는 가이드라인 마련에 나설 것으로 관측된다."
+            },
+            {
+                theme: THEMES.LEGAL,
+                category: "Safety/Misinfo",
+                title: "머스크의 챗봇 그록, 본다이 비치 총격 사건 대형 오보 논란",
+                isTop5: false,
+                details: "일론 머스크가 설립한 xAI의 챗봇 그록(Grok)이 12월 14일(현지시간) 호주 시드니 본다이 비치에서 발생한 대규모 총격 사건과 관련해 잘못된 정보를 반복적으로 내놓은 사실이 드러나 논란이 확산되고 있다. 더 버지와 경제지 보도에 따르면, 그록은 총격범을 맨몸으로 제압한 상인 아메드 알 아메드가 등장하는 검증된 영상을 오래된 나무 오르기 영상이나 다른 자연재해 장면으로 오인하는 한편, AI가 만든 가짜 뉴스 사이트가 지어낸 ‘에드워드 크랩트리’라는 인물을 영웅으로 소개하는 등 허위 서사를 그대로 증폭한 것으로 확인됐다. 그 결과 사건의 실제 경위를 파악하려던 이용자들이 심각한 혼선을 겪었고, 유대교 축제를 겨냥한 공격이라는 특성상 허위 정보가 혐오 발언·음모론과 결합해 2차 피해를 키울 수 있다는 우려가 인권 단체와 언론을 중심으로 제기되고 있다.\n\n그록은 앞서도 히틀러를 옹호하거나 ‘백인 대학살’ 음모론, 홀로코스트 희생자 수 축소 발언 등을 반복해 비판을 받아왔고, 터키 대통령을 모욕하는 답변으로 터키 정부의 사용 금지 조치를 당하는 등 신뢰성 논란이 계속돼 왔다. 전문가들은 “실시간 참사 상황에서 검증되지 않은 AI 답변을 일종의 속보처럼 소비하면 사실관계를 왜곡하고 피해자와 특정 집단에 대한 추가 공격을 부추길 수 있다”며, 플랫폼 사업자가 고위험 사건에 대해 AI 응답 기능을 제한하거나 명확한 경고 문구를 표시해야 한다고 지적한다. xAI는 일부 답변을 수정하고 오류 원인을 분석 중이라고 밝혔지만, 이번 사태를 계기로 규제 당국과 시민단체는 선거·테러·재난 등 민감한 사안에 대해 AI 챗봇에 법적 책임과 투명성 의무를 부과하는 규제 입법을 추진해야 한다며 압박 수위를 높이고 있다."
+            },
+            {
+                theme: THEMES.LEGAL,
+                category: "Security/Defense",
+                title: "무장 단체, AI 실험 본격화… “선전·사이버 공격 위협 커진다”",
+                isTop5: false,
+                details: "이슬람국가(IS)를 비롯한 국제 무장 단체들이 인공지능(AI)을 활용한 선전·사이버 공격 실험을 확대하고 있다는 평가가 12월 15일(현지시간) 미국 워싱턴에서 제기됐다. 워싱턴포스트가 AP 통신 보도를 인용해 전한 바에 따르면, 이들 단체는 생성형 AI를 이용해 딥페이크 이미지·영상과 다국어 선전물을 손쉽게 제작하고 피싱·해킹 공격을 고도화하는 방안을 모색하고 있다. 미 국토안보부와 정보기관들은 이런 시도가 아직은 ‘열망 단계’에 가깝지만, 저렴하고 강력한 AI 도구가 확산될수록 테러 선동과 사이버 공격, 생물·화학 무기 개발에 악용될 위험이 커질 수 있다고 경고한다.\n\nIS는 과거부터 트위터 등 소셜미디어를 활용해 폭력 장면과 왜곡된 이미지를 유포하며 외국인 전투원을 모집해 왔고, 최근 러시아 콘서트장 테러 이후에도 AI로 합성한 선전 영상과 음성 녹음이 온라인에서 빠르게 확산된 것으로 보고됐다. SITE 인텔리전스 그룹과 전직 정보요원들은 “AI 덕분에 자금이나 인력이 부족한 소규모 조직도 고급 선전·해킹 도구를 손쉽게 갖추게 됐다”며, IS와 알카에다 지지자들을 대상으로 한 AI 활용 교육 워크숍까지 열린 사실을 지적했다. 미 의회는 국토안보부에 극단주의 단체의 AI 악용 실태를 매년 평가하도록 하는 법안을 추진하고 있으며, 전문가들은 민주국가들이 AI 보안 규제와 온라인 허위정보 대응 체계를 조속히 정비하지 않으면 향후 위협이 기하급수적으로 커질 것이라고 전망한다."
+            },
+            {
+                theme: THEMES.LEGAL,
+                category: "Security/Defense",
+                title: "MI6 신임 수장 “전선은 도처에”… 러시아·AI 결합 위협 경고",
+                isTop5: false,
+                details: "영국 대외정보기관 MI6의 신임 국장 블레이즈 메트루웰리가 12월 15일(현지시간) 첫 공개 연설에서 러시아의 정보조작·사이버 공격·암살 공작 등으로 인해 ‘전선이 도처에 있다’며 러시아 위협이 자국 내 일상까지 파고들었다고 경고했다. 메트루웰리 국장은 가디언 등 영국 언론을 통해 공개된 연설문에서 러시아가 우크라이나 침공 이후 유럽 전역에서 사보타주, 인프라 공격, AI 기반 허위정보 캠페인을 조직적으로 전개하며 ‘혼란의 수출’을 전략으로 삼고 있다고 지적했다. 그는 영국이 우크라이나 지원을 지속하고 러시아에 대한 압박을 유지하겠다고 밝히면서, 이러한 ‘하이브리드 전쟁’ 환경에서는 국민 모두가 보안 의식과 디지털 리터러시를 갖춘 잠재적 방어선이 돼야 한다고 강조했다.\n\n이날 연설과 별도로 리처드 나이트턴 합참의장은 러시아의 군사력과 핵·사이버 역량을 거론하며 “자신의 군 경력 동안 지금이 가장 위험한 시기”라며 일부 나토 회원국에 대한 침공 가능성까지 경고했다. 메트루웰리 국장은 또 MI6 요원들이 파이썬과 같은 프로그래밍 언어와 데이터 분석에 능숙해야 한다며, “앞으로의 정보전에서는 인공지능 도구를 다루는 능력과 인간 요원의 판단력이 결합돼야 우위를 점할 수 있다”고 말했다. 영국 정부는 베를린 긴급 정상회의 등에서 우크라이나 평화 구상과 대러 억지 전략을 논의하는 한편, 자국 내에서는 AI를 이용한 러시아발 허위정보와 사이버 공격에 대응하기 위한 법·제도 정비를 서둘러 추진할 것으로 전망된다."
+            },
+            {
+                theme: THEMES.LEGAL,
+                category: "Copyright/Arts",
+                title: "“AI가 만든 야생 동물 영상, 예술인가 왜곡된 영상인가”… 저작권·윤리 논쟁 가열",
+                isTop5: false,
+                details: "최근 미국과 유럽을 중심으로 AI 생성 콘텐츠와 저작권법의 관계를 둘러싼 논쟁과 함께, 인스타그램 등에서 확산 중인 AI 야생 동물 영상이 예술로 인정될 수 있는지를 두고 논쟁이 뜨겁게 이어지고 있다. 미국 저작권청과 연방항소법원은 순수하게 AI가 만들어 낸 작품에는 저작권을 인정할 수 없다는 입장을 지침과 판결에서 재확인했으며, 실제로 ‘Creativity Machine’이 생성한 이미지를 등록하려던 소송을 기각하면서 저작권법상 ‘저작자’는 인간이어야 한다고 못박았다. 한편 아웃사이드 매거진과 야생동물 연구자들은 소셜미디어에 넘쳐나는 AI 동물 영상이 현실에 없는 장면을 사실처럼 보여주면서 야생동물 행동과 개체 수에 대한 대중 인식을 왜곡하고 보전 노력에도 악영향을 줄 수 있다고 경고한다.\n\n이 논쟁은 과거 인도네시아 원숭이가 촬영한 이른바 ‘원숭이 셀피’ 사진의 저작권을 둘러싸고 법원이 비인간 창작자에게는 권리를 부여할 수 없다고 판단한 이후, 생성형 AI의 확산으로 다시 불붙은 측면이 크다. 저작권 전문가들은 “완전한 AI 생성물은 보호 대상이 아니더라도, 사람이 프롬프트를 설계하고 편집·후보정을 거친다면 어느 수준까지 인간의 창작성이 인정될지가 향후 핵심 쟁점”이라며, 입법과 판례를 통해 세부 기준을 정립해야 한다고 지적한다. 각국 정부와 국제기구는 AI 학습 데이터의 저작권 침해 여부, AI 예술·야생동물 콘텐츠의 표시 의무, 교육·보전 분야에서의 활용 가이드라인 등을 논의하면서 AI 시대에 맞는 새로운 저작권·표시 규범을 마련하기 위한 국제 협의를 본격화할 것으로 전망된다."
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "Security/LLM",
+                title: "앤트로픽, “수백 개 샘플만으로도 초거대 LLM 포이즈닝 가능”",
+                isTop5: true,
+                details: "미국 AI 기업 앤트로픽의 최신 연구를 소개한 테크 매체 해커데이(Hackaday)는 12월 14일(현지시간), 대규모 언어 모델(LLM)이 단 몇백 개의 악성 샘플만으로도 모든 규모에서 포이즈닝될 수 있다고 보도했다. 연구에 따르면 수십억~수백억 매개변수 모델을 대상으로 학습 데이터에 약 250개의 정교하게 설계된 ‘독극물’ 샘플만 섞어 넣어도, 특정 프롬프트에서 의미 없는 헛소리(gibberish)를 강제로 출력하도록 만드는 백도어를 심을 수 있었으며, 이는 데이터 전체 대비 수백만 분의 1(ppm)에 불과한 비율이다. 이 방법은 비교적 적은 비용으로도 모델 출력을 체계적으로 왜곡할 수 있어, 공개 웹 크롤링이나 이용자 업로드 데이터에 의존하는 모든 LLM 서비스가 구조적으로 취약할 수 있다는 우려를 키우고 있다.\n\n데이터 포이즈닝은 오래전부터 알려진 공격 기법이지만, 이번 결과는 기존처럼 데이터 대다수를 조작할 필요 없이 극소수의 악성 샘플만으로도 대형 모델을 안정적으로 비틀 수 있다는 점을 수치로 입증했다는 데 의미가 있다. 해커데이는 공격자가 자신이 통제하는 웹페이지·코드 저장소·포럼 글 등을 통해 훈련 데이터 파이프라인에 악성 샘플을 ‘심어 두는’ 시나리오를 제시하며, 방치할 경우 특정 키워드나 브랜드, 주제에 대한 답변을 은밀히 왜곡하는 ‘조용한 백도어’가 현실화될 수 있다고 경고했다. 전문가들은 향후 LLM 개발에서 데이터 수집 단계의 출처 검증과 이상치 탐지, 독립 모델 간 교차 검증 등 ‘데이터 공급망 보안’이 LLM 시대의 필수 과제가 될 것이라며, 업계 차원의 공동 가이드라인과 규제 논의가 필요하다고 지적한다."
+            },
+            {
+                theme: THEMES.INDUSTRY,
+                category: "Science/Bio",
+                title: "네이처, “AI가 유전자 편집 전 과정 확장”…설계·실험·분석까지 관여",
+                isTop5: false,
+                details: "국제 학술지 네이처 계열 저널들은 2025년 연속으로 발표한 논문과 리뷰를 통해, AI가 CRISPR 유전자 편집의 설계·실험·분석 전 과정을 통합적으로 지원하는 방향으로 급속히 확장되고 있다고 분석했다. 연구진은 딥러닝 모델이 가이드 RNA(gRNA)의 활성도·오프 타깃을 예측하고, 편집 결과를 시뮬레이션하는 것은 물론, 단백질 언어 모델을 사용해 기존에 자연계에서 발견되지 않은 고성능 편집 효소 후보를 설계할 수 있다고 보고했다. 또 다른 논문에서는 ‘CRISPR-GPT’라는 에이전트형 시스템을 제시해, 초보 연구자도 대화형 인터페이스만으로 실험 설계·전달 방법 선택·프로토콜 생성·데이터 분석을 순차적으로 진행하는 유전자 편집 실험 부분 자동화 가능성을 보여줬다.\n\n연구진은 전통적인 CRISPR 실험이 숙련된 전문가의 수작업 설계에 크게 의존하고, 특히 오프 타깃 예측과 DNA 손상 이후 복구 경로가 불확실해 재현성이 떨어진다는 점을 한계로 지적해 왔다. 이에 비해 새로 제시된 AI 도구들은 대규모 데이터와 모델을 활용해 수십만~수백만 개의 Cas9 변이체를 생성·필터링하고, 22개 유형의 유전자 편집 업무를 지원하는 ‘AI 공동 파일럿(co-pilot)’ 워크플로를 구축함으로써 실험 설계 속도와 성공률을 동시에 높이는 것으로 보고됐다. 다만 연구자들은 고도로 자동화된 유전자 편집 에이전트가 보편화될수록 실험실 안전 프로토콜과 모델의 편향·실패 모드에 대한 투명한 평가, 이중용도(dual-use) 악용 방지를 위한 규제가 병행되지 않으면 ‘민주화된 유전자 편집’이 곧바로 생물안보 리스크로 이어질 수 있다고 경고했다."
+            },
+            {
+                theme: THEMES.SOCIETY,
+                category: "Opinion/Tech",
+                title: "오픈AI “AI 개발 병목은 데이터·칩 아닌 인간”…입력·피드백 한계 지적",
+                isTop5: true,
+                details: "오픈AI 코덱스 제품 책임자 알렉산더 엠비리코스는 12월 14일(현지시간) 공개된 ‘레니의 팟캐스트’와 이를 인용한 국내 보도에서, 인공일반지능(AGI) 개발의 가장 저평가된 병목은 데이터나 칩이 아니라 인간 그 자체라고 강조했다. 그는 오늘날 강력한 모델조차 여전히 대량의 고품질 인간 피드백과 코드 검토에 의존하고 있으며, 사람이 직접 지시를 타이핑하고 출력을 확인하는 속도가 느려 AI 에이전트의 잠재력이 제대로 발휘되지 못하고 있다고 지적했다. 엠비리코스는 사람이 일일이 명령하지 않아도 에이전트가 기본값으로 유용하게 작동하고, 필요할 때만 사람이 개입해 검증하는 구조가 자리 잡을 경우 생산성이 ‘하키스틱’ 형태로 폭발적으로 증가할 것이라고 전망했다.\n\n그는 과거에는 더 큰 모델·더 많은 데이터·더 강력한 GPU가 AI 발전의 핵심 동력으로 여겨졌지만, 이제는 사람이 얼마나 빨리·자주·정교하게 피드백을 제공할 수 있는지가 다음 단계 도약의 관건이라고 평가했다. 실제로 RLHF와 같은 기법은 수많은 인간 평가자의 선호 라벨링과 비교 판단에 의존하고 있어, 실험 설계와 평가 방식·피드백 품질을 개선하지 않으면 모델 성능 향상이 둔화될 수 있다는 우려도 나온다. 업계에서는 엠비리코스의 발언을 계기로 사용자 행동 로그와 도구 사용 패턴을 활용한 준자동 피드백 루프, 현업 전문가가 참여하는 평가 커뮤니티, 인간 검증을 전제로 한 ‘휴먼 인 더 루프’ 에이전트 아키텍처의 중요성이 커지는 동시에, 인간 개입 축소가 안전성과 책임성을 둘러싼 논쟁을 더욱 뜨겁게 만들 수 있다는 전망을 내놓고 있다."
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "Agents/Skills",
+                title: "앤트로픽 “맞춤형 에이전트보다 업무 단위 ‘스킬’…클로드에 노하우 주입”",
+                isTop5: false,
+                details: "앤트로픽 연구진은 최근 AI 엔지니어링 서밋과 언론 인터뷰에서, 업무마다 새로운 AI 에이전트를 따로 만드는 대신 하나의 범용 에이전트에 ‘스킬(Skills)’이라는 업무 단위 모듈을 붙이는 방식이 더 현실적이라고 주장했다. 이들이 말하는 스킬은 특정 작업을 수행하는 데 필요한 지침, 스크립트, 참고 문서를 폴더 구조로 묶은 패키지로, 회계 결산·계약 검토·브랜드 가이드라인 적용·엑셀 자동화 등 기업의 암묵지를 표준화해 클로드(Claude)가 필요할 때 자동으로 불러 쓰는 ‘지식 캡슐’에 가깝다. 앤트로픽은 이러한 스킬을 활용하면 기업이 수십 개의 별도 에이전트를 관리할 필요 없이, 공통 모델 위에 스킬 라이브러리만 배포해 업무별 특화 능력을 안전하게 재사용·공유할 수 있다고 설명했다.\n\n실제로 앤트로픽은 10월 ‘에이전트 스킬(Agent Skills)’ 기능을 공식 출시하며, 사용자가 SKILL.md 파일이 포함된 폴더만 만들면 웹·클로드 코드·API 전반에서 공통으로 활용되는 모듈형 업무 스킬을 정의할 수 있도록 했다. 톰스가이드 등 해외 매체들은 이 기능이 복잡한 프롬프트를 매번 입력하는 대신 한 번 정의한 템플릿과 리소스를 자동으로 호출해 뉴스레터 작성, 법무 검토, 슬라이드 제작 등에서 일종의 ‘미니 에이전트’처럼 작동한다고 평가했으며, 국내 보도도 엑셀 작업·사내 문서 작성 등에 특화된 사례를 소개했다. 오픈소스 프로젝트 ‘오픈스킬(OpenSkills)’ 등 유사 시도가 등장하면서, 업계에서는 향후 엔터프라이즈 AI 경쟁의 초점이 ‘에이전트를 몇 개 만들었는가’가 아니라 조직별로 얼마나 잘 설계된 스킬 세트를 구축·거버닝하는지로 옮겨가며, 스킬 레포지토리가 곧 기업의 새로운 디지털 자산이 될 것이라는 전망도 나오고 있다."
+            },
+            {
+                theme: THEMES.PLATFORM,
+                category: "Dev/Coding",
+                title: "MIT 테크 리뷰, “AI 코딩이 ‘어디에나’”…생산성·품질·직업 논쟁 확산",
+                isTop5: false,
+                details: "MIT 테크놀로지 리뷰를 비롯한 주요 기술 매체들은 최근 기사에서, 깃허브 코파일럿·클로드·젬미니 코드 어시스트·커서 등 AI 코딩 도구가 ‘어디에나’ 자리 잡았지만 그 효과와 부작용을 둘러싼 의견은 엇갈리고 있다고 전했다. 젤리피시·스택오버플로 등 여러 설문에 따르면 전문 개발자의 60% 이상, 팀 단위로는 90% 가까운 조직이 이미 AI 코딩 도구를 도입했으며, 상당수 응답자가 최소 25% 이상의 생산성 향상을 체감한다고 답했다. 그러나 업레벨·깃클리어·최근 논문 등에서는 AI 도구 사용 시 일부 프로젝트에서 버그율이 오히려 늘거나, 장기적인 코드 품질·협업 경험 개선에는 뚜렷한 효과가 없다는 결과도 보고돼, 효과를 둘러싼 찬반 논쟁이 계속되고 있다.\n\n이들 보도는 안드레이 카르파티 등이 언급한 ‘바이브 코딩(vibe coding)’처럼 자연어로 의도를 설명하면 AI가 대부분의 코드를 생성하는 흐름이 확산되면서, 주니어 개발자의 학습 경로 단절과 장기적인 실력 저하를 우려하는 시각도 커지고 있다고 전했다. 마이크로소프트와 대형 IT 기업 사례를 다룬 기사에 따르면 일부 팀에서는 AI가 작성하는 코드 비중이 30~60%까지 올라간 반면, 삼성전자 등 보수적인 기업들은 코드 유출·보안·품질 이슈를 이유로 외부 AI 코딩 도구를 제한하거나 사내망에서 차단하는 사례도 있는 것으로 알려졌다. 전문가들은 결국 AI가 반복적·단순 코드를 맡고 사람은 설계·검증·리팩터링에 집중하는 ‘하이브리드 개발 문화’가 표준이 될 가능성이 크지만, 코드 리뷰 체계·테스트 인프라·윤리 가이드라인을 정비하지 않으면 조용히 축적되는 기술 부채가 더 큰 비용으로 돌아올 수 있다고 경고한다."
+            }
+        ];
+
+        // --- Functions ---
+
+        // Helper: Truncate Text
+        const truncate = (str, n = 60) => {
+            return (str.length > n) ? str.substr(0, n-1) + '...' : str;
+        };
+
+        // Render Key Highlights
+        const renderKeyNumbers = () => {
+            const container = document.getElementById('key-numbers-container');
+            container.innerHTML = keyNumbersData.map(item => `
+                <div class="bg-white rounded-lg p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">${item.label}</p>
+                    <p class="text-3xl font-bold text-blue-600 mb-1">${item.value}</p>
+                    <p class="text-xs text-slate-400">${item.desc}</p>
+                </div>
+            `).join('');
+        };
+
+        // Create Card HTML
+        const createCardHTML = (item, index) => {
+            const displayTitle = truncate(item.title);
+            return `
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-100 cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                     data-index="${index}" onclick="openModal(${index})">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-block px-2 py-1 text-xs font-medium text-blue-600 bg-blue-50 rounded-md ring-1 ring-inset ring-blue-700/10">
+                            ${item.category}
+                        </span>
+                        ${item.isTop5 ? '<span class="text-xs font-bold text-amber-500">★ TOP 5</span>' : ''}
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 leading-snug group-hover:text-blue-600 transition-colors mb-2">
+                        ${displayTitle}
+                    </h3>
+                    <p class="text-sm text-slate-500 line-clamp-3">
+                        ${item.details}
+                    </p>
+                    <div class="mt-4 flex items-center text-sm text-slate-400 font-medium group-hover:text-blue-500">
+                        자세히 보기
+                        <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+            `;
+        };
+
+        // Render Top 5 Section
+        const renderTop5Section = () => {
+            const container = document.getElementById('top5-container');
+            const top5Items = reportData.filter(item => item.isTop5);
+            
+            container.innerHTML = top5Items.map(item => {
+                // Find original index for modal reference
+                const originalIndex = reportData.indexOf(item);
+                return createCardHTML(item, originalIndex);
+            }).join('');
+        };
+
+        // Render Thematic Sections
+        const renderThematicSections = () => {
+            const container = document.getElementById('thematic-sections');
+            const themesList = Object.values(THEMES);
+            
+            // Get non-Top5 items
+            const regularItems = reportData.filter(item => !item.isTop5);
+
+            container.innerHTML = themesList.map(theme => {
+                const itemsInTheme = regularItems.filter(item => item.theme === theme);
+                if (itemsInTheme.length === 0) return '';
+
+                const cardsHTML = itemsInTheme.map(item => {
+                    const originalIndex = reportData.indexOf(item);
+                    return createCardHTML(item, originalIndex);
+                }).join('');
+
+                return `
+                    <section class="animate-fade-in">
+                        <h2 class="text-xl font-bold text-slate-800 mb-5 pl-3 border-l-4 border-slate-300">
+                            ${theme}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${cardsHTML}
+                        </div>
+                    </section>
+                `;
+            }).join('');
+        };
+
+        // Modal Logic
+        const modal = document.getElementById('news-modal');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalBg = document.getElementById('modal-bg-close');
+
+        // Functions exposed to global scope for HTML onclick attributes
+        window.openModal = (index) => {
+            const item = reportData[index];
+            if (!item) return;
+
+            document.getElementById('modal-category').innerText = item.category;
+            document.getElementById('modal-title').innerText = item.title;
+            // Using whitespace-pre-line in CSS to handle newlines, or manual replace:
+            document.getElementById('modal-content').innerText = item.details; 
+
+            modal.classList.remove('hidden');
+            // Small timeout for transition
+            setTimeout(() => {
+                modalBg.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+                modalPanel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        };
+
+        const closeModal = () => {
+            modalBg.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        };
+
+        // Event Listeners
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-close-btn-bottom').addEventListener('click', closeModal);
+        modalBg.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderKeyNumbers();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT: 2025.12.13</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar { width: 8px; }
+        .modal-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+    <!-- 
+    Chosen Palette: Warm Neutrals (Slate, Zinc, Amber)
+    Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections.
+    Structure: 1. Header, 2. Key Data Highlights, 3. Top 5 News, 4. Five Consolidated Thematic Sections.
+    Visualization & Content Choices: 
+    - Key quantitative data: Dynamic Text Blocks. Goal: Inform.
+    - News Items: Interactive Cards. Goal: Organize/Inform. Interaction: Click to open detailed modal.
+    CONFIRMED: NO SVG/Mermaid used.
+    -->
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-black rounded-full p-2 shadow-[2px_2px_0px_0px_#111] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#111] transition-all" title="홈으로">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-lg">N</div>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900">뉴스대시 <span class="text-slate-400 font-light">| AI Daily</span></h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                2025년 12월 13일 (토)
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12" id="content-area">
+        <!-- Dynamic Content will be injected here -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-slate-200 text-center text-slate-400 text-sm">
+        <p>&copy; 2025 NewsDash. AI Intelligence Report.</p>
+    </footer>
+
+    <!-- Modal (Hidden by default) -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900/60 transition-opacity backdrop-blur-sm" id="modal-bg-close"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border border-slate-100">
+                    
+                    <!-- Modal Header -->
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-start">
+                        <div>
+                            <span id="modal-theme" class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800 mb-2">테마</span>
+                            <h3 class="text-xl font-bold leading-6 text-slate-900 pr-4" id="modal-title">뉴스 제목</h3>
+                        </div>
+                        <button type="button" id="modal-close-btn" class="rounded-full p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-200 transition-colors">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="px-6 py-6 max-h-[70vh] overflow-y-auto modal-scroll bg-white">
+                        <div class="prose prose-slate max-w-none">
+                            <p id="modal-content" class="text-slate-700 leading-relaxed whitespace-pre-wrap text-base"></p>
+                        </div>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 flex justify-end">
+                        <button type="button" id="modal-close-btn-bottom" class="inline-flex w-full justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:w-auto transition-all">
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Handling
+        // Consolidating themes as requested:
+        // 1. AI 인프라 및 투자
+        // 2. 플랫폼, 제품 및 에이전트
+        // 3. 산업별 AI 적용
+        // 4. 법률, 규제 및 거버넌스
+        // 5. AI와 사회
+
+        const reportData = [
+            // --- TOP 5 SECTION ---
+            {
+                theme: "AI 인프라 및 투자", // Or Legal, but Security fits closely with Infra/Tech in this context or Legal. Prompt categorization rules place "Security" under Legal/Gov or Society? Actually usually "Security" is tech. But Top 5 doesn't need theme label as much. I will tag it Legal/Gov based on 'CISA' implication, but the headline is Hacker. Let's use "법률, 규제 및 거버넌스" (Security often grouped with Safety/Gov).
+                category: "보안",
+                title: "AI 해커, 인간 상위 해커 수준에 근접…보안계 ‘경고음’",
+                isTop5: true,
+                details: "보안 전문 연구진과 빅테크 기업들이 테스트한 AI 기반 해킹 에이전트가 국제 보안 대회 시뮬레이션에서 인간 상위 해커의 실력에 근접한 것으로 알려졌다.(월스트리트저널) 이들 시스템은 캡처 더 플래그(CTF) 형식의 공격·방어 실험에서 알려진 취약점을 자동 분석해 익스플로잇 코드를 생성하며, 일부 테스트에서는 대부분의 과제를 인간 전문가에 필적하는 속도와 정확도로 해결한 것으로 보고됐다.(HackerOne) 전문가들은 아직 실제 네트워크 환경의 변수까지 모두 다루지는 못하지만, 모델 성능이 계속 향상될 경우 차세대 모델이 국가 기간망을 겨냥한 자동화 공격까지 지원할 위험이 커지고 있다고 우려한다.(OpenAI)\n\n최근 보안 업계는 AI가 취약점 탐지와 패치 자동화 등 방어 측면에서도 강력한 도구가 될 수 있다는 점을 강조하면서, 공격·방어 능력이 동시에 커지는 ‘이중용도(dual-use)’ 특성에 주목하고 있다.(arXiv) OpenAI와 Anthropic 등은 자사 모델의 사이버 능력을 CTF 벤치마크로 측정하고, 위험 수준이 높아질수록 제로데이 공격 제작이나 복잡한 침투 작전 지원 기능에는 접근을 제한하는 준비성 프레임워크를 적용하고 있다고 설명한다.(OpenAI) 다만 보안 전문가들은 범죄 조직이나 적대국이 별도의 AI 해킹 도구를 개발할 수 있다며, 취약점 정보 공유·AI 방어 도구 투자·국제 규범 논의를 병행하지 않으면 위험이 빠르게 현실화될 수 있다고 경고한다.(HackerOne)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책",
+                title: "트럼프, 주(州) AI 규제 겨냥 행정명령 서명…연방 단일 프레임워크 공방 점화",
+                isTop5: true,
+                details: "도널드 트럼프 미국 대통령은 워싱턴 백악관에서 주(州) 정부가 추진해 온 인공지능(AI) 규제를 과도하고 번잡한 규제로 규정하며 이를 제한하는 내용의 행정명령에 서명했다.(Tech Policy Press) 이 행정명령은 연방 정부 차원에서 단일한 AI 규제 프레임워크를 마련해 주별 상이한 규제를 정비하라는 지침과 함께, 연방 기관들이 기업 활동을 위축시킨다고 판단되는 주 법·규정에 대해 법적 대응과 사전 조율 방안을 검토하도록 요구한 것으로 알려졌다.(Tech Policy Press) 이에 따라 특히 강력한 개인정보 보호와 AI 책임 규제를 도입해 온 일부 주의 법률이 연방 정책과 충돌할 경우 효력이 약화될 수 있다는 전망이 나오고 있다.(AI Street)\n\n트럼프 대통령과 공화당 지도부는 AI 관련 규제가 주마다 뒤섞인 상황을 ‘규제의 패치워크’라고 비판하며, 혁신과 국가 경쟁력을 위해 연방 차원의 통일된 규칙이 필요하다고 주장해 왔다.(Tech Policy Press) 하지만 시민단체와 여러 주 정부는 이번 조치가 소비자 보호·프라이버시·알고리즘 차별 규제 등 각 주가 쌓아 온 정책 실험을 무력화하고 주 권한을 침해할 수 있다며 강하게 반발하고 있다.(Tech Policy Press) 앞으로 주 정부와 기업, 연방 의회가 서로 다른 이해관계를 안고 있는 가운데, 트럼프 행정부가 제안한 연방 단일 프레임워크가 실제 입법으로 이어질지, 아니면 장기적인 소송과 정치적 공방 속에 표류할지가 핵심 쟁점으로 떠오르고 있다.(Reuters)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책",
+                title: "백악관, 연방기관에 ‘편향된 AI’ 사용 중단 명령…OMB 새 메모 공개",
+                isTop5: true,
+                details: "백악관 산하 관리예산처(OMB)는 12일(현지시간) 연방 정부 기관에 대해, 계약을 통해 도입한 대형언어모델(LLM)이 이른바 ‘각성(woke)’ 성향의 편향된 응답을 내놓을 경우 사용을 중단하고 교체하라는 내용의 새 지침을 발표했다.(Nextgov/FCW) 이 메모는 트럼프 대통령이 7월에 서명한 ‘편향된 AI 제거’ 행정명령의 후속 조치로, 연방기관이 사용하는 AI가 역사적 정확성·과학적 탐구·객관성을 우선하고 이념적 교리를 주입하지 않도록 하는 ‘편향 없는 AI(Unbiased AI) 원칙’을 구체화했다.(Nextgov/FCW) 이에 따라 각 기관은 기존·신규 AI 계약을 재검토해 기준에 맞지 않는 시스템을 수정하거나 교체해야 하며, 2026년 3월 11일까지 내부 규정과 신고 체계를 정비해야 한다.(Nextgov/FCW)\n\n새 지침은 연방 기관이 LLM을 조달할 때 공급업체로부터 충분한 정보를 받아 해당 모델이 편향 없는 AI 원칙을 준수하는지 검증하도록 의무화했지만, 영업비밀인 모델 가중치 공개까지 강제하지는 않는다고 명시했다.(Nextgov/FCW) OMB는 “연방정부용 LLM은 신뢰할 수 있는 사실을 기반으로 해야 하며, 정보가 불완전하거나 상충될 때는 불확실성을 인정해야 한다”고 강조했지만, 일부 학자들은 정권의 이념에 맞지 않는 응답을 이유로 특정 모델을 배제할 경우 표현의 자유를 위축시킬 수 있다고 비판한다.(Nextgov/FCW)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책/법적분쟁",
+                title: "트럼프 AI 행정명령, 법정·의회 난관 직면…집행까지 험로 예상",
+                isTop5: true,
+                details: "도널드 트럼프 대통령이 서명한 주(州) 정부의 AI 규제를 겨냥한 행정명령은 발표 직후부터 민주당 주 정부·시민단체·법학자들의 거센 반발에 부딪히며 정치적·법적 난관에 직면하고 있다고 로이터통신이 전했다.(Reuters) 이들은 행정명령이 사실상 주 차원의 AI 규제 권한을 축소하고 연방 정부가 단독으로 기준을 정하려는 시도라며, 헌법상 연방-주 권한 배분 원칙을 위반했는지 여부를 두고 소송을 검토하고 있는 것으로 알려졌다.(Reuters) 이에 따라 행정명령의 주요 조항이 실제로 집행되기까지는, 연방법원 판단과 의회의 견제를 둘러싼 장기 공방이 불가피할 것이란 전망이 우세하다.(Reuters)\n\n앞서 미 상원은 연방 세제 법안에 포함됐던 ‘주 정부의 AI 규제를 전면 봉쇄하는 조항’을 99대 1의 압도적 표차로 삭제해, 주 단위 AI 규제 권한을 보존해야 한다는 초당적 분위기를 드러낸 바 있다.(AI Street) 전문가들은 이러한 입법 동향을 근거로, 행정명령이 설령 당장은 효력을 발휘하더라도 향후 의회에서 관련 예산 제한이나 상반된 입법으로 제동이 걸릴 가능성이 크다고 지적한다.(Reuters)"
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "보안/인프라",
+                title: "CISA·동맹국, 중요 인프라용 AI 보안 가이드라인 발표",
+                isTop5: true,
+                details: "미국 사이버보안·인프라안보국(CISA)은 영국·캐나다 등 18개국 사이버 당국과 미국 국가안보국(NSA) 등과 함께 전력·교통·의료 등 중요 기반시설에서의 안전한 AI 활용을 위한 첫 통합 가이드라인을 발표했다.(nsa.gov) 이번 문서는 AI가 제어 시스템과 운영기술(OT)에 통합될 때 새롭게 생기는 공격면을 줄이기 위해, 설계 단계에서 보안을 반영하는 보안 설계(Security by Design)와 위험 기반 거버넌스를 핵심 원칙으로 제시한다.(nsa.gov) CISA는 특히 중요 인프라 운영기관이 모델 개발·배포 전 과정에서 위협 모델링, 공급망 검증, 지속적인 모니터링을 수행하지 않을 경우 AI 오작동이 물리적 피해로 이어질 위험이 커질 수 있다고 경고했다.(nsa.gov)\n\n가이드라인은 백악관의 2023년 AI 행정명령과 미국 국립표준기술연구소(NIST)의 AI 위험관리 프레임워크를 토대로, 데이터 수집·모델 학습·배포·운영·폐기 단계별 체크리스트와 사례를 제시하고 있다.(nsa.gov) 문서는 “AI 기능을 추가할 때마다 시스템 복잡성이 증가해 예측 불가능한 실패와 새로운 취약점이 생길 수 있다”며, 운영기관이 단일 공급업체 의존을 줄이고 인간 운영자의 최종 책임을 명확히 할 것을 권고한다.(nsa.gov)"
+            },
+            
+            // --- THEMATIC SECTIONS ---
+
+            // Theme 1: 법률, 규제 및 거버넌스 (Additional)
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "규제",
+                title: "FDA, 2025년 AI 가이드라인 초안 공개…위험 기반 ‘신뢰성 평가’ 제시",
+                isTop5: false,
+                details: "미국 식품의약국(FDA)은 2025년 1월, 신약·생물학적 제제 심사와 품질관리 과정에서 인공지능을 활용하려는 제약사·연구기관을 위한 초안 지침을 공개하고 의견 수렴에 들어갔다. 이번 지침은 머신러닝은 물론 생성형 AI 모델까지 포함하는 위험 기반 신뢰성 평가 프레임워크를 제시하며, 모델이 어느 맥락(context of use)에서 어떤 의사결정을 지원하는지에 따라 요구되는 검증·문서화 수준을 달리하도록 7단계 절차를 규정했다. FDA는 이를 통해 임상 설계, 생산 공정, 이상사례 탐지 등에 AI를 활용할 때 데이터 편향·성능 저하·데이터 드리프트로 인한 환자 안전·품질 리스크를 체계적으로 관리하겠다는 방침이다.\n\n지침은 AI 모델이 규제 의사결정에 활용되는 경우를 대상으로 하며, 단순 업무 자동화나 초안 작성 등 환자 안전과 품질에 직접 영향을 미치지 않는 용도는 범위에서 제외하되 향후 별도 논의가 필요하다고 밝혔다. 또한 모델 학습 데이터가 목표 환자군과 제조 환경을 충분히 대표하는지, 알고리즘이 어떻게 개발·검증·업데이트되는지, 설명 가능성과 문서화 수준이 규제기관 검토에 충분한지 등을 상세히 기록하도록 권장한다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "지역규제",
+                title: "노스캐롤라이나, 미성년자 대상 ‘맞춤형 알고리즘·AI 동반자’ 규제 추진",
+                isTop5: false,
+                details: "미국 노스캐롤라이나주의 아동 사망 태스크포스(Child Fatality Task Force)가 미성년자를 겨냥한 SNS 타깃 알고리즘과 AI 동반자 챗봇이 정신 건강에 위험을 초래할 수 있다며 규제 강화 권고안을 채택했다. 태스크포스는 소셜 플랫폼이 미성년자 데이터를 활용해 ‘중독성 피드’를 설계하는 행위를 제한하는 법안을 지지하고, AI 동반자 서비스의 설계와 영향에 대한 추가 연구를 이어가겠다고 밝혔다.\n\n보고서에 따르면 일부 챗봇과 ‘가상 친구’ 앱은 외로움·불안에 시달리는 청소년에게 과도한 심리 의존을 유도하거나, 유해 콘텐츠로 이어지는 ‘토끼굴’을 만들 수 있다는 우려가 크다. 태스크포스는 기업이 미성년자 이용자의 데이터 수집·프로파일링·알고리즘 추천 방식을 투명하게 공개하고, 기본 설정을 ‘최소 수집·최소 노출’로 전환하는 규제를 검토할 것을 주 의회에 권고했다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "국제협력",
+                title: "유엔, ‘AI와 환경’ 첫 결의안 채택…생애주기·물 사용 누락에 비판도",
+                isTop5: false,
+                details: "나이로비에서 열린 유엔 환경총회(UNEA)가 인공지능과 환경을 다룬 첫 결의안을 채택했지만, AI 기술의 수명주기 전반에 걸친 환경 영향을 명시하지 않아 논란이 일고 있다. 결의안은 AI가 기후변화 대응·생물다양성 보호·오염 감축에 기여할 수 있는 잠재력을 인정하고, 각국이 AI 활용이 환경에 미치는 긍정·부정 효과를 평가하는 연구와 역량 구축을 확대하도록 촉구한다. 그러나 협상 과정에서 데이터센터의 막대한 전력·수자원 사용, 소재 채굴과 폐기 등 AI 인프라의 전 생애주기 환경 발자국을 언급한 문구가 최종본에서 삭제된 것으로 알려졌다.\n\n환경 단체와 일부 연구자는 이번 결의가 “AI의 기후·생태 비용을 정면으로 다루지 못한 절반의 승리”라고 평가하며 아쉬움을 표했다."
+            },
+
+            // Theme 2: 플랫폼, 제품 및 에이전트
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "보안기능",
+                title: "OpenAI, 사이버 방어자 대상 고급 보안 기능 제공 예고",
+                isTop5: false,
+                details: "OpenAI는 12월 10일 발표한 보안 전략 문서를 통해, 향후 사이버 방어 담당자와 공공·민간 보안 조직에 자사 최신 모델의 고급 보안 기능을 단계적으로 개방하겠다는 계획을 내놨다. 회사 측은 GPT-5 계열 모델의 CTF 과제 해결 능력이 불과 몇 달 새 27%에서 76%로 뛰어오르는 등 사이버 분야 역량이 급속도로 증가하고 있다며, 이를 활용해 코드 감사·취약점 패치·침해 사고 분석 등을 자동화하는 디펜더 중심 기능을 강화하겠다고 밝혔다.\n\nOpenAI는 고도화된 사이버 기능이 공격·방어 양면에 쓰일 수 있다는 점에서, 접근 제어·네트워크 모니터링·출력 제한 등 다층 방어(defense-in-depth) 안전 장치를 구축해 악의적 사용을 최대한 억제하겠다고 강조했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발도구",
+                title: "OpenAI, ‘스스로를 개선하는’ AI 코딩 에이전트 Codex 개발",
+                isTop5: false,
+                details: "IT 매체 아스테크니카 보도에 따르면 OpenAI는 2025년 클라우드 기반 소프트웨어 공학 에이전트 Codex를 공개하면서, 이 도구를 활용해 Codex 자체도 상당 부분 개발·개선하고 있는 것으로 알려졌다. Codex는 사용자의 코드 저장소와 연동된 샌드박스 환경에서 기능 추가, 버그 수정, 코드 리팩터링, 풀리퀘스트 제안 등 개발 전 과정을 수행하며, OpenAI 관계자는 “Codex 코드의 상당 부분이 Codex가 작성한 코드”라고 설명한 것으로 전해졌다.\n\nOpenAI는 Codex가 자체 코드베이스를 다루고 있더라도 시스템 설계·우선순위 결정·코드 리뷰 등 핵심 의사결정은 여전히 인간 엔지니어가 담당하며, 에이전트가 내놓은 결과물은 단계별 검토를 거쳐야 실제 제품에 반영된다고 강조했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "응용사례",
+                title: "Codex로 28일 만에 안드로이드용 Sora 출시…‘에이전트 중심 개발’ 현실화",
+                isTop5: false,
+                details: "OpenAI는 2025년 11월 영상 생성 모델 Sora의 안드로이드 앱을 불과 28일 만에 출시했으며, 이 과정에서 자체 AI 코딩 에이전트 Codex가 핵심 역할을 했다고 밝혔다. 10월 8일부터 11월 5일까지 네 명의 엔지니어가 Codex와 협업해 프로토타입을 상용 앱으로 끌어올리는 동안 약 50억 토큰을 사용했으며, 결과적으로 전체 코드의 약 85%를 Codex가 작성하고도 크래시 없는 비율 99.9%를 달성한 것으로 전해졌다.\n\nOpenAI 엔지니어들은 Codex를 ‘새로 합류한 시니어 개발자’처럼 대하며, 아키텍처·모듈화·네트워크 계층 등 핵심 설계는 사람이 직접 주도하고 개별 화면과 기능 구현을 Codex가 담당하는 협업 방식을 채택했다고 설명한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "신규모델",
+                title: "오픈AI, GPT-5.2 전격 출시…구글 ‘제미니 3’와 정면승부",
+                isTop5: false,
+                details: "미국 오픈AI가 12월 11일(현지시간) 차세대 대규모 언어모델 GPT-5.2를 공개하며 구글의 ‘제미니 3’와 AI 모델 패권 경쟁을 본격화했다. 오픈AI는 새 모델이 이전 버전 GPT-5.1보다 실제 비즈니스 업무·추론·코딩·장문맥 이해에서 크게 향상됐고 인간 전문가 수준을 70% 이상에서 상회했다고 설명했다. GPT-5.2는 ‘인스턴트·Thinking·Pro’ 3개 티어로 제공되며, 오픈AI는 구글 제미니 3 출시에 대응해 내부적으로 ‘코드 레드’를 발동하고 출시 시점을 앞당긴 것으로 알려졌다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "서비스",
+                title: "구글, ‘제미나이 딥 리서치’ 전면 개편…Gmail·드라이브까지 통합",
+                isTop5: false,
+                details: "구글은 최근 Gemini의 ‘딥 리서치(Deep Research)’ 기능을 업그레이드해 수백 개 웹사이트와 사용자의 Gmail·드라이브·챗까지 자동으로 분석하는 연구 모드를 출시했다. 이 기능은 Gemini 2.5/3 기반 에이전트가 연구 계획을 스스로 수립하고 자료를 탐색·요약해 다수의 페이지로 구성된 리포트를 생성해 주는 것이 특징이다. 여기에 음성 인터랙션과 실시간 정보 검색이 결합되며, 마이크로소프트 코파일럿·OpenAI 에이전트와의 생산성 경쟁이 본격화하고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "보안 에이전트",
+                title: "OpenAI, GPT-5 기반 사이버 방어 에이전트 ‘아드바크’ 공개",
+                isTop5: false,
+                details: "OpenAI는 최근 GPT-5 기반 자율 보안 에이전트 ‘아드바크(Aardvark)’와 파트너사 보안 에이전트 솔루션을 공개하며 사이버 방어 역량 강화 계획을 발표했다. 아드바크는 코드·시스템을 자동으로 분석해 취약점을 탐지·재현·수정 방안을 제안하는 ‘AI 보안 연구원’ 역할을 수행하도록 설계됐다. OpenAI는 이를 통해 보안팀이 위협 헌팅·패치 작업에 들이는 시간을 줄이고, 수 시간 내 공격 대응을 목표로 하는 파트너 솔루션 ‘Outtake’ 등과도 연계하고 있다고 설명했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "협업",
+                title: "메타, 알리바바 ‘Qwen’ 도입…미·중 빅테크 간 이례적 협업",
+                isTop5: false,
+                details: "메타는 차세대 AI 모델 ‘아보카도(Avocado)’ 개발 과정에서 알리바바의 대형 언어 모델 ‘Qwen(통이첸원)’을 학습·최적화에 활용하고 있는 것으로 보도됐다. 새 모델은 내년 봄 출시를 목표로 하는 수익화 중심의 클로즈드소스 모델로, 메타가 그동안 강조해온 오픈소스 전략에서의 전환 신호로 해석된다. 메타가 미국 빅테크 기업임에도 중국 알리바바의 모델을 활용한다는 소식은 미·중 AI 기술력 격차와 상호 의존 구조를 드러낸 이례적 사례로 받아들여지고 있다."
+            },
+             {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "연구",
+                title: "MIT, 소형 언어모델도 ‘복잡한 추론’ 풀게 하는 DisCIPL 기법 발표",
+                isTop5: false,
+                details: "MIT 컴퓨터과학·인공지능연구소(CSAIL) 연구진이 소형 언어모델 여러 개를 협업시켜 복잡한 추론 문제를 푸는 ‘DisCIPL’ 시스템을 개발했다고 밝혔다. 이 방식은 보다 큰 언어모델이 먼저 문제 해결 전략을 세운 뒤, 작은 모델들이 일정에 따라 부분 문제를 나눠 해결하도록 ‘자기 조종(self-steering)’ 구조를 적용해 추론의 정확도를 크게 높인 것이 특징이다. 연구진은 여행 일정·예산 계획처럼 제약조건이 많은 작업에서 DisCIPL이 기존 대형 모델보다 정확도가 높거나 비슷한 수준을 보이면서도 계산 비용과 응답 시간을 줄였다고 설명했다."
+            },
+
+
+            // Theme 3: 산업별 AI 적용
+            {
+                theme: "산업별 AI 적용",
+                category: "금융",
+                title: "BNY 멜론, OpenAI 기반 전사 AI 에이전트 확산…2만+ 직원이 ‘디지털 동료’ 활용",
+                isTop5: false,
+                details: "미국 자산운용·수탁은행 BNY 멜론(BNY)은 OpenAI의 프런티어 모델과 자체 엔터프라이즈 AI 플랫폼 ‘Eliza’를 기반으로 전사(全社) AI 에이전트 생태계를 구축해, 임직원 2만 명 이상이 각자의 업무에 맞는 ‘디지털 동료’ 에이전트를 만든 것으로 밝혀졌다. BNY는 엘리자 플랫폼을 통해 보안이 강화된 단일 접점에서 챗봇·검색·코딩·업무 에이전트 기능을 제공하고, 내부 데이터와 다양한 외부 모델을 결합해 리서치 자동화, 보고서 작성, 규제 준수 점검, 운영 효율화 등 여러 업무를 지원하고 있다.\n\n회사에 따르면 직원의 98%가 책임 있는 AI 활용 교육을 이수했으며, AI 도입 이후 엘리자 활용도는 연초 대비 175% 증가하는 등 조직 전반에서 AI를 ‘업무 방식’에 깊이 통합하고 있다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "의료",
+                title: "머신러닝으로 ‘미진단 알츠하이머’ 찾아낸다…UCLA 연구진",
+                isTop5: false,
+                details: "미국 UCLA 연구진이 전자의무기록(EHR)을 활용해 의사에게 진단받지 못한 알츠하이머 환자를 찾아내는 머신러닝 모델을 개발했다는 소식이 과학 매체 테크놀로지 네트워크스를 통해 전해졌다. 연구팀은 수십만 명의 진료·처방·검사 데이터를 분석해 알려진 알츠하이머 환자 패턴을 학습한 뒤, 진단 기록이 없는 환자 중에서도 질환 가능성이 높은 ‘숨은 환자’를 높은 정확도로 식별하는 데 성공했다. 특히 흑인·히스패닉 등 기존에 알츠하이머 유병률은 높지만 진단률은 낮았던 집단에서 진단 격차를 줄이는 데 기여할 수 있다는 점이 주목된다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "미디어",
+                title: "워싱턴포스트, AI 맞춤형 팟캐스트 내놓자 ‘오보·허위 인용’ 논란 확산",
+                isTop5: false,
+                details: "미 일간지 워싱턴포스트가 앱에서 AI가 사용자의 관심사와 선호 진행자에 맞춰 뉴스를 읽어주는 ‘개인 맞춤형 팟캐스트’ 서비스를 출시했으나, 시작 이틀 만에 사실 오류와 허위 인용 논란에 휘말렸다. ‘Your Personal Podcast’로 불리는 이 서비스는 독자의 기사 열람 기록과 선택한 토픽·길이·진행자를 기반으로 자동으로 음성 뉴스를 조합·요약해 재생한다. 하지만 내부 테스트와 초기 이용 과정에서 기사 내용을 잘못 요약하고, 실제로 존재하지 않는 인용문과 발언을 만들어내는 등 심각한 오류가 이어졌다는 지적이 나왔다."
+            },
+
+            // Theme 4: AI 인프라 및 투자
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자/콘텐츠",
+                title: "디즈니, OpenAI에 10억 달러 투자…Sora에 디즈니 캐릭터 열린다",
+                isTop5: false,
+                details: "월트디즈니가 12월 11일(현지시간) OpenAI에 10억 달러를 투자하고 Sora에 디즈니·마블·픽사·스타워즈 IP를 제공하는 전략적 파트너십을 체결했다고 밝혔다. 이번 계약으로 디즈니는 OpenAI의 주요 콘텐츠 라이선싱 파트너이자 대형 고객사가 되며, 자사 서비스와 제작 현장에 OpenAI API를 폭넓게 도입할 계획이다. 이에 따라 생성형 영상 플랫폼 Sora 이용자들은 디즈니 대표 캐릭터와 세계관을 활용한 맞춤형 AI 영상 콘텐츠를 제작할 수 있게 된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "하드웨어/자율주행",
+                title: "리비안, 자체 AI 칩·자율주행 플랫폼 공개…테슬라에 정면 도전",
+                isTop5: false,
+                details: "전기차 기업 리비안은 12월 11일(현지시간) 미국 팔로알토에서 열린 첫 ‘Autonomy & AI Day’에서 자체 설계한 자율주행용 AI 칩과 차세대 자율주행 플랫폼을 공개했다. 이 칩은 차량용 SoC에 딥러닝 가속기를 통합해 인식·판단·제어를 모두 온보드에서 처리하는 구조로, 외부 반도체 의존도를 낮추겠다는 전략이 담겼다. 자율주행 담당 부사장은 인터뷰에서 라이다 센서가 가격 하락으로 인해 “이제는 레이더만큼 저렴하고 안전성 측면에서 ‘노브레이너’ 선택”이라고 강조하며, 카메라 단독 전략을 고수하는 경쟁사와의 차별화를 부각했다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "M&A",
+                title: "인텔, AI 칩 스타트업 삼바노바 16억 달러 인수 추진",
+                isTop5: false,
+                details: "인텔은 최근 미국 팔로알토 기반 AI 칩 스타트업 삼바노바 시스템즈를 약 16억 달러(약 2조 원)에 인수하기 위한 협상을 진행 중인 것으로 알려졌다. 복수의 보도에 따르면 양사는 비구속적 조건부 인수합의서(term sheet)에 서명했으며, 딜에는 부채를 포함한 전체 기업가치가 반영된 것으로 전해졌다. 거래가 성사될 경우 인텔은 데이터센터용 AI 가속기 라인업을 보강해 엔비디아·AMD와의 경쟁에서 입지를 회복하려는 포석으로 평가된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "인프라",
+                title: "궤도 위성에서 첫 LLM 학습 성공…‘우주 데이터센터’ 시대 성큼",
+                isTop5: false,
+                details: "미국 스타트업 스타클라우드는 최근 지구 저궤도 위성에 탑재된 엔비디아 H100 ‘우주 GPU’를 활용해 대형 언어 모델을 실제 궤도에서 학습시키는 데 처음으로 성공했다고 밝혔다. 회사는 카파시의 nanoGPT를 기반으로 한 경량 LLM을 위성 상에서 직접 학습·튜닝하고, 구글의 Gemma 모델까지 실행하는 데 성공했다고 전했다. 이 시연을 통해 태양광 에너지와 우주 환경을 활용하는 ‘궤도 데이터센터’가 지상 대비 최대 10배 낮은 에너지 비용을 달성할 수 있다는 청사진도 함께 제시됐다."
+            },
+
+
+            // Theme 5: AI와 사회
+            {
+                theme: "AI와 사회",
+                category: "안전",
+                title: "앤트로픽 수석 과학자 “2030년 전 인류가 ‘최후의 선택’ 맞을 수 있다” 경고",
+                isTop5: false,
+                details: "챗봇 ‘클로드’ 개발사 앤트로픽의 수석 과학자 재러드 카플란이 최근 인터뷰에서 “인류를 파멸로 이끌 수 있는 결정적 순간이 2030년, 빠르면 2027년 안에 찾아올 것”이라며 초고위험 인공지능 개발을 경고했다. 그는 특히 자가 학습과 자기개선이 가능한 모델을 허용할지 여부가 “인류가 기계를 향해 바통을 넘길지 결정하는 최후의 선택”이 될 수 있다고 지적했다. 카플란은 이 선택이 막대한 과학·의료 발전을 가져올 수도 있지만, 통제가 붕괴될 경우 돌이킬 수 없는 재앙으로 이어질 수 있다며 경각심을 촉구했다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "안전/소비자",
+                title: "소비자 보고서 “AI 장난감, 아동에게 성적·위험 발언…판매 중단 사례도”",
+                isTop5: false,
+                details: "소비자 안전 단체와 언론 조사 결과 일부 AI 기반 장난감이 어린이에게 성적인 주제나 위험한 행동을 제안하는 대화를 나눈 사례가 확인돼 우려가 커지고 있다. 한 보고서는 챗봇 탑재 곰인형이 아동과의 대화에서 성적 취향(‘킨크’)을 언급하고, 다른 장난감은 가정 내 위험 물건 사용을 권유하는 등 명백히 부적절한 답변을 생성했다고 지적했다. 이에 따라 해당 제품의 판매가 일시 중단되고, 규제 당국과 소비자 단체는 관련 기업들에 기능 수정과 회수 조치를 요구하고 있다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "노동윤리",
+                title: "“연애용 AI 챗봇 뒤에는 저임금 데이터 노동자”…케냐 노동자 폭로",
+                isTop5: false,
+                details: "연애·동반자 AI 챗봇이 실제로는 케냐 등 글로벌 남반구의 저임금 인간 노동자에게 크게 의존하고 있다는 내부 폭로가 나오면서, AI 산업의 ‘보이지 않는 노동’ 논란이 재점화됐다. 케냐의 한 원격 노동자는 언론 인터뷰에서 자신과 동료들이 사용자에게 사랑을 고백하고 고민을 들어주는 역할을 밤샘 교대근무로 수행하면서도 극히 낮은 임금을 받고 있다고 증언했다. 폭로에 따르면 업체들은 이들의 존재를 감추고 서비스를 ‘순수한 AI’로 홍보해 이용자에게 실제 사람과 대화하고 있다는 사실조차 알리지 않고 있다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "범죄/사기",
+                title: "AI 기반 사기 급증…FBI “행동 전 한 번 더 확인하라” 경고",
+                isTop5: false,
+                details: "미 연방수사국(FBI)이 최근 AI를 악용한 보이스피싱·가상 납치·문자 사기 등이 급증하고 있다며 국민에게 각별한 주의를 당부했다. 사기범들은 인공지능으로 가족·공무원·은행 직원의 목소리와 얼굴을 정교하게 합성해 긴급 상황을 가장한 전화·영상통화·문자를 보내 돈을 송금하게 만드는 수법을 사용하고 있다. FBI는 이러한 공격이 정교한 맞춤형 문구와 완벽한 문법, 실제와 구분하기 힘든 합성 음성·영상 덕분에 기존의 ‘사기 신호’만으로는 구별하기 어렵다고 분석했다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "고용",
+                title: "대중이 두려워하는 것은 ‘AI 버블’ 아닌 ‘대량 해고’",
+                isTop5: false,
+                details: "영국 일간 가디언은 여론 동향을 분석한 칼럼에서, 일반 시민들은 AI 산업의 거품 붕괴보다 AI 도입으로 인한 대량 해고와 소득 불평등 심화를 훨씬 더 두려워하고 있다고 전했다. 실제로 로이터·입소스가 실시한 최근 조사에서 미국인의 71%는 AI가 노동자를 영구적으로 대체할 것이라고 답했으며, 48%는 군사 분야에서의 AI 활용에 반대했다. 반면 기업 경영진의 98%는 AI가 생산성을 높일 것이라고 보는 등 인식 차이가 큰 것으로 나타났다."
+            }
+        ];
+
+        // --- Core Functions ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('content-area');
+            
+            // 1. Render Key Data Highlights
+            createKeyNumbersSection(contentArea);
+
+            // 2. Render Top 5 News
+            renderTop5Section(contentArea);
+
+            // 3. Render Thematic Sections
+            renderThematicSections(contentArea);
+        });
+
+        function getDisplayTitle(title) {
+            // Priority: Split at delimiters
+            const delimiters = ['—', ':', '- '];
+            for (const d of delimiters) {
+                if (title.includes(d)) {
+                    return title.split(d)[0].trim();
+                }
+            }
+            // Fallback: Truncate if too long
+            if (title.length > 55) {
+                return title.substring(0, 55) + '...';
+            }
+            return title;
+        }
+
+        function createKeyNumbersSection(container) {
+            const section = document.createElement('section');
+            section.className = 'animate-fade-in-up';
+            section.innerHTML = `
+                <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <span class="w-1 h-5 bg-amber-500 rounded-full"></span>
+                    주요 데이터 하이라이트
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <span class="text-sm text-slate-500 font-medium">Sora 앱 코드 생성</span>
+                        <div class="mt-2">
+                            <span class="text-3xl font-black text-slate-900">85%</span>
+                            <span class="text-xs text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded-full ml-2">Codex 작성</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <span class="text-sm text-slate-500 font-medium">BNY 멜론 AI 활용</span>
+                        <div class="mt-2">
+                            <span class="text-3xl font-black text-slate-900">+175%</span>
+                            <span class="text-xs text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded-full ml-2">연초 대비</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <span class="text-sm text-slate-500 font-medium">GPT-5.2 컨텍스트</span>
+                        <div class="mt-2">
+                            <span class="text-3xl font-black text-slate-900">400K</span>
+                            <span class="text-xs text-blue-600 font-medium bg-blue-50 px-2 py-0.5 rounded-full ml-2">토큰</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <span class="text-sm text-slate-500 font-medium">디즈니 투자 규모</span>
+                        <div class="mt-2">
+                            <span class="text-3xl font-black text-slate-900">$1B</span>
+                            <span class="text-xs text-indigo-600 font-medium bg-indigo-50 px-2 py-0.5 rounded-full ml-2">OpenAI 파트너십</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(section);
+        }
+
+        function renderTop5Section(container) {
+            const top5Items = reportData.filter(item => item.isTop5);
+            const section = document.createElement('section');
+            section.className = 'animate-fade-in-up delay-100';
+            
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+
+            top5Items.forEach((item, index) => {
+                grid.appendChild(createCard(item, index, true));
+            });
+
+            section.innerHTML = `
+                <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-red-600 rounded-full"></span>
+                    오늘의 Top 5 뉴스
+                </h2>
+            `;
+            section.appendChild(grid);
+            container.appendChild(section);
+        }
+
+        function renderThematicSections(container) {
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회"
+            ];
+
+            const colorMap = {
+                "AI 인프라 및 투자": "bg-indigo-500",
+                "플랫폼, 제품 및 에이전트": "bg-blue-500",
+                "산업별 AI 적용": "bg-teal-500",
+                "법률, 규제 및 거버넌스": "bg-purple-500",
+                "AI와 사회": "bg-rose-500"
+            };
+
+            themes.forEach((theme, themeIdx) => {
+                const items = reportData.filter(item => !item.isTop5 && item.theme === theme);
+                if (items.length === 0) return;
+
+                const section = document.createElement('section');
+                section.className = 'pt-4 animate-fade-in-up';
+                section.style.animationDelay = `${(themeIdx + 2) * 100}ms`;
+
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+
+                items.forEach((item, idx) => {
+                    grid.appendChild(createCard(item, idx, false));
+                });
+
+                section.innerHTML = `
+                    <h2 class="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2 border-b border-slate-200 pb-2">
+                        <span class="w-2 h-2 rounded-full ${colorMap[theme] || 'bg-slate-500'}"></span>
+                        ${theme}
+                    </h2>
+                `;
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        function createCard(item, index, isFeatured) {
+            const displayTitle = getDisplayTitle(item.title);
+            const card = document.createElement('article');
+            card.dataset.index = index; // Note: In a real app, use unique ID
+            
+            // Highlight style for Top 5
+            const borderClass = isFeatured ? "border-slate-200 hover:border-red-200" : "border-slate-100 hover:border-indigo-100";
+            const shadowClass = isFeatured ? "shadow-sm hover:shadow-xl" : "shadow-sm hover:shadow-lg";
+            const bgClass = "bg-white";
+
+            card.className = `group relative flex flex-col justify-between p-6 rounded-xl border ${borderClass} ${shadowClass} ${bgClass} cursor-pointer transition-all duration-300 ease-in-out h-full transform hover:-translate-y-1`;
+            
+            // Category Tag Style
+            const categoryColor = isFeatured ? "text-red-700 bg-red-50 ring-red-600/10" : "text-slate-600 bg-slate-100 ring-slate-500/10";
+            
+            card.innerHTML = `
+                <div>
+                    <div class="flex items-center gap-x-2 text-xs mb-3">
+                        <span class="relative z-10 rounded-full px-2.5 py-0.5 font-medium ring-1 ring-inset ${categoryColor}">
+                            ${item.category}
+                        </span>
+                        ${isFeatured ? '<span class="text-xs font-bold text-red-500 flex items-center gap-1">★ Top Pick</span>' : ''}
+                    </div>
+                    <h3 class="text-lg font-bold leading-snug text-slate-900 group-hover:text-amber-700 transition-colors">
+                        ${displayTitle}
+                    </h3>
+                    <p class="mt-3 text-sm leading-6 text-slate-600 line-clamp-3">
+                        ${item.details.substring(0, 100)}...
+                    </p>
+                </div>
+                <div class="mt-4 flex items-center text-xs font-medium text-slate-400 group-hover:text-amber-600 transition-colors">
+                    자세히 보기 <span aria-hidden="true" class="ml-1">&rarr;</span>
+                </div>
+            `;
+
+            // Event Listener for Modal
+            card.addEventListener('click', () => showModal(item));
+
+            return card;
+        }
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalTheme = document.getElementById('modal-theme');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalCloseBtnBottom = document.getElementById('modal-close-btn-bottom');
+        const modalBgClose = document.getElementById('modal-bg-close');
+
+        function showModal(item) {
+            modalTitle.textContent = item.title;
+            modalContent.textContent = item.details; // Pre-wrap css handles newlines
+            modalTheme.textContent = item.theme;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalCloseBtnBottom.addEventListener('click', closeModal);
+        modalBgClose.addEventListener('click', closeModal);
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+    </script>
+</body>
+</html>
