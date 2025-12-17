@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: AI 일일 보고서 (2025-12-18)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 equivalent */
+            color: #1e293b; /* slate-800 */
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            line-clamp: 3;
+            overflow: hidden;
+        }
+        
+        /* Custom Scrollbar for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Smooth fade in */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modal backdrop blur */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-md hover:shadow-lg hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-blue-600 rounded-full"></div>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">뉴스대시 <span class="font-normal text-slate-500 text-sm ml-2">2025년 12월 18일 AI 리포트</span></h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                2025년 12월 18일
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        
+        <!-- Key Data Highlights Section -->
+        <section id="key-data-section" class="fade-in">
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <span class="text-amber-500">●</span> 주요 데이터 하이라이트
+            </h2>
+            <div id="key-data-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Top 5 News Section -->
+        <section id="top5-section" class="fade-in">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded">MUST READ</span>
+                    오늘의 Top 5 뉴스
+                </h2>
+            </div>
+            <div id="top5-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Thematic Sections Container -->
+        <div id="thematic-container" class="space-y-12 fade-in">
+            <!-- Dynamically populated by Theme -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+            &copy; 2025 AI News Report Dashboard. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden relative transform transition-all scale-100">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-start bg-slate-50">
+                <div class="pr-8">
+                    <span id="modal-category" class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded mb-2">카테고리</span>
+                    <h3 id="modal-title" class="text-xl font-bold text-slate-800 leading-snug">뉴스 제목</h3>
+                </div>
+                <button id="modal-close-btn" class="text-slate-400 hover:text-slate-600 transition-colors p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Modal Content -->
+            <div class="p-6 overflow-y-auto modal-content bg-white">
+                <div id="modal-body" class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-line">
+                    <!-- Detail content goes here -->
+                </div>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="px-6 py-3 bg-slate-50 border-t border-slate-100 text-right">
+                <button id="modal-close-btn-bottom" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-sm font-medium transition-colors">
+                    닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Data Source (Parsed from the provided report)
+        const reportData = [
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책/인력",
+                title: "OPM, ‘US Tech Force’ 출범…연방정부 AI 도입 인력 확충",
+                isTop5: true,
+                details: "미국 인사관리처(OPM)는 2025년 12월 16일(현지시간) US 테크 포스를 출범해 연방정부 전반의 AI 구현을 빠르게 추진하겠다고 밝혔다. 이 프로그램은 참가자가 2년 임기로 기관 리더십 직속 팀에 배치돼 실제 과제를 수행하고, 민간 파트너 기업들과의 협업을 통해 훈련·멘토링을 받는 방식으로 설계됐다. OPM은 이를 통해 초기 단계부터 정부 현장에 기술 인력을 대규모로 투입해 현대화 속도를 끌어올리는 효과를 기대하고 있다.\n\n이번 구상은 백악관 지원 아래 기술 인력 공백을 메우고 미국의 기술 리더십을 강화하려는 기조와 맞물린다. OPM은 공식 발표에서 “국가적 중요 프로젝트를 만들고 이끌 기회”라고 강조하며 인재 유치를 호소했다. 향후 모집은 USAJOBS 등을 통해 진행되고, 프로그램 종료 후 민간 파트너사 취업으로 이어질 수 있도록 경력 경로를 열어둔다는 방침이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "검색/마케팅",
+                title: "Optimized AI, ‘LLM이 브랜드를 학습하는 과정’ 통제 실험 타임라인 공개",
+                isTop5: true,
+                details: "AI SEO 업체 Optimized Artificial Intelligence는 2025년 12월 16일 ChatGPT 등 LLM이 신규 브랜드를 인지하는 과정을 시간대별로 정리한 ‘통제 실험 타임라인’을 공개했다. 회사는 웹상 흔적이 전혀 없는 가상 인물 Damoptimize Burtonseoai를 만들어, 검색·AI 결과가 ‘0’인 상태에서 단계적으로 신호를 주는 방식으로 실험을 진행했다고 밝혔다. 그 결과 2025년 10월 무렵 ChatGPT가 해당 인물을 일관된 독립 엔티티로 인식하기 시작했다는 것이 회사의 주장이다.\n\n이번 발표는 기업들이 AI 기반 검색 노출을 마케팅·브랜딩 과제로 인식하는 흐름 속에서 나왔다. 창립자 데이먼 버튼은 “신호가 갖춰지면 수년이 아닌 수주 단위로 가시성이 움직였다”고 말하는 한편, 엔티티 구조가 불명확하면 정체성이 빠르게 합쳐질 수 있다고 경고했다. 회사는 앞으로 인용·미디어 노출·장문 주제성 등 변수를 추가로 시험하겠다고 밝혀, 관련 업계의 ‘AI 검색 최적화’ 경쟁이 더 확산될 전망이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "기업/전략",
+                title: "오픈AI, 조지 오스본 영입…‘OpenAI for Countries’ 총괄 맡긴다",
+                isTop5: true,
+                details: "오픈AI는 영국 전 재무장관 조지 오스본을 ‘OpenAI for Countries’ 총괄(매니징 디렉터 겸 헤드)로 임명해 2026년 1월부터 런던에서 근무하도록 했다고 전해졌다. 이번 인사는 각국 정부가 AI를 경제·공공서비스 전략에 접목하는 과정에서 오픈AI가 역할을 확대하고, 대규모 데이터센터 구축 구상인 ‘Stargate’의 글로벌 확장과 연계하려는 목적이 크다. AI 인프라와 규제가 국가 경쟁력 이슈로 부상하면서, 오픈AI가 정책·외교 역량을 보강한 상징적 조치로 평가된다.\n\n오픈AI COO 브래드 라이트캡은 “각국이 AI가 경제 전략과 보건·교육 같은 영역에 어떻게 들어맞는지 묻고 있다”고 밝히며 역할 신설 배경을 설명했다. 로이터는 오스본이 세계경제포럼(다보스)에서도 오픈AI를 대표할 예정이라고 전하며, 이 구상이 미국 중심의 Stargate를 해외로 넓히는 성격을 갖는다고 보도했다. 향후 오픈AI가 더 많은 국가와 파트너십을 추진할수록, 경쟁사들까지 포함한 ‘정책 인재 영입전’도 한층 치열해질 것으로 보인다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책/보건",
+                title: "미 HHS, ‘OneHHS’ AI 전략 공개…업무·연구·공중보건 전면 통합 추진",
+                isTop5: true,
+                details: "미 보건복지부(HHS)는 2025년 12월 4일 21쪽 분량의 AI 전략을 공개하고, 행정·연구·공중보건 전반에 AI를 핵심 도구로 내재화하겠다고 밝혔다. 전략은 5대 핵심 축(거버넌스·위험관리, 인프라·플랫폼, 인력개발·업무부담 경감, 연구·재현성, 진료·공중보건 현대화)을 통해 AI를 ‘책임 있는 방식’으로 확산시키는 로드맵을 제시한다. 특히 활용 사례와 위험평가를 정기적으로 공개하고, NIST 정렬 보안통제 하에서 AI 시스템의 ATO 절차를 더 빠르게 하겠다는 방향이 포함됐다.\n\n이번 전략은 행정명령과 OMB 지침을 포함한 연방 AI 정책 흐름의 연장선에서 나왔으며, 부처 차원의 ‘OneHHS’ 인프라 구축을 강조한다. 세부 실행으로는 부처 내 AI 거버넌스 보드 운영, 데이터·ML 엔지니어 등 신규 역할과 AI 인재 총괄 지정, 코드·모델의 부처 간 공유 및 법적 범위 내 공개소스 전환 등이 거론됐다. HHS 산하 기관들이 이미 에이전트형 AI를 도입하기 시작한 만큼, 향후 각 기관의 구체적 배포·조달이 속도를 낼 가능성이 크다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "브라우저/기술",
+                title: "모질라, 새 CEO 선임…‘AI는 선택’ 내건 파이어폭스 재정비",
+                isTop5: true,
+                details: "모질라는 2025년 12월 16일(현지시간) 파이어폭스 총괄을 지낸 앤서니 엔저-드메오를 신임 CEO로 선임하고, 브라우저 전략에 AI를 본격 반영하겠다고 밝혔다. 그는 파이어폭스가 ‘현대적 AI 브라우저’로 진화하되, AI는 항상 끌 수 있는 선택이어야 하고 개인정보·데이터 사용·AI 작동 방식이 명확해야 한다는 원칙을 내세웠다. 이는 ‘AI가 브라우저의 다음 전장’이 되는 국면에서 모질라가 신뢰를 차별화 축으로 삼겠다는 선언으로 해석된다.\n\n전문가들은 브라우저 계층에 AI가 들어오면 탭을 가로질러 정보를 읽고 요약·추론하며 경우에 따라 ‘행동’까지 할 수 있어 기업 거버넌스 경계가 흔들릴 수 있다고 지적했다. 그레이하운드리서치의 산칫 비르 고기아는 ‘옵션형 AI’ 접근을 평가하면서도, 핵심은 기능 경쟁이 아니라 책임성과 감사 가능성을 먼저 해결하는 것이라고 분석했다. 모질라는 ‘거버넌스 우선’이 ‘역량 후순위’로 비치지 않도록 실행력을 증명해야 하며, 향후 기업 시장에서 선택받을 수 있을지가 관전 포인트로 꼽힌다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "윤리/지역사회",
+                title: "듀랑고 ‘포 코너스 AI 콘퍼런스’…농촌·원주민 지역 적용 놓고 공방",
+                isTop5: false,
+                details: "미국 콜로라도주 포트루이스칼리지에서 2025년 12월 16일 열린 Four Corners AI Conference에서는 농촌 지역이 AI를 ‘책임 있게’ 도입하는 방안이 집중 논의됐다. 행사에는 약 600명이 참석했으며 교육·소상공인·비영리 분야 활용부터 규제·환경·윤리 쟁점까지 폭넓은 주제가 다뤄졌다. 주최 측은 1년 사이 AI가 급격히 확산하면서 “이제는 도입 여부가 아니라 도입 방법을 묻는 단계”라고 분위기를 전했다.\n\n패널로 나온 교육·행정 책임자들은 AI가 수업 준비·학습 지원과 행정 효율화에 도움이 된다고 강조하면서도, 데이터 보안과 윤리적 사용이 전제돼야 한다고 말했다. 교육감 캐런 체서와 시티매니저 호세 마드리갈은 각각 “교실을 더 인간적으로 만든다”, “AI는 공감을 대체할 수 없다”는 취지의 발언으로 기대와 한계를 동시에 짚었다. 이어진 기조연설에서는 ‘주권형 AI’ 필요성과 함께, 원주민 공동체가 동의·지식재산을 충분히 숙의할 시간이 부족하다는 경고가 나오며 향후 지역 단위 거버넌스 논의가 이어질 전망이다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "시장/경쟁",
+                title: "인도 시장 ‘무료 전쟁’…오픈AI·구글, 사용자와 학습데이터 쟁탈전",
+                isTop5: false,
+                details: "오픈AI와 구글, 퍼플렉시티는 2025년 12월 17일(현지시간) 인도에서 무료·할인 요금제를 잇달아 내놓으며 AI 챗봇 이용자 확보 경쟁을 본격화했다. 로이터는 이들 기업이 가격 민감도가 높은 인도에서 장기간 무료 제공을 통해 사용 습관을 만들고, 다언어·사투리 데이터 공백을 메우려는 전략으로 보고 있다고 전했다. 실제 센서타워 집계 기준 인도에서 챗GPT 일간 이용자는 7,300만 명으로 전년 대비 607% 급증했고, 제미니도 1,700만 명 수준까지 늘어 두 서비스 모두 인도가 최대 일간 이용자 시장이 됐다.\n\n배경에는 인도가 7억3,000만 대 스마트폰을 보유하고 데이터 요금이 낮아 디지털 서비스 확산이 빠르다는 구조적 요인이 있다. 전문가들은 인도 이용자들이 섞어 쓰는 언어 패턴이 AI 모델에 중요한 ‘스트레스 테스트’가 될 수 있다고 평가했으며, 한 이용자는 “데이터 수집이 우려돼 학습용 데이터 공유 거부 옵션을 썼다”고 말했다. 향후 통신사 제휴와 장기 무료 제공이 이어질수록 개인정보·데이터 활용을 둘러싼 규제 논쟁도 함께 커질 전망이다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "통신/네트워크",
+                title: "통신사, ‘AI 에이전트’ 상용화 가속…절반 이상이 운영망에 투입",
+                isTop5: false,
+                details: "구글 클라우드가 공개한 보고서에 따르면 통신업계 의사결정자 중 56%가 AI 에이전트를 운영 환경에서 사용하고 있으며, 43%는 10개 이상의 에이전트 출시 경험이 있다고 답했다. 보고서는 통신망 복잡성 증가와 운영 자동화 수요가 맞물리며, 에이전트가 장애 진단·고객 응대·업무 자동화 등에서 생산성을 끌어올리는 흐름이 뚜렷하다고 분석했다. 이 같은 확산은 네트워크 안정성과 비용 효율화를 동시에 노리는 통신사들의 ‘상용 전환’ 속도를 보여준다.\n\n보고서와 사례 소개에서는 도이치텔레콤이 RAN Guardian Agent를 통해 진단 시간을 ‘1시간에서 수분’으로 줄였고, 텔레포니카는 폐쇄루프 방식으로 네트워크 제어를 자동화했다고 전해졌다. 또한 다수 사업자가 에이전트 투자 비중을 확대할 계획이라는 조사 결과가 함께 제시되면서, ‘파일럿 단계’에 머물던 통신 AI가 운영망 핵심으로 들어가고 있다는 신호로 해석된다. 향후 관건은 대규모 자동화가 늘어날수록 생기는 운영 리스크를 어떻게 통제하고, 감사 가능성과 보안 체계를 함께 성숙시키느냐가 될 것으로 보인다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "게임/제작",
+                title: "로블록스, 스튜디오에 AI 도구 통합…게임 제작 ‘속도전’ 가속",
+                isTop5: false,
+                details: "로블록스는 2025년 개발자 환경인 Roblox Studio에 AI 기반 제작 도구를 통합해 개발 속도를 높이겠다고 밝혔다. 새 기능은 제작자가 프롬프트를 통해 기능성 오브젝트를 만들거나 ‘어시스턴트’를 활용해 반복 작업을 줄이는 방향으로 설계됐으며, MCP 연동 등으로 외부 도구와의 연결성도 강화했다. 회사는 이를 통해 개인·소규모 팀도 고품질 콘텐츠를 더 빠르게 만들 수 있어, 플랫폼 생태계 확장에 도움이 될 것으로 기대하고 있다.\n\n로블록스는 창작자 수익 확대를 위해 DevEx 환율을 높였고, 2024년 창작자에게 10억 달러 이상을 지급했다고도 밝혔다. 로블록스 측은 우선 특정 카테고리의 기능성 오브젝트부터 적용 범위를 넓히며, 스튜디오 내 AI 기능을 단계적으로 확장하겠다는 계획을 제시했다. 향후에는 제작 자동화가 늘어날수록 저작권·안전·품질 관리 기준을 어떻게 세우느냐가 플랫폼 경쟁력의 핵심 변수가 될 전망이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자/M&A",
+                title: "오픈AI, 아마존에 ‘10억 달러 이상’ 추가 투자 논의…AI 칩 사용도 검토",
+                isTop5: false,
+                details: "오픈AI가 아마존으로부터 최소 100억 달러 규모의 추가 자금 조달을 논의 중이며, 대가로 아마존의 AI 칩을 활용하는 방안이 거론된다고 로이터가 2025년 12월 17일 보도했다. 소식통에 따르면 이번 논의는 오픈AI 기업가치를 5,000억 달러 이상으로 평가하는 큰 틀에서 진행되며, 아마존의 Trainium 칩을 인퍼런스 및 일부 학습에 쓰는 구상도 포함된다. 투자 성사 여부와 별개로, 빅테크 간 ‘컴퓨팅 파워 동맹’ 경쟁이 한층 격화되는 신호로 받아들여진다.\n\n오픈AI는 최근 엔비디아·오라클 등과도 협력 및 투자 관련 논의가 이어져 왔고, 컴퓨팅 수요 폭증이 자금 조달의 핵심 배경으로 지목된다. 로이터는 오픈AI가 구조 개편과 맞물려 대규모 자본 유치를 추진하고 있으며, 마이크로소프트가 상당 지분을 보유한 가운데 클라우드 유통 권리 등 복잡한 이해관계가 존재한다고 전했다. 향후 협상이 진전될 경우 오픈AI의 인프라 전략이 AWS·자체 칩 활용 쪽으로 더 다변화될지, 또는 파트너 간 역할 조정이 어떤 형태로 이뤄질지가 관전 포인트다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "전략/경영",
+                title: "MIT “작게 시작해 크게 벌어라”…‘소규모 AI’로 성과 내는 전략 제시",
+                isTop5: false,
+                details: "MIT 슬론 매니지먼트 리뷰는 2025년 12월 17일 기업들이 대규모 혁신 대신 작은 AI 프로젝트로도 실질적 가치를 만들 수 있다고 제언했다. 글은 ‘리스크 경사면(risk slope)’ 개념을 통해, 낮은 위험의 보조 업무부터 점진적으로 고위험·고자율 영역으로 확장하는 접근이 실패 비용을 줄인다고 설명했다. 결과적으로 ‘파일럿의 무덤’에 빠지지 않으려면, 작은 성공을 반복해 조직 역량과 거버넌스를 함께 키우는 방식이 효율적이라는 메시지다.\n\n배경에는 생성형 AI 도입 열풍 속에서도 많은 조직이 확장 단계에서 막히는 현실이 있다. 글은 이메일·회의 요약 같은 저위험 영역, 고객지원·코딩 보조 같은 중간 영역, 그리고 업무 흐름에서 자율적으로 작동하는 고위험 영역을 구분해 관리해야 한다고 강조했다. 향후 기업들은 작은 적용을 통해 데이터 준비·보안·인간 감독 체계를 정비한 뒤, 더 큰 자동화로 이동하는 ‘단계적 확장’이 주류가 될 것으로 전망된다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "고용/노동",
+                title: "클라르나 CEO “AI, 내 일도 할 수 있다”…화이트칼라 불안 재점화",
+                isTop5: false,
+                details: "스웨덴 핀테크 클라르나의 세바스티안 시미아트코프스키 CEO는 2025년 12월 17일 보도를 통해 AI가 자신의 CEO 업무도 수행할 수 있을 만큼 빠르게 발전하고 있다는 취지의 발언을 한 것으로 전해졌다. 그는 최근 AI의 추론 능력 고도화를 언급하며, 직무 대체가 단순 반복 업무를 넘어 경영·의사결정 영역까지 확장될 수 있다는 우려를 드러냈다. 이 발언은 기업들이 AI를 생산성 도구로 확대하는 한편, 고숙련 일자리의 미래를 둘러싼 논쟁이 다시 커지고 있음을 보여준다.\n\n클라르나는 그간 AI 도입을 적극 추진해 온 기업으로 알려져 있어, 이번 ‘우울하다’는 표현은 기대와 불안의 공존을 상징한다. 그는 앞서 소셜미디어에서 AI가 “모든 일자리를 할 수 있다”는 취지로 언급하며, 변화 속도에 대한 경계심을 드러낸 바 있다. 향후 금융·고객서비스 업계에서 AI가 더 깊게 들어올수록, 기업들은 성과뿐 아니라 책임 소재와 감독 체계를 명확히 하라는 사회적 요구를 더 강하게 받게 될 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델/기술",
+                title: "구글, ‘Gemini 3 Flash’ 공개…빠르고 저렴한 ‘범용 추론’ 전면 배치",
+                isTop5: false,
+                details: "구글은 2025년 12월 17일 Gemini 3 Flash 모델을 공개하며, 속도와 비용 효율을 앞세운 차세대 범용 모델 전략을 내놨다. 보도에 따르면 이 모델은 상위급 모델의 추론 역량을 더 빠른 지연시간으로 제공하고, Gemini 앱·검색·개발자 플랫폼 등 구글 생태계 전반에 폭넓게 배치되는 방향으로 설계됐다. 성능 지표에서는 이전 세대 대비 소프트웨어 문제 해결 벤치마크에서 개선을 주장하며, 경쟁이 격화된 생성형 AI 시장에서 ‘대규모 배포’로 우위를 노리는 포석으로 해석된다.\n\n이번 발표는 구글이 한 달 전 내놓은 상위 모델 흐름을 잇는 동시에, 개발자들이 “빠르고 싼데도 쓸 만한” 모델을 요구해 온 시장 니즈에 맞춘 대응으로 평가된다. 구글 측 설명과 개발 문서에는 생각 수준 조절 등 추론 동작을 제어하는 옵션과 함께, API·AI 스튜디오 등에서의 제공 방식이 정리돼 있다. 향후 관건은 저비용 대량 배포가 확산될수록 생길 수 있는 환각·안전·저작권 리스크를 얼마나 정교하게 관리하며, ‘속도-품질-신뢰’ 균형을 유지하느냐다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "하드웨어/연구",
+                title: "고체전지 수명 늘리는 ‘실시간 AI’…충·방전 절차를 스스로 최적화",
+                isTop5: false,
+                details: "연구진은 2025년 12월 16일(현지시간) 발표된 논문에서 고체 리튬금속전지 시험 장비에 머신러닝을 직접 통합해, 충·방전 중 전압·전류 신호를 상시 감지하고 강화학습 기반으로 충전 전략을 실시간 조정하는 시스템을 제시했다. 이 방식은 고장 징후가 본격적인 성능 급락으로 이어지기 전에 조기 신호를 포착해 운용 조건을 바꾸는 접근으로, 결과적으로 배터리 수명을 크게 연장하는 데 초점을 맞췄다.\n\n논문에 따르면 상태 인지 모듈은 3사이클 단위로 전압·전류 데이터를 읽어 배터리 내부 반응을 추정하고, 이를 입력으로 강화학습이 다음 사이클의 충전 파라미터를 선택한다. 연구팀은 전압 프로파일을 2차원 이미지로 변환해 신경망이 형태 정보를 학습하도록 했고, 일정 범위의 C-rate·전압 컷오프 조합 등 복수의 ‘충전 액션’ 가운데 선택하도록 설계했다고 밝혔다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "실적/재무",
+                title: "마이크론, AI 메모리 호황에 ‘분기 최대 매출’…가이던스도 시장 예상 상회",
+                isTop5: false,
+                details: "마이크론은 2025년 12월 17일 실적 발표에서 2026회계연도 1분기(2025년 11월 27일 종료) 매출 136억4000만달러를 기록했다고 밝혔다. 회사는 AI 데이터센터 수요와 메모리 공급 타이트 현상이 실적을 밀어올렸다고 설명했으며, 로이터는 회사가 다음 분기 매출 가이던스 187억달러(중간값)를 제시해 시장 기대를 크게 웃돌았다고 전했다.\n\n회사 자료에 따르면 1분기 GAAP 순이익은 52억4000만달러(주당 4.60달러), 비GAAP 기준으로는 주당순이익 4.78달러를 기록했다. 로이터는 고대역폭메모리(HBM) 등 AI용 메모리의 수요가 확산되며 시장의 기대가 커졌고, 이 같은 전망이 주가에도 반영됐다고 전했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "앱/서비스",
+                title: "퍼플렉시티, ‘연구용’ 아이패드 앱 출시…출처 인용·멀티태스킹 강화",
+                isTop5: false,
+                details: "퍼플렉시티는 2025년 12월 16일(현지시간) 앱스토어를 통해 아이패드 전용 앱을 출시했다고 AI타임스가 보도했다. 기존 아이폰 앱과 분리된 형태로, 회사는 유료 구독자의 고급 연구 워크플로우를 겨냥해 일반 검색 대비 더 많은 인용 정보를 제공하는 방식으로 차별화를 내세웠다.\n\n보도에 따르면 새 앱은 정확한 출처 기반 답변을 중심으로 여러 출처를 동시에 참조·분석하며 보고서를 작성하는 흐름에 맞춰 설계됐다. 또한 아이패드의 화면 분할을 활용해 채팅을 다른 앱과 함께 실행할 수 있고, 더 커진 사이드바로 기능 탐색을 단순화해 웹 버전에 가까운 사용성을 구현했다고 전했다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "트렌드",
+                title: "MS “2026년 AI는 ‘동료’로 진화”…보안 에이전트·의료·과학 연구 변화 예고",
+                isTop5: false,
+                details: "마이크로소프트는 2025년 12월 17일 ‘2026년 7대 AI 트렌드’를 공개하며, AI가 단순 도구를 넘어 인간 역량을 확장하는 실질적 파트너로 진화할 것이라고 전망했다. AI타임스는 MS가 에이전트가 데이터 분석·콘텐츠 생성·개인화를 맡아 소수 인원 팀도 단기간에 글로벌 캠페인을 기획·실행하는 환경이 가능해질 것이라고 전했다고 보도했다.\n\nMS는 특히 ‘보안 능력을 갖춘 에이전트’ 부상을 강조하며, 에이전트에 명확한 신원과 권한 통제를 부여하는 체계적 보안 설계가 필요하다고 밝혔다. 또 의료·연구 분야와 관련해 MS AI의 ‘진단 오케스트레이터(MAI-DxO)’가 복잡 사례에서 85.5% 진단 정확도를 보였고, 코파일럿·빙이 매일 5000만건 이상 건강 문의를 처리한다고 소개했으며, ‘AI 슈퍼팩토리’와 양자-슈퍼컴퓨터 결합 하이브리드 컴퓨팅도 트렌드로 제시했다고 전했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발/코딩",
+                title: "“AI 에이전트로 10배 생산성” 주장…코딩 자동화 ‘운용 기법’ 확산",
+                isTop5: false,
+                details: "Towards Data Science 기고(2025년 12월 17일)에서 필자는 AI 에이전트가 반복 업무를 대신해 엔지니어 생산성이 크게 높아졌다고 주장했다고, Muck Rack이 기사 요약 형태로 전했다. 이런 흐름은 개발 현장에서 에이전트를 단순 보조가 아닌 작업 수행 주체로 쓰려는 움직임과 맞물리며, ‘어떻게 쓰느냐’가 성과를 좌우하는 단계로 넘어가고 있다.\n\n관련해 업계에서는 프로젝트 문맥을 파일로 정리해 에이전트가 자동으로 참고하게 하는 방식(예: 프로젝트 지침 문서), 사용 가능한 도구를 안전하게 제한·관리하는 방식, 그리고 브라우저 작업·검증 루프를 결합한 운영이 강조된다. 예컨대 Anthropic은 에이전트 코딩 도구 운영에서 CLAUDE.md 같은 컨텍스트 파일로 명령·테스트 규칙을 공유하고 허용 도구를 관리하는 패턴을 제시했으며, OpenAI는 브라우저를 조작하는 에이전트가 클릭·타이핑·스크롤로 작업을 수행하되 중요한 단계에서 사용자 통제를 두는 구조를 설명했다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "교육/미디어",
+                title: "오픈AI, 언론사 대상 ‘아카데미’ 공개…AI 활용 교육·지원 프로그램 확대",
+                isTop5: false,
+                details: "오픈AI는 ‘OpenAI Academy for News Organizations’를 통해 뉴스 조직을 대상으로 한 지원 프로그램을 공개했다. 발표는 언론사가 생성형 AI를 실제 업무에 적용하는 과정에서 필요한 학습·도입 역량을 돕는 데 초점을 맞추며, 교육·리소스 제공 형태로 추진된다.\n\n해당 프로그램은 뉴스룸 환경에 맞춘 실무형 지원을 내세우며, 책임 있는 활용과 현장 적용을 동시에 강조하는 기조다. 오픈AI는 프로그램을 통해 언론 조직의 AI 활용을 체계화하는 방향으로 후속 활동을 이어갈 방침이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "개발생태계",
+                title: "구글, 메타와 ‘AI 소프트웨어 전선’ 확대…엔비디아 CUDA 의존 낮추기",
+                isTop5: false,
+                details: "로이터는 2025년 12월 17일 구글이 메타의 협력과 맞물려 AI 개발 생태계에서 엔비디아의 소프트웨어 우위를 흔들 수 있는 움직임을 보이고 있다고 보도했다. 핵심은 특정 하드웨어에 종속된 개발 환경을 줄이고, 다양한 가속기에서 AI 워크로드가 더 쉽게 돌아가도록 소프트웨어·툴체인 경쟁을 강화하는 흐름이다.\n\n보도는 이런 변화가 AI 인프라 비용과 공급망 리스크가 커진 상황에서, 빅테크가 대체 경로를 확보하려는 전략과 맞물린다고 전했다. 향후에는 개발자 생태계와 기업 고객이 어떤 플랫폼을 선택하느냐에 따라 AI 반도체 시장의 영향력 지형이 추가로 재편될 수 있다는 관측도 나온다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "노코드/앱제작",
+                title: "구글, ‘바이브 코딩’ Opal을 제미나이에 통합…미니 앱을 Gem으로 만든다",
+                isTop5: false,
+                details: "구글은 12월 17일(현지시간) Gemini 웹앱에 Opal 통합을 발표하고, 사용자가 제미나이에서 바로 AI 미니 앱을 제작해 맞춤형 Gem으로 저장·활용할 수 있게 했다. 사용자가 자연어로 원하는 앱을 설명하면, 시스템이 이를 단계별 워크플로로 구성해 시각적으로 편집·연결하는 방식으로 작동한다. 구글은 이 기능으로 비개발자도 반복 업무를 자동화하는 앱을 빠르게 프로토타이핑하고 재사용할 수 있는 길이 넓어졌다고 설명했다.\n\nOpal은 원래 구글 랩스의 실험으로 공개된 도구로, 프롬프트·모델 호출·도구를 엮어 워크플로를 만드는 ‘노코드’ 성격을 강조해 왔다. 이번 통합에서 구글은 Gems 관리자에서 Opal을 실행할 수 있고, 프롬프트를 단계 목록으로 바꿔 보여주는 새 뷰로 동작을 더 쉽게 이해·수정할 수 있다고 밝혔다. 더 세밀한 커스터마이징이 필요하면 opal.google의 고급 편집기로 전환하는 흐름도 함께 제시돼, 향후 제미나이 내 ‘경량 앱 제작’ 활용 사례가 확대될 전망이다."
+            }
+        ];
+
+        // 2. Constants for Themes
+        const THEMES = [
+            "AI 인프라 및 투자",
+            "플랫폼, 제품 및 에이전트",
+            "산업별 AI 적용",
+            "법률, 규제 및 거버넌스",
+            "AI와 사회 (활용, 심리, 노동)"
+        ];
+
+        // 3. Helper Functions
+        function getDisplayTitle(title) {
+            if (title.length > 60) {
+                if (title.includes('—')) return title.split('—')[0].trim();
+                if (title.includes(':')) return title.split(':')[0].trim();
+                return title.substring(0, 60) + '...';
+            }
+            return title;
+        }
+
+        // 4. Render Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            renderKeyNumbers();
+            renderTop5();
+            renderThematicSections();
+            setupModalHandlers();
+        });
+
+        function renderKeyNumbers() {
+            const keyData = [
+                { label: "OpenAI 가치 (추산)", value: "5,000억 달러", sub: "아마존 투자 논의 중" },
+                { label: "ChatGPT 인도 사용자", value: "7,300만 명", sub: "전년 대비 607% 급증" },
+                { label: "마이크론 1Q 매출", value: "136.4억 달러", sub: "시장 예상치 상회" },
+                { label: "Gemini 일일 처리", value: "1조 토큰", sub: "API 사용량 급증" }
+            ];
+
+            const container = document.getElementById('key-data-grid');
+            keyData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-lg shadow-sm border border-slate-100 flex flex-col justify-center hover:shadow-md transition-shadow";
+                card.innerHTML = `
+                    <p class="text-sm text-slate-500 font-medium mb-1">${item.label}</p>
+                    <p class="text-3xl font-bold text-slate-800 mb-1">${item.value}</p>
+                    <p class="text-xs text-slate-400">${item.sub}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderTop5() {
+            const container = document.getElementById('top5-grid');
+            const top5Items = reportData.filter(item => item.isTop5);
+
+            top5Items.forEach((item, index) => {
+                // Find global index for modal mapping
+                const globalIndex = reportData.indexOf(item);
+                const displayTitle = getDisplayTitle(item.title);
+
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-100 cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group";
+                card.setAttribute('data-index', globalIndex);
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded uppercase">${item.category}</span>
+                        <span class="text-slate-300 group-hover:text-blue-500 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 leading-snug mb-2 group-hover:text-blue-700 transition-colors">${displayTitle}</h3>
+                    <p class="text-sm text-slate-500 line-clamp-3">${item.details}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-container');
+            
+            THEMES.forEach(theme => {
+                const items = reportData.filter(item => item.theme === theme && !item.isTop5);
+                if (items.length === 0) return;
+
+                const section = document.createElement('section');
+                section.className = "fade-in";
+                
+                // Section Title
+                const header = document.createElement('h2');
+                header.className = "text-xl font-bold text-slate-700 mb-6 pl-3 border-l-4 border-slate-300";
+                header.textContent = theme;
+                section.appendChild(header);
+
+                // Grid
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+
+                items.forEach(item => {
+                    const globalIndex = reportData.indexOf(item);
+                    const displayTitle = getDisplayTitle(item.title);
+                    
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-5 rounded-lg shadow-sm border border-slate-100 cursor-pointer hover:shadow-lg hover:border-slate-300 transition-all duration-200";
+                    card.setAttribute('data-index', globalIndex);
+                    card.innerHTML = `
+                        <span class="inline-block text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded mb-3">${item.category}</span>
+                        <h3 class="text-base font-semibold text-slate-800 mb-2 leading-tight">${displayTitle}</h3>
+                        <p class="text-xs text-slate-400 line-clamp-2">클릭하여 상세 내용 보기</p>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        // 5. Modal Logic
+        function setupModalHandlers() {
+            const modal = document.getElementById('news-modal');
+            const closeBtn = document.getElementById('modal-close-btn');
+            const closeBtnBottom = document.getElementById('modal-close-btn-bottom');
+            
+            // Open Modal via Delegation
+            document.body.addEventListener('click', (e) => {
+                const card = e.target.closest('[data-index]');
+                if (card) {
+                    const index = card.getAttribute('data-index');
+                    showModal(reportData[index]);
+                }
+            });
+
+            // Close Modal functions
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scrolling
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+            closeBtnBottom.addEventListener('click', closeModal);
+            
+            // Close on backdrop click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        }
+
+        function showModal(item) {
+            const modal = document.getElementById('news-modal');
+            const titleEl = document.getElementById('modal-title');
+            const categoryEl = document.getElementById('modal-category');
+            const bodyEl = document.getElementById('modal-body');
+
+            titleEl.textContent = item.title;
+            categoryEl.textContent = item.category;
+            
+            // Handle newlines safely
+            // Replace \n with <br> or wrap in paragraphs if preferred. 
+            // Here using innerText/textContent with whitespace-pre-line CSS handles it, 
+            // but explicitly wrapping in <p> makes it cleaner.
+            const paragraphs = item.details.split('\n\n').map(p => `<p class="mb-4">${p}</p>`).join('');
+            bodyEl.innerHTML = paragraphs;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+    </script>
+</body>
+</html>

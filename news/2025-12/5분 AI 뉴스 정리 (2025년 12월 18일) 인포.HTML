@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT: 2025.12.18</title>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* 기본 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7; /* 크림색 배경 */
+            color: #111111;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 네오 브루탈리즘 스타일 정의 (부드러운 버전) */
+        .nb-card {
+            background-color: #FFFFFF;
+            border: 2px solid #111111;
+            border-radius: 16px; /* 둥근 모서리 */
+            box-shadow: 6px 6px 0px #111111; /* 하드 그림자 */
+            transition: all 0.2s ease;
+        }
+
+        .nb-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #111111;
+        }
+
+        .nb-btn {
+            border: 2px solid #111111;
+            box-shadow: 4px 4px 0px #111111;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #111111;
+        }
+
+        .nb-badge {
+            border: 2px solid #111111;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+        }
+
+        /* 포인트 컬러 클래스 */
+        .bg-accent-yellow { background-color: #FFD166; }
+        .bg-accent-blue { background-color: #118AB2; color: white; }
+        .bg-accent-red { background-color: #EF476F; color: white; }
+        .bg-accent-green { background-color: #06D6A0; }
+
+        /* 가독성 텍스트 클래스 */
+        .text-huge { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; }
+        .text-big { font-size: 1.25rem; font-weight: 700; }
+        .text-body { font-size: 1.125rem; } /* 18px 기본 */
+        
+        /* 스크롤바 숨김 (네비게이션용) */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 섹션 패딩 */
+        .section-padding { padding-top: 5rem; padding-bottom: 5rem; }
+    </style>
+</head>
+<body>
+
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-md hover:shadow-lg hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="max-w-7xl mx-auto px-6 py-10 text-center">
+        <div class="inline-block bg-accent-yellow border-2 border-black px-6 py-2 rounded-full mb-4 shadow-[4px_4px_0px_#000]">
+            <span class="font-bold text-lg">📅 2025. 12. 18 Briefing</span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight">AI TREND REPORT</h1>
+        <p class="text-xl md:text-2xl text-gray-700 font-medium">
+            복잡한 기술 뉴스, <span class="bg-accent-green px-2 border-b-4 border-black">핵심만 4가지</span>로 정리했습니다.
+        </p>
+    </header>
+
+    <!-- KPI Dashboard (Big Numbers) -->
+    <section class="max-w-7xl mx-auto px-6 mb-16">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+            <span class="w-4 h-8 bg-black block rounded-sm"></span> 오늘의 핵심 숫자 (KPI)
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- KPI 1 -->
+            <div class="nb-card p-6 bg-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-20 text-6xl">🇮🇳</div>
+                <p class="text-gray-600 font-bold mb-2">인도 챗GPT 일간 이용자</p>
+                <div class="text-huge text-[#EF476F]">7,300<span class="text-3xl">만</span></div>
+                <div class="w-full bg-gray-200 h-3 rounded-full mt-4 border border-black">
+                    <div class="bg-[#EF476F] h-full rounded-full" style="width: 85%"></div>
+                </div>
+                <p class="text-sm mt-2 font-medium">전년 대비 607% 폭증 🚀</p>
+            </div>
+
+            <!-- KPI 2 -->
+            <div class="nb-card p-6 bg-white">
+                <p class="text-gray-600 font-bold mb-2">오픈AI 기업가치 (예상)</p>
+                <div class="text-huge text-[#118AB2]">$5,000<span class="text-3xl">억</span></div>
+                <p class="text-body font-medium mt-2 border-l-4 border-[#118AB2] pl-3">
+                    아마존 투자 논의 중<br>빅테크 자본 전쟁 심화
+                </p>
+            </div>
+
+            <!-- KPI 3 -->
+            <div class="nb-card p-6 bg-white">
+                <p class="text-gray-600 font-bold mb-2">통신사 AI 도입률</p>
+                <div class="text-huge text-[#06D6A0]">56<span class="text-3xl">%</span></div>
+                <p class="text-lg mt-1">AI 에이전트 실무 투입</p>
+                <p class="text-sm text-gray-500">"파일럿 단계 끝났다" 📡</p>
+            </div>
+
+            <!-- KPI 4 -->
+            <div class="nb-card p-6 bg-white">
+                <p class="text-gray-600 font-bold mb-2">마이크론 분기 매출</p>
+                <div class="text-huge text-[#FFD166]">$136<span class="text-3xl">억</span></div>
+                <p class="text-body font-medium mt-2">
+                    역대 최대 실적 달성<br>AI 반도체 수요 견인
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur border-b-2 border-black py-4 mb-10 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto px-6 flex gap-4 min-w-max">
+            <a href="#theme1" class="nb-btn bg-white px-6 py-3 hover:bg-black hover:text-white">🚀 모델 경쟁</a>
+            <a href="#theme2" class="nb-btn bg-white px-6 py-3 hover:bg-black hover:text-white">🌏 국가 전략</a>
+            <a href="#theme3" class="nb-btn bg-white px-6 py-3 hover:bg-black hover:text-white">💼 일의 미래</a>
+            <a href="#theme4" class="nb-btn bg-white px-6 py-3 hover:bg-black hover:text-white">💰 머니 플로우</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 space-y-24 pb-20">
+
+        <!-- Theme 1: Model War -->
+        <section id="theme1" class="scroll-mt-32">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-4xl">🚀</span>
+                <h2 class="text-4xl font-black">THEME 01. 더 빠르고 가볍게</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Type B: VS Card -->
+                <div class="nb-card p-8 relative">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black text-white px-4 py-1 rounded-full font-bold shadow-lg">
+                        VS 대결 구도
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-8">구글의 역습: Gemini 3 Flash</h3>
+                    
+                    <div class="flex justify-between items-center gap-4">
+                        <div class="text-center w-1/2">
+                            <div class="text-5xl mb-2">🐢</div>
+                            <div class="font-bold text-gray-500">기존 고성능 모델</div>
+                            <p class="text-sm mt-2">똑똑하지만<br>비싸고 느리다</p>
+                        </div>
+                        <div class="text-3xl font-black text-gray-300">VS</div>
+                        <div class="text-center w-1/2 bg-[#E0F7FA] p-4 rounded-xl border-2 border-[#118AB2]">
+                            <div class="text-5xl mb-2">⚡</div>
+                            <div class="font-bold text-[#118AB2] text-xl">Gemini 3 Flash</div>
+                            <p class="text-sm mt-2 font-bold">빠르고 저렴한<br>'범용 추론'</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-100 p-4 mt-6 rounded-lg border border-gray-300 text-lg">
+                        <p><strong>💡 핵심:</strong> 구글이 '가격'과 '속도'를 무기로 전 세계 앱과 검색의 기본 엔진을 교체하고 있습니다. 이제 AI는 '얼마나 똑똑한가'에서 '얼마나 쓰기 편한가'로 넘어갑니다.</p>
+                    </div>
+                </div>
+
+                <!-- Type C: Process Card (Gem Integration) -->
+                <div class="nb-card p-8">
+                    <h3 class="text-2xl font-bold mb-6">나만의 AI 앱 만들기 (Opal 통합)</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-black text-white w-10 h-10 flex items-center justify-center rounded-full text-xl font-bold flex-shrink-0">1</div>
+                            <div class="bg-white border-2 border-black p-4 rounded-xl flex-1 shadow-[2px_2px_0px_#000]">
+                                말로 설명하기 <span class="text-gray-500">"매일 뉴스 요약해줘"</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-center text-3xl">⬇️</div>
+                        <div class="flex items-center gap-4">
+                            <div class="bg-black text-white w-10 h-10 flex items-center justify-center rounded-full text-xl font-bold flex-shrink-0">2</div>
+                            <div class="bg-white border-2 border-black p-4 rounded-xl flex-1 shadow-[2px_2px_0px_#000]">
+                                시각적 워크플로우 자동 생성 🛠️
+                            </div>
+                        </div>
+                        <div class="flex justify-center text-3xl">⬇️</div>
+                        <div class="flex items-center gap-4">
+                            <div class="bg-[#FFD166] text-black w-10 h-10 flex items-center justify-center rounded-full text-xl font-bold flex-shrink-0">3</div>
+                            <div class="bg-[#FFD166] border-2 border-black p-4 rounded-xl flex-1 shadow-[2px_2px_0px_#000] font-bold">
+                                '미니 앱(Gem)'으로 즉시 사용 ✅
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-right">
+                        <span class="bg-gray-200 px-3 py-1 rounded text-sm font-bold">#노코드 #자동화</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 2: Global Rush -->
+        <section id="theme2" class="scroll-mt-32">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-4xl">🌏</span>
+                <h2 class="text-4xl font-black">THEME 02. 국가 대항전 & 인도</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Type A: Chart Card (India) -->
+                <div class="nb-card p-6 lg:col-span-2">
+                    <h3 class="text-2xl font-bold mb-2">인도: AI 사용자 최대 격전지</h3>
+                    <p class="text-lg text-gray-600 mb-6">"무료 요금제"로 14억 인구를 잡아라</p>
+                    
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 h-64">
+                        <canvas id="indiaChart"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="bg-[#F0F4F8] p-4 rounded-lg">
+                            <strong class="block text-[#118AB2]">OpenAI 전략</strong>
+                            <span class="text-sm">데이터 요금 낮은 인도 특성 활용, 무료 확대</span>
+                        </div>
+                        <div class="bg-[#F0F4F8] p-4 rounded-lg">
+                            <strong class="block text-[#EF476F]">Google 전략</strong>
+                            <span class="text-sm">다언어/사투리 데이터 확보를 위한 테스트베드</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Type C: Gov Process -->
+                <div class="nb-card p-6 bg-[#333] text-white">
+                    <h3 class="text-xl font-bold text-[#FFD166] mb-4">🇺🇸 미국 정부의 AI 채용 작전</h3>
+                    <h4 class="text-2xl font-black mb-6 border-b border-gray-600 pb-2">"US Tech Force"</h4>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl">🎯</span>
+                            <div>
+                                <strong class="text-[#FFD166]">목표:</strong> 백악관 주도, 연방정부 AI 도입 가속
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl">🤝</span>
+                            <div>
+                                <strong class="text-[#FFD166]">협력:</strong> 구글, MS, 엔비디아 등 빅테크 파트너십
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl">🎓</span>
+                            <div>
+                                <strong class="text-[#FFD166]">방식:</strong> 2년 임기로 핵심 프로젝트 투입 후 민간 취업 연계
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-8 bg-white/10 p-4 rounded-lg border border-white/20">
+                        <p class="text-sm">💡 <strong>인사이트:</strong> 국가는 이제 AI 인프라뿐만 아니라, 이를 다룰 '사람'을 확보하는 데 총력을 기울이고 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 3: Workforce -->
+        <section id="theme3" class="scroll-mt-32">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-4xl">💼</span>
+                <h2 class="text-4xl font-black">THEME 03. AI 동료와 일자리</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Type B: Quote VS -->
+                <div class="nb-card p-8 bg-accent-blue border-black">
+                    <h3 class="text-2xl font-bold text-white mb-6">CEO들의 말말말</h3>
+                    
+                    <div class="bg-white p-6 rounded-xl border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,0.2)] mb-4 transform rotate-1">
+                        <div class="text-4xl mb-2">🧑‍💼</div>
+                        <p class="font-bold text-lg">"AI는 내 업무(CEO)도 할 수 있을 만큼 발전했다."</p>
+                        <p class="text-right text-gray-500 text-sm font-bold mt-2">- 클라르나 CEO</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,0.2)] transform -rotate-1">
+                        <div class="text-4xl mb-2">📡</div>
+                        <p class="font-bold text-lg">"장애 진단 시간이 1시간에서 수분으로 줄었다."</p>
+                        <p class="text-right text-gray-500 text-sm font-bold mt-2">- 도이치텔레콤 (AI 에이전트 도입)</p>
+                    </div>
+                </div>
+
+                <!-- Type A: Stats -->
+                <div class="nb-card p-8">
+                    <h3 class="text-2xl font-bold mb-4">통신사가 AI에 진심인 이유</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold">운영 환경 도입률</span>
+                                <span class="font-bold text-[#06D6A0]">56%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4 border border-black">
+                                <div class="bg-[#06D6A0] h-4 rounded-full border-r border-black" style="width: 56%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mt-4">
+                            <div class="border-2 border-black rounded-lg p-4 text-center bg-[#FDFBF7]">
+                                <div class="text-3xl">🛠️</div>
+                                <div class="font-bold mt-2">장애 자동 복구</div>
+                            </div>
+                            <div class="border-2 border-black rounded-lg p-4 text-center bg-[#FDFBF7]">
+                                <div class="text-3xl">📞</div>
+                                <div class="font-bold mt-2">고객 응대</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border-l-4 border-[#FFD166] p-4">
+                            <p class="text-lg"><strong>💡 변화:</strong> 단순 챗봇이 아닙니다. 네트워크를 직접 제어하고 고치는 '에이전트'가 상용화되고 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Theme 4: Money Flow -->
+        <section id="theme4" class="scroll-mt-32">
+             <div class="flex items-center gap-3 mb-8">
+                <span class="text-4xl">💰</span>
+                <h2 class="text-4xl font-black">THEME 04. 돈은 어디로 흐르나</h2>
+            </div>
+            
+            <div class="nb-card p-8 bg-white">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <h3 class="text-3xl font-black mb-4">반도체 & 인프라 호황</h3>
+                        <p class="text-xl leading-relaxed mb-6">
+                            AI 모델이 똑똑해질수록 <span class="bg-[#FFD166] px-1 border border-black">메모리 반도체</span>와 <span class="bg-[#FFD166] px-1 border border-black">클라우드 칩</span> 수요는 폭발합니다.
+                        </p>
+                        <ul class="space-y-4 text-lg">
+                            <li class="flex items-center gap-3">
+                                <span class="text-green-600 font-bold">📈 마이크론:</span>
+                                <span>AI 데이터센터 수요로 예상치 상회 실적</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-blue-600 font-bold">🤝 아마존 & 오픈AI:</span>
+                                <span>$100억 투자 및 AI 칩 사용 논의</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border-2 border-dashed border-gray-400 text-center">
+                        <div class="text-gray-500 font-bold mb-4">AI 투자 생태계 흐름</div>
+                        <div class="flex flex-col gap-2 items-center">
+                            <div class="bg-white border-2 border-black p-3 rounded-lg w-full max-w-xs shadow-md">
+                                🏢 빅테크 (MS, Amazon, Google)
+                            </div>
+                            <div class="text-2xl">⬇️ 💰 투자</div>
+                            <div class="bg-[#FFD166] border-2 border-black p-3 rounded-lg w-full max-w-xs shadow-md font-bold">
+                                🤖 AI 모델사 (OpenAI, Anthropic)
+                            </div>
+                            <div class="text-2xl">⬇️ 💻 칩 구매</div>
+                            <div class="bg-[#118AB2] text-white border-2 border-black p-3 rounded-lg w-full max-w-xs shadow-md font-bold">
+                                💾 반도체 (Nvidia, Micron)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#111] text-white py-12 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-4">AI NEWS INFOGRAPHIC</h2>
+            <p class="text-gray-400 mb-8">Generated by AI Infographic Designer</p>
+            <div class="border-t border-gray-800 pt-8 text-sm text-gray-500">
+                Data Sources: OPM, Reuters, TechCrunch, Google Cloud, Micron, OpenAI
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chart Script -->
+    <script>
+        const ctx = document.getElementById('indiaChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['ChatGPT (오픈AI)', 'Gemini (구글)'],
+                datasets: [{
+                    label: '일간 이용자 수 (명)',
+                    data: [73000000, 17000000],
+                    backgroundColor: [
+                        '#10A37F', // ChatGPT Green
+                        '#4285F4'  // Google Blue
+                    ],
+                    borderColor: '#111111',
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    barThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('ko-KR').format(context.parsed.y) + '명';
+                                }
+                                return label;
+                            }
+                        },
+                        titleFont: { family: 'Noto Sans KR', size: 14 },
+                        bodyFont: { family: 'Noto Sans KR', size: 14 },
+                        padding: 10,
+                        backgroundColor: '#111',
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { display: true, color: '#f0f0f0' },
+                        ticks: {
+                            font: { family: 'Noto Sans KR', weight: 'bold' },
+                            callback: function(value) {
+                                return value / 10000 + '만';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: 'Noto Sans KR', size: 14, weight: 'bold' },
+                            color: '#111'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
