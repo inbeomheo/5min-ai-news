@@ -57,6 +57,16 @@ if ($index -notmatch 'href="news/2025-12/[^\"]*2025[^\"]*12[^\"]*20[^\"]*\.HTML"
 
 $dash = Get-Content -LiteralPath $dashboard.FullName -Raw
 
+$info = Get-Content -LiteralPath $infographic.FullName -Raw
+
+if ($dash -notmatch 'href="\.\./\.\./index\.html"') {
+    throw "2025-12-20 dashboard does not include home link (../../index.html)"
+}
+
+if ($info -notmatch 'href="\.\./\.\./index\.html"') {
+    throw "2025-12-20 infographic does not include home link (../../index.html)"
+}
+
 if ($dash -notmatch 'value:\s*"24\.1%"') {
     throw "2025-12-20 dashboard keyMetricsData does not include value: 24.1%"
 }
