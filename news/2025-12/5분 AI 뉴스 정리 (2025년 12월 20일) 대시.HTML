@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: 일일 AI 뉴스 리포트</title>
+    
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- Header (Sticky) -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="bg-slate-900 text-white px-2 py-1 rounded text-xs font-bold tracking-wider">NEWS DASH</span>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">5분 AI 뉴스 정리</h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                2025년 12월 20일
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- 1. Key Data Highlights -->
+        <section id="key-highlights-section" class="animate-fade-in">
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <span class="w-1.5 h-6 bg-amber-500 rounded-full"></span>
+                주요 데이터 하이라이트
+            </h2>
+            <div id="key-numbers-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- 2. Top 5 News -->
+        <section id="top-news-section">
+            <div class="flex items-center justify-between mb-5">
+                <h2 class="text-2xl font-black text-slate-900 flex items-center gap-2">
+                    <span class="text-amber-600">★</span> 오늘의 Top 5 뉴스
+                </h2>
+                <span class="text-xs font-medium text-slate-400">빅테크 & 핵심 이슈</span>
+            </div>
+            <div id="top-news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- 3. Thematic Sections -->
+        <div id="thematic-sections" class="space-y-12">
+            <!-- Dynamically populated -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-2 text-slate-300 font-semibold">NewsDash AI Report Viewer</p>
+            <p class="text-sm">제공된 리포트 데이터를 기반으로 생성된 대시보드입니다.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+        <!-- Modal Panel -->
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div id="modal-panel" class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl opacity-0 scale-95 translate-y-4">
+                    
+                    <!-- Header -->
+                    <div class="bg-slate-50 px-4 py-4 sm:px-6 border-b border-slate-100 flex justify-between items-start">
+                        <div>
+                            <span id="modal-tag" class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20 mb-2">Category</span>
+                            <h3 id="modal-title" class="text-lg font-bold leading-6 text-slate-900 pr-4"></h3>
+                        </div>
+                        <button type="button" id="modal-close-btn" class="rounded-md bg-white text-slate-400 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="px-4 py-6 sm:px-6">
+                        <div id="modal-content" class="text-sm sm:text-base text-slate-700 leading-relaxed whitespace-pre-line modal-scroll max-h-[60vh] overflow-y-auto pr-2">
+                            <!-- Details go here -->
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-100">
+                        <button type="button" id="modal-confirm-btn" class="inline-flex w-full justify-center rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 sm:ml-3 sm:w-auto transition-colors">
+                            확인
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Data Source ---
+        const reportData = [
+            // Top 5 Candidates (Big Tech Focused)
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Standard / UI",
+                title: "오픈AI·앤트로픽, 대화 안에 앱 UI 넣는 MCP Apps 확장안 제안",
+                isTop5: true,
+                details: "오픈AI와 앤트로픽의 MCP 코어 유지보수진은 2025년 11월 21일 MCP 공식 블로그에서 대화형 UI 표준화를 목표로 한 MCP Apps Extension(SEP-1865) 제안을 공개했다. 이번 확장안은 MCP 서버가 UI 리소스를 함께 제공하고, 호스트(클라이언트)와 양방향 통신하는 방식으로 “채팅 안의 앱” 경험을 구현하는 데 초점을 맞췄다. 이에 따라 도구 호출 결과를 텍스트·JSON으로만 전달하던 흐름에서 벗어나, 시각화·입력 폼 같은 인터랙션을 표준 방식으로 재사용할 수 있을 전망이다.\n\n그동안 MCP 생태계에서는 풍부한 UI 구현이 각 클라이언트별로 제각각 진행돼 호환성 문제가 커졌고, 이를 줄이기 위해 Apps SDK와 MCP-UI 경험을 표준화 논의에 반영했다. 제안 문서는 ui:// URI 스킴과 HTML 우선 렌더링, 그리고 iframe 샌드박싱 기반 보안 모델을 통해 서버가 제공하는 UI를 안전하게 임베드하는 접근을 설명한다. 표준은 아직 제안 단계로 커뮤니티 피드백과 시범 구현을 통해 세부 규격이 정교화될 것으로 보인다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Model / R&D",
+                title: "딥마인드 연구원 “Flash가 Pro 이긴 이유는 RL”…축소판 논란에 선 긋기",
+                isTop5: true,
+                details: "구글 딥마인드 연구원 Ankesh Anand는 최근 X에서 “Flash가 Pro보다 앞서는 성능을 보일 수 있는 이유는 강화학습 RL에 있다”는 취지로 언급했다. 그는 Flash가 Pro의 단순한 축소·증류판이 아니라, 에이전틱 RL 분야의 새로운 진전이 Flash에 먼저 반영됐고 Pro에는 적용이 늦었다고 설명했다. 이 발언은 모델 라인업 내 성능 역전 사례를 “크기”가 아닌 “학습·최적화 시차”로 해석하게 만들며, 차기 Pro 업데이트에 대한 기대를 키웠다.\n\n구글은 2025년 12월 17일 개발자 대상 Gemini 3 Flash 출시를 알리며, 비용 대비 성능과 속도를 전면에 내세웠다. 구글은 Flash가 3 Pro의 멀티모달·코딩·에이전틱 역량을 바탕으로 설계됐고, 더 낮은 비용과 높은 처리 한도에서 폭넓은 활용을 겨냥한다고 밝혔다. 업계에서는 Anand의 언급처럼 RL 기반 개선이 향후 Pro 계열로 확장될지, 그리고 라인업 간 역할 분담이 어떻게 재정의될지 주목하고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Integration",
+                title: "NotebookLM, Gemini 앱에 노트북 업로드 기능 순차 도입",
+                isTop5: true,
+                details: "구글은 2025년 12월 중 Gemini 앱에서 NotebookLM 노트북을 업로드해 대화 컨텍스트로 쓰는 NotebookLM 통합을 순차적으로 지원하기 시작했다. 이용자는 Gemini 대화 중 노트북을 첨부해, NotebookLM에 정리해둔 자료·요약·출처를 기반으로 질의응답을 이어갈 수 있다. 이에 따라 리서치용 노트북을 별도로 열지 않고도, 단일 대화 흐름에서 자료 기반 답변을 얻는 사용 패턴이 강화될 전망이다.\n\nNotebookLM은 원문 출처를 중심으로 요약·질의응답을 제공하는 도구로 자리 잡아 왔고, 이번 통합은 “노트북의 지식 베이스”를 Gemini로 끌어오는 형태다. 구글 안내 문서에 따르면 사용자는 첨부 메뉴에서 NotebookLM 노트북을 선택해 추가할 수 있으며, 일부 계정 유형에서는 이용 제한이 있을 수 있다. 구글이 기능을 단계적으로 확대하고 있어, 향후 지원 범위와 연동 방식이 더 정교해질지 관심이 모인다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Finance",
+                title: "오픈AI, 약 7,500억달러 가치로 초대형 투자 유치 논의…최대 1,100조원 거론",
+                isTop5: true,
+                details: "오픈AI가 12월 17~18일(현지시간) 일부 투자자들과 기업가치 약 7,500억달러를 기준으로 한 자금 조달을 예비 논의한 것으로 전해졌다. 로이터는 더인포메이션 보도를 인용해 오픈AI가 최대 1,000억달러 규모 조달 가능성도 거론됐다고 전했다. 거래가 성사될 경우 비상장 AI 기업 가운데서도 이례적인 수준의 평가가 확정되며, AI 인프라 경쟁이 더 격화될 수 있다.\n\n국내 보도에서는 7,500억달러를 약 1,100조원으로 환산해 ‘사상 최대급’ 딜이 될 수 있다고 분석했다. 다만 로이터는 논의가 초기 단계이며 오픈AI가 즉각 입장을 내지 않았다고 전했다. 시장에서는 투자 유치 여부와 조건에 따라 오픈AI의 컴퓨팅 투자 속도와 IPO 준비 시계도 함께 빨라질지 주목하고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Model / Multimodal",
+                title: "메타, 코드명 ‘망고’ 이미지·영상 생성 모델 개발…2026년 상반기 출시 관측",
+                isTop5: true,
+                details: "메타플랫폼스는 12월 19일(현지시간) 사내 질의응답에서 코드명 망고로 불리는 새 생성형 모델을 개발 중이라는 사실이 전해졌다. 해당 모델은 이미지·비디오 생성에 초점을 맞춘 것으로 알려졌으며, 이르면 2026년 상반기 공개가 거론된다. 메타가 멀티모달 경쟁력을 강화할 경우, 생성형 콘텐츠 시장의 경쟁 구도가 한층 더 가열될 전망이다.\n\n이번 개발은 메타가 오픈 모델 생태계 확대와 함께 상용 제품군도 넓히려는 흐름과 맞물린다. 더인포메이션은 내부 대화에서 알렉산드르 왕 CAIO가 망고 외에도 텍스트 중심 모델 ‘아보카도’와 월드 모델 연구를 언급한 것으로 전했다고 밝혔다. 메타는 세부 사양을 공개하지 않았지만, 향후 개발자 행사 등을 통해 제품 로드맵을 제시할 가능성이 있다."
+            },
+            
+            // Remaining Items
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Dev Tools",
+                title: "깃허브, MCP Apps Extension 표준 소개…MCP 서버에 “앱·UI” 확장 시동",
+                isTop5: false,
+                details: "깃허브는 X를 통해 2025년 11월 21일 공개된 MCP Apps Extension 표준을 소개하며, MCP 서버에 앱·UI를 부착하는 흐름을 공식적으로 조명했다. 해당 표준은 MCP 서버가 텍스트·데이터만 제공하던 한계를 넘어, 대화 화면에서 바로 실행되는 인터랙티브 UI를 공통 방식으로 연결하는 데 목적이 있다. 이는 깃허브가 MCP를 범용 통합 레이어로 밀어붙이는 기조를 재확인시키며, 다양한 에이전트·챗봇 간 UI 호환성 논의에 불을 붙였다.\n\n배경에는 깃허브가 코파일럿 생태계에서 서버형 확장을 MCP로 재편하려는 움직임이 있다. 깃허브는 2025년 9월 24일 공지에서 GitHub App 기반 Copilot Extensions를 단계적으로 중단하고 MCP 서버로 전환한다고 밝힌 바 있다. MCP Apps Extension이 샌드박스 UI 규격까지 제시하면서, 향후 코파일럿을 포함한 MCP 호스트들이 시각적 워크플로를 더 자연스럽게 제공하는 방향으로 진화할 가능성이 커졌다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Dev Tools",
+                title: "구글, “컨텍스트 중심 개발” 제시…Gemini CLI에 Conductor 도입",
+                isTop5: false,
+                details: "구글은 2025년 12월 17일 Gemini CLI 프리뷰에서 Conductor를 공개하며, 컨텍스트 중심 개발이라는 개발 방식을 전면에 내세웠다. Conductor는 기획·설계·의사결정 같은 핵심 정보를 파일로 유지해 에이전트가 지속적으로 참조하도록 하며, 대화형 코딩에서 발생하는 맥락 손실을 줄이는 데 초점을 맞춘다. 이 흐름은 업계에서 “코딩 에이전트의 생산성은 컨텍스트 관리에 달렸다”는 문제의식을 확산시키는 계기로 평가된다.\n\nAI 코딩 도구가 확산되면서 “세션이 바뀌면 의도가 흐려지는 문제”가 반복적으로 지적돼 왔고, Conductor는 이를 구조화된 상태 저장으로 풀겠다는 접근이다. 구글은 Conductor가 특히 레거시 코드 같은 브라운필드 프로젝트에서 유용하도록 설계됐다고 설명하며, CLI 기반 워크플로에 자연스럽게 녹이는 방향을 제시했다. 전문가들은 컨텍스트를 자산으로 관리하는 방식이 확산될 경우, 향후 에이전트 개발의 기본 규범으로 자리 잡을 가능성이 있다고 보고 있다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Safety / Evaluation",
+                title: "오픈AI, 체인-오브-쏘트 “감시 가능성” 평가 공개…안전성 측정 프레임 제시",
+                isTop5: false,
+                details: "오픈AI는 2025년 12월 18일 체인-오브-쏘트(CoT)의 감시 가능성을 체계적으로 측정하는 평가 프레임워크를 공개했다. 오픈AI는 모니터가 모델의 추론 과정에서 오작동 신호를 얼마나 잘 포착하는지 보기 위해, 총 13개 평가와 24개 환경으로 구성된 벤치마크 묶음을 제시했다. 이는 추론 단계 컴퓨트, 학습 방식, 스케일 변화가 CoT 감시 가능성에 미치는 영향을 추적할 수 있게 하며, 안전성 지표의 표준화 논의를 촉진할 전망이다.\n\n최근 추론형 모델이 확산되면서 CoT가 안전 통제의 핵심 단서가 될 수 있다는 기대와, 훈련 변화로 취약해질 수 있다는 우려가 동시에 제기돼 왔다. 오픈AI는 “더 오래 생각할수록 감시가 쉬워지는 경향”과 함께, 현 시점의 대규모 RL 최적화가 감시 가능성을 크게 훼손하지 않았다는 관측을 공유하면서도, 성능을 맞추기 위한 감시 비용 같은 트레이드오프를 언급했다. 오픈AI는 업계 전반에 CoT 감시 가능성을 가능한 오래 유지하기 위한 연구와, 이를 ‘하중을 견디는’ 통제층으로 검증하는 작업을 촉구했다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Safety / Research",
+                title: "딥마인드, Gemma Scope 2 공개…오픈 모델 해석 도구로 안전 연구 지원",
+                isTop5: false,
+                details: "구글 딥마인드는 2025년 12월 19일 Gemma 3 모델군을 대상으로 한 해석 도구 모음 Gemma Scope 2를 공개했다. Gemma Scope 2는 희소 오토인코더(SAE)와 트랜스코더 등을 활용해 모델 내부 표현을 추적·분해할 수 있도록 하며, 안전 연구자들이 복잡한 행동을 더 정밀하게 분석하는 데 목적이 있다. 딥마인드는 이를 통해 더 안전한 AI를 위한 커뮤니티 연구 역량을 넓히겠다는 입장을 밝혔다.\n\n딥마인드는 2024년 Gemma 2를 대상으로 Gemma Scope를 선보인 바 있으며, 이번에는 Gemma 3 전반으로 범위를 확장해 공개 생태계의 분석 가능성을 키웠다. 공식 릴리스 노트는 Gemma Scope 2를 Gemma 3용 해석 스위트로 규정했고, 관련 아티팩트는 허깅페이스 공개 형태로 배포돼 외부 검증과 재현 실험을 지원한다. 연구자들은 이 도구가 오픈 모델의 취약점 점검, 안전 메커니즘 개선, 그리고 내부 동작 이해를 가속할 기반이 될지 주목하고 있다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Startup / R&D",
+                title: "얀 르쿤, ‘월드 모델’ 스타트업 AMI Labs 공식화…초기 기업가치 논란 확산",
+                isTop5: false,
+                details: "메타 전 최고 AI 과학자 얀 르쿤은 19일(현지시간) 링크드인에서 새 AI 스타트업 AMI Labs 설립을 확인했다. 그는 월드 모델 기반 시스템을 개발하겠다는 구상 아래 자신은 회장직을 맡고, 의료 AI 기업 나블라(Nabla) 창업자인 알렉상드르 르브룅을 CEO로 영입했다고 밝혔다. 새 회사는 출범 전부터 30억유로(약 35억달러) 수준의 기업가치와 5억유로 조달이 거론되는 한편, 일부 보도에서는 50억달러 이상 평가 가능성도 제기돼 투자 열기와 거품 우려를 동시에 키우고 있다.\n\n르쿤은 최근 메타를 연말에 떠나 새 프로젝트에 집중하겠다고 밝히며 업계의 관심을 받아왔다. 보도에 따르면 AMI Labs는 물리적 환경을 이해·예측하는 현실 세계 이해 능력을 강화해 로보틱스·운송 등 응용을 겨냥하며, 메타는 직접 투자 대신 전략적 협력을 유지하는 방향으로 전해졌다. 회사는 내년 초까지 조직과 자금 조달을 정비한 뒤 모델 개발을 본격화할 전망이며, ‘월드 모델’ 경쟁이 주요 연구소와 스타트업 전반으로 더 확산될 가능성이 제기된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Hardware",
+                title: "중국, 광학 AI 칩 ‘LightGen’ 공개…A100 대비 100배 성능 주장",
+                isTop5: false,
+                details: "중국 상하이자오퉁대·칭화대 공동 연구팀은 2025년 12월 19일 학술지 사이언스에 엔비디아 A100 대비 100배 빠르다고 주장한 LightGen 광학 컴퓨팅 칩을 공개했다. 연구팀은 전자를 대신해 빛을 계산에 활용하고, 칩 안에 200만 개 이상 포토닉 뉴런을 집적해 영상 생성·이미지 합성 같은 생성형 작업을 수행하도록 설계했다고 설명했다. 실험 결과가 상용 환경에서도 재현될 경우, 생성형 AI의 연산 병목과 전력 소모를 낮추는 대안으로 부상할 수 있다는 평가가 나온다.\n\n생성형 AI 확산으로 GPU 기반 연산 수요가 폭증하면서, 전력·냉각 비용과 데이터센터 탄소 배출이 핵심 제약으로 지목돼 왔다. 논문을 이끈 천이퉁 교수는 LightGen이 추가로 확장될 수 있으며 성능 저하 없이 더 높은 속도와 효율을 제공하는 경로가 될 수 있다고 밝혔다. 다만 광학 소자의 제조 수율과 시스템 통합, 범용 학습에의 적용성 검증이 남아 있어, 상용화 속도는 후속 연구와 산업 파트너십에 달렸다는 관측이 나온다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Construction",
+                title: "두산밥캣, CES 2026서 클라우드 AI를 작업 현장으로…장비 혁신 예고",
+                isTop5: false,
+                details: "두산밥캣은 2025년 12월 12일 발표에서 2026년 1월 미국 라스베이거스에서 열리는 CES 2026에서 클라우드 기반 AI를 작업 현장으로 가져오는 신기술을 공개하겠다고 밝혔다. 회사는 장비·작업자 경험을 단순화하기 위해 ‘현장에서, 장비 안에서’ 작동하는 AI를 중심으로 실시간 조작 가이드와 생산성 향상 기능을 제시할 계획이다. 이를 통해 숙련 인력 감소와 장비 비가동 문제를 줄이고, 현장 안전성을 높이는 데 도움이 될 것으로 보고 있다.\n\n건설 현장은 고령화와 인력 교체, 작업 복잡성 증가로 장비 조작 난도가 높아지는 상황이 이어져 왔다. 두산은 보도자료에서 작업자 지원 AI와 AI 기반 정비 솔루션, 레이더 기반 위험 인식 등을 예고하며 2026년 1월 5일 미디어데이에서 시연하겠다고 밝혔다. 회사는 전시 이후 적용 로드맵을 구체화할 예정이며, 실제 현장 도입 속도는 지역별 안전 검증과 운영 환경에 따라 달라질 전망이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Market",
+                title: "기업 AI 도입 가속…AI 툴킷 시장, 두 자릿수 성장 전망",
+                isTop5: false,
+                details: "시장조사기관들은 2025년을 기점으로 기업들의 AI 도입이 확산되면서 AI 툴킷 시장이 글로벌 전 산업에서 빠르게 확대될 것으로 전망하고 있다. 생성형 AI 배포가 늘자 학습·배포·모니터링을 묶은 툴킷 수요가 커지고, 클라우드 사업자의 관리형 서비스와 오픈소스 생태계가 진입 장벽을 낮춘 점이 성장 요인으로 꼽힌다. 이에 따라 개발 플랫폼 기업뿐 아니라 MLOps, 보안, 거버넌스 분야에서도 신규 매출 기회가 커지고 있다.\n\nAI 툴킷은 모델 개발부터 운영까지의 전 과정을 지원해, 내부 개발팀이 부족한 기업도 표준화된 방식으로 AI를 적용할 수 있게 한다. Mordor Intelligence는 2025년 시장을 301억달러로 추정하고 2030년 1587억달러까지 성장할 수 있다고 봤으며, Global Market Insights는 2024년 253억달러 규모와 2025~2034년 연평균 24.1% 성장 전망을 제시했다. 업계는 향후 규제 대응과 비용 효율화가 경쟁의 핵심이 될 것으로 보고, 데이터 관리·감사 기능을 내장한 툴킷 경쟁이 심화될 것으로 예상된다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Copyright",
+                title: "호주 생산성위원회, AI 학습용 저작권 예외안 철회…창작계 반발 영향",
+                isTop5: false,
+                details: "호주 생산성위원회는 2025년 12월 19일 AI 모델이 호주 저작물을 학습 데이터로 활용할 수 있도록 하는 저작권 예외 도입 제안을 최종 보고서에서 사실상 철회했다. 위원회는 당초 ‘공정거래형’ 예외를 통해 AI 개발을 촉진하려 했지만, 음악·출판 등 창작 산업이 강력 반발했고 정부도 2025년 10월 예외 도입을 배제한 바 있다. 이로써 호주는 당분간 현행 저작권 체계를 유지하면서, 라이선싱·보상 모델을 중심으로 논의를 이어가게 됐다.\n\n생성형 AI 학습 데이터가 세계적으로 소송과 규제 논쟁의 중심에 서면서, 각국은 창작자 보호와 혁신 촉진 사이의 균형점을 찾고 있다. 가디언은 반발을 계기로 위원회가 제안을 접고 3년 유예 후 재검토를 권고했다고 전했으며, ABC도 정부가 AI 학습용 예외 도입을 ‘확실히’ 배제했다고 보도했다. 향후 호주는 집단 라이선스나 표준 계약 등 대안을 놓고 창작계·기술업계·정부 간 협의가 이어질 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Ecosystem",
+                title: "카카오, MCP 개발 공모전 ‘MCP Player 10’ 개최…총 2100만원 지원",
+                isTop5: false,
+                details: "카카오는 2025년 12월 19일 국내 개발자를 대상으로 MCP 개발 공모전 ‘MCP Player 10’을 개최한다고 발표했다. 참가자는 PlayMCP 사이트에 자신이 만든 MCP 서버를 업로드해 응모하며, 카카오는 창의성·편의성·기술 안정성 등을 기준으로 심사한다. 선정된 10명에게는 총 2100만원 규모의 지원금과 서비스 협업·마케팅 지원 기회가 제공된다.\n\n카카오는 2025년 7월 MCP 기반 개방형 플랫폼 ‘PlayMCP’를 베타로 열어, 에이전틱 AI 생태계 확장을 추진해 왔다. 공식 안내에 따르면 모집은 2026년 1월 18일까지 진행되며, 결과는 2026년 2월 3일 발표되고 1등 1000만원 등 차등 지원금이 지급된다. 카카오는 공모전을 통해 유용한 MCP 서버가 늘면 서비스 안에서 외부 도구 연결이 쉬워져 생태계가 확장될 것으로 기대하고 있다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Labor / Economy",
+                title: "영란은행 총재, AI 일자리 대체 경고…산업혁명급 충격 가능성 언급",
+                isTop5: false,
+                details: "영국 중앙은행인 영란은행의 앤드루 베일리 총재는 2025년 12월 19일 보도에서 인공지능이 일자리를 대체할 가능성이 높다고 경고했다. 그는 산업혁명처럼 직무 구조가 바뀔 수 있으며, 특히 법률·회계 등에서 경력 초입의 업무가 자동화되면 교육·훈련 체계가 흔들릴 수 있다고 지적했다. 다만 대규모 실업으로 직결되기보다는 생산성 향상과 함께 재교육 수요가 커질 것이라는 관측을 내놨다.\n\n기업들이 고객 지원·문서 처리 같은 반복 업무에 AI를 적용하면서, 채용과 조직 설계에도 변화 조짐이 나타나고 있다. 베일리 총재는 훈련과 교육이 전환의 핵심이라고 강조하며, AI 투자 열기가 자산시장에 거품을 만들 수 있다는 점도 함께 언급했다는 보도가 나왔다. 영란은행은 고용과 성장, 금융 안정성에 대한 파급을 점검하며 정책 대응을 모색할 전망이다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Data Rights",
+                title: "로이터 브레이킹뷰스, AI 데이터 사용 ‘냅스터 순간’ 경고…라이선스 비용이 판도 바꿀까",
+                isTop5: false,
+                details: "로이터 브레이킹뷰스는 2025년 12월 19일 칼럼에서 AI 산업의 데이터 사용 관행이 냅스터 순간에 다가가고 있다고 진단했다. 인터넷에 공개된 텍스트·이미지·음원을 무단으로 학습에 활용했다는 소송이 누적되면서, 기업들이 라이선스 데이터 중심으로 이동할 수밖에 없다는 논리다. 칼럼은 이 전환이 개발 비용을 끌어올리고, 자금력이 큰 소수 기업 중심의 구조로 재편을 촉진할 수 있다고 봤다.\n\n콘텐츠가 비용이 거의 들지 않는 입력재로 취급되던 시기에 성장한 AI 기업들은, 법적 책임이 커질수록 데이터 조달 전략을 바꿔야 한다. 브레이킹뷰스는 로열티 기반 모델이 확산될 수 있으며, 합의·라이선싱 계약이 늘면 데이터가 사실상 독점 자산이 될 수 있다고 분석했다. 업계에서는 2026년을 전후해 무료 학습 시대가 끝나고, 데이터 비용을 감당할 수 있는 기업이 혁신 속도를 좌우할 가능성이 제기된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Cost / Opt",
+                title: "오픈AI ‘프롬프트 캐싱’ 재조명…입력 비용·지연 대폭 절감 기대",
+                isTop5: false,
+                details: "X 사용자 omarsar0는 최근 대규모 언어모델 운영에서 프롬프트 캐싱이 비용을 줄이는 핵심이라고 강조하며 개발자들의 관심을 끌었다. 오픈AI는 동일한 프롬프트 ‘접두어’를 재사용하는 방식으로 입력 토큰 비용을 최대 90%, 지연을 최대 80%까지 낮출 수 있다고 설명한다. API 요금표에서도 캐시된 입력 토큰이 일반 입력 대비 크게 할인돼, 장문 문서 QA·멀티턴 챗봇 등에서 운영비 절감 효과가 기대된다.\n\n오픈AI 문서에 따르면 캐시 히트는 ‘정확히 일치하는 접두어’에서만 발생해, 고정 지시문·예시를 앞에 두고 사용자별 변수는 뒤로 배치하는 구성이 유리하다. 또한 1024토큰 이상 프롬프트에서 자동 적용되며, 응답의 usage 필드에 cached_tokens가 표시되고 필요 시 prompt_cache_key·보존 정책 등으로 캐시 적중률을 높일 수 있다. 업계에서는 반복되는 시스템 프롬프트·도구 정의가 많은 서비스일수록 캐싱의 체감 효과가 커질 것으로 보고, 모니터링과 프롬프트 구조 조정을 통한 비용 최적화가 확산될 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Update",
+                title: "NotebookLM, ‘Gemini 3 기반’ 공식 전환…추론·멀티모달 성능 강화",
+                isTop5: false,
+                details: "구글은 12월 19일 NotebookLM이 Gemini 3 기반으로 전환됐다고 공개했다. 구글은 이번 전환이 NotebookLM의 추론과 멀티모달 이해를 강화하기 위한 조치라고 밝혔으며, 동시에 스튜디오 출력에 ‘Data Tables’를 추가해 자료를 표 형태로 정리·내보내도록 했다. 새 기능은 구글 AI Pro·Ultra 구독자에게 우선 제공되며, 향후 수주 내 사용자 확대가 예고됐다.\n\nNotebookLM은 사용자가 올린 문서·노트에 근거해 요약과 아이디어 도출을 돕는 구글 랩스 제품으로, 연말을 앞두고 기능 업데이트가 이어지고 있다. 구글 블로그는 Data Tables가 회의록의 실행 항목 정리나 임상시험 결과 비교 등에서 정형 데이터 생성을 자동화하고 Google Sheets로 내보낼 수 있다고 설명했다. 업계에서는 모델 전환과 출력 포맷 확장이 함께 이뤄지며 NotebookLM의 연구·학습 워크플로가 더 넓어질 것으로 보고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Model / R&D",
+                title: "오픈AI CEO 샘 올트먼 “오픈AI, 인프라·제품·개인화로 승부”…IPO도 ‘불가피’ 언급",
+                isTop5: false,
+                details: "오픈AI CEO 샘 올트먼은 12월 18일 Big Technology Podcast 인터뷰에서 오픈AI의 경쟁 전략과 AI 인프라 확장, IPO 가능성을 폭넓게 언급했다. 올트먼은 Gemini 3 출시 이후 ‘코드 레드’ 대응을 거론하며, 사용자 유입과 모델 품질, 충분한 컴퓨트를 결합해 단일 AI 플랫폼으로 자리매김하겠다는 구상을 내놨다. 그는 대규모 인프라 투자와 기업용 확장을 병행해 수요를 맞추겠다고 밝히며 시장 관심을 모았다.\n\n인터뷰에서 올트먼은 ChatGPT 성장세와 함께 개인화가 사용자 유지에 중요한 역할을 한다고 강조했다. 또 기업이 신뢰할 수 있는 데이터 환경에서 대규모 토큰 수요를 처리하는 전용 인프라를 구상하고 있으며, 이는 기존 퍼블릭 클라우드와 다른 성격일 수 있다고 설명했다. 상장과 관련해서는 공모시장이 가치 창출에 참여하는 점을 언급하면서도 구체 일정은 유보해, 향후 자본 조달 여건에 따라 IPO 논의가 이어질 것으로 보인다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "M&A",
+                title: "Cursor, Graphite 인수 합의…AI 코딩 ‘작성→리뷰’ 전 과정 통합 가속",
+                isTop5: false,
+                details: "AI 코딩 도구 Cursor는 12월 19일 코드 리뷰 플랫폼 Graphite를 인수하기로 합의했다고 밝혔다. Cursor는 AI로 코드 작성 속도가 빨라졌지만 리뷰·머지 과정이 병목이 되고 있다며, Graphite의 스택드 PR 등 협업 기능을 결합해 엔드투엔드 개발 흐름을 강화하겠다고 설명했다. Graphite는 기존 팀과 제품을 유지한 채 독립적으로 운영되며, 양사 제품 간 통합이 단계적으로 추진된다.\n\nGraphite는 대형 엔지니어링 조직에서 쓰이는 코드 리뷰·머지 도구를 제공해 왔고, Cursor는 Bugbot 등으로 리뷰 자동화 영역을 넓혀 왔다. TechCrunch는 거래 금액이 공개되지 않았지만 Cursor가 Graphite의 최근 평가액을 크게 웃도는 금액을 지불했을 가능성이 거론된다고 전했다. 업계에서는 생성형 AI가 작성한 코드의 품질 검증이 핵심 과제로 떠오른 만큼, 코드 작성과 AI 리뷰를 한 제품군으로 묶는 인수·합종연횡이 더 늘어날 것으로 보고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Open Source",
+                title: "ekzhang, 웹용 ML 라이브러리 ‘jax-js’ 오픈소스 공개…브라우저 GPU 연산 겨냥",
+                isTop5: false,
+                details: "개발자 에릭 장(ekzhang)은 12월 18일 웹 브라우저에서 동작하는 머신러닝 라이브러리 jax-js를 오픈소스로 공개했다고 밝혔다. GitHub 공개 자료에 따르면 jax-js는 JAX·NumPy와 유사한 API를 지향하며, 배열 연산을 컴파일 표현으로 변환해 WebAssembly와 WebGPU 커널을 생성·실행하는 방식으로 성능 확보를 시도한다. 브라우저만 있으면 GPU 가속을 활용할 수 있어, 프런트엔드에서 직접 추론·수치 계산을 수행하려는 개발자 관심이 커지고 있다.\n\n프로젝트는 외부 의존성을 최소화하고 클라이언트 측 실행을 전제로 설계돼, 환경 제약이 큰 교육·데모·프로토타이핑에 적합하다는 평가가 나온다. 저장소 문서에는 자바스크립트의 메모리 특성을 고려한 참조 카운팅 등 이식성 설계가 포함돼 있으며, npm 패키지로 설치해 바로 시작할 수 있도록 안내한다. 향후 웹GPU 지원 확대와 커널 최적화가 진행되면, 웹 기반 ML 생태계에서 기존 런타임 중심 접근을 보완하는 대안 프레임워크로 자리잡을 가능성이 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Open Source",
+                title: "Substack서 ‘jax-js’ 출시 글 공개…“브라우저에서 JAX처럼 학습·컴파일”",
+                isTop5: false,
+                details: "ekzhang은 12월 18일 Substack 글을 통해 ‘jax-js: 웹을 위한 ML 라이브러리’를 정식 출시하며 프로젝트 목표와 설계를 공개했다. 그는 WebAssembly와 WebGPU를 활용해 브라우저에서 JAX처럼 프로그램을 추적·JIT 컴파일하고, grad·jit 등 핵심 기능으로 브라우저 내 학습과 실시간 실험을 가능하게 했다고 밝혔다. 글에서는 MNIST 학습 데모와 대용량 텍스트 임베딩·검색 예시를 제시하며 프런트엔드 ML 활용을 넓히겠다는 의도를 강조했다.\n\n저자는 파이썬 중심 ML 개발이 주류인 상황에서 자바스크립트 생태계가 수치 연산에 취약하다는 문제의식에서 출발했다고 설명했다. 또 GPU·Wasm 커널 생성으로 자바스크립트 인터프리터 병목을 피하고 연산 퓨전 등 최적화를 통해 근접 네이티브 성능을 목표로 한다고 덧붙였다. 다만 초기 단계인 만큼 연산 커버리지와 최적화는 과제로 남아, 오픈소스 기여와 브라우저 표준 성숙도에 따라 성능·호환성이 좌우될 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Integration",
+                title: "ChatGPT 안에서 Replit로 ‘아이디어→앱’…대화형 앱 제작 워크플로 확장",
+                isTop5: false,
+                details: "Replit은 최근 ChatGPT 안에서 Replit 앱을 연결해 대화만으로 실제 애플리케이션을 생성·수정할 수 있는 Replit in ChatGPT 기능을 공개했다. Replit 문서에 따르면 사용자가 ChatGPT 대화에서 Replit을 호출하면 에이전트가 Replit 워크스페이스에 새 프로젝트를 만들고, 결과를 채팅 창에서 미리보기로 제공한다. OpenAI가 ChatGPT 앱 생태계를 확장하는 가운데, 코드 실행·배포까지 이어지는 통합 워크플로가 한 화면에 들어올 수 있다는 점에서 영향이 예상된다.\n\nOpenAI는 10월부터 ChatGPT 내에서 외부 서비스가 동작하는 ‘앱’과 개발용 SDK를 도입해 기능 확장을 추진해 왔다. Replit은 ‘Build in ChatGPT’ 안내에서 코드는 사용자의 Replit 계정에 남고, 이후 Replit에서 계속 개발·게시할 수 있어 아이디어에서 배포까지의 시간을 줄인다고 설명했다. 업계에서는 이런 통합형 앱이 확산되면 LLM이 단순 코딩 도우미를 넘어 ‘행동하는 에이전트’로 자리잡는 흐름이 빨라질 것으로 보고, 보안·권한 관리 같은 운영 기준도 함께 정교해질 것으로 전망한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Open Source",
+                title: "카카오, 첫 추론 모델 포함 ‘카나나-2’ 오픈소스 공개…에이전트 최적화",
+                isTop5: false,
+                details: "카카오는 12월 19일 허깅페이스에 차세대 언어모델 카나나-2를 오픈소스로 공개했다고 밝혔다. 회사는 베이스·인스트럭트·추론 특화 등 3종을 내놓으며, 에이전틱 AI 구현을 위해 도구 호출과 지시 이행 성능을 강화했다고 설명했다. 이에 따라 국내 개발자들이 한국어 중심 대형 모델을 기반으로 서비스 적용과 미세조정을 시도하는 폭이 넓어질 것으로 보인다.\n\n카카오는 그동안 카나나 라인업을 단계적으로 공개하며 오픈 생태계 확장을 이어왔다. 카카오 기술 블로그는 MLA·MoE 기법 적용으로 연산 효율을 높이고, 멀티턴 도구 호출 등 실사용 시나리오 성능을 개선했다고 소개했다. 카카오는 향후 에이전트 시나리오 특화 모델과 온디바이스 경량 모델 고도화를 통해 적용 범위 확대에 나선다는 계획이다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Data Science",
+                title: "R, TIOBE 12월 지수 ‘톱10’ 복귀…데이터 과학 수요가 견인",
+                isTop5: false,
+                details: "프로그래밍 언어 R이 12월 공개된 TIOBE 지수에서 10위권에 재진입했다. TIOBE는 2025년 12월 헤드라인으로 “R이 톱10에 돌아왔다”고 밝히며, 통계·시각화 수요 확대로 R의 재부상을 설명했다. 순위 상승은 데이터 분석 인력과 교육 시장에서 R의 존재감을 다시 키우는 계기가 될 수 있다.\n\n이번 변화는 “R이 16위에서 10위로 올랐다”는 분석과 함께 업계의 주목을 받고 있다. 인포월드는 2025년 12월 지수에서 R이 10위, 1.96% 평점을 기록했다고 전하며, 다른 인기 지표에서도 상위권을 유지한다고 덧붙였다. 전문가들은 생성형 AI 확산 국면에서도 통계·검증 수요가 지속되는 만큼, R의 상위권 유지 가능성과 생태계 투자 확대가 이어질지 주시하고 있다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Retail",
+                title: "코본스, AI 기반 가격·프로모션 최적화 도입…Revionics 플랫폼 채택",
+                isTop5: false,
+                details: "미국 중서부 식료품 체인 코본스는 Revionics의 AI 가격 플랫폼을 도입해 가격 최적화와 프로모션 운영을 자동화할 계획이라고 밝혔다. 양사는 이번 시스템이 수요 예측과 시장 변화 대응을 통해 가격 운영 효율을 높이는 데 목적이 있다고 설명했다. 도입이 본격화되면 매장별·카테고리별 가격 정책을 더 세밀하게 조정하는 ‘리테일 알고리즘 가격’ 흐름이 강화될 수 있다.\n\n보도에 따르면 코본스는 약 80개 슈퍼마켓에서 가격·프로모션 의사결정을 지원받게 된다. Grocery Dive는 Revionics 플랫폼이 고객 수요를 예측하고 매장 콘셉트·지역별 조건에 맞춰 가격 전략을 조정하도록 설계됐다고 전했다. 코본스는 향후 운영 데이터가 축적되면 프로모션 성과 측정과 구역별 가격 관리까지 고도화해 수익성과 고객 체감가를 함께 관리하겠다는 방향을 시사했다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "Education",
+                title: "삼성, SSAFY 13기 수료식 개최…AI 중심 커리큘럼 전면 개편",
+                isTop5: false,
+                details: "삼성은 12월 18일 서울 강남 SSAFY 서울캠퍼스에서 SSAFY 13기 수료식을 열고 청년 소프트웨어·AI 인재 양성 성과를 공유했다. 삼성은 올해부터 교육 과정을 AI 중심으로 전면 개편해 산업 현장에 필요한 AI 활용 역량을 강화했다고 밝혔다. 커리큘럼 변화는 기업·공공 전반의 AI 전환 수요에 대응하는 인력 공급 측면에서 즉각적인 영향을 줄 것으로 예상된다.\n\n삼성 뉴스룸에 따르면 SSAFY는 연간 1,725시간 중 1,025시간을 AI 교육에 배정하고, 8개 AI 교육 과정을 새로 도입했다. KAIST·서울대·연세대 등과 협력해 교육 콘텐츠를 강화하는 등 교육 인프라 투자도 병행하고 있다. 삼성은 향후에도 커리큘럼 고도화와 산학 협력을 통해 AI 인재 풀 확대를 지속하겠다는 계획을 내놨다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Retail / Ops",
+                title: "자라의 AI·데이터 운영, 소매 업무 흐름 ‘조용한 재편’ 신호",
+                isTop5: false,
+                details: "자라(인디텍스)는 최근 수년간 매장·온라인 데이터를 활용해 재고·보충 의사결정을 자동화하며 업무 흐름을 바꾸고 있다. 핵심은 RFID 기반 재고 가시성과 분석 모델을 결합해 매장 운영의 디지털화를 높이는 방식으로, 과잉 재고와 품절 리스크를 동시에 줄이려는 전략이다. 이 같은 운영 변화는 패션뿐 아니라 유통 전반에서 ‘현장 경험’ 중심 업무를 데이터 기반으로 재구성하는 흐름을 뚜렷하게 보여준다.\n\n업계에서는 자라가 RFID 태깅과 데이터 분석을 통해 물류·매장 간 재고 이동과 진열·보충 속도를 끌어올렸다는 점에 주목한다. 파이낸셜타임스는 인디텍스가 RFID를 활용한 중앙집중형 재고 시스템을 확대해 매장이 물류 거점처럼 기능하도록 하는 방향을 소개한 바 있다. 이러한 추세가 이어질 경우, 소매업계는 향후 더 많은 업무가 예측·최적화 중심으로 이동하며 인력 역할 재정의와 시스템 투자가 동반될 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Ecosystem",
+                title: "오픈AI, ‘챗GPT 앱’ 접수 개시…타사 서비스 입점형 생태계 본격화",
+                isTop5: false,
+                details: "오픈AI는 12월 18일(현지시간) 개발자가 챗GPT용 앱 제출을 할 수 있도록 플랫폼 대시보드를 열었다고 밝혔다. 오픈AI는 제출 과정에 MCP 연결 정보, 테스트 가이드, 디렉터리 메타데이터, 국가별 제공 설정 등 검수 요건이 포함된다고 설명했다. 승인된 앱이 순차 배포되면 챗GPT가 단순 챗봇을 넘어 ‘대화형 앱 허브’로 확장하는 효과가 예상된다.\n\n이번 접수는 오픈AI가 10월 ‘Apps SDK’ 공개로 앱 생태계 구축을 선언한 뒤 이어진 후속 조치다. 오픈AI는 앱이 게시 기준을 충족해야 하며, 유용성과 만족도가 높은 앱은 노출 기회가 늘 수 있다고 안내했다. 오픈AI는 내년부터 첫 승인 앱을 점진적으로 배포하겠다고 밝혀, 향후 수익화·유통 구조가 어떻게 정착할지 관심이 쏠린다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Pivot",
+                title: "비트코인 채굴업체, AI로 ‘업종 전환’ 가속…전력·부지 자산이 경쟁력",
+                isTop5: false,
+                details: "미국의 일부 대형 비트코인 채굴업체들이 최근 AI 데이터센터 사업으로 방향을 틀고 있다. 와이어드는 채굴 수익성 압박 속에서 채굴 시설을 ‘AI 공장’으로 전환하는 움직임이 확산되고 있다고 전했다. 이 전환은 채굴이 보유한 전력·냉각·부지 같은 물리적 자산이 AI 인프라 수요와 맞물리면서 빠르게 진행되는 양상이다.\n\n로이터에 따르면 Hut 8은 루이지애나에서 245MW 규모 데이터센터를 개발하는 15년 임대 계약을 체결했으며, 딜 규모는 약 70억달러로 평가됐다. 로이터는 채굴업체들이 고전압 전력 접근성과 냉각 설비 등 희소 인프라 자산을 활용해 AI 호스팅 시장으로 재편 중이라고 설명했다. 업계에서는 AI 수요가 장기 계약 형태로 수익을 안정화할 수 있는 만큼, 채굴업체의 ‘혼합 모델’이 늘고 산업 구조 변화가 이어질 것으로 보고 있다."
+            }
+        ];
+
+        const keyMetricsData = [
+            { label: "OpenAI 가치", value: "1,100조 원", sub: "(약 7,500억 달러)" },
+            { label: "LightGen 칩 성능", value: "100배", sub: "(A100 대비)" },
+            { label: "Prompt Cache 절감", value: "90%", sub: "(입력 토큰 비용)" },
+            { label: "툴킷 시장 성장", value: "24.1%", sub: "(연평균 성장률)" }
+        ];
+
+        const thematicCategories = [
+            "AI 인프라 및 투자",
+            "플랫폼, 제품 및 에이전트",
+            "산업별 AI 적용",
+            "법률, 규제 및 거버넌스",
+            "AI와 사회 (활용, 심리, 노동)"
+        ];
+
+        // --- Logic ---
+
+        // 1. Truncate Title Logic
+        function truncateTitle(title) {
+            if (title.length <= 60) return title;
+            
+            // Try splitting by separator first
+            const separators = [' - ', ' – ', ' — ', ':', ' | '];
+            for (const sep of separators) {
+                if (title.includes(sep)) {
+                    const parts = title.split(sep);
+                    if (parts[0].length > 10) return parts[0].trim(); // Use first part if meaningful
+                }
+            }
+            
+            // Fallback: simple character cut
+            return title.substring(0, 60) + '...';
+        }
+
+        // 2. Render Key Metrics
+        function createKeyNumbersSection() {
+            const container = document.getElementById('key-numbers-grid');
+            keyMetricsData.forEach(metric => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-lg shadow-sm border-l-4 border-amber-500 hover:shadow-md transition-shadow";
+                card.innerHTML = `
+                    <p class="text-sm text-slate-500 font-medium">${metric.label}</p>
+                    <p class="text-2xl font-black text-slate-800 mt-1">${metric.value}</p>
+                    <p class="text-xs text-slate-400 mt-1">${metric.sub}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 3. Render Top 5 Section
+        function renderTop5Section() {
+            const container = document.getElementById('top-news-grid');
+            const top5Items = reportData.filter(item => item.isTop5);
+
+            top5Items.forEach((item, index) => {
+                const card = createNewsCard(item, index);
+                container.appendChild(card);
+            });
+        }
+
+        // 4. Render Thematic Sections
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-sections');
+            
+            thematicCategories.forEach(theme => {
+                const items = reportData.filter(item => !item.isTop5 && item.theme === theme);
+                
+                if (items.length === 0) return;
+
+                const section = document.createElement('section');
+                section.className = "space-y-4";
+                
+                section.innerHTML = `
+                    <h2 class="text-lg font-bold text-slate-800 border-b border-slate-200 pb-2 flex items-center justify-between">
+                        ${theme}
+                        <span class="text-xs font-normal text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">${items.length} 건</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        ${items.map((item, idx) => {
+                            // Find original index to ensure unique ID reference if needed, though we pass object directly in handler
+                            return createNewsCardHTML(item); 
+                        }).join('')}
+                    </div>
+                `;
+                container.appendChild(section);
+            });
+            
+            // Attach event listeners for the dynamically added thematic cards
+            document.querySelectorAll('.thematic-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const title = card.getAttribute('data-title');
+                    const item = reportData.find(d => d.title === title);
+                    if (item) showModal(item);
+                });
+            });
+        }
+
+        // Helper: Create Card Element (for Top 5)
+        function createNewsCard(item) {
+            const displayTitle = truncateTitle(item.title);
+            const div = document.createElement('div');
+            div.className = "bg-white rounded-lg shadow-sm p-6 cursor-pointer border border-transparent hover:border-amber-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group";
+            div.onclick = () => showModal(item);
+            
+            div.innerHTML = `
+                <div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2 py-1 rounded-md border border-amber-100">${item.category}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 leading-snug group-hover:text-amber-700 transition-colors mb-2">${displayTitle}</h3>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-100 flex items-center text-slate-400 text-xs font-medium">
+                    <span>자세히 보기</span>
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            `;
+            return div;
+        }
+
+        // Helper: Create Card HTML String (for Thematic Sections)
+        function createNewsCardHTML(item) {
+            const displayTitle = truncateTitle(item.title);
+            return `
+                <div class="thematic-card bg-white rounded-lg shadow-sm p-5 cursor-pointer border border-slate-100 hover:border-slate-300 hover:shadow-lg transition-all duration-200 group" data-title="${item.title}">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">${item.category}</span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 leading-normal group-hover:text-amber-600 transition-colors">${displayTitle}</h3>
+                </div>
+            `;
+        }
+
+        // 5. Modal Logic
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalTag = document.getElementById('modal-tag');
+        const closeBtn = document.getElementById('modal-close-btn');
+        const confirmBtn = document.getElementById('modal-confirm-btn');
+
+        function showModal(item) {
+            modalTitle.textContent = item.title;
+            modalTag.textContent = item.category;
+            // Handle newlines securely: basic text content setting then replacing \n with <br>
+            // But item.details is raw text with \n. InnerHTML with regex replace is safe here as data is static/internal.
+            modalContent.innerHTML = item.details.replace(/\n/g, '<br/>');
+            
+            modal.classList.remove('hidden');
+            // Trigger animation
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'scale-95', 'translate-y-4');
+                modalPanel.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Prevent bg scrolling
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.add('opacity-0', 'scale-95', 'translate-y-4');
+            modalPanel.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300); // Match transition duration
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        confirmBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+        
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>
