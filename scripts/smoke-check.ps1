@@ -14,61 +14,80 @@ if (-not (Test-Path -LiteralPath $monthDir)) {
 }
 
 # Avoid hardcoding Korean filenames in this script (PowerShell 5.1 encoding/codepage issues).
-# Instead, locate 2025-12-20 files using ASCII-only patterns, then identify which is dashboard/infographic by content.
-$candidates = Get-ChildItem -LiteralPath $monthDir -File | Where-Object {
-    $_.Name -like "*2025*12*20*" -and $_.Extension -ieq ".HTML"
-}
-
-if ($candidates.Count -lt 2) {
-    throw "Could not find both 2025-12-20 HTML files under $monthDir (found $($candidates.Count))"
-}
-
-$dashboard = $null
-$infographic = $null
-
-foreach ($f in $candidates) {
-    $content = Get-Content -LiteralPath $f.FullName -Raw
-
-    if ($null -eq $dashboard -and $content -match 'const\s+reportData\s*=\s*\[') {
-        $dashboard = $f
-        continue
+# Instead, locate day files using ASCII-only patterns, then identify which is dashboard/infographic by content.
+function Get-DayFiles([string]$day) {
+    $candidates = Get-ChildItem -LiteralPath $monthDir -File | Where-Object {
+        $_.Name -like "*2025*12*$day*" -and $_.Extension -ieq ".HTML"
     }
 
-    if ($null -eq $infographic -and ($content -match 'Chart\.js' -or $content -match 'marketChart')) {
-        $infographic = $f
-        continue
+    if ($candidates.Count -lt 2) {
+        throw "Could not find both 2025-12-$day HTML files under $monthDir (found $($candidates.Count))"
     }
-}
 
-if ($null -eq $dashboard) {
-    throw "Could not identify dashboard HTML from candidates under $monthDir"
-}
+    $dashboard = $null
+    $infographic = $null
 
-if ($null -eq $infographic) {
-    throw "Could not identify infographic HTML from candidates under $monthDir"
+    foreach ($f in $candidates) {
+        $content = Get-Content -LiteralPath $f.FullName -Raw
+
+        if ($null -eq $dashboard -and $content -match 'const\s+reportData\s*=\s*\[') {
+            $dashboard = $f
+            continue
+        }
+
+        if ($null -eq $infographic -and ($content -match 'Chart\.js' -or $content -match 'marketChart')) {
+            $infographic = $f
+            continue
+        }
+    }
+
+    if ($null -eq $dashboard) {
+        throw "Could not identify dashboard HTML for 2025-12-$day under $monthDir"
+    }
+
+    if ($null -eq $infographic) {
+        throw "Could not identify infographic HTML for 2025-12-$day under $monthDir"
+    }
+
+    return @($dashboard, $infographic)
 }
 
 $index = Get-Content -LiteralPath $indexPath -Raw
 
-# Check index links 2025-12-20 pages (ASCII-only regexp)
-if ($index -notmatch 'href="news/2025-12/[^\"]*2025[^\"]*12[^\"]*20[^\"]*\.HTML"') {
-    throw "index.html does not appear to link to 2025-12-20 pages"
-}
+foreach ($day in @('20','21')) {
+    $files = Get-DayFiles $day
+    $dashboard = $files[0]
+    $infographic = $files[1]
 
-$dash = Get-Content -LiteralPath $dashboard.FullName -Raw
+    # Check index links day pages (ASCII-only regexp)
+    $indexPattern = 'href="news/2025-12/[^\"]*2025[^\"]*12[^\"]*' + $day + '[^\"]*\.HTML"'
 
-$info = Get-Content -LiteralPath $infographic.FullName -Raw
+    if ($index -notmatch $indexPattern) {
+        throw "index.html does not appear to link to 2025-12-$day pages"
+    }
 
-if ($dash -notmatch 'href="\.\./\.\./index\.html"') {
-    throw "2025-12-20 dashboard does not include home link (../../index.html)"
-}
+    $dash = Get-Content -LiteralPath $dashboard.FullName -Raw
+    $info = Get-Content -LiteralPath $infographic.FullName -Raw
 
-if ($info -notmatch 'href="\.\./\.\./index\.html"') {
-    throw "2025-12-20 infographic does not include home link (../../index.html)"
-}
+    if ($dash -notmatch 'href="\.\./\.\./index\.html"') {
+        throw "2025-12-$day dashboard does not include home link (../../index.html)"
+    }
 
-if ($dash -notmatch 'value:\s*"24\.1%"') {
-    throw "2025-12-20 dashboard keyMetricsData does not include value: 24.1%"
+    if ($info -notmatch 'href="\.\./\.\./index\.html"') {
+        throw "2025-12-$day infographic does not include home link (../../index.html)"
+    }
+
+    if ($day -eq '20') {
+        if ($dash -notmatch 'value:\s*"24\.1%"') {
+            throw "2025-12-20 dashboard keyMetricsData does not include value: 24.1%"
+        }
+    }
+
+    if ($day -eq '21') {
+        if ($dash -notmatch '\$200') {
+            throw "2025-12-21 dashboard does not include `$200 highlight"
+        }
+    }
 }
 
 Write-Host "SMOKE CHECK OK"

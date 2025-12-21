@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT : 2025.12.21</title>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* 기본 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7; /* 크림톤 배경 */
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* 네오 브루탈리즘 스타일 정의 (Soft ver.) */
+        .nb-card {
+            background-color: #ffffff;
+            border: 2px solid #1a1a1a;
+            box-shadow: 6px 6px 0px rgba(0,0,0,1);
+            border-radius: 16px; /* 둥글게 처리 */
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nb-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px rgba(0,0,0,1);
+        }
+
+        .nb-btn {
+            border: 2px solid #1a1a1a;
+            box-shadow: 3px 3px 0px #1a1a1a;
+            transition: all 0.1s;
+        }
+        .nb-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px #1a1a1a;
+        }
+
+        .nb-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 2px solid #1a1a1a;
+            font-weight: 700;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+        }
+
+        /* 강조 텍스트 */
+        .highlight-text {
+            box-shadow: inset 0 -0.6em 0 rgba(255, 230, 0, 0.5);
+        }
+
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* 네비게이션 활성화 효과 */
+        .nav-item.active {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            box-shadow: 4px 4px 0px rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200">
+
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-md hover:shadow-lg hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="pt-12 pb-8 px-4 text-center">
+        <div class="inline-block mb-2 px-4 py-1 border-2 border-black rounded-full bg-yellow-300 font-bold shadow-[3px_3px_0px_#000]">
+            Weekly Briefing
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-2">AI TREND REPORT</h1>
+        <p class="text-lg md:text-xl text-gray-600 font-medium">2025년 12월 21일 : 오늘의 핵심 기술 이슈</p>
+    </header>
+
+    <!-- KPI Dashboard (Big Numbers) -->
+    <section class="max-w-7xl mx-auto px-4 mb-12">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+            📊 <span class="highlight-text">한눈에 보는 핵심 숫자 (Key Metrics)</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- KPI 1 -->
+            <div class="nb-card p-6 bg-blue-50">
+                <p class="text-sm font-bold text-gray-500 mb-1">미국 에너지부(DOE) 투자</p>
+                <h3 class="text-4xl font-black text-blue-600 mb-2">$3.2억</h3>
+                <p class="text-sm font-medium leading-snug">AI 기반 과학 연구와 '제네시스 미션' 가속화를 위해 대규모 자금 투입</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-card p-6 bg-purple-50">
+                <p class="text-sm font-bold text-gray-500 mb-1">MS Copilot 배포 규모</p>
+                <h3 class="text-4xl font-black text-purple-600 mb-2">50,000+</h3>
+                <p class="text-sm font-medium leading-snug">인도 주요 IT 기업(TCS 등) 마다 각각 5만 개 이상의 라이선스 도입</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-card p-6 bg-green-50">
+                <p class="text-sm font-bold text-gray-500 mb-1">AWS 프로젝트 전환율</p>
+                <h3 class="text-4xl font-black text-green-600 mb-2">65%</h3>
+                <p class="text-sm font-medium leading-snug">2025년 AWS 고객 AI 프로젝트가 '시범(Pilot)'에서 '실제 운영(Production)'으로 성공적 전환</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-card p-6 bg-orange-50">
+                <p class="text-sm font-bold text-gray-500 mb-1">AI 훈련 전문가 시급</p>
+                <h3 class="text-4xl font-black text-orange-600 mb-2">$200</h3>
+                <p class="text-sm font-medium leading-snug">모델 성능 향상을 위한 고숙련 전문가 피드백(RLHF) 부업의 시간당 급여</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur-sm py-4 border-b-2 border-black mb-12">
+        <div class="max-w-7xl mx-auto px-4 overflow-x-auto">
+            <div class="flex space-x-4 min-w-max">
+                <a href="#theme1" class="nav-item nb-btn px-6 py-2 rounded-full font-bold bg-white hover:bg-gray-100 text-sm md:text-base">🏛️ 규제와 정책</a>
+                <a href="#theme2" class="nav-item nb-btn px-6 py-2 rounded-full font-bold bg-white hover:bg-gray-100 text-sm md:text-base">🚀 빅테크 & 인프라</a>
+                <a href="#theme3" class="nav-item nb-btn px-6 py-2 rounded-full font-bold bg-white hover:bg-gray-100 text-sm md:text-base">🏭 산업과 현장</a>
+                <a href="#theme4" class="nav-item nb-btn px-6 py-2 rounded-full font-bold bg-white hover:bg-gray-100 text-sm md:text-base">🧠 사회와 연구</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 space-y-24 pb-20">
+
+        <!-- Theme 1: 규제와 정책 -->
+        <section id="theme1" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-3xl">🏛️</span>
+                <h2 class="text-3xl md:text-4xl font-black">규제와 정책 <span class="text-lg font-medium text-gray-500 ml-2">Policy & Regulation</span></h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Card 1: 트럼프 행정명령 (Type B: VS) -->
+                <div class="nb-card p-6 md:p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="nb-badge bg-blue-100 text-blue-800">행정명령 서명</span>
+                        <span class="text-gray-400 text-sm">2025.12.11</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">AI 규제, 누가 주도권을 잡나?</h3>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <div class="text-center w-full">
+                            <div class="text-4xl mb-2">🇺🇸</div>
+                            <div class="font-bold text-lg">연방 정부 (Federal)</div>
+                            <p class="text-sm text-gray-600 mt-1">"규제 통일해라"<br>혁신 저해 요소 제거</p>
+                        </div>
+                        <div class="bg-black text-white font-black rounded-full w-12 h-12 flex items-center justify-center shrink-0 z-10 shadow-lg">VS</div>
+                        <div class="text-center w-full">
+                            <div class="text-4xl mb-2">🏙️</div>
+                            <div class="font-bold text-lg">주 정부 (State)</div>
+                            <p class="text-sm text-gray-600 mt-1">"자체 규제 하겠다"<br>개별 법안 추진 중</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <p class="font-bold text-blue-900 text-sm mb-1">💡 인사이트</p>
+                        <p class="text-gray-700 text-sm">트럼프 행정부가 주(State)별로 다른 규제를 '혁신 방해물'로 규정했습니다. 향후 연방 정부와 주 정부 간의 법적 다툼이 예상됩니다.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: 칩 수출 통제 (Type C: Flow) -->
+                <div class="nb-card p-6 md:p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="nb-badge bg-red-100 text-red-800">안보 이슈</span>
+                        <span class="text-gray-400 text-sm">미 하원 발의</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">'적대국'으로의 AI 칩 유출 봉쇄</h3>
+                    
+                    <div class="space-y-4 my-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold">1</div>
+                            <div class="flex-1 bg-white border-2 border-gray-200 p-3 rounded-lg">
+                                <strong>첨단 AI 반도체</strong>의 해외 이전 감지
+                            </div>
+                        </div>
+                        <div class="flex justify-center"><span class="text-xl text-gray-400">⬇️</span></div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold">2</div>
+                            <div class="flex-1 bg-white border-2 border-gray-200 p-3 rounded-lg">
+                                <strong>적대국(중국 등)</strong>의 군사/감시 역량 강화 우려
+                            </div>
+                        </div>
+                        <div class="flex justify-center"><span class="text-xl text-gray-400">⬇️</span></div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                            <div class="flex-1 bg-red-50 border-2 border-red-200 p-3 rounded-lg">
+                                <strong>수출 통제 강화</strong> 법안 발의 (규제 리스크 ↑)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <p class="font-bold text-sm mb-1">💡 인사이트</p>
+                        <p class="text-gray-700 text-sm">기술이 곧 안보가 되는 시대입니다. 반도체 기업들은 외교 관계에 따라 수출길이 막힐 수 있는 불확실성에 직면했습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 2: 빅테크와 인프라 -->
+        <section id="theme2" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-3xl">🚀</span>
+                <h2 class="text-3xl md:text-4xl font-black">빅테크 & 인프라 <span class="text-lg font-medium text-gray-500 ml-2">Tech & Infrastructure</span></h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 3: MS Investment (Type A: Big Number) -->
+                <div class="nb-card p-6 bg-indigo-50 lg:col-span-2">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1">
+                            <span class="nb-badge bg-indigo-200 text-indigo-900 mb-4">투자 가속</span>
+                            <h3 class="text-2xl font-bold mb-4">MS 술레이만 CEO의 경고와 예언</h3>
+                            <p class="text-lg leading-relaxed mb-4">
+                                "첨단 AI 개발, 이제는 <span class="bg-yellow-200 px-1 font-bold">수천억 달러</span> 싸움이다."
+                            </p>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-center">✅ 대규모 데이터센터 건설 필요</li>
+                                <li class="flex items-center">✅ 막대한 전력 수급 문제</li>
+                                <li class="flex items-center">✅ 진입 장벽이 매우 높아짐 (승자 독식)</li>
+                            </ul>
+                        </div>
+                        <div class="w-full md:w-1/3 flex justify-center">
+                            <!-- Visual Graphic Area -->
+                            <div class="w-40 h-40 rounded-full border-4 border-indigo-600 flex items-center justify-center bg-white shadow-[4px_4px_0px_#4f46e5]">
+                                <div class="text-center">
+                                    <div class="text-xs text-gray-500 font-bold">INVESTMENT</div>
+                                    <div class="text-3xl font-black text-indigo-600">$$$</div>
+                                    <div class="text-xs text-gray-500 font-bold">RACE</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-indigo-200">
+                         <p class="text-sm text-indigo-800 font-medium">💡 인사이트: AI 개발은 이제 소프트웨어의 영역을 넘어, 거대한 건설/에너지 인프라 사업이 되었습니다.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Nvidia Nitrogen (Type C) -->
+                <div class="nb-card p-6">
+                    <span class="nb-badge bg-green-100 text-green-800 mb-4">New Model</span>
+                    <h3 class="text-xl font-bold mb-4">엔비디아 'NitroGen'</h3>
+                    <p class="text-sm text-gray-600 mb-4">모든 게임을 플레이하는 AI가 로봇도 조종한다?</p>
+                    
+                    <div class="space-y-2">
+                        <div class="bg-gray-50 p-3 rounded border border-gray-200 text-sm">
+                            🎮 <strong>Game:</strong> 1000개 이상 게임 학습
+                        </div>
+                        <div class="text-center text-gray-400">⬇️</div>
+                        <div class="bg-gray-50 p-3 rounded border border-gray-200 text-sm">
+                            🧠 <strong>General AI:</strong> 범용 행동 모델 구축
+                        </div>
+                        <div class="text-center text-gray-400">⬇️</div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200 text-sm font-bold text-green-800">
+                            🤖 <strong>Robot:</strong> 현실 로봇 제어에 응용
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Theme 3: 산업과 현장 -->
+        <section id="theme3" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-3xl">🏭</span>
+                <h2 class="text-3xl md:text-4xl font-black">산업과 현장 <span class="text-lg font-medium text-gray-500 ml-2">Industry & Application</span></h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Card 5: Alpha School (Type B: VS) -->
+                <div class="nb-card p-6 md:p-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="nb-badge bg-yellow-100 text-yellow-800">교육 혁신</span>
+                        <span class="text-gray-400 text-sm">Alpha School</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">교사 대신 AI 튜터?</h3>
+                    <p class="text-gray-600 mb-6 text-sm">"2시간 학습으로 두 배의 효과를 낸다"는 주장과 논란</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="border-2 border-gray-100 p-4 rounded-xl text-center">
+                            <div class="text-3xl mb-2">👩‍🏫</div>
+                            <h4 class="font-bold">인간 교사</h4>
+                            <p class="text-xs text-gray-500 mt-2">정서 지원 &<br>가이드 역할에 집중</p>
+                        </div>
+                        <div class="border-2 border-yellow-400 bg-yellow-50 p-4 rounded-xl text-center relative">
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded text-black">Main</div>
+                            <div class="text-3xl mb-2">🤖</div>
+                            <h4 class="font-bold">AI 앱 학습</h4>
+                            <p class="text-xs text-gray-500 mt-2">지식 전달 &<br>개인 맞춤형 진도</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-sm bg-gray-100 p-3 rounded text-gray-700">
+                            <strong>🤔 논란점:</strong> 연 $75,000의 비싼 학비와 아이들의 사회성 발달 우려.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 6: MTA Fare Evasion (Type A) -->
+                <div class="nb-card p-6 md:p-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="nb-badge bg-gray-200 text-gray-800">공공 서비스</span>
+                        <span class="text-gray-400 text-sm">NY 지하철</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">무임승차, 꼼짝 마!</h3>
+                    
+                    <div class="flex items-center gap-6 mb-6">
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-500 mb-1">2024년 손실액</p>
+                            <p class="text-3xl font-black text-red-600">$9.1억</p>
+                        </div>
+                        <div class="w-px h-12 bg-gray-300"></div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-500 mb-1">무임승차 빈도</p>
+                            <p class="text-xl font-bold">분당 330명</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-800 text-white p-4 rounded-lg shadow-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">👮</span>
+                            <div>
+                                <p class="font-bold text-sm">AI 솔루션 도입</p>
+                                <p class="text-xs text-gray-300 mt-1">실시간 개찰구 감지 + 휴대용 단속 기기로 즉시 벌금 부과</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 4: 사회와 연구 -->
+        <section id="theme4" class="scroll-mt-28">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-3xl">🧠</span>
+                <h2 class="text-3xl md:text-4xl font-black">사회와 연구 <span class="text-lg font-medium text-gray-500 ml-2">Society & Research</span></h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 7: Brain Usage (Type B) -->
+                <div class="nb-card p-6 col-span-1 md:col-span-1">
+                    <span class="nb-badge bg-red-50 text-red-600 mb-3">경고</span>
+                    <h3 class="text-xl font-bold mb-3">AI가 뇌를 멈추게 한다?</h3>
+                    <p class="text-sm text-gray-600 mb-4">MIT 연구진의 예비 조사 결과</p>
+                    
+                    <div class="bg-gray-100 p-4 rounded-lg text-center mb-4">
+                        <p class="text-xs text-gray-500 mb-2">AI로 에세이 작성 시</p>
+                        <div class="w-full bg-gray-300 rounded-full h-2.5 mb-1">
+                            <div class="bg-red-500 h-2.5 rounded-full" style="width: 30%"></div>
+                        </div>
+                        <p class="text-xs font-bold text-red-500">뇌 참여도 감소</p>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center">"편리함에 의존하면 학습 과정 자체가 사라질 수 있다."</p>
+                </div>
+
+                <!-- Card 8: Image Homogeneity (Type C) -->
+                <div class="nb-card p-6 col-span-1 md:col-span-1">
+                    <span class="nb-badge bg-purple-100 text-purple-800 mb-3">다양성 이슈</span>
+                    <h3 class="text-xl font-bold mb-3">AI 이미지의 획일화</h3>
+                    
+                    <div class="relative py-4">
+                        <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+                        
+                        <div class="relative flex items-center mb-4">
+                            <div class="w-3 h-3 bg-gray-400 rounded-full absolute left-2.5"></div>
+                            <div class="ml-8 text-sm">무한히 이미지 반복 생성</div>
+                        </div>
+                        <div class="relative flex items-center mb-4">
+                            <div class="w-3 h-3 bg-gray-400 rounded-full absolute left-2.5"></div>
+                            <div class="ml-8 text-sm">다양성이 점점 사라짐</div>
+                        </div>
+                        <div class="relative flex items-center">
+                            <div class="w-3 h-3 bg-purple-600 rounded-full absolute left-2.5"></div>
+                            <div class="ml-8 text-sm font-bold text-purple-800">결국 12개 스타일로 수렴</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">"시각적 엘리베이터 뮤직"처럼 독창성 없이 뻔해지는 현상 발견</p>
+                </div>
+
+                <!-- Card 9: Side Hustle (Type A) -->
+                <div class="nb-card p-6 col-span-1 md:col-span-1 bg-yellow-50">
+                    <span class="nb-badge bg-black text-white mb-3">New Job</span>
+                    <h3 class="text-xl font-bold mb-3">시간당 $200 부업</h3>
+                    <p class="text-sm text-gray-800 mb-4">
+                        단순 라벨링은 끝났다. 이제는 <strong>'전문가 피드백'</strong> 시대.
+                    </p>
+                    <ul class="text-sm space-y-2 mb-4">
+                        <li>✔️ 박사급/전문가 대상</li>
+                        <li>✔️ AI 모델의 논리/팩트 검증</li>
+                        <li>✔️ 고숙련 프리랜서 시장 부상</li>
+                    </ul>
+                    <div class="text-center bg-white border-2 border-yellow-400 rounded-lg p-2">
+                        <span class="text-xs font-bold text-gray-400">HOUR RATE</span><br>
+                        <span class="text-2xl font-black text-yellow-600">$200 USD</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1a1a1a] text-white py-12 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-4">NEWS INFO 1.1</h2>
+            <p class="text-gray-400 text-sm mb-8">
+                복잡한 기술 뉴스를 가장 쉽고 명확하게 전달합니다.<br>
+                Designed for Clarity & Readability
+            </p>
+            <div class="text-gray-500 text-xs">
+                &copy; 2025 AI News Info. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script for Navigation Interaction -->
+    <script>
+        // 네비게이션 스크롤 스파이 및 클릭 이벤트
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').includes(current)) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
