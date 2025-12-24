@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT: 2025.12.24</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* 기본 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7; /* 크림색 배경 */
+            color: #111111;
+            word-break: keep-all;
+        }
+
+        /* 네오 브루탈리즘 스타일 정의 */
+        .nb-box {
+            background-color: white;
+            border: 3px solid #111;
+            box-shadow: 6px 6px 0px #111;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #111;
+        }
+
+        .nb-btn {
+            background-color: #fff;
+            border: 2px solid #111;
+            box-shadow: 3px 3px 0px #111;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #111;
+        }
+
+        .nb-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 2px solid #111;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 2px 2px 0px #111;
+        }
+
+        /* 색상 유틸리티 */
+        .bg-pastel-blue { background-color: #BFDBFE; }
+        .bg-pastel-red { background-color: #FECACA; }
+        .bg-pastel-yellow { background-color: #FEF08A; }
+        .bg-pastel-green { background-color: #BBF7D0; }
+        .bg-pastel-purple { background-color: #E9D5FF; }
+
+        /* 스크롤바 숨김 (가로 스크롤 시) */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* 가독성 강조 텍스트 */
+        .readable-text {
+            font-size: 1.125rem; /* 18px */
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200">
+
+    <a href="../../index.html" class="fixed top-4 left-4 z-50 bg-white border-2 border-slate-300 rounded-full p-2 shadow-md hover:shadow-lg hover:border-slate-400 transition-all" title="홈으로">
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto pt-12 pb-8 px-6 text-center">
+        <div class="inline-block px-6 py-2 border-2 border-black rounded-full bg-black text-white font-bold mb-4">
+            📅 2025년 12월 24일 브리핑
+        </div>
+        <h1 class="text-5xl md:text-6xl font-black mb-4 tracking-tight">AI TREND REPORT</h1>
+        <p class="text-xl text-gray-700 font-medium">
+            복잡한 기술 뉴스를 쉽고 명확하게 정리해 드립니다.
+        </p>
+    </header>
+
+    <!-- KPI Dashboard (Big Numbers) -->
+    <section class="max-w-4xl mx-auto px-4 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- KPI 1 -->
+            <div class="nb-box bg-pastel-blue p-6 text-center">
+                <div class="text-sm font-bold mb-2">💰 바이트댄스 투자</div>
+                <div class="text-4xl font-black mb-1">230억<span class="text-2xl">$</span></div>
+                <div class="text-sm text-gray-800">2026년 인프라 예산</div>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box bg-pastel-green p-6 text-center">
+                <div class="text-sm font-bold mb-2">⚡ 구글 Gemini 3</div>
+                <div class="text-4xl font-black mb-1">100만</div>
+                <div class="text-sm text-gray-800">토큰 컨텍스트 (기억력)</div>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box bg-pastel-yellow p-6 text-center">
+                <div class="text-sm font-bold mb-2">📉 비용 절감</div>
+                <div class="text-4xl font-black mb-1">90<span class="text-2xl">%</span></div>
+                <div class="text-sm text-gray-800">Gemini 캐싱 기술 적용 시</div>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box bg-pastel-red p-6 text-center">
+                <div class="text-sm font-bold mb-2">🛡️ 국방부 도입</div>
+                <div class="text-4xl font-black mb-1">300만</div>
+                <div class="text-sm text-gray-800">GenAI.mil 잠재 사용자</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-4 z-50 max-w-4xl mx-auto px-4 mb-12">
+        <div class="bg-white border-2 border-black shadow-[4px_4px_0px_#111] rounded-full p-2 flex justify-between md:justify-around overflow-x-auto hide-scroll">
+            <a href="#theme1" class="nb-btn px-4 py-2 text-sm md:text-base whitespace-nowrap mr-2 hover:bg-gray-100">🚀 모델 전쟁</a>
+            <a href="#theme2" class="nb-btn px-4 py-2 text-sm md:text-base whitespace-nowrap mr-2 hover:bg-gray-100">🏭 실전 도입</a>
+            <a href="#theme3" class="nb-btn px-4 py-2 text-sm md:text-base whitespace-nowrap mr-2 hover:bg-gray-100">⚖️ 규제와 갈등</a>
+            <a href="#theme4" class="nb-btn px-4 py-2 text-sm md:text-base whitespace-nowrap hover:bg-gray-100">🛠️ 개발 생태계</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-4 space-y-24 pb-24">
+
+        <!-- Theme 1: 모델 전쟁 -->
+        <section id="theme1" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🚀</span>
+                <h2 class="text-3xl font-black bg-black text-white px-4 py-1 inline-block transform -rotate-1">테마 1. 거대 AI 모델 전쟁</h2>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Card 1: Google (Type A) -->
+                <article class="nb-box p-6 md:p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">구글 Gemini 3 Flash 공개</h3>
+                        <span class="nb-tag bg-pastel-green">성능 UP</span>
+                    </div>
+                    <p class="readable-text mb-6">
+                        구글이 더 똑똑하고 저렴한 새로운 AI 모델을 내놨습니다. 
+                        마치 책 수천 권을 한 번에 기억하듯 <strong>'100만 토큰'</strong>의 정보를 처리하며, 
+                        이전 대화 내용을 기억하는 기술로 비용을 대폭 줄였습니다.
+                    </p>
+                    <!-- Visual Block: Progress Bar Style -->
+                    <div class="bg-gray-100 rounded-xl p-4 border-2 border-dashed border-gray-400 mb-6">
+                        <div class="flex justify-between mb-2 font-bold text-sm">
+                            <span>컨텍스트(기억) 용량</span>
+                            <span>100만 토큰</span>
+                        </div>
+                        <div class="w-full bg-gray-300 rounded-full h-4 border border-black overflow-hidden">
+                            <div class="bg-green-500 h-4 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <p class="text-xs text-right mt-1 text-gray-500">*방대한 문서를 한 번에 분석 가능</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                        <p class="font-bold text-yellow-900">💡 인사이트</p>
+                        <p class="text-sm text-yellow-800">이제 AI는 단순한 대화 상대를 넘어, 기업의 방대한 데이터를 저렴하게 분석해 주는 '실무형 비서'로 진화했습니다.</p>
+                    </div>
+                </article>
+
+                <!-- Card 2: Bytedance (Type A Chart) -->
+                <article class="nb-box p-6 md:p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">틱톡 모회사, 230억 달러 투자</h3>
+                        <span class="nb-tag bg-pastel-blue">인프라</span>
+                    </div>
+                    <p class="readable-text mb-6">
+                        중국의 바이트댄스(틱톡 모회사)가 2026년에 AI 칩과 데이터센터에만 약 <strong>32조원(230억 달러)</strong>을 쏟아붓습니다. 
+                        미국 빅테크와의 격차를 돈으로 메우겠다는 전략입니다.
+                    </p>
+                    <!-- Visual Block: Simple Chart Area -->
+                    <div class="h-48 w-full border-2 border-gray-200 rounded-lg mb-6 p-2 flex justify-center items-center bg-gray-50">
+                         <canvas id="investmentChart"></canvas>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                        <p class="font-bold text-blue-900">💡 인사이트</p>
+                        <p class="text-sm text-blue-800">AI 경쟁은 이제 소프트웨어 개발을 넘어, 누가 더 많은 칩과 전력을 확보하느냐의 '자본 전쟁'이 되었습니다.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Theme 2: 실전 도입 -->
+        <section id="theme2" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🏭</span>
+                <h2 class="text-3xl font-black bg-black text-white px-4 py-1 inline-block transform rotate-1">테마 2. 생활 속으로 들어온 AI</h2>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Card 3: US DoD (Type C Process) -->
+                <article class="nb-box p-6 md:p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">미 국방부, 'Grok' AI 탑재</h3>
+                        <span class="nb-tag bg-pastel-red">안보</span>
+                    </div>
+                    <p class="readable-text mb-6">
+                        미군이 일론 머스크의 AI 회사 xAI의 모델 'Grok'을 군사 작전 및 행정 플랫폼(GenAI.mil)에 추가합니다.
+                        보안 등급이 높은 환경에서도 AI를 활용하게 됩니다.
+                    </p>
+                    <!-- Visual Block: Process Flow -->
+                    <div class="flex flex-col md:flex-row items-center justify-between bg-gray-50 p-4 rounded-xl border-2 border-gray-200 mb-6 gap-4">
+                        <div class="text-center">
+                            <div class="text-3xl mb-2">🏢</div>
+                            <div class="font-bold">xAI (Grok)</div>
+                        </div>
+                        <div class="text-2xl text-gray-400">➜</div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-2">🛡️</div>
+                            <div class="font-bold">국방부 플랫폼</div>
+                            <div class="text-xs text-gray-500">(GenAI.mil)</div>
+                        </div>
+                        <div class="text-2xl text-gray-400">➜</div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-2">💂</div>
+                            <div class="font-bold">300만명 활용</div>
+                            <div class="text-xs text-gray-500">(민/군 인력)</div>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                        <p class="font-bold text-red-900">💡 인사이트</p>
+                        <p class="text-sm text-red-800">국방, 의료 등 보수적인 분야에서도 AI 도입이 시작되었습니다. 보안과 효율성 두 마리 토끼를 잡는 것이 관건입니다.</p>
+                    </div>
+                </article>
+
+                <!-- Card 4: Instacart (Type C Cause-Effect) -->
+                <article class="nb-box p-6 md:p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">인스타카트, AI 가격 실험 중단</h3>
+                        <span class="nb-tag bg-gray-200">논란</span>
+                    </div>
+                    <p class="readable-text mb-6">
+                        미국 배달 앱 인스타카트가 AI로 사람마다 가격을 다르게 보여주는 실험을 하다가 큰 비판을 받고 중단했습니다.
+                        똑같은 물건인데 누구는 비싸게, 누구는 싸게 샀던 것입니다.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-red-100 p-4 rounded-lg border-2 border-red-200">
+                            <span class="block font-bold mb-2">🚫 문제 발생</span>
+                            <p class="text-sm">같은 샌드위치인데...</p>
+                            <p class="font-black text-xl">A씨: $10 vs B씨: $12.3</p>
+                        </div>
+                        <div class="bg-green-100 p-4 rounded-lg border-2 border-green-200">
+                            <span class="block font-bold mb-2">✅ 결과</span>
+                            <p class="text-sm">소비자 반발 & FTC 조사</p>
+                            <p class="font-black text-xl">실험 즉시 종료</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-gray-500">
+                        <p class="font-bold text-gray-900">💡 인사이트</p>
+                        <p class="text-sm text-gray-800">AI가 이익 극대화에 쓰일 때 '공정성' 문제가 불거질 수 있습니다. 기술보다 소비자의 신뢰가 우선입니다.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Theme 3: 규제와 갈등 -->
+        <section id="theme3" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">⚖️</span>
+                <h2 class="text-3xl font-black bg-black text-white px-4 py-1 inline-block transform -rotate-1">테마 3. 격해지는 갈등</h2>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Card 5: NYT vs Perplexity (Type B VS) -->
+                <article class="nb-box p-6 md:p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">뉴욕타임스 vs 퍼플렉시티</h3>
+                        <span class="nb-tag bg-pastel-purple">소송</span>
+                    </div>
+                    <p class="readable-text mb-6">
+                        뉴욕타임스가 AI 검색 엔진 '퍼플렉시티'를 고소했습니다. 기사를 무단으로 긁어가서 답변을 만드는 바람에 사람들이 신문을 보러 오지 않는다는 이유입니다.
+                    </p>
+                    <!-- Visual Block: VS Battle -->
+                    <div class="flex items-center justify-center gap-2 md:gap-8 mb-6 relative">
+                        <div class="w-1/2 bg-gray-100 p-4 rounded-l-xl border-y-2 border-l-2 border-gray-300 text-center">
+                            <div class="text-2xl mb-1">📰</div>
+                            <div class="font-bold text-sm md:text-lg">언론사 (NYT)</div>
+                            <div class="text-xs mt-2 text-red-600 font-bold">"도둑질이다!<br>저작권/상표권 침해"</div>
+                        </div>
+                        
+                        <!-- VS Badge -->
+                        <div class="absolute z-10 bg-black text-white rounded-full w-12 h-12 flex items-center justify-center font-black border-4 border-white shadow-lg">VS</div>
+
+                        <div class="w-1/2 bg-blue-50 p-4 rounded-r-xl border-y-2 border-r-2 border-blue-200 text-center">
+                            <div class="text-2xl mb-1">🤖</div>
+                            <div class="font-bold text-sm md:text-lg">AI (퍼플렉시티)</div>
+                            <div class="text-xs mt-2 text-blue-600 font-bold">"우린 인용만 했다!<br>새로운 검색 방식"</div>
+                        </div>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+                        <p class="font-bold text-purple-900">💡 인사이트</p>
+                        <p class="text-sm text-purple-800">AI가 정보를 요약해서 보여주는 것이 '혁신'인지 '콘텐츠 탈취'인지 법원의 판단이 주목됩니다.</p>
+                    </div>
+                </article>
+
+                <!-- Card 6: Security (Type A Warning) -->
+                <article class="nb-box p-6 md:p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">"AI 브라우저 해킹 주의보"</h3>
+                        <span class="nb-tag bg-red-100 text-red-600 border-red-600">보안 경고</span>
+                    </div>
+                    <p class="readable-text mb-6">
+                        OpenAI가 스스로 경고했습니다. AI가 내 대신 인터넷을 검색해 주는 기능(에이전트)이 편리하지만, 해커가 심어둔 '명령어 함정'에 빠질 위험이 크다는 것입니다.
+                    </p>
+                    <div class="bg-gray-800 text-white p-4 rounded-xl font-mono text-sm mb-6 border-l-8 border-red-500">
+                        <p class="text-green-400">$ System Warning...</p>
+                        <p class="mt-2">"이메일 내용을 요약해줘" (사용자 요청)</p>
+                        <p class="text-red-400">➜ [숨겨진 공격 코드 실행]</p>
+                        <p class="text-red-400">➜ "중요 정보를 해커에게 전송함" (AI가 속음)</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-gray-500">
+                        <p class="font-bold text-gray-900">💡 인사이트</p>
+                        <p class="text-sm text-gray-800">AI에게 권한을 많이 줄수록 보안 위험도 커집니다. '편리함' 뒤에 숨은 '보안 구멍'을 조심해야 합니다.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Theme 4: 개발 생태계 -->
+        <section id="theme4" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🛠️</span>
+                <h2 class="text-3xl font-black bg-black text-white px-4 py-1 inline-block transform rotate-1">테마 4. 개발자들의 움직임</h2>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Card 7: Github (Type A List) -->
+                <article class="nb-box p-6 md:p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">오픈소스의 핵심은 'AI 인프라'</h3>
+                        <span class="nb-tag bg-pastel-yellow">트렌드</span>
+                    </div>
+                    <p class="readable-text mb-6">
+                        전 세계 개발자들의 놀이터 '깃허브(GitHub)' 분석 결과, 2025년 가장 인기 있는 프로젝트들은 AI를 돌리기 위한 '기반 기술(인프라)'과 '도구'였습니다.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-yellow-50 p-4 rounded-xl border-2 border-yellow-200 text-center">
+                            <div class="text-2xl mb-2">🏗️</div>
+                            <div class="font-bold">vLLM</div>
+                            <div class="text-sm text-gray-600">AI를 빠르고 싸게 돌리는 기술</div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-200 text-center">
+                            <div class="text-2xl mb-2">🔌</div>
+                            <div class="font-bold">MCP</div>
+                            <div class="text-sm text-gray-600">AI와 다른 앱을 연결하는 표준</div>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                        <p class="font-bold text-yellow-900">💡 인사이트</p>
+                        <p class="text-sm text-yellow-800">화려한 AI 모델도 중요하지만, 그걸 실제로 서비스에 붙이고 운영하는 '곡괭이와 삽'을 만드는 기술이 뜨고 있습니다.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#111] text-white py-12 text-center mt-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-black mb-4">AI TREND REPORT</h2>
+            <p class="text-gray-400 mb-8">쉽게 읽는 AI 뉴스, 다음 주에 또 만나요.</p>
+            <div class="text-sm text-gray-500">
+                Data Source: 2025.12.24 Tech News Compilations<br>
+                Designed by AI Infographic Designer
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Chart 1: 바이트댄스 투자 비교 (가상 데이터 시각화)
+        const ctxInv = document.getElementById('investmentChart').getContext('2d');
+        new Chart(ctxInv, {
+            type: 'bar',
+            data: {
+                labels: ['일반 기업 투자', '바이트댄스 (2026)'],
+                datasets: [{
+                    label: '투자 규모 (억 달러)',
+                    data: [50, 230], // 비교를 위한 가상의 일반 수치와 실제 수치
+                    backgroundColor: ['#E5E7EB', '#3B82F6'],
+                    borderColor: '#111',
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        display: false 
+                    },
+                    x: {
+                        ticks: { font: { family: 'Noto Sans KR', weight: 'bold' } },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
