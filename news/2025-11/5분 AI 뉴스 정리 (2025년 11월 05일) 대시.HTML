@@ -62,10 +62,16 @@
     <!-- ===== Header ===== -->
     <header class="sticky top-0 z-30 w-full bg-white/90 shadow-sm backdrop-blur-md border-b border-slate-200">
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 md:px-8">
-            <h1 class="text-xl md:text-2xl font-bold text-slate-800">
-                AI 뉴스 대시보드
-                
-            </h1>
+            <div class="flex items-center gap-4">
+                <a href="../../index.html" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-100 transition-colors text-slate-600" title="홈으로">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                </a>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-800">
+                    AI 뉴스 대시보드
+                </h1>
+            </div>
             <span id="report-date" class="text-sm font-medium text-slate-600"></span>
         </nav>
     </header>

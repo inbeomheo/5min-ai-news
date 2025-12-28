@@ -92,12 +92,21 @@
 <body class="antialiased pb-20">
 
     <!-- Header -->
-    <header class="max-w-7xl mx-auto px-6 py-10 text-center">
-        <div class="inline-block bg-accent px-4 py-1 border-2 border-black rounded-full font-bold mb-4 shadow-neo">
-            📅 2025년 12월 28일 기준
+    <header class="max-w-7xl mx-auto px-6 py-10 relative">
+        <div class="absolute left-6 top-10">
+            <a href="../../index.html" class="flex items-center justify-center w-12 h-12 bg-white border-2 border-black rounded-full shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all" title="홈으로">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </a>
         </div>
-        <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight">AI TREND REPORT</h1>
-        <p class="text-xl text-gray-600 font-medium">복잡한 기술 뉴스를 한눈에 보는 브리핑</p>
+        <div class="text-center">
+            <div class="inline-block bg-accent px-4 py-1 border-2 border-black rounded-full font-bold mb-4 shadow-neo">
+                📅 2025년 12월 28일 기준
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight">AI TREND REPORT</h1>
+            <p class="text-xl text-gray-600 font-medium">복잡한 기술 뉴스를 한눈에 보는 브리핑</p>
+        </div>
     </header>
 
     <!-- KPI Dashboard (핵심 숫자 4) -->
