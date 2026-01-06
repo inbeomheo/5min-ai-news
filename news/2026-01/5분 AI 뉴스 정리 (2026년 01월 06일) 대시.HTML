@@ -571,7 +571,37 @@
             return title.substring(0, 58) + "...";
         }
 
+
         // 3. Render Functions
+
+        // Category Color Mapping System
+        function getCategoryColor(category) {
+            const text = category.toLowerCase();
+
+            // Default Style (Slate/Gray)
+            let styles = {
+                bg: "bg-slate-100",
+                text: "text-slate-600",
+                ring: "ring-slate-500/10"
+            };
+
+            // Keyword Matching
+            if (text.includes("규제") || text.includes("법률") || text.includes("소송") || text.includes("리스크") || text.includes("논란")) {
+                styles = { bg: "bg-red-50", text: "text-red-700", ring: "ring-red-600/10" };
+            } else if (text.includes("투자") || text.includes("자금") || text.includes("실적") || text.includes("경제") || text.includes("돈")) {
+                styles = { bg: "bg-emerald-50", text: "text-emerald-700", ring: "ring-emerald-600/10" };
+            } else if (text.includes("의료") || text.includes("헬스") || text.includes("바이오") || text.includes("병원")) {
+                styles = { bg: "bg-rose-50", text: "text-rose-700", ring: "ring-rose-600/10" };
+            } else if (text.includes("로봇") || text.includes("ces") || text.includes("하드웨어") || text.includes("자율주행") || text.includes("자동차")) {
+                styles = { bg: "bg-amber-50", text: "text-amber-700", ring: "ring-amber-600/20" };
+            } else if (text.includes("플랫폼") || text.includes("llm") || text.includes("모델") || text.includes("개발") || text.includes("기술")) {
+                styles = { bg: "bg-blue-50", text: "text-blue-700", ring: "ring-blue-700/10" };
+            } else if (text.includes("사회") || text.includes("교육") || text.includes("고용") || text.includes("트렌드") || text.includes("문화")) {
+                styles = { bg: "bg-violet-50", text: "text-violet-700", ring: "ring-violet-700/10" };
+            }
+
+            return styles;
+        }
 
         function renderHighlights() {
             const container = document.getElementById('highlights-container');
@@ -586,11 +616,13 @@
 
         function createNewsCard(item, index) {
             const displayTitle = truncateTitle(item.title);
+            const color = getCategoryColor(item.category);
+
             return `
                 <div class="bg-white rounded-lg shadow-sm hover:shadow-xl border border-slate-100 p-5 cursor-pointer transition-all duration-200 card-hover flex flex-col h-full" 
                      data-index="${index}" onclick="openModal(${index})">
                     <div class="mb-3">
-                        <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
+                        <span class="inline-flex items-center rounded-md ${color.bg} px-2 py-1 text-xs font-bold ${color.text} ring-1 ring-inset ${color.ring}">
                             ${item.category}
                         </span>
                     </div>
@@ -657,11 +689,16 @@
         const modalBgClose = document.getElementById('modal-bg-close');
         const modalCloseBtnBottom = document.getElementById('modal-close-btn-bottom');
 
+
         function openModal(index) {
             const item = reportData[index];
             modalTitle.innerText = item.title;
             modalContent.innerText = item.details;
+
+            // Apply Dynamic Colors to Modal Tag
+            const color = getCategoryColor(item.category);
             modalCategory.innerText = item.category;
+            modalCategory.className = `inline-flex items-center rounded-md ${color.bg} px-2 py-1 text-xs font-bold ${color.text} ring-1 ring-inset ${color.ring} mb-2`;
 
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
