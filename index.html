@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #FF6B6B;
@@ -23,7 +25,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
             background-color: var(--bg-color);
@@ -32,12 +34,12 @@
             padding: 60px 20px;
             line-height: 1.6;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         /* Header Design */
         header {
             text-align: left;
@@ -46,7 +48,7 @@
             padding-bottom: 40px;
             border-bottom: 4px solid var(--dark);
         }
-        
+
         .header-top {
             display: flex;
             align-items: center;
@@ -74,15 +76,15 @@
             letter-spacing: -2px;
             margin-bottom: 10px;
             color: var(--dark);
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
         }
-        
+
         .subtitle {
             font-size: 1.5rem;
             color: #4a4a4a;
             font-weight: 600;
         }
-        
+
         /* Stats Section - Retro Modern */
         .stats {
             display: grid;
@@ -90,7 +92,7 @@
             gap: 20px;
             margin-top: 40px;
         }
-        
+
         .stat-item {
             background: #fff;
             padding: 20px;
@@ -98,12 +100,12 @@
             box-shadow: 5px 5px 0px var(--dark);
             transition: all 0.2s ease;
         }
-        
+
         .stat-item:hover {
             transform: translate(2px, 2px);
             box-shadow: 2px 2px 0px var(--dark);
         }
-        
+
         .stat-label {
             font-size: 0.85rem;
             color: #666;
@@ -112,7 +114,7 @@
             letter-spacing: 0.5px;
             margin-bottom: 5px;
         }
-        
+
         .stat-value {
             font-size: 2rem;
             font-weight: 900;
@@ -126,9 +128,9 @@
             border: 3px solid var(--dark);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.1);
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
         }
-        
+
         .month-header {
             display: flex;
             align-items: center;
@@ -143,7 +145,7 @@
         .month-header:hover {
             background: #f8f8f8;
         }
-        
+
         /* Remove border-bottom if collapsed (handled by JS class) */
         .month-section.collapsed .month-header {
             border-bottom: none;
@@ -154,7 +156,7 @@
             align-items: baseline;
             gap: 15px;
         }
-        
+
         .month-title {
             font-size: 2.5rem;
             font-weight: 900;
@@ -163,7 +165,7 @@
             line-height: 1;
             -webkit-text-stroke: 2px var(--dark);
         }
-        
+
         .month-title::after {
             content: attr(data-month);
             position: absolute;
@@ -177,12 +179,13 @@
             font-size: 1rem;
             font-weight: 800;
             color: var(--dark);
-            background: var(--primary); /* Highlight color */
+            background: var(--primary);
+            /* Highlight color */
             color: #fff;
             padding: 6px 16px;
             border: 2px solid var(--dark);
             border-radius: 30px;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
         }
 
         .toggle-icon {
@@ -203,21 +206,25 @@
             grid-auto-flow: dense;
             padding: 30px;
             transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s;
-            max-height: 5000px; /* Enough height */
+            max-height: 5000px;
+            /* Enough height */
             opacity: 1;
         }
 
         .month-section.collapsed .grid {
             max-height: 0;
             opacity: 0;
-            padding: 0 30px; /* Keep horizontal padding to prevent jump, remove vertical */
+            padding: 0 30px;
+            /* Keep horizontal padding to prevent jump, remove vertical */
             overflow: hidden;
             border: none;
         }
 
         /* Load More Button & Hidden Cards */
-        .hidden-card { display: none !important; }
-        
+        .hidden-card {
+            display: none !important;
+        }
+
         .load-more-btn {
             display: block;
             margin: 30px auto 0;
@@ -228,16 +235,17 @@
             border: 2px solid var(--dark);
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
         }
-        
+
         .load-more-btn:hover {
             transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
         }
-        
+
         .card {
-            grid-column: span 4; /* Default 3 cards per row */
+            grid-column: span 4;
+            /* Default 3 cards per row */
             background: #fff;
             border: 3px solid var(--dark);
             padding: 24px;
@@ -250,12 +258,12 @@
             min-height: 200px;
             box-shadow: 6px 6px 0px var(--dark);
         }
-        
+
         .card:hover {
             transform: translate(2px, 2px);
             box-shadow: 2px 2px 0px var(--dark);
         }
-        
+
         .card-date {
             font-size: 1.5rem;
             font-weight: 900;
@@ -263,13 +271,13 @@
             color: var(--dark);
             letter-spacing: -1px;
         }
-        
+
         .card-links {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
         }
-        
+
         .card-link {
             flex: 1;
             text-align: center;
@@ -282,12 +290,12 @@
             transition: all 0.2s;
             border: 2px solid var(--dark);
         }
-        
+
         .card-link:hover {
             background: var(--dark);
             color: #fff;
         }
-        
+
         .badge-new {
             display: inline-block;
             background: var(--primary);
@@ -303,10 +311,15 @@
         }
 
         @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-3px); }
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-3px);
+            }
         }
-        
+
         footer {
             margin-top: 100px;
             border-top: 4px solid var(--dark);
@@ -320,28 +333,46 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .card { grid-column: span 6 !important; }
-            h1 { font-size: 3.5rem; }
+            .card {
+                grid-column: span 6 !important;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
         }
-        
+
         @media (max-width: 768px) {
-            .card { grid-column: span 12 !important; min-height: auto; }
-            h1 { font-size: 2.5rem; }
-            header { margin-bottom: 40px; }
-            .grid { gap: 16px; }
+            .card {
+                grid-column: span 12 !important;
+                min-height: auto;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            header {
+                margin-bottom: 40px;
+            }
+
+            .grid {
+                gap: 16px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <div class="header-top">
                 <span class="brand-badge">Daily AI Report</span>
-                <div class="text-sm font-bold text-gray-500">2025 ARCHIVE</div>
+                <div class="text-sm font-bold text-gray-500">2025-2026 ARCHIVE</div>
             </div>
             <h1>5분 AI 뉴스<br>인사이트 & 트렌드</h1>
             <p class="subtitle">매일 아침, 가장 중요한 기술 소식을 큐레이션합니다.</p>
-            
+
             <div class="stats">
                 <div class="stat-item">
                     <div class="stat-label">Total Reports</div>
@@ -357,9 +388,29 @@
                 </div>
             </div>
         </header>
-        
-        <!-- 12월 섹션 -->
+
+        <!-- 1월 섹션 -->
         <section class="month-section">
+            <div class="month-header" onclick="toggleMonth(this)">
+                <div class="month-title-group">
+                    <h2 class="month-title" data-month="January">January</h2>
+                    <span class="month-count">1 Issue</span>
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-date">1월 6일 <span class="badge-new">NEW</span></div>
+                    <div class="card-links">
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 06일) 대시.HTML" class="card-link">대시보드 View</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 06일) 인포.HTML" class="card-link">인포그래픽 View</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12월 섹션 -->
+        <section class="month-section collapsed">
             <div class="month-header" onclick="toggleMonth(this)">
                 <div class="month-title-group">
                     <h2 class="month-title" data-month="December">December</h2>
@@ -369,20 +420,20 @@
             </div>
             <div class="grid">
                 <div class="card">
-                    <div class="card-date">12월 29일 <span class="badge-new">NEW</span></div>
+                    <div class="card-date">12월 29일</div>
                     <div class="card-links">
                         <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 29일) 대시.HTML" class="card-link">대시보드 View</a>
                         <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 29일) 인포.HTML" class="card-link">인포그래픽 View</a>
                     </div>
                 </div>
-<div class="card">
+                <div class="card">
                     <div class="card-date">12월 28일</div>
                     <div class="card-links">
                         <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 28일) 대시.HTML" class="card-link">대시보드 View</a>
                         <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 28일) 인포.HTML" class="card-link">인포그래픽 View</a>
                     </div>
                 </div>
-<div class="card">
+                <div class="card">
                     <div class="card-date">12월 28일</div>
                     <div class="card-links">
                         <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 28일) 대시.HTML" class="card-link">대시보드 View</a>
@@ -832,7 +883,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- 10월 섹션 (Collapsed by default) -->
         <section class="month-section collapsed">
             <div class="month-header" onclick="toggleMonth(this)">
@@ -901,13 +952,13 @@
                 </div>
             </div>
         </section>
-        
+
         <footer>
             <div> 2025 AI </div>
             <div>Daily Update</div>
         </footer>
     </div>
-    
+
     <!-- Supabase JS 클라이언트 (Realtime 지원) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- 방문자 추적 스크립트 -->
@@ -957,15 +1008,16 @@
         function showAllCards(btn) {
             const section = btn.closest('.month-section');
             const hiddenCards = section.querySelectorAll('.hidden-card');
-            
+
             hiddenCards.forEach(card => {
                 card.classList.remove('hidden-card');
                 // Add animation class if needed
                 card.style.animation = 'fadeIn 0.5s';
             });
-            
+
             btn.parentElement.style.display = 'none';
         }
     </script>
 </body>
+
 </html>

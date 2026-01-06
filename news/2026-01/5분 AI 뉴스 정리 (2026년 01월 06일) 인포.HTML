@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT | 2026.01.06</title>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            /* Cream Background */
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Neo-Brutalism Soft Style */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #1a1a1a;
+            box-shadow: 4px 4px 0px 0px #1a1a1a;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #1a1a1a;
+        }
+
+        .nb-btn {
+            border: 2px solid #1a1a1a;
+            box-shadow: 2px 2px 0px 0px #1a1a1a;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px #1a1a1a;
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 2px solid #1a1a1a;
+            border-radius: 9999px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            background-color: #FFDEE9;
+        }
+
+        /* Insight Box */
+        .insight-box {
+            background-color: #F0F4F8;
+            border-top: 2px solid #1a1a1a;
+            padding: 16px;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Scrollbar Hide */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="leading-relaxed">
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto pt-10 pb-6 px-4 text-center">
+        <div
+            class="inline-block bg-yellow-300 border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black]">
+            📅 2026년 1월 6일 화요일
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black mb-2 tracking-tight">AI TREND REPORT</h1>
+        <p class="text-gray-600 text-lg">복잡한 AI 기술 뉴스, 핵심만 시각적으로 정리했습니다.</p>
+    </header>
+
+    <!-- KPI Dashboard (Big Numbers) -->
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box p-6 bg-[#E0F7FA] flex flex-col items-center justify-center text-center">
+                <span class="text-sm font-bold text-gray-600 mb-1">삼성전자 모바일 AI</span>
+                <span class="text-4xl md:text-5xl font-black text-blue-600">8억<span
+                        class="text-2xl text-black">대</span></span>
+                <span class="text-xs mt-2 font-medium">2026년 목표치 (2배↑)</span>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box p-6 bg-[#FFEBEE] flex flex-col items-center justify-center text-center">
+                <span class="text-sm font-bold text-gray-600 mb-1">매일 건강 질문</span>
+                <span class="text-4xl md:text-5xl font-black text-red-500">4천<span
+                        class="text-2xl text-black">만명</span></span>
+                <span class="text-xs mt-2 font-medium">ChatGPT 헬스케어 유저</span>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box p-6 bg-[#F3E5F5] flex flex-col items-center justify-center text-center">
+                <span class="text-sm font-bold text-gray-600 mb-1">서버 DRAM 가격</span>
+                <span class="text-4xl md:text-5xl font-black text-purple-600">70<span
+                        class="text-2xl text-black">%</span></span>
+                <span class="text-xs mt-2 font-medium">최대 인상 전망 (전분기 대비)</span>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box p-6 bg-[#E8F5E9] flex flex-col items-center justify-center text-center">
+                <span class="text-sm font-bold text-gray-600 mb-1">폭스콘 매출 성장</span>
+                <span class="text-4xl md:text-5xl font-black text-green-600">22<span
+                        class="text-2xl text-black">%</span></span>
+                <span class="text-xs mt-2 font-medium">AI 수요로 사상 최고</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-4 z-50 max-w-2xl mx-auto px-4 mb-10">
+        <div
+            class="bg-white border-2 border-black rounded-full shadow-[4px_4px_0px_black] p-2 flex justify-between overflow-x-auto no-scrollbar">
+            <a href="#theme1"
+                class="nb-btn px-4 py-2 bg-blue-100 hover:bg-blue-200 text-sm md:text-base whitespace-nowrap mx-1">🚀
+                빅테크 전략</a>
+            <a href="#theme2"
+                class="nb-btn px-4 py-2 bg-red-100 hover:bg-red-200 text-sm md:text-base whitespace-nowrap mx-1">⚖️ 규제와
+                안전</a>
+            <a href="#theme3"
+                class="nb-btn px-4 py-2 bg-yellow-100 hover:bg-yellow-200 text-sm md:text-base whitespace-nowrap mx-1">🤖
+                로봇과 AI</a>
+            <a href="#theme4"
+                class="nb-btn px-4 py-2 bg-green-100 hover:bg-green-200 text-sm md:text-base whitespace-nowrap mx-1">💰
+                AI 경제</a>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 pb-20 space-y-20">
+
+        <!-- Theme 1: Big Tech Strategy -->
+        <section id="theme1">
+            <h2 class="text-3xl font-black mb-6 flex items-center gap-2">
+                <span class="bg-blue-500 w-8 h-8 rounded-full border-2 border-black"></span>
+                Theme 1. 빅테크의 영토 확장
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 1: Samsung (Type A) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-blue-100 mb-3">전략</div>
+                        <h3 class="text-xl font-bold mb-4">삼성전자 "모바일 AI, 8억 대로 2배 늘린다"</h3>
+                        <div class="flex items-end gap-2 mb-4">
+                            <div
+                                class="w-full bg-gray-200 rounded-full h-6 border-2 border-black overflow-hidden relative">
+                                <div class="bg-blue-500 h-full text-xs text-white text-center font-bold leading-5"
+                                    style="width: 50%">2025: 4억 대</div>
+                                <div class="absolute top-0 left-0 h-full bg-blue-300 opacity-50" style="width: 100%">
+                                </div>
+                                <div class="absolute top-0 right-2 text-xs font-bold leading-5">2026: 8억 대</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">노태문 사장이 밝힌 '갤럭시 AI'의 대중화 선언. 구글 제미나이(Gemini)와 협력해 스마트폰, 태블릿 등 모든 기기에
+                            AI를 심겠다는 계획입니다.</p>
+                    </div>
+                    <div class="insight-box bg-blue-50">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">안드로이드 생태계 전체의 AI 표준을 삼성이 주도하려는 움직임입니다.</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Microsoft (Type C - Process) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-purple-100 mb-3">인수합병</div>
+                        <h3 class="text-xl font-bold mb-4">MS, 데이터 자동화 기업 'Osmos' 인수</h3>
+                        <div
+                            class="flex items-center justify-between bg-white border-2 border-black rounded-lg p-4 mb-4">
+                            <div class="text-center">
+                                <div class="text-2xl">📂</div>
+                                <div class="text-xs font-bold">복잡한 데이터</div>
+                            </div>
+                            <div class="text-xl font-black text-gray-400">➜</div>
+                            <div class="text-center">
+                                <div class="text-2xl">⚙️</div>
+                                <div class="text-xs font-bold text-purple-600">Osmos AI</div>
+                            </div>
+                            <div class="text-xl font-black text-gray-400">➜</div>
+                            <div class="text-center">
+                                <div class="text-2xl">📊</div>
+                                <div class="text-xs font-bold">MS Fabric</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">데이터를 정리하는 귀찮은 과정을 AI로 자동화합니다. 이제 기업 데이터 관리는 '에이전트'가 알아서 하는 시대로 갑니다.</p>
+                    </div>
+                    <div class="insight-box bg-purple-50">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">단순 툴 판매가 아니라, 기업 내부 시스템을 장악하려는 플랫폼 전략입니다.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 2: Regulation & Safety -->
+        <section id="theme2">
+            <h2 class="text-3xl font-black mb-6 flex items-center gap-2">
+                <span class="bg-red-500 w-8 h-8 rounded-full border-2 border-black"></span>
+                Theme 2. 규제와 안전의 충돌
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 3: Grok Controversy (Type B - VS) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-red-100 mb-3">논란</div>
+                        <h3 class="text-xl font-bold mb-4">Grok 딥페이크, 유럽 규제 당국 비상</h3>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <div class="text-center w-1/2 bg-gray-100 p-3 rounded-lg border border-gray-300">
+                                <div class="text-3xl mb-1">🤖</div>
+                                <div class="font-bold text-sm">X (Grok)</div>
+                                <div class="text-xs text-gray-500">"표현의 자유? 기능 개방"</div>
+                            </div>
+                            <div
+                                class="bg-red-500 text-white font-black rounded-full w-10 h-10 flex items-center justify-center border-2 border-black z-10 -ml-4 -mr-4">
+                                VS</div>
+                            <div class="text-center w-1/2 bg-red-50 p-3 rounded-lg border border-red-200">
+                                <div class="text-3xl mb-1">👮</div>
+                                <div class="font-bold text-sm">영국/EU</div>
+                                <div class="text-xs text-red-500">"미성년자 보호 최우선"</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">일론 머스크의 AI 'Grok'이 미성년자 성적 이미지를 생성해 논란입니다. 영국과 EU 당국이 즉각 조사에 착수했습니다.
+                        </p>
+                    </div>
+                    <div class="insight-box bg-red-50">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">딥페이크 기술의 자유도와 사회적 안전망 사이의 줄다리기가 시작되었습니다.</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: California Regulation (Type B - VS) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-orange-100 mb-3">법적 분쟁</div>
+                        <h3 class="text-xl font-bold mb-4">캘리포니아 vs 연방정부, AI 규제 전면전</h3>
+                        <div class="relative pt-2 pb-4">
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>캘리포니아 (민주당)</span>
+                                <span>트럼프 행정부</span>
+                            </div>
+                            <div class="h-4 bg-gray-200 rounded-full overflow-hidden flex border-2 border-black">
+                                <div class="bg-blue-400 h-full w-1/2 border-r-2 border-black"></div>
+                                <div class="bg-red-400 h-full w-1/2"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-2 text-gray-600">
+                                <span class="w-1/2 pr-2">"강력한 가드레일 필요. 무제한 AI는 위험"</span>
+                                <span class="w-1/2 pl-2 text-right">"주 규제 반대. 혁신 막는 연방 지원금 삭감"</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">실리콘밸리의 본진인 캘리포니아가 자체 AI 규제를 만들자, 연방 정부가 '지원금 중단' 카드로 압박하고 있습니다.</p>
+                    </div>
+                    <div class="insight-box bg-orange-50">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">규제 권한이 '주(State)'에 있느냐 '연방'에 있느냐가 향후 AI 개발 속도를 좌우합니다.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 3: Robotics & Physical AI -->
+        <section id="theme3">
+            <h2 class="text-3xl font-black mb-6 flex items-center gap-2">
+                <span class="bg-yellow-400 w-8 h-8 rounded-full border-2 border-black"></span>
+                Theme 3. 몸을 얻은 AI (Physical AI)
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 5: Boston Dynamics (Type C - Flow) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-yellow-100 mb-3">CES 2026</div>
+                        <h3 class="text-xl font-bold mb-4">보스턴다이내믹스 아틀라스 + 구글 제미나이</h3>
+                        <div class="flex flex-col gap-3 mb-4 p-4 bg-gray-50 border-2 border-black rounded-xl">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🤸</span>
+                                <span class="font-bold">최고의 로봇 몸체 (Atlas)</span>
+                            </div>
+                            <div class="flex justify-center text-xl text-gray-400">➕</div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🧠</span>
+                                <span class="font-bold">최고의 AI 두뇌 (Gemini)</span>
+                            </div>
+                            <div class="border-t-2 border-dashed border-gray-300 my-1"></div>
+                            <div class="font-bold text-center text-blue-600">"상황을 이해하고 일하는 로봇"</div>
+                        </div>
+                        <p class="text-gray-700">단순히 춤추는 로봇이 아닙니다. 이제 공장에서 낯선 물건을 봐도 AI 두뇌로 판단하고 조작할 수 있게 됩니다.</p>
+                    </div>
+                    <div class="insight-box bg-yellow-50">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">현대차 공장 투입이 가시화되었습니다. 휴머노이드의 '실전 투입' 원년입니다.</span>
+                    </div>
+                </div>
+
+                <!-- Card 6: CES Trend (Type B - VS) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-gray-200 mb-3">CES 트렌드</div>
+                        <h3 class="text-xl font-bold mb-4">전기차(EV) 지고, 자율주행 AI 뜬다</h3>
+                        <div class="grid grid-cols-2 gap-4 text-center mb-2">
+                            <div class="opacity-50 grayscale">
+                                <div class="text-4xl mb-2">🚗⚡</div>
+                                <div class="font-bold text-gray-500">전기차 신차</div>
+                                <div class="text-xs">출시 축소 & 관심 하락</div>
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full animate-bounce font-bold">
+                                    HOT</div>
+                                <div class="text-4xl mb-2">🚌🤖</div>
+                                <div class="font-bold text-blue-600">자율주행 AI</div>
+                                <div class="text-xs">안전/운송 AI 전면 배치</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mt-4">전기차 수요 둔화로 완성차 업체들이 '자율주행 소프트웨어'로 승부수를 던졌습니다. 테라다르 같은 센서 기업도
+                            주목받습니다.</p>
+                    </div>
+                    <div class="insight-box bg-gray-100">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">하드웨어(차)보다 소프트웨어(운전 AI)가 더 중요해지는 'SDV' 시대의 단면입니다.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 4: Economy & Industry -->
+        <section id="theme4">
+            <h2 class="text-3xl font-black mb-6 flex items-center gap-2">
+                <span class="bg-green-500 w-8 h-8 rounded-full border-2 border-black"></span>
+                Theme 4. AI 머니 흐름과 경고
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 7: DRAM Prices (Type A - Chart) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-green-100 mb-3">반도체</div>
+                        <h3 class="text-xl font-bold mb-2">서버용 DRAM 가격 폭등 조짐</h3>
+                        <div class="h-48 w-full">
+                            <canvas id="dramChart"></canvas>
+                        </div>
+                        <p class="text-gray-700 mt-2">AI 서버 수요 폭발로 삼성·SK하이닉스가 서버용 DRAM 가격을 최대 70% 인상할 것이란 전망입니다.</p>
+                    </div>
+                    <div class="insight-box bg-green-50">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">메모리 기업엔 호재지만, 클라우드/AI 스타트업엔 비용 압박이 커집니다.</span>
+                    </div>
+                </div>
+
+                <!-- Card 8: Bubble Warning (Type A - Warning) -->
+                <div class="nb-box flex flex-col h-full">
+                    <div class="p-6 flex-1">
+                        <div class="badge bg-red-100 mb-3">투자 주의</div>
+                        <h3 class="text-xl font-bold mb-4">레이 달리오 "AI 주식, 버블 초기다"</h3>
+                        <div class="bg-[#FFF8E1] border-l-4 border-orange-500 p-4 mb-4">
+                            <p class="font-serif italic text-lg text-gray-800">"AI 기술은 혁명적이지만, 현재 주가 밸류에이션은 과도한 기대가 반영된
+                                초기 버블 국면이다."</p>
+                            <p class="text-right text-sm font-bold mt-2">- Ray Dalio (브리지워터)</p>
+                        </div>
+                        <p class="text-gray-700">모두가 AI에 열광할 때, 전설적인 투자자는 과열을 경고했습니다. 실적 없는 기대감을 경계해야 할 시점입니다.</p>
+                    </div>
+                    <div class="insight-box bg-orange-50">
+                        <span>💡</span>
+                        <span class="font-bold text-sm">2026년 실적 시즌, AI 투자가 실제 돈이 되는지(ROI)가 증시를 가를 것입니다.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1a1a1a] text-white py-12 text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-2xl font-black mb-4">AI TREND REPORT</h2>
+            <p class="text-gray-400 mb-8">Generated by AI Infographic Designer</p>
+            <div class="text-xs text-gray-500">
+                Data Source: Barron's, NVIDIA Newsroom, The Verge, Axios, WSJ, Reuters, etc.<br>
+                Disclaimer: 이 리포트는 뉴스 요약 정보이며 투자 권유가 아닙니다.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chart.js Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('dramChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['기존 가격', '인상 전망(최대)'],
+                    datasets: [{
+                        label: '서버용 DRAM 가격 지수',
+                        data: [100, 170],
+                        backgroundColor: [
+                            'rgba(209, 213, 219, 0.8)', // Gray
+                            'rgba(147, 51, 234, 0.8)'   // Purple
+                        ],
+                        borderColor: [
+                            'rgba(0, 0, 0, 1)',
+                            'rgba(0, 0, 0, 1)'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.parsed.y === 170 ? '+70% 인상 예상' : '기준치';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { display: false },
+                            display: false
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: {
+                                    family: "'Noto Sans KR', sans-serif",
+                                    weight: 'bold',
+                                    size: 14
+                                },
+                                color: '#333'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
