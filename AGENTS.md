@@ -100,8 +100,8 @@
 ├── index.html           # 메인 목록 페이지
 ├── favicon.svg
 ├── netlify.toml         # Netlify 배포 설정
-├── visitor-tracker.js   # 방문자 추적
-├── data/                # 데이터 폴더
+├── data/
+│   └── visitor-tracker.js   # 방문자 추적
 ├── scripts/             # 스크립트 폴더
 └── news/
     ├── 2025-10/         # 10월 뉴스 (16개 파일)
