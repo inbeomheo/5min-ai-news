@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            color: #111;
+            word-break: keep-all;
+        }
+
+        .nb-box {
+            border: 2px solid #333;
+            box-shadow: 6px 6px 0px rgba(51, 51, 51, 0.2);
+            border-radius: 16px;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px rgba(51, 51, 51, 0.3);
+        }
+
+        .nb-btn {
+            border: 2px solid #333;
+            box-shadow: 3px 3px 0px #333;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: transform 0.1s;
+        }
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #333;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd1dc 0%, #ffd1dc 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+        }
+
+        .nav-active {
+            background-color: #333 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="leading-relaxed text-lg">
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto pt-12 pb-8 px-4 text-center">
+        <a href="../../index.html"
+            class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
+            ← 전체 목록
+        </a>
+        <span class="inline-block py-1 px-4 border-2 border-[#333] rounded-full bg-yellow-200 text-sm font-bold mb-4 ml-2">
+            📅 2026.01.09 ISSUE
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black mb-2 text-[#333]">AI TREND REPORT</h1>
+        <p class="text-xl text-gray-600">핵심만 빠르게 보는 AI 기술 브리핑</p>
+    </header>
+
+    <!-- KPI Dashboard -->
+    <section class="max-w-7xl mx-auto px-4 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="nb-box p-6 bg-blue-50 text-center">
+                <p class="text-gray-600 font-bold mb-2">📱 삼성 Galaxy AI</p>
+                <div class="text-4xl font-black text-[#333]">8억 대</div>
+                <div class="text-sm mt-2 text-blue-600 font-bold">▲ 2배 확대 목표</div>
+            </div>
+            <div class="nb-box p-6 bg-green-50 text-center">
+                <p class="text-gray-600 font-bold mb-2">💬 ChatGPT 사용자</p>
+                <div class="text-4xl font-black text-[#333]">8억 명</div>
+                <div class="text-sm mt-2 text-green-600 font-bold">주간 활성 사용자</div>
+            </div>
+            <div class="nb-box p-6 bg-purple-50 text-center">
+                <p class="text-gray-600 font-bold mb-2">💰 OpenAI 매출 목표</p>
+                <div class="text-4xl font-black text-[#333]">$30B</div>
+                <div class="text-sm mt-2 text-purple-600 font-bold">2026년 연간 목표</div>
+            </div>
+            <div class="nb-box p-6 bg-amber-50 text-center">
+                <p class="text-gray-600 font-bold mb-2">📊 CEO AI 투자 계획</p>
+                <div class="text-4xl font-black text-[#333]">68%</div>
+                <div class="text-sm mt-2 text-amber-600 font-bold">투자 확대 예정</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-4 z-50 px-4 mb-12">
+        <div class="max-w-4xl mx-auto nb-box bg-white flex justify-around p-2 md:p-3 overflow-x-auto gap-2">
+            <a href="#theme1" class="nb-btn px-6 py-2 bg-white hover:bg-gray-100 whitespace-nowrap text-sm md:text-base">💻 CES 2026</a>
+            <a href="#theme2" class="nb-btn px-6 py-2 bg-white hover:bg-gray-100 whitespace-nowrap text-sm md:text-base">🛒 AI 쇼핑</a>
+            <a href="#theme3" class="nb-btn px-6 py-2 bg-white hover:bg-gray-100 whitespace-nowrap text-sm md:text-base">📱 AI 대중화</a>
+            <a href="#theme4" class="nb-btn px-6 py-2 bg-white hover:bg-gray-100 whitespace-nowrap text-sm md:text-base">🔮 실용주의</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 space-y-24 pb-24">
+
+        <!-- Theme 1: CES 2026 -->
+        <section id="theme1" class="scroll-mt-32">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">💻</span>
+                <h2 class="text-3xl font-black">AI, 하드웨어 시대로 진입</h2>
+            </div>
+
+            <div class="nb-box p-6 md:p-10 bg-white">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-2">CES 2026의 핵심 메시지</h3>
+                    <p class="text-gray-600">AI가 화면 속에서 나와 실제 제품이 됩니다</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center text-center">
+                    <div class="bg-gray-100 p-5 rounded-xl border-2 border-gray-200">
+                        <div class="text-3xl mb-2">🤖</div>
+                        <h4 class="font-bold">로봇</h4>
+                        <p class="text-xs text-gray-500 mt-1">양산 단계 진입</p>
+                    </div>
+                    <div class="bg-blue-100 p-5 rounded-xl border-2 border-blue-200">
+                        <div class="text-3xl mb-2">💻</div>
+                        <h4 class="font-bold">AI PC</h4>
+                        <p class="text-xs text-gray-500 mt-1">AMD·Qualcomm 경쟁</p>
+                    </div>
+                    <div class="bg-purple-100 p-5 rounded-xl border-2 border-purple-200">
+                        <div class="text-3xl mb-2">📺</div>
+                        <h4 class="font-bold">AI TV</h4>
+                        <p class="text-xs text-gray-500 mt-1">Samsung Galaxy AI</p>
+                    </div>
+                    <div class="bg-green-100 p-5 rounded-xl border-2 border-green-200">
+                        <div class="text-3xl mb-2">🚗</div>
+                        <h4 class="font-bold">자율주행</h4>
+                        <p class="text-xs text-gray-500 mt-1">실용화 가속</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 space-y-2">
+                    <p>📌 <b>AMD Ryzen AI:</b> 생성형 비디오 편집, 실시간 번역, 사무 자동화</p>
+                    <p>📌 <b>Qualcomm X2 Elite:</b> 저전력 24/7 AI 작업 (알림 요약, 오프라인 음성)</p>
+                </div>
+
+                <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                    <p class="font-bold text-blue-900">💡 인사이트</p>
+                    <p class="text-sm md:text-base text-blue-900">
+                        2025년이 AI의 '바이브 체크' 해였다면, 2026년은 <span class="highlight">AI가 실용화되는 해</span>입니다. 더 큰 모델이 아닌, 실제로 쓸 수 있는 AI가 핵심입니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 2: AI Shopping -->
+        <section id="theme2" class="scroll-mt-32">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🛒</span>
+                <h2 class="text-3xl font-black">AI가 대신 쇼핑해주는 시대</h2>
+            </div>
+
+            <div class="nb-box p-6 md:p-10 bg-white">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1 w-full">
+                        <h3 class="text-2xl font-bold mb-4">"에이전틱 커머스" 시대 개막</h3>
+                        <p class="mb-6 text-gray-700">
+                            AI가 검색부터 결제까지 모든 쇼핑 과정을 대신 처리합니다.
+                            빅테크들이 AI 쇼핑 시장을 선점하기 위해 치열하게 경쟁 중입니다.
+                        </p>
+                        <ul class="space-y-3 bg-gray-50 p-5 rounded-xl border-2 border-gray-200">
+                            <li>🟦 <b>Microsoft:</b> <span class="text-blue-600 font-bold">Copilot Checkout</span> 출시 (NRF 2026)</li>
+                            <li>🟢 <b>Google:</b> <span class="text-green-600 font-bold">Buy for Me</span> 기능 (11월 출시)</li>
+                            <li>⬛ <b>OpenAI:</b> 유사 기능 <span class="font-bold">개발 중</span></li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 w-full h-64 border-2 border-dashed border-gray-300 rounded-xl p-2 bg-white">
+                        <canvas id="shoppingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                    <p class="font-bold text-green-900">💡 인사이트</p>
+                    <p class="text-sm md:text-base text-green-900">
+                        AI 에이전트가 <span class="highlight">구매 결정까지 대행</span>하는 시대가 열렸습니다. 전자상거래 시장의 판도가 근본적으로 바뀔 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme 3: AI Popularization -->
+        <section id="theme3" class="scroll-mt-32">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">📱</span>
+                <h2 class="text-3xl font-black">AI 대중화 원년</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="nb-box bg-white p-6 md:p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded border border-blue-200">하드웨어</span>
+                        <h3 class="text-2xl font-bold mt-2">Samsung Galaxy AI</h3>
+                        <p class="mt-4 text-gray-600">
+                            삼성이 Galaxy AI 탑재 기기를 <b>4억 대 → 8억 대</b>로 2배 확대합니다.
+                            스마트폰, 태블릿, TV, 가전까지 AI가 들어갑니다.
+                        </p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="flex justify-between text-sm font-bold mb-2">
+                            <span>2025년</span>
+                            <span>2026년 목표</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="bg-gray-300 h-8 rounded flex-1 flex items-center justify-center font-bold">4억</div>
+                            <div class="bg-blue-500 text-white h-8 rounded flex-[2] flex items-center justify-center font-bold">8억 대</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nb-box bg-white p-6 md:p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded border border-green-200">소프트웨어</span>
+                        <h3 class="text-2xl font-bold mt-2">ChatGPT 성장</h3>
+                        <p class="mt-4 text-gray-600">
+                            OpenAI ChatGPT가 주간 <b>8억 명</b> 사용자를 돌파했습니다.
+                            2026년 매출 목표는 <b>$30B</b>입니다.
+                        </p>
+                    </div>
+                    <div class="mt-6 flex items-center gap-3 bg-green-50 p-3 rounded-lg border border-green-100">
+                        <span class="text-2xl">📈</span>
+                        <div class="text-sm">
+                            <p class="font-bold">2026년 전략</p>
+                            <p class="text-gray-500">챗봇 → "슈퍼 어시스턴트"로 진화</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg nb-box">
+                <p class="font-bold text-purple-900">💡 인사이트</p>
+                <p class="text-sm md:text-base text-purple-900">
+                    2026년은 <span class="highlight">AI가 일상에 스며드는 원년</span>입니다. 하드웨어와 소프트웨어 모두에서 AI 접점이 폭발적으로 늘어납니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- Theme 4: Pragmatism -->
+        <section id="theme4" class="scroll-mt-32">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🔮</span>
+                <h2 class="text-3xl font-black">과대광고에서 실용주의로</h2>
+            </div>
+
+            <div class="nb-box p-6 md:p-10 bg-white">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 text-center relative">
+                    <div class="flex-1 w-full p-4 opacity-50">
+                        <div class="text-5xl mb-4">🎪</div>
+                        <h3 class="text-xl font-black text-gray-800">2025년</h3>
+                        <p class="text-lg font-bold text-gray-500 mt-2">Hype (과대광고)</p>
+                        <p class="text-sm text-gray-400 mt-2">"더 큰 모델! AGI 곧 온다!"</p>
+                    </div>
+
+                    <div class="z-10 bg-black text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-black border-4 border-white shadow-lg">
+                        →
+                    </div>
+
+                    <div class="flex-1 w-full p-4">
+                        <div class="text-5xl mb-4">🔧</div>
+                        <h3 class="text-xl font-black text-gray-800">2026년</h3>
+                        <p class="text-lg font-bold text-blue-600 mt-2">Pragmatism (실용주의)</p>
+                        <p class="text-sm text-gray-500 mt-2">"실제로 쓸 수 있는 AI"</p>
+                    </div>
+                </div>
+
+                <div class="border-t-2 border-dashed border-gray-300 my-8"></div>
+
+                <div class="text-left bg-gray-50 p-5 rounded-xl border border-gray-200">
+                    <h4 class="font-bold text-lg mb-3">🔄 패러다임 전환 신호</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• <b>AGI 용어 퇴조:</b> Anthropic, Microsoft, OpenAI 임원들 "구식" 평가</li>
+                        <li>• <b>소형 모델 부상:</b> 적절한 곳에 적절한 크기의 AI 배치</li>
+                        <li>• <b>워크플로우 통합:</b> 인간 업무에 자연스럽게 녹아드는 AI</li>
+                    </ul>
+                </div>
+
+                <div class="mt-8 bg-gray-800 border-l-4 border-black p-4 rounded-r-lg">
+                    <p class="font-bold text-white">💡 인사이트</p>
+                    <p class="text-sm md:text-base text-gray-300">
+                        AI 기업들이 추상적 목표(AGI) 대신 <span class="text-white underline font-bold">실용적 가치 창출</span>에 집중하기 시작했습니다. 이것이 진짜 AI 시대의 시작입니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#333] text-white py-12 text-center mt-20">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-4">AI NEWS INFOGRAPHIC</h2>
+            <p class="text-gray-400 text-sm mb-8">
+                복잡한 뉴스를 시각적으로 정리하여 매일 전달합니다.<br>
+                Design & Edit by AI Editor
+            </p>
+            <p class="text-xs text-gray-600">© 2026 AI News Report. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('shoppingChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ChatGPT (68%)', 'Gemini (18%)', '기타 (14%)'],
+                    datasets: [{
+                        data: [68, 18, 14],
+                        backgroundColor: ['#10B981', '#3B82F6', '#E5E7EB'],
+                        borderWidth: 2,
+                        borderColor: '#333'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Noto Sans KR', size: 12 },
+                                padding: 15
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'AI 챗봇 웹 트래픽 점유율',
+                            font: { family: 'Noto Sans KR', size: 14, weight: 'bold' },
+                            padding: { bottom: 10 }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

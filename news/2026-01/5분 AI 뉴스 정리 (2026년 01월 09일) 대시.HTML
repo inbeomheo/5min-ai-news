@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsDash - 일일 AI 뉴스 보고서</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+        }
+        .modal-open {
+            overflow: hidden;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center text-white font-bold text-lg">N</div>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">NewsDash <span class="text-slate-500 font-normal text-sm ml-2">2026년 01월 09일 리포트</span></h1>
+            </div>
+            <a href="../../index.html"
+                class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold text-sm">
+                <span>←</span> 목록
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- 1. Key Data Highlights -->
+        <section id="highlights-section">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <span class="w-2 h-6 bg-amber-500 rounded-full mr-2"></span>
+                오늘의 주요 데이터
+            </h2>
+            <div id="key-numbers" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            </div>
+        </section>
+
+        <!-- 2. Top 5 News -->
+        <section id="top5-section">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-2">
+                🔥 Top 5 News
+            </h2>
+            <div id="top5-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        </section>
+
+        <!-- 3. Thematic Sections -->
+        <div id="thematic-area" class="space-y-12">
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 NewsDash. AI Daily Summary Report.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl opacity-0 scale-95" id="modal-panel">
+                    <div class="bg-slate-50 px-4 py-4 sm:px-6 flex justify-between items-start border-b border-slate-100">
+                        <div>
+                            <span id="modal-category" class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 mb-2">Category</span>
+                            <h3 class="text-lg font-bold leading-6 text-slate-900" id="modal-title">Modal Title</h3>
+                        </div>
+                        <button type="button" id="modal-close-btn" class="rounded-md bg-white text-slate-400 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ml-4">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="px-4 py-6 sm:px-6">
+                        <div class="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap custom-scroll max-h-[60vh] overflow-y-auto pr-2" id="modal-content">
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-100">
+                        <button type="button" id="modal-confirm-btn" class="inline-flex w-full justify-center rounded-md bg-slate-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 sm:ml-3 sm:w-auto">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            // --- TOP 5 ---
+            {
+                theme: "AI 인프라 및 투자",
+                category: "에너지/인프라",
+                title: "Meta, AI 인프라 확장 위해 원자력 에너지 파트너십 체결",
+                isTop5: true,
+                details: "Meta가 AI 데이터센터 전력 수요를 충당하기 위해 Oklo Inc. 등과 대규모 원자력 에너지 파트너십을 체결했다. 이번 협약은 AI 경쟁에서 승리하려면 코드뿐 아니라 이를 구동할 원시 전력(raw power)이 필요하다는 것을 보여주는 신호탄이다.\n\nMeta는 소셜 미디어 기업에서 'AI-First' 인프라·하드웨어 강자로 성공적으로 변신하며, AI 시대의 핵심 자원인 전력 확보에 적극 나서고 있다. 원자력은 탄소 배출이 적고 안정적인 전력 공급이 가능해 AI 데이터센터에 적합한 에너지원으로 주목받고 있다. 업계에서는 이번 파트너십이 빅테크 기업들의 에너지 전략 경쟁을 더욱 가속화할 것으로 전망하고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "커머스/에이전트",
+                title: "Microsoft, 'Copilot Checkout' 출시로 AI 쇼핑 경쟁 본격화",
+                isTop5: true,
+                details: "Microsoft가 NRF 2026에서 'Copilot Checkout'을 발표하며 AI 쇼핑 시장에 본격 진출했다. 이 기능을 통해 사용자는 Copilot 대화창에서 직접 제품을 검색하고 결제까지 완료할 수 있다. Microsoft는 기업 기술 생태계와 소매업체 관계를 활용해 OpenAI, Google, Amazon과의 AI 쇼핑 경쟁에서 차별화를 꾀하고 있다.\n\nGoogle은 11월 'Buy for Me' 기능으로 Gemini가 사용자 대신 제품을 구매할 수 있게 했고, OpenAI도 유사한 기능 개발을 진행 중인 것으로 알려졌다. AI 에이전트가 검색부터 결제까지 전 과정을 처리하는 '에이전틱 커머스' 시대가 본격화되면서, 전자상거래 시장의 판도가 바뀔 것으로 예상된다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "모바일/하드웨어",
+                title: "Samsung, Galaxy AI 탑재 기기 2026년 8억 대로 2배 확대 계획",
+                isTop5: true,
+                details: "Samsung이 Galaxy AI 기능을 탑재한 모바일 기기를 2026년 약 4억 대에서 8억 대로 2배 확대할 계획이라고 발표했다. Galaxy AI는 Google의 Gemini 모델과 Samsung의 Bixby를 결합한 것으로, 스마트폰, 태블릿, TV, 가전제품 전반에 걸쳐 적용된다.\n\nCES 2026에서 공개된 이 계획은 Samsung이 AI를 단순한 소프트웨어 기능이 아닌 전체 제품 생태계의 핵심 경쟁력으로 삼겠다는 전략을 보여준다. 업계에서는 Apple, Google 등 경쟁사들도 유사한 AI 통합 전략을 가속화할 것으로 예상하며, 2026년이 소비자 가전 AI 대중화의 원년이 될 것으로 전망하고 있다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "트렌드/CES",
+                title: "CES 2026: AI, 소프트웨어에서 하드웨어 시대로 진입",
+                isTop5: true,
+                details: "CES 2026은 AI가 소프트웨어 단계를 넘어 하드웨어 시대로 본격 진입했음을 선언하는 무대가 됐다. 프로토타입에서 양산 준비 단계로 전환된 로봇, AI PC, TV, 자율주행차, 가전제품이 대거 공개됐다.\n\nAMD는 Ryzen AI 신제품으로 생성형 비디오 편집, 실시간 번역, 사무 자동화를 강조했고, Qualcomm의 Snapdragon X2 Elite는 저전력 24/7 AI 부하(알림 요약, 오프라인 음성 명령)에 초점을 맞췄다. 전문가들은 2025년이 AI의 '바이브 체크' 해였다면, 2026년은 AI가 실용화되는 해가 될 것이라고 평가한다. 더 큰 언어 모델 구축에서 벗어나 AI를 실제로 사용 가능하게 만드는 데 초점이 맞춰지고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "플랫폼/성장",
+                title: "OpenAI, ChatGPT 주간 사용자 8억 명 돌파…2026년 $30B 매출 목표",
+                isTop5: true,
+                details: "OpenAI의 ChatGPT가 주간 활성 사용자 8억 명, 기업 고객 100만 개를 돌파했다. 2025년 연간 매출이 130억 달러 이상을 기록한 가운데, 내부 문서에 따르면 OpenAI는 2026년 300억 달러 매출을 목표로 하고 있다.\n\nOpenAI는 2026년 ChatGPT를 단순 챗봇에서 사용자의 목표를 이해하고, 맥락을 저장하며, 능동적으로 도움을 주는 '슈퍼 어시스턴트'로 진화시킬 계획이다. 한편 Similarweb 데이터에 따르면 ChatGPT가 AI 챗봇 웹 트래픽의 약 68%를 차지하고, Google Gemini가 18%로 추격하고 있다. AI 시장의 경쟁이 더욱 치열해질 전망이다."
+            },
+
+            // --- AI 인프라 및 투자 ---
+            {
+                theme: "AI 인프라 및 투자",
+                category: "칩/하드웨어",
+                title: "AMD Ryzen AI·Qualcomm Snapdragon X2 Elite, CES 2026서 AI PC 경쟁 가열",
+                isTop5: false,
+                details: "CES 2026에서 AMD와 Qualcomm이 AI PC용 신규 프로세서를 공개하며 경쟁이 본격화됐다. AMD는 노트북용 Ryzen AI 신제품을 발표하며 생성형 비디오 편집, 실시간 번역, 사무 자동화 기능을 강조했다.\n\nQualcomm의 Snapdragon X2 Elite는 저전력 설계로 24시간 연속 AI 작업(알림 요약, 오프라인 음성 명령)에 최적화됐다. 두 회사 모두 Intel의 AI PC 시장 점유율에 도전장을 내밀며, 2026년 AI PC 시장이 본격 성장할 것으로 예상된다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "정책/예산",
+                title: "한국 중기부, 2026년 AI 예산 약 8천억 원 투입",
+                isTop5: false,
+                details: "한국 중소벤처기업부가 2026년 AI 분야에 총 7,992억 원의 예산을 투입한다고 발표했다. 비R&D 부문에 6,718억 원(AI·딥테크 투자, 제조 AX, AI 스타트업 육성 등), R&D 부문에 1,274억 원(AI 분야 TIPS, 스마트제조 R&D 등)이 배정됐다.\n\n이번 예산은 정부의 'AI 3대 강국 도약' 목표를 뒷받침하는 핵심 재원으로, 중소기업의 AI 전환(AX)을 가속화하고 AI 스타트업 생태계를 강화하는 데 집중될 예정이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자/전망",
+                title: "CEO 68%, 2026년 AI 투자 확대 계획…절반 미만 프로젝트만 수익 창출",
+                isTop5: false,
+                details: "최근 조사에 따르면 CEO의 68%가 2026년 AI에 더 많은 투자를 계획하고 있지만, AI 프로젝트 중 절반 미만만이 실제 수익을 창출하고 있는 것으로 나타났다. 이는 AI 투자의 기대와 현실 사이의 간극을 보여준다.\n\n전문가들은 기업들이 대규모 AI 전환보다는 단계적인 '작은 혁신'에 집중해야 실질적 ROI를 달성할 수 있다고 조언한다. MIT 슬론 연구에 따르면 개인 생산성 향상 → 특정 역할 통합 → 운영 프로세스 자동화의 3단계 접근이 효과적이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "시장/주식",
+                title: "Alphabet, 2026년 $4조 클럽 진입 유력…AI 상승세 지속",
+                isTop5: false,
+                details: "Google 모회사 Alphabet이 2026년 시가총액 4조 달러 클럽에 합류할 것으로 전망된다. 현재 시가총액 3.77조 달러로, 6.1%만 상승하면 목표 달성이 가능하다.\n\nAlphabet은 AI 분야에서의 지속적인 성장이 주가 상승을 견인하고 있으며, Gemini 모델의 시장 점유율 확대와 AI 인프라 투자가 긍정적으로 평가받고 있다. 최근 데이터에 따르면 Google Gemini는 AI 챗봇 웹 트래픽에서 18%를 차지하며 ChatGPT를 추격 중이다."
+            },
+
+            // --- 플랫폼, 제품 및 에이전트 ---
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "에이전트/광고",
+                title: "Yahoo DSP, 에이전틱 AI 3종 기능 출시…MCP 프로토콜 채택",
+                isTop5: false,
+                details: "Yahoo DSP가 자동 캠페인 설정, 실시간 문제 해결, AI 기반 오디언스 탐색을 가능하게 하는 3가지 에이전틱 AI 기능을 출시했다. 이 시스템은 Model Context Protocol(MCP)을 사용해 외부 에이전트를 연결한다.\n\nMCP는 Anthropic이 개발하고 최근 Linux Foundation의 Agentic AI Foundation에 기부한 프로토콜로, 'AI의 USB-C'로 불리며 빠르게 업계 표준으로 자리잡고 있다. OpenAI와 Microsoft도 MCP를 공개적으로 채택했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "프로토콜/표준",
+                title: "Anthropic MCP, Linux Foundation에 기부…AI 에이전트 표준화 가속",
+                isTop5: false,
+                details: "Anthropic의 Model Context Protocol(MCP)이 'AI의 USB-C'로 불리며 빠르게 업계 표준으로 자리잡고 있다. Anthropic은 최근 MCP를 Linux Foundation의 새로운 Agentic AI Foundation에 기부했다.\n\nOpenAI와 Microsoft가 공개적으로 MCP를 채택하면서, AI 에이전트 간 상호운용성을 위한 공통 프로토콜 확립이 가속화되고 있다. 이를 통해 다양한 AI 시스템들이 표준화된 방식으로 통신하고 협업할 수 있게 될 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "트렌드/용어",
+                title: "AGI 용어 퇴조…Anthropic·Microsoft·OpenAI 임원들 '구식' 평가",
+                isTop5: false,
+                details: "AI 업계가 'AGI(인공일반지능)' 용어 사용을 줄이고 있다. Anthropic 대표 Daniela Amodei는 AGI를 '구식(outdated)' 용어라고 평가했고, Microsoft CEO Satya Nadella는 '정의된 대로의 AGI는 조만간 달성되지 않을 것'이라고 말했다.\n\nOpenAI CEO Sam Altman도 8월에 AGI가 '그다지 유용한 용어가 아니다'라고 언급하며, 회사가 AGI 대신 '자율적 연구가 가능한 AI' 개발에 초점을 맞추고 있음을 시사했다. 업계는 추상적 목표보다 실용적 AI 개발에 집중하는 방향으로 전환하고 있다."
+            },
+
+            // --- 산업별 AI 적용 ---
+            {
+                theme: "산업별 AI 적용",
+                category: "제약/헬스케어",
+                title: "Pierre Fabre·Iktos, AI 기반 항암 신약 개발 협력 발표",
+                isTop5: false,
+                details: "프랑스 제약사 Pierre Fabre Laboratories와 AI 신약 개발 기업 Iktos가 종양학 분야 AI 기반 신약 개발 협력을 발표했다. 양사는 AI를 활용해 새로운 소분자 약물 후보물질을 발굴하고 개발할 계획이다.\n\n이번 협력은 AI가 신약 개발 초기 단계에서 후보물질 발굴 시간과 비용을 획기적으로 줄일 수 있다는 기대를 반영한다. 제약 업계 전반에서 AI 기반 신약 개발 파트너십이 증가하는 추세다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "로보틱스/자동화",
+                title: "CES 2026, AI 로봇·자율주행차 양산 단계 진입 선언",
+                isTop5: false,
+                details: "CES 2026에서 AI 로봇과 자율주행차가 프로토타입 단계를 넘어 양산 준비 단계에 진입했음이 선언됐다. 다양한 제조사들이 실제 생산 라인에 투입 가능한 로봇과 자율주행 기술을 공개했다.\n\n특히 휴머노이드 로봇 분야에서 Boston Dynamics, 현대자동차그룹 등이 양산형 모델을 선보였으며, 2028년까지 대규모 상용화를 목표로 하고 있다. AI가 물리적 세계에 본격 진출하는 '피지컬 AI' 시대가 열리고 있다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "기업/신년사",
+                title: "한국 재계 총수들, 2026년 신년사서 'AI' 키워드 강조",
+                isTop5: false,
+                details: "한국 주요 그룹 총수들이 2026년 신년사에서 'AI'를 핵심 키워드로 강조했다. SK그룹 최태원 회장은 'AI라는 거대한 변화의 바람을 타고 글로벌 시장을 헤쳐 나가자'며 'AI 시대는 이제 막이 오른 단계'라고 강조했다.\n\n현대자동차그룹 정의선 회장은 'AI는 거대한 패러다임 전환 기술이며, AI 역량을 내재화하지 못한 기업은 생존을 담보하기 어렵다'고 경고했다. 한국 대기업들이 2026년을 AI 전환의 핵심 해로 인식하고 있음을 보여준다."
+            },
+
+            // --- 법률, 규제 및 거버넌스 ---
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "규제/정책",
+                title: "Trump 행정부 vs 주정부, AI 규제 권한 놓고 충돌 예고",
+                isTop5: false,
+                details: "AI 규제를 둘러싼 연방정부와 주정부 간 갈등이 2026년 본격화될 전망이다. Trump 대통령은 2025년 12월 주 정부의 AI 법률을 제한하는 행정명령에 서명했으며, 백악관과 각 주가 AI 기술 관할권을 놓고 다툴 것으로 예상된다.\n\n한편 AI 기업들은 규제에 반대하는 로비 캠페인을 전개하고 있다. 연방 단일 정책 vs 주별 자율 규제 사이의 논쟁은 AI 산업 발전 방향에 중요한 영향을 미칠 것으로 보인다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책/행정",
+                title: "Trump, 주(州) AI 규제 차단 행정명령 서명…법적 분쟁 예고",
+                isTop5: false,
+                details: "Donald Trump 미국 대통령이 2025년 12월 11일 각 주 정부의 AI 관련 규제를 차단하는 행정명령에 서명했다. 이 명령은 미국이 AI 분야에서 글로벌 주도권을 유지하기 위해 50개 주의 분산된 규제 대신 단일 국가 정책이 필요하다는 논리에 기반한다.\n\n법무부 산하에 'AI 소송 태스크포스'를 설치해 연방법에 저촉되는 주 AI 법률에 소송을 제기할 예정이다. 그러나 민주당과 일부 주 의원들은 이 명령이 주의 헌법상 권한을 침해한다며 법원 도전을 예고하고 있다."
+            },
+
+            // --- AI와 사회 ---
+            {
+                theme: "AI와 사회",
+                category: "연구/과학",
+                title: "Johns Hopkins 연구: AI 구조, 훈련 전에도 인간 뇌와 유사",
+                isTop5: false,
+                details: "Johns Hopkins University 연구팀이 생물학에서 영감받은 설계로 구축된 AI 시스템이 데이터 훈련 전에도 인간 뇌 활동과 유사해질 수 있다는 연구 결과를 발표했다. 이는 AI의 구조(아키텍처)가 처리하는 데이터만큼이나 중요할 수 있음을 시사한다.\n\n연구팀은 AI가 얼마나 많은 데이터를 처리하느냐보다 어떻게 구조화되어 있는지가 지능의 핵심일 수 있다고 설명했다. 이 발견은 향후 AI 아키텍처 설계에 중요한 시사점을 제공한다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "트렌드/전망",
+                title: "2026년 AI 전망: 과대광고에서 실용주의로 전환",
+                isTop5: false,
+                details: "MIT Technology Review, TechCrunch 등 주요 매체들은 2026년 AI가 '과대광고(hype)'에서 '실용주의(pragmatism)'로 전환될 것이라고 전망했다. 더 큰 언어 모델 구축에서 벗어나 AI를 실제로 사용 가능하게 만드는 데 초점이 맞춰질 것이다.\n\n소형 모델을 적절한 곳에 배치하고, 지능을 물리적 기기에 내장하며, 인간 워크플로우에 통합되는 시스템을 설계하는 방향으로 발전할 전망이다. 2025년이 AI의 '바이브 체크' 해였다면, 2026년은 기술이 실용화되는 해가 될 것이다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "미디어/방송",
+                title: "중국 중앙방송총국, 2026년 AI 10대 트렌드 발표",
+                isTop5: false,
+                details: "중국 중앙방송총국(CMG)이 2026년 인공지능 10대 트렌드를 발표했다. 이 보고서는 중국의 AI 산업 발전 방향과 정책 우선순위를 반영하는 것으로 평가된다.\n\n중국은 자체 AI 기술 개발에 집중하면서 미국과의 기술 경쟁에서 독자적 생태계 구축을 가속화하고 있다. AI 칩, 대규모 언어 모델, 로보틱스 등 핵심 분야에서 자립을 목표로 하고 있다."
+            }
+        ];
+
+        // --- Utility Functions ---
+        function getDisplayTitle(title, limit = 60) {
+            if (title.length <= limit) return title;
+            return title.substring(0, limit) + "...";
+        }
+
+        // --- Render Functions ---
+        function createKeyNumbersSection() {
+            const highlights = [
+                { label: "Samsung Galaxy AI", value: "8억 대", sub: "2026년 목표" },
+                { label: "ChatGPT 사용자", value: "8억 명", sub: "주간 활성 사용자" },
+                { label: "OpenAI 매출 목표", value: "$30B", sub: "2026년 연간" },
+                { label: "CEO AI 투자 계획", value: "68%", sub: "투자 확대 예정" }
+            ];
+
+            const container = document.getElementById('key-numbers');
+            let html = '';
+            highlights.forEach(item => {
+                html += `
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-400">
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">${item.label}</p>
+                        <p class="text-2xl font-bold text-slate-900">${item.value}</p>
+                        <p class="text-sm text-slate-400 mt-1">${item.sub}</p>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderTop5Section() {
+            const container = document.getElementById('top5-grid');
+            const top5Items = reportData.filter(item => item.isTop5);
+            let html = '';
+
+            top5Items.forEach((item, index) => {
+                const originalIndex = reportData.indexOf(item);
+                const displayTitle = getDisplayTitle(item.title);
+
+                html += `
+                    <div class="bg-white rounded-lg shadow-sm border border-slate-100 p-6 cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                         onclick="showModal(${originalIndex})">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2 py-1 rounded border border-red-100">TOP ${index + 1}</span>
+                            <span class="text-xs text-slate-400 font-medium">${item.category}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 leading-snug group-hover:text-blue-600 transition-colors">
+                            ${displayTitle}
+                        </h3>
+                        <p class="text-sm text-slate-500 mt-4 line-clamp-3">
+                            ${item.details.substring(0, 100)}...
+                        </p>
+                        <div class="mt-4 flex items-center text-xs text-slate-400 font-medium">
+                            <span>더 보기</span>
+                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-area');
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회"
+            ];
+
+            let html = '';
+
+            themes.forEach(theme => {
+                const items = reportData.filter(item => item.theme === theme && !item.isTop5);
+
+                if (items.length === 0) return;
+
+                let cardsHtml = '';
+                items.forEach(item => {
+                    const originalIndex = reportData.indexOf(item);
+                    const displayTitle = getDisplayTitle(item.title);
+
+                    cardsHtml += `
+                        <div class="bg-white rounded-lg shadow-sm border border-slate-100 p-5 cursor-pointer hover:shadow-lg transition-all duration-200"
+                             onclick="showModal(${originalIndex})">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                                <span class="text-xs font-semibold text-slate-500 uppercase">${item.category}</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-800 mb-2 hover:text-blue-600 transition-colors">
+                                ${displayTitle}
+                            </h4>
+                        </div>
+                    `;
+                });
+
+                html += `
+                    <section class="theme-section">
+                        <h2 class="text-xl font-bold text-slate-800 mb-5 pl-4 border-l-4 border-slate-800">
+                            ${theme}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            ${cardsHtml}
+                        </div>
+                    </section>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        function showModal(index) {
+            const item = reportData[index];
+            if (!item) return;
+
+            modalTitle.textContent = item.title;
+            modalCategory.textContent = item.category;
+            modalContent.textContent = item.details;
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+
+            requestAnimationFrame(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'scale-95');
+                modalPanel.classList.add('opacity-100', 'scale-100');
+            });
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'scale-100');
+            modalPanel.classList.add('opacity-0', 'scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }, 200);
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-confirm-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>
