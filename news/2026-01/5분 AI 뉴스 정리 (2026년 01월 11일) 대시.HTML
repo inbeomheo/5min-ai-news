@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: 일일 AI 뉴스 보고서</title>
+
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 equivalent */
+            color: #1e293b; /* text-slate-800 */
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Utility for line clamping if needed, though JS truncation is preferred for titles */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <!-- 1. Header -->
+    <header class="sticky top-0 z-30 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-blue-600 rounded-full"></div>
+                <h1 class="text-xl md:text-2xl font-black tracking-tight text-slate-900">
+                    뉴스대시 <span class="text-blue-600 font-light">AI Brief</span>
+                </h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-sm md:text-base font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                    2026년 01월 11일
+                </div>
+                <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold text-sm">
+                    <span>←</span> 목록
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- 2. Key Data Highlights -->
+        <section id="key-highlights" class="animate-fade-in-up">
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                오늘의 주요 수치
+            </h2>
+            <div id="highlights-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- 3. Top 5 News -->
+        <section id="top-5-section">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-200 pb-2">
+                <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                    <span class="text-red-600 text-3xl leading-none">&bull;</span> Top 5 핵심 뉴스
+                </h2>
+                <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100">Must Read</span>
+            </div>
+            <div id="top-5-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- 4. Thematic Sections -->
+        <div id="thematic-container" class="space-y-12">
+            <!-- Javascript will populate thematic sections here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+            &copy; 2026 뉴스대시 Daily AI Report. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Modal Structure -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background backdrop -->
+        <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0 w-full">
+            <!-- Modal panel -->
+            <div id="modal-panel" class="relative bg-white rounded-xl text-left shadow-2xl transform transition-all sm:my-8 sm:max-w-2xl w-full max-h-[85vh] flex flex-col opacity-0 translate-y-4 scale-95">
+
+                <!-- Header -->
+                <div class="px-6 py-5 border-b border-slate-100 flex items-start justify-between bg-white rounded-t-xl sticky top-0 z-10">
+                    <div>
+                        <span id="modal-category" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800 mb-2">
+                            카테고리
+                        </span>
+                        <h3 class="text-xl leading-7 font-bold text-slate-900" id="modal-title">
+                            뉴스 제목
+                        </h3>
+                    </div>
+                    <button id="modal-close-btn" type="button" class="ml-4 bg-white rounded-full p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors focus:outline-none">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Content -->
+                <div class="px-6 py-6 overflow-y-auto modal-scroll bg-white">
+                    <div id="modal-content" class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-line text-sm md:text-base">
+                        <!-- Content goes here -->
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="bg-slate-50 px-6 py-4 flex flex-row-reverse rounded-b-xl border-t border-slate-100">
+                    <button id="modal-close-bottom" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // ------------------------------------------------------------------
+        // 1. Data Processing
+        // ------------------------------------------------------------------
+
+        // Raw Data based on the provided report.
+        // Note: Summaries and details are combined for the 'details' field.
+        const reportData = [
+            // --- TOP 5 ---
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Regulation/Deepfake",
+                title: "인도네시아, 세계 최초로 xAI '그록' 차단…딥페이크 우려",
+                isTop5: true,
+                details: "인도네시아가 세계 최초로 일론 머스크의 xAI 챗봇 '그록(Grok)'에 대한 접근을 차단했다. 인도네시아 통신디지털부 장관은 1월 10일(현지시간) '비동의 성적 딥페이크'가 인권, 존엄성, 디지털 공간 내 시민 안전에 대한 심각한 침해라고 밝혔다. 이번 조치는 그록의 이미지 생성·편집 기능이 악용되어 유명인과 일반인의 딥페이크 이미지가 확산된 데 따른 것이다.\n\n인도네시아 정부는 플랫폼 사업자가 적절한 안전장치를 마련할 때까지 차단을 유지할 방침이다. 이 조치는 프랑스·EU·영국 등 서방 국가들이 그록 관련 조사를 진행 중인 가운데 나온 것으로, 국가 차원의 실질적 제재가 시작됐다는 점에서 글로벌 AI 규제 논의에 파장을 줄 전망이다. xAI와 X(구 트위터)는 아직 공식 입장을 내놓지 않았다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Semiconductors/GPU",
+                title: "엔비디아, CES 2026서 '베라 루빈' 플랫폼 공개…블랙웰 5배 성능",
+                isTop5: true,
+                details: "엔비디아는 CES 2026 키노트에서 차세대 AI 플랫폼 '베라 루빈(Vera Rubin)'을 공식 발표했다. 베라 루빈은 블랙웰(Blackwell) 아키텍처의 후속으로, 추론 성능 5배 향상과 토큰당 비용 10배 절감을 달성했다고 회사 측은 밝혔다. 각 루빈 GPU는 288GB HBM4 메모리와 22TB/s 대역폭을 제공하며, 블랙웰 대비 메모리 대역폭이 약 3배 늘었다.\n\n젠슨 황 CEO는 '루빈은 AI 컴퓨팅 수요가 폭발하는 시점에 맞춰 도착했다'며 연간 신세대 AI 슈퍼컴퓨터 출시 전략을 강조했다. 베라 루빈 NVL72 시스템은 100% 수랭 방식으로 설계돼 설치 시간이 2시간에서 5분으로 단축됐다. AWS, Google Cloud, Microsoft, OCI 등 주요 클라우드 사업자가 2026년 하반기부터 루빈 기반 인스턴스를 제공할 예정이다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Cloud/Partnership",
+                title: "Anthropic, Google Cloud TPU 100만 개 활용 확대…수백억 달러 규모",
+                isTop5: true,
+                details: "Anthropic은 Google Cloud 기술 활용을 대폭 확대해 최대 100만 개의 TPU를 사용할 계획이라고 발표했다. 이번 확장은 수백억 달러 규모로 추산되며, 2026년 중 1기가와트 이상의 컴퓨팅 용량이 온라인화될 예정이다. Anthropic은 이를 통해 Claude 모델의 학습과 추론 역량을 크게 강화할 수 있을 것으로 기대하고 있다.\n\n다니엘라 아모데이 Anthropic 공동창업자는 CNBC 인터뷰에서 '적은 자원으로 더 많이'라는 전략이 AI 프론티어에서 경쟁력을 유지하게 했다고 설명했다. OpenAI가 1.4조 달러 규모의 컴퓨팅 투자를 발표한 가운데, Anthropic은 달러당 최대 성능을 끌어내는 효율성에 집중하겠다는 입장이다. 회사는 2025년 약 47억 달러 매출을 예상하며, 2026년에는 150억 달러를 목표로 하고 있다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Market/Investment",
+                title: "아시아 AI 주식 강세 시작…골드만삭스 '비중 확대' 유지",
+                isTop5: true,
+                details: "글로벌 AI 경쟁에서 아시아 기술주가 2026년 초부터 강세를 보이며 미국 대비 아웃퍼폼하고 있다고 블룸버그가 1월 11일 보도했다. 골드만삭스 그룹은 아시아 기술주에 대해 '비중 확대(Overweight)' 의견을 유지하며, AI 관련 수요 급증이 추가 상승을 견인할 것으로 전망했다. 특히 반도체와 AI 인프라 관련 기업들이 주도주로 부상하고 있다.\n\n한편 일부 애널리스트들은 AI 버블 우려도 제기하고 있다. CNBC가 40명의 기술 리더와 애널리스트를 대상으로 한 설문에서 AI 투자 과열에 대한 경고 목소리가 나왔다. 그러나 대다수는 2026년이 'AI ROI(투자수익률) 증명의 해'가 될 것이며, 실질적 수익을 내는 기업과 그렇지 못한 기업 간 차별화가 심화될 것으로 예상했다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Policy/EU",
+                title: "EU, X의 그록 딥페이크 문제 '매우 심각하게' 검토 중",
+                isTop5: true,
+                details: "EU 집행위원회는 소셜미디어 플랫폼 X의 AI 도구 '그록(Grok)'을 통한 딥페이크 이미지 생성 문제를 '매우 심각하게' 들여다보고 있다고 밝혔다. 특히 미성년자의 성적 이미지가 생성된 사례가 보고되면서 디지털서비스법(DSA) 위반 여부 조사가 진행 중이다. EU는 X에 그록 관련 자료를 2026년 말까지 보존하라고 요구한 것으로 알려졌다.\n\n프랑스 당국도 비동의 성적 딥페이크 유포에 대한 별도 조사에 착수했다. X는 논란이 커지자 이미지 생성·편집 기능을 유료 이용자 중심으로 제한하는 등 대응에 나섰지만, 규제 리스크는 오히려 확대되는 양상이다. 조사 결과에 따라 과징금이나 서비스 제한 등 제재 가능성까지 거론되고 있어, xAI의 유럽 시장 전략에 상당한 영향을 미칠 전망이다."
+            },
+
+            // --- Thematic Section Items ---
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Memory/Semiconductors",
+                title: "삼성전자, 2026년 메모리 공급 부족 경고…가격 급등 불가피",
+                isTop5: false,
+                details: "삼성전자가 2026년 메모리 반도체 공급 부족으로 전자 산업 전반에 걸쳐 가격 인상이 발생할 것이라고 경고했다. 최대 규모 생산 역량을 갖춘 삼성전자조차 자사 제품이 가격 급등에서 자유로울 수 없음을 인정한 것이다. AI 데이터센터발 수요 폭증과 구조적인 공급 부족이 맞물린 결과로 분석된다.\n\n글로벌 투자은행 맥쿼리(Macquarie)는 메모리 반도체 산업이 '슈퍼 사이클(초호황기)'에 진입했음을 공식 선언하며, 이 흐름이 2028년까지 이어질 것으로 전망했다. 맥쿼리는 SK하이닉스 목표주가를 112만원, 삼성전자를 24만원으로 상향 조정했다. 삼성전자와 SK하이닉스의 시가총액이 각각 800조 원, 500조 원 시대에 진입하면서 반도체 업종이 코스피 전체 비중의 35.95%를 차지하고 있다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Policy/US",
+                title: "미국 주별 AI 법률 시행 vs 연방 행정명령 충돌 격화",
+                isTop5: false,
+                details: "2026년 1월 1일부로 캘리포니아의 '프론티어 AI 투명성법'과 텍사스의 '책임 있는 AI 거버넌스법' 등 주요 주별 AI 법률이 시행됐다. 그러나 2025년 12월 11일 트럼프 대통령이 서명한 행정명령이 주 차원의 AI 규제를 무력화하려는 시도로 해석되면서 연방-주 간 충돌이 격화되고 있다.\n\n에드워드 마키 상원의원은 이 행정명령의 시행을 저지하기 위한 '주의 AI 규제 권한법(States' Right to Regulate AI Act)'을 발의했고, 23개 주 법무장관들은 FCC에 주 차원의 AI 감독권을 침해하지 말라는 서한을 보냈다. 한편 뉴욕주는 캐시 호출 주지사가 '책임 있는 AI 안전 및 교육법(RAISE Act)'에 서명해, 대형 AI 개발사들에게 안전 프로토콜 공개와 72시간 내 사고 보고 의무를 부과했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Agent/Trend",
+                title: "2026년 '에이전틱 AI' 원년…대화에서 실행으로 전환",
+                isTop5: false,
+                details: "2026년은 AI 에이전트가 실험 단계를 넘어 실제 업무에 본격 도입되는 원년으로 평가받고 있다. 마이크로소프트, 구글, 오픈AI CEO들이 모두 '대화에서 실행으로' 전환되는 해라고 규정했다. AI가 지시를 기다리는 도구가 아니라 스스로 판단해 일을 처리하는 '행동하는 AI', 즉 에이전틱 AI(Agentic AI)로 자리 잡을 것이라는 전망이다.\n\nAnthropic의 MCP(Model Context Protocol)가 AI 에이전트와 외부 도구를 연결하는 표준으로 자리 잡으면서 'AI용 USB-C'로 불리고 있다. OpenAI와 Microsoft도 MCP를 공식 채택했고, Anthropic은 최근 이를 리눅스 재단 산하 'Agentic AI Foundation'에 기부했다. 업계에서는 에이전트가 외부 도구와 데이터를 호출하는 구조에서 공격 표면이 넓어질 수 있어 보안 강화가 중요한 과제로 떠오르고 있다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "IPO/Market",
+                title: "2026년 테크 IPO 대거 예고…OpenAI·Anthropic·SpaceX 상장 관측",
+                isTop5: false,
+                details: "2026년이 테크 IPO의 해가 될 것이라는 전망이 확산되고 있다. SpaceX, Anthropic, OpenAI가 올해 시장 데뷔를 검토 중인 것으로 알려지며, 각각 200억 달러 이상의 자금을 조달할 가능성이 거론된다. 로이터 보도에 따르면 OpenAI는 2026년 말까지 최대 1조 달러 기업가치의 IPO를 계획하고 있다.\n\nOpenAI는 2025년 130억 달러 이상의 매출을 예상하며, 2026년에는 300억 달러 매출을 목표로 하고 있다. Anthropic 역시 2025년 연간 매출 런레이트가 90억 달러에 달하며, 2026년에는 260억 달러까지 급증할 것으로 예상하고 있다. 다만 일부 전문가들은 AI 버블 우려와 함께 IPO 시장의 과열 가능성에도 주의가 필요하다고 경고한다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "CES/Physical AI",
+                title: "CES 2026, '피지컬 AI' 대세…로봇·웨어러블 주도",
+                isTop5: false,
+                details: "CES 2026에서 '피지컬 AI(Physical AI)'가 최대 화두로 떠올랐다. 전 세계 150여 개국 4,500여 개 기업이 참가한 이번 전시에서 국내 기업 1,000여 개사를 포함해 삼성전자, LG전자, 현대자동차그룹 등이 AI를 생활공간 전반에 적용한 비전을 제시했다. 피지컬 AI는 보고, 듣고, 판단한 뒤 스스로 행동하는 지능형 로봇에 가까운 개념이다.\n\n삼성전자는 'The First Look 2026'에서 'Your Companion to AI Living'을 주제로 AI 일상 동반자 비전을 공개했고, LG전자는 'LG World Premiere'에서 'Innovation in tune with you'를 내세웠다. 메타는 2025년에만 수백만 대의 레이밴 AI 안경을 판매했으며, 삼성과 구글은 2026년 하반기 AI 안경 출시를 예고했다. 웨어러블 AI 시장이 본격 개화하고 있다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "Security/Threat",
+                title: "'딥페이크 서비스형 사기(FaaS)' 2026년 급증 전망",
+                isTop5: false,
+                details: "사이버보안업체 VIPRE Security Group은 2026년 '서비스형 사기(Fraud-as-a-Service, FaaS)' 마켓플레이스의 등장으로 딥페이크 생성 도구가 급격히 확산될 것이라고 경고했다. 과거에는 기술적으로 복잡했던 딥페이크가 이제 구독 기반으로 손쉽게 접근 가능해지며, 사이버범죄자들이 음성·영상 위조 패키지를 판매하는 시장이 형성되고 있다.\n\n회사는 AI 네이티브 악성코드, 딥페이크 사기, IoT 익스플로잇이 2026년 기업 리스크를 주도할 것이며, 글로벌 AI 규제 강화로 인간 중심 보안 교육의 시급성이 높아지고 있다고 분석했다. EU의 AI 실행 규약(Code of Practice)은 딥페이크 콘텐츠에 'EU 공통 아이콘'을 표시하도록 하는 방안을 검토 중이며, 2026년 5~6월 최종 확정될 예정이다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Legal/Copyright",
+                title: "퓰리처상 작가 등 6대 AI 기업 상대 저작권 소송 제기",
+                isTop5: false,
+                details: "퓰리처상 수상 작가 존 캐리루(John Carreyrou)를 비롯한 작가들이 2025년 12월 22일 OpenAI, Google, Meta, xAI, Anthropic, Perplexity AI 등 6개 주요 AI 기업을 상대로 저작권 침해 소송을 제기했다. 원고들은 자신들의 저작물이 AI 모델 학습에 무단으로 사용됐다고 주장하며 손해배상을 청구했다.\n\n이번 소송은 AI 학습 데이터의 저작권 문제를 둘러싼 글로벌 분쟁이 본격화되는 신호탄으로 해석된다. 카이신(Caixin) 글로벌 보도에 따르면 AI 콘텐츠 붐과 함께 저작권 싸움이 전 세계적으로 격화되고 있으며, 각국 법원의 판결이 AI 산업의 데이터 활용 방식에 결정적 영향을 미칠 전망이다. AI 기업들은 '공정 이용(fair use)' 원칙을 방어 논거로 제시하고 있으나, 법적 불확실성은 당분간 지속될 것으로 보인다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Device/Consumer",
+                title: "OpenAI, 스크린 없는 '음성 우선' 소비자 기기 개발 중…2026년 말 출시 목표",
+                isTop5: false,
+                details: "OpenAI가 스크린 없이 음성으로만 작동하는 소비자용 기기를 개발 중인 것으로 확인됐다. 차세대 음성 모델을 탑재한 이 기기는 2026년 말 출시를 목표로 하고 있다. 이는 ChatGPT를 넘어 하드웨어 영역으로 사업을 확장하려는 OpenAI의 전략으로 해석된다.\n\nOpenAI는 Gemini 3가 벤치마크에서 ChatGPT를 앞서기 시작하면서 2026년을 '손해 통제 모드'로 시작했다는 분석도 나온다. 회사는 음성 기반 상호작용의 미래에 베팅하며 구글, 아마존 등과 다른 방향의 소비자 접점을 구축하려는 것으로 보인다. 업계에서는 이 기기가 AI 비서의 새로운 폼팩터를 제시할 수 있을지 주목하고 있다."
+            }
+        ];
+
+        // ------------------------------------------------------------------
+        // 2. Constants & Helpers
+        // ------------------------------------------------------------------
+
+        const THEME_ORDER = [
+            "AI 인프라 및 투자",
+            "플랫폼, 제품 및 에이전트",
+            "산업별 AI 적용",
+            "법률, 규제 및 거버넌스",
+            "AI와 사회"
+        ];
+
+        const KEY_METRICS = [
+            { label: "인도네시아 그록 차단", value: "세계 최초", unit: "국가 제재", color: "text-red-600" },
+            { label: "엔비디아 루빈 성능", value: "5배↑", unit: "블랙웰 대비", color: "text-blue-600" },
+            { label: "Anthropic TPU 확보", value: "100만", unit: "개 활용", color: "text-emerald-600" },
+            { label: "아시아 AI 주식", value: "강세", unit: "골드만 비중확대", color: "text-amber-600" },
+        ];
+
+        // Helper: Title Truncation Logic
+        function truncateTitle(title) {
+            if (title.length <= 60) return title;
+
+            // Try to split by common separators first
+            const separators = ['—', ':', '- '];
+            for (let sep of separators) {
+                if (title.includes(sep)) {
+                    const parts = title.split(sep);
+                    if (parts[0].length > 10 && parts[0].length < 60) {
+                        return parts[0].trim();
+                    }
+                }
+            }
+
+            // Fallback: hard truncate
+            return title.substring(0, 57) + "...";
+        }
+
+        // Helper: Create a Card Element
+        function createCard(item, index) {
+            const displayTitle = truncateTitle(item.title);
+
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-lg p-5 shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full";
+            card.dataset.index = index; // Store original index for modal lookup
+
+            // Category Badge
+            const badgeColor = item.isTop5 ? "bg-red-50 text-red-700 border-red-100" : "bg-slate-100 text-slate-600 border-slate-200";
+
+            card.innerHTML = `
+                <div class="flex items-center justify-between mb-3">
+                    <span class="inline-block px-2 py-1 rounded text-xs font-semibold border ${badgeColor}">
+                        ${item.category}
+                    </span>
+                    ${item.isTop5 ? '<span class="text-xs font-bold text-red-500">TOP 5</span>' : ''}
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 leading-snug group-hover:text-blue-700 transition-colors mb-auto">
+                    ${displayTitle}
+                </h3>
+                <div class="mt-4 flex items-center text-sm text-slate-400 font-medium group-hover:text-blue-500 transition-colors">
+                    자세히 보기 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            `;
+
+            card.addEventListener('click', () => showModal(item));
+            return card;
+        }
+
+        // ------------------------------------------------------------------
+        // 3. Render Functions
+        // ------------------------------------------------------------------
+
+        function createKeyNumbersSection() {
+            const container = document.getElementById('highlights-container');
+            KEY_METRICS.forEach(metric => {
+                const div = document.createElement('div');
+                div.className = "bg-white rounded-lg p-4 shadow-sm border border-slate-200 flex flex-col items-center justify-center text-center hover:border-blue-300 transition-colors";
+                div.innerHTML = `
+                    <span class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-1">${metric.label}</span>
+                    <span class="text-3xl lg:text-4xl font-black ${metric.color} tracking-tight">${metric.value}</span>
+                    <span class="text-xs font-bold text-slate-400 mt-1">${metric.unit}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderTop5Section() {
+            const container = document.getElementById('top-5-container');
+            const top5Items = reportData.filter(item => item.isTop5);
+
+            top5Items.forEach(item => {
+                // Find original index for mapping (though we pass object directly now)
+                const originalIndex = reportData.indexOf(item);
+                container.appendChild(createCard(item, originalIndex));
+            });
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-container');
+            const remainingItems = reportData.filter(item => !item.isTop5);
+
+            THEME_ORDER.forEach(themeName => {
+                const themeItems = remainingItems.filter(item => item.theme === themeName);
+
+                // Only render section if it has items
+                if (themeItems.length > 0) {
+                    const section = document.createElement('section');
+                    section.className = "animate-fade-in";
+
+                    const header = document.createElement('h2');
+                    header.className = "text-xl font-bold text-slate-800 mb-4 pb-2 border-b border-slate-200 flex items-center";
+                    header.innerHTML = `<span class="w-2 h-6 bg-slate-800 mr-3 rounded-sm"></span>${themeName}`;
+
+                    const grid = document.createElement('div');
+                    grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+
+                    themeItems.forEach(item => {
+                        grid.appendChild(createCard(item, reportData.indexOf(item)));
+                    });
+
+                    section.appendChild(header);
+                    section.appendChild(grid);
+                    container.appendChild(section);
+                }
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // 4. Modal Logic
+        // ------------------------------------------------------------------
+
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        function showModal(item) {
+            // Set Content
+            modalTitle.textContent = item.title;
+            modalCategory.textContent = item.category;
+            // Use innerHTML solely for <br> tags if strictly needed, but textContent + css whitespace-pre-line is safer and handled.
+            // The prompt requests preserving newlines. CSS `whitespace-pre-line` handles this with textContent.
+            modalContent.textContent = item.details;
+
+            // Show Logic
+            modal.classList.remove('hidden');
+            // Small timeout to allow transition
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'translate-y-4', 'scale-95');
+                modalPanel.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+            }, 10);
+
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            // Hide Logic
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300); // Match transition duration
+        }
+
+        // Event Listeners for Modal Closing
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-close-bottom').addEventListener('click', closeModal);
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // 5. Initialization
+        // ------------------------------------------------------------------
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>
