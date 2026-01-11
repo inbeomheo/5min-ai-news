@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>뉴스대시: 일일 AI 뉴스 보고서</title>
 
-    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
-    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
-    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -41,7 +36,6 @@
             background: #94a3b8;
         }
 
-        /* Utility for line clamping if needed, though JS truncation is preferred for titles */
         .line-clamp-3 {
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -53,7 +47,6 @@
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col">
 
-    <!-- 1. Header -->
     <header class="sticky top-0 z-30 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -75,18 +68,14 @@
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
-        <!-- 2. Key Data Highlights -->
         <section id="key-highlights" class="animate-fade-in-up">
             <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 오늘의 주요 수치
             </h2>
-            <div id="highlights-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- Javascript will populate this -->
-            </div>
+            <div id="highlights-container" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
         </section>
 
-        <!-- 3. Top 5 News -->
         <section id="top-5-section">
             <div class="flex items-center justify-between mb-6 border-b border-slate-200 pb-2">
                 <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
@@ -94,35 +83,24 @@
                 </h2>
                 <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100">Must Read</span>
             </div>
-            <div id="top-5-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Javascript will populate this -->
-            </div>
+            <div id="top-5-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- 4. Thematic Sections -->
-        <div id="thematic-container" class="space-y-12">
-            <!-- Javascript will populate thematic sections here -->
-        </div>
+        <div id="thematic-container" class="space-y-12"></div>
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 mt-12 py-8">
         <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
             &copy; 2026 뉴스대시 Daily AI Report. All rights reserved.
         </div>
     </footer>
 
-    <!-- Modal Structure -->
     <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <!-- Background backdrop -->
         <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
 
         <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0 w-full">
-            <!-- Modal panel -->
             <div id="modal-panel" class="relative bg-white rounded-xl text-left shadow-2xl transform transition-all sm:my-8 sm:max-w-2xl w-full max-h-[85vh] flex flex-col opacity-0 translate-y-4 scale-95">
-
-                <!-- Header -->
                 <div class="px-6 py-5 border-b border-slate-100 flex items-start justify-between bg-white rounded-t-xl sticky top-0 z-10">
                     <div>
                         <span id="modal-category" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800 mb-2">
@@ -140,14 +118,10 @@
                     </button>
                 </div>
 
-                <!-- Content -->
                 <div class="px-6 py-6 overflow-y-auto modal-scroll bg-white">
-                    <div id="modal-content" class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-line text-sm md:text-base">
-                        <!-- Content goes here -->
-                    </div>
+                    <div id="modal-content" class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-line text-sm md:text-base"></div>
                 </div>
 
-                <!-- Footer -->
                 <div class="bg-slate-50 px-6 py-4 flex flex-row-reverse rounded-b-xl border-t border-slate-100">
                     <button id="modal-close-bottom" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
                         닫기
@@ -157,16 +131,8 @@
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
     <script>
-        // ------------------------------------------------------------------
-        // 1. Data Processing
-        // ------------------------------------------------------------------
-
-        // Raw Data based on the provided report.
-        // Note: Summaries and details are combined for the 'details' field.
         const reportData = [
-            // --- TOP 5 ---
             {
                 theme: "법률, 규제 및 거버넌스",
                 category: "Regulation/Deepfake",
@@ -202,8 +168,6 @@
                 isTop5: true,
                 details: "EU 집행위원회는 소셜미디어 플랫폼 X의 AI 도구 '그록(Grok)'을 통한 딥페이크 이미지 생성 문제를 '매우 심각하게' 들여다보고 있다고 밝혔다. 특히 미성년자의 성적 이미지가 생성된 사례가 보고되면서 디지털서비스법(DSA) 위반 여부 조사가 진행 중이다. EU는 X에 그록 관련 자료를 2026년 말까지 보존하라고 요구한 것으로 알려졌다.\n\n프랑스 당국도 비동의 성적 딥페이크 유포에 대한 별도 조사에 착수했다. X는 논란이 커지자 이미지 생성·편집 기능을 유료 이용자 중심으로 제한하는 등 대응에 나섰지만, 규제 리스크는 오히려 확대되는 양상이다. 조사 결과에 따라 과징금이나 서비스 제한 등 제재 가능성까지 거론되고 있어, xAI의 유럽 시장 전략에 상당한 영향을 미칠 전망이다."
             },
-
-            // --- Thematic Section Items ---
             {
                 theme: "AI 인프라 및 투자",
                 category: "Memory/Semiconductors",
@@ -318,10 +282,6 @@
             }
         ];
 
-        // ------------------------------------------------------------------
-        // 2. Constants & Helpers
-        // ------------------------------------------------------------------
-
         const THEME_ORDER = [
             "AI 인프라 및 투자",
             "플랫폼, 제품 및 에이전트",
@@ -334,38 +294,34 @@
             { label: "인도네시아 그록 차단", value: "세계 최초", unit: "국가 제재", color: "text-red-600" },
             { label: "엔비디아 루빈 성능", value: "5배↑", unit: "블랙웰 대비", color: "text-blue-600" },
             { label: "Anthropic TPU 확보", value: "100만", unit: "개 활용", color: "text-emerald-600" },
-            { label: "아시아 AI 주식", value: "강세", unit: "골드만 비중확대", color: "text-amber-600" },
+            { label: "아시아 AI 주식", value: "강세", unit: "골드만 비중확대", color: "text-amber-600" }
         ];
 
-        // Helper: Title Truncation Logic
         function truncateTitle(title) {
             if (title.length <= 60) return title;
 
-            // Try to split by common separators first
-            const separators = ['—', ':', '- '];
-            for (let sep of separators) {
+            const separators = ['\u2014', ':', '- '];
+            for (const sep of separators) {
                 if (title.includes(sep)) {
-                    const parts = title.split(sep);
-                    if (parts[0].length > 10 && parts[0].length < 60) {
-                        return parts[0].trim();
+                    const firstPart = title.split(sep)[0];
+                    if (firstPart.length > 10 && firstPart.length < 60) {
+                        return firstPart.trim();
                     }
                 }
             }
 
-            // Fallback: hard truncate
             return title.substring(0, 57) + "...";
         }
 
-        // Helper: Create a Card Element
-        function createCard(item, index) {
+        function createCard(item) {
             const displayTitle = truncateTitle(item.title);
 
             const card = document.createElement('div');
             card.className = "bg-white rounded-lg p-5 shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full";
-            card.dataset.index = index; // Store original index for modal lookup
 
-            // Category Badge
-            const badgeColor = item.isTop5 ? "bg-red-50 text-red-700 border-red-100" : "bg-slate-100 text-slate-600 border-slate-200";
+            const badgeColor = item.isTop5
+                ? "bg-red-50 text-red-700 border-red-100"
+                : "bg-slate-100 text-slate-600 border-slate-200";
 
             card.innerHTML = `
                 <div class="flex items-center justify-between mb-3">
@@ -386,10 +342,6 @@
             return card;
         }
 
-        // ------------------------------------------------------------------
-        // 3. Render Functions
-        // ------------------------------------------------------------------
-
         function createKeyNumbersSection() {
             const container = document.getElementById('highlights-container');
             KEY_METRICS.forEach(metric => {
@@ -409,9 +361,7 @@
             const top5Items = reportData.filter(item => item.isTop5);
 
             top5Items.forEach(item => {
-                // Find original index for mapping (though we pass object directly now)
-                const originalIndex = reportData.indexOf(item);
-                container.appendChild(createCard(item, originalIndex));
+                container.appendChild(createCard(item));
             });
         }
 
@@ -422,32 +372,27 @@
             THEME_ORDER.forEach(themeName => {
                 const themeItems = remainingItems.filter(item => item.theme === themeName);
 
-                // Only render section if it has items
-                if (themeItems.length > 0) {
-                    const section = document.createElement('section');
-                    section.className = "animate-fade-in";
+                if (themeItems.length === 0) return;
 
-                    const header = document.createElement('h2');
-                    header.className = "text-xl font-bold text-slate-800 mb-4 pb-2 border-b border-slate-200 flex items-center";
-                    header.innerHTML = `<span class="w-2 h-6 bg-slate-800 mr-3 rounded-sm"></span>${themeName}`;
+                const section = document.createElement('section');
+                section.className = "animate-fade-in";
 
-                    const grid = document.createElement('div');
-                    grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+                const header = document.createElement('h2');
+                header.className = "text-xl font-bold text-slate-800 mb-4 pb-2 border-b border-slate-200 flex items-center";
+                header.innerHTML = `<span class="w-2 h-6 bg-slate-800 mr-3 rounded-sm"></span>${themeName}`;
 
-                    themeItems.forEach(item => {
-                        grid.appendChild(createCard(item, reportData.indexOf(item)));
-                    });
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
 
-                    section.appendChild(header);
-                    section.appendChild(grid);
-                    container.appendChild(section);
-                }
+                themeItems.forEach(item => {
+                    grid.appendChild(createCard(item));
+                });
+
+                section.appendChild(header);
+                section.appendChild(grid);
+                container.appendChild(section);
             });
         }
-
-        // ------------------------------------------------------------------
-        // 4. Modal Logic
-        // ------------------------------------------------------------------
 
         const modal = document.getElementById('news-modal');
         const modalBackdrop = document.getElementById('modal-backdrop');
@@ -457,27 +402,21 @@
         const modalContent = document.getElementById('modal-content');
 
         function showModal(item) {
-            // Set Content
             modalTitle.textContent = item.title;
             modalCategory.textContent = item.category;
-            // Use innerHTML solely for <br> tags if strictly needed, but textContent + css whitespace-pre-line is safer and handled.
-            // The prompt requests preserving newlines. CSS `whitespace-pre-line` handles this with textContent.
             modalContent.textContent = item.details;
 
-            // Show Logic
             modal.classList.remove('hidden');
-            // Small timeout to allow transition
             setTimeout(() => {
                 modalBackdrop.classList.remove('opacity-0');
                 modalPanel.classList.remove('opacity-0', 'translate-y-4', 'scale-95');
                 modalPanel.classList.add('opacity-100', 'translate-y-0', 'scale-100');
             }, 10);
 
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            // Hide Logic
             modalBackdrop.classList.add('opacity-0');
             modalPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
             modalPanel.classList.add('opacity-0', 'translate-y-4', 'scale-95');
@@ -485,23 +424,18 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
                 document.body.style.overflow = '';
-            }, 300); // Match transition duration
+            }, 300);
         }
 
-        // Event Listeners for Modal Closing
         document.getElementById('modal-close-btn').addEventListener('click', closeModal);
         document.getElementById('modal-close-bottom').addEventListener('click', closeModal);
         document.getElementById('modal-backdrop').addEventListener('click', closeModal);
-        // Close on Escape key
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
                 closeModal();
             }
         });
-
-        // ------------------------------------------------------------------
-        // 5. Initialization
-        // ------------------------------------------------------------------
 
         document.addEventListener('DOMContentLoaded', () => {
             createKeyNumbersSection();

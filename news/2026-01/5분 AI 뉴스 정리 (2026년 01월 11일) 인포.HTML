@@ -4,25 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI TREND REPORT : 2026.01.11</title>
-    <!-- Google Fonts: Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-        /* 기본 설정 */
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #FDFBF7; /* 크림톤 배경 */
+            background-color: #FDFBF7;
             color: #111;
             overflow-x: hidden;
         }
+        html { scroll-behavior: smooth; }
 
-        /* 네오 브루탈리즘 스타일 박스 (Soft Ver.) */
         .nb-box {
             background-color: white;
             border: 2px solid #333;
@@ -30,40 +25,32 @@
             box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.85);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-
         .nb-box:hover {
             transform: translate(-2px, -2px);
             box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.95);
         }
 
-        /* KPI 박스 전용 컬러 */
         .kpi-red { background-color: #FFE5E5; }
         .kpi-blue { background-color: #E5F0FF; }
         .kpi-yellow { background-color: #FFF9C4; }
         .kpi-green { background-color: #E8F5E9; }
 
-        /* 네비게이션 활성화 스타일 */
         .nav-item.active {
             background-color: #333;
             color: #fff;
             box-shadow: 4px 4px 0px #888;
         }
 
-        /* 텍스트 강조 */
         .highlight {
             background: linear-gradient(120deg, #fffd8d 0%, #fffd8d 100%);
             background-repeat: no-repeat;
             background-size: 100% 40%;
             background-position: 0 88%;
         }
-
-        /* 부드러운 스크롤 */
-        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body class="pb-20">
 
-    <!-- Header -->
     <header class="pt-12 pb-8 px-4 text-center">
         <a href="../../index.html"
            class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
@@ -74,11 +61,9 @@
         <p class="text-lg text-gray-600 font-medium">2026년 1월 11일 기준 주요 이슈 브리핑</p>
     </header>
 
-    <!-- KPI Dashboard (4 Key Metrics) -->
     <section class="max-w-6xl mx-auto px-4 mb-12">
         <h2 class="sr-only">핵심 지표</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- KPI 1 -->
             <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-red relative overflow-hidden">
                 <div class="z-10">
                     <p class="text-sm font-bold text-gray-600">🚫 인도네시아 그록 차단</p>
@@ -88,11 +73,9 @@
                     <span class="text-sm font-medium">국가 단위 제재</span>
                     <span class="text-2xl">🇮🇩</span>
                 </div>
-                <!-- 배경 장식 -->
                 <div class="absolute -right-4 -bottom-4 text-9xl opacity-10 font-black">🚫</div>
             </div>
 
-            <!-- KPI 2 -->
             <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-blue relative overflow-hidden">
                 <div class="z-10">
                     <p class="text-sm font-bold text-gray-600">🚀 엔비디아 루빈 성능</p>
@@ -104,7 +87,6 @@
                 </div>
             </div>
 
-            <!-- KPI 3 -->
             <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-green relative overflow-hidden">
                 <div class="z-10">
                     <p class="text-sm font-bold text-gray-600">☁️ Anthropic TPU</p>
@@ -116,7 +98,6 @@
                 </div>
             </div>
 
-            <!-- KPI 4 -->
             <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-yellow relative overflow-hidden">
                 <div class="z-10">
                     <p class="text-sm font-bold text-gray-600">📈 아시아 AI 주식</p>
@@ -130,7 +111,6 @@
         </div>
     </section>
 
-    <!-- Sticky Navigation -->
     <nav class="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur-sm py-4 border-b-2 border-gray-200">
         <div class="max-w-6xl mx-auto px-4 overflow-x-auto">
             <ul class="flex space-x-2 md:space-x-4 min-w-max">
@@ -142,10 +122,8 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 mt-8 space-y-20">
 
-        <!-- Theme 1: Grok Regulation (Type B VS) -->
         <section id="theme1" class="scroll-mt-24">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🚫</span>
@@ -158,7 +136,6 @@
                     <h3 class="text-2xl font-bold mt-3">xAI '그록'에 전 세계 규제 칼날</h3>
                 </div>
 
-                <!-- Visualization: Type B (VS Layout) - World vs Grok -->
                 <div class="flex items-stretch mb-6 border-2 border-gray-200 rounded-lg overflow-hidden">
                     <div class="flex-1 bg-red-50 p-6 flex flex-col items-center justify-center text-center">
                         <span class="text-4xl mb-2">😈</span>
@@ -175,7 +152,6 @@
                     </div>
                 </div>
 
-                <!-- Timeline of Actions -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div class="bg-red-100 border-2 border-red-300 rounded-xl p-4 text-center">
                         <div class="text-2xl mb-2">🇮🇩</div>
@@ -200,9 +176,7 @@
                 </div>
             </div>
 
-            <!-- Additional Cards: Platform Policy -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <!-- Claude Code Crackdown -->
                 <div class="nb-box p-6 bg-white">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-purple-600 text-white px-3 py-1 rounded-md text-sm font-bold">Anthropic</span>
@@ -216,7 +190,6 @@
                     <p class="text-gray-700 text-sm">경쟁사 xAI 직원들이 Cursor로 Claude 사용하던 것 차단. 서드파티 도구 가격 차익 남용 방지.</p>
                 </div>
 
-                <!-- Musk X Algorithm -->
                 <div class="nb-box p-6 bg-white">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-black text-white px-3 py-1 rounded-md text-sm font-bold">X (Twitter)</span>
@@ -229,7 +202,6 @@
             </div>
         </section>
 
-        <!-- Theme 2: AI Chip War (Type A + Chart) -->
         <section id="theme2" class="scroll-mt-24">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">💎</span>
@@ -237,7 +209,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Card 1: NVIDIA Vera Rubin -->
                 <div class="nb-box p-8 bg-white">
                     <div class="flex justify-between items-start mb-4">
                         <span class="bg-green-600 text-white px-3 py-1 rounded-md text-sm font-bold">NVIDIA</span>
@@ -245,7 +216,6 @@
                     </div>
                     <h3 class="text-2xl font-bold mb-6 leading-snug">'베라 루빈' 플랫폼 공개<br>블랙웰을 뛰어넘다</h3>
 
-                    <!-- Visualization: Bar Chart Container -->
                     <div class="w-full h-48 bg-gray-50 rounded-lg p-2 mb-4 border border-gray-200">
                         <canvas id="performanceChart"></canvas>
                     </div>
@@ -254,14 +224,12 @@
                         엔비디아가 차세대 AI 플랫폼 <span class="highlight font-bold">베라 루빈</span>을 발표했습니다. 추론 성능 5배, 토큰당 비용 10배 절감이라는 혁신적 도약입니다.
                     </p>
 
-                    <!-- Insight Box -->
                     <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-green-600">
                         <p class="font-bold text-green-800 text-lg">💡 인사이트</p>
                         <p class="text-gray-800">AI 반도체의 세대 교체가 매년 가속화되고 있습니다. 루빈 기반 서비스는 2026년 하반기부터 시작됩니다.</p>
                     </div>
                 </div>
 
-                <!-- Card 2: Anthropic + Memory -->
                 <div class="nb-box p-8 bg-white flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
@@ -270,7 +238,6 @@
                         </div>
                         <h3 class="text-2xl font-bold mb-6 leading-snug">TPU 100만개 & 메모리 슈퍼사이클</h3>
 
-                        <!-- Visualization: Type A (Big Number Composition) -->
                         <div class="grid grid-cols-2 gap-4 mb-6">
                             <div class="bg-purple-50 p-4 rounded-lg text-center border border-purple-100">
                                 <p class="text-sm text-purple-800 font-bold mb-1">Anthropic TPU</p>
@@ -287,7 +254,6 @@
                             Anthropic은 수백억 달러 규모로 TPU 활용을 확대하고, 삼성전자는 메모리 공급 부족을 경고했습니다.
                         </p>
                     </div>
-                    <!-- Insight Box -->
                     <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-purple-600 mt-4">
                         <p class="font-bold text-purple-800 text-lg">💡 인사이트</p>
                         <p class="text-gray-800">AI 인프라 확보 경쟁이 '칩'에서 '전력·메모리·파트너십'으로 확장되고 있습니다.</p>
@@ -295,9 +261,7 @@
                 </div>
             </div>
 
-            <!-- Additional Cards: AI Competition -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <!-- NVIDIA CMO -->
                 <div class="nb-box p-6 bg-white">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-green-700 text-white px-3 py-1 rounded-md text-sm font-bold">NVIDIA</span>
@@ -308,7 +272,6 @@
                     <p class="text-gray-600 text-sm">10년간 구글 클라우드 구축. 2월 업무 시작, 젠슨 황에게 직접 보고.</p>
                 </div>
 
-                <!-- DeepSeek V4 -->
                 <div class="nb-box p-6 bg-white">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-cyan-600 text-white px-3 py-1 rounded-md text-sm font-bold">DeepSeek</span>
@@ -324,7 +287,6 @@
             </div>
         </section>
 
-        <!-- Theme 3: Agentic AI (Type C Timeline) -->
         <section id="theme3" class="scroll-mt-24">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🤖</span>
@@ -337,13 +299,10 @@
                     <h3 class="text-3xl font-black mt-3">AI가 스스로 행동한다</h3>
                 </div>
 
-                <!-- Visualization: Type C (Evolution Flow) -->
                 <div class="relative max-w-4xl mx-auto py-4">
-                    <!-- Line -->
                     <div class="absolute top-1/2 left-0 w-full h-2 bg-gray-200 -translate-y-1/2 rounded-full hidden md:block"></div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Step 1 -->
                         <div class="bg-gray-50 border-2 border-gray-200 rounded-xl p-6 relative z-10 text-center shadow-sm">
                             <div class="text-sm font-bold text-gray-500 mb-1">과거</div>
                             <div class="text-4xl mb-2">💬</div>
@@ -351,7 +310,6 @@
                             <p class="text-sm mt-2 leading-tight">질문에 답변만</p>
                         </div>
 
-                        <!-- Step 2 -->
                         <div class="bg-cyan-100 border-2 border-cyan-500 rounded-xl p-6 relative z-10 text-center shadow-lg transform md:-translate-y-4">
                             <div class="inline-block bg-red-500 text-white text-xs px-2 py-1 rounded-full mb-2 animate-pulse">NOW</div>
                             <div class="text-sm font-bold text-cyan-800 mb-1">2026년</div>
@@ -360,7 +318,6 @@
                             <p class="text-base mt-2 font-medium">스스로 판단 & 실행</p>
                         </div>
 
-                        <!-- Step 3 -->
                         <div class="bg-gray-50 border-2 border-gray-200 rounded-xl p-6 relative z-10 text-center shadow-sm">
                             <div class="text-sm font-bold text-gray-500 mb-1">표준화</div>
                             <div class="text-4xl mb-2">🔌</div>
@@ -376,19 +333,16 @@
                 </div>
             </div>
 
-            <!-- OpenAI Products Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <!-- OpenAI Voice Device Card -->
                 <div class="nb-box p-6 bg-white">
-                     <div class="flex items-center gap-3 mb-3">
+                    <div class="flex items-center gap-3 mb-3">
                         <span class="bg-black text-white px-3 py-1 rounded-md text-sm font-bold">OpenAI</span>
                         <span class="text-gray-500 text-sm">2026년 말 목표</span>
-                     </div>
-                     <h3 class="text-xl font-bold mb-3">🎙️ 스크린 없는 '음성 우선' 기기</h3>
-                     <p class="text-gray-700 text-sm">ChatGPT를 넘어 하드웨어 영역으로 확장. 새로운 AI 비서 폼팩터 등장 예고.</p>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">🎙️ 스크린 없는 '음성 우선' 기기</h3>
+                    <p class="text-gray-700 text-sm">ChatGPT를 넘어 하드웨어 영역으로 확장. 새로운 AI 비서 폼팩터 등장 예고.</p>
                 </div>
 
-                <!-- ChatGPT Health -->
                 <div class="nb-box p-6 bg-white">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-red-500 text-white px-3 py-1 rounded-md text-sm font-bold">OpenAI</span>
@@ -404,7 +358,6 @@
             </div>
         </section>
 
-        <!-- Theme 4: Market & IPO (Type A Alert) -->
         <section id="theme4" class="scroll-mt-24">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">📈</span>
@@ -412,7 +365,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Card 1: Asia AI Stocks -->
                 <div class="nb-box p-6 bg-white relative">
                     <div class="flex justify-between mb-4">
                         <span class="bg-amber-500 text-white px-3 py-1 rounded-md text-sm font-bold">시장 분석</span>
@@ -435,14 +387,12 @@
                     </div>
                 </div>
 
-                <!-- Card 2: IPO Outlook -->
                 <div class="nb-box p-6 bg-white border-2 border-blue-500 shadow-[6px_6px_0px_#3b82f6]">
                     <div class="flex justify-between mb-4">
                         <span class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-bold">IPO 전망</span>
                     </div>
                     <h3 class="text-2xl font-bold mb-4">2026년 테크 IPO 빅3</h3>
 
-                    <!-- IPO Candidates -->
                     <div class="space-y-3 mb-6">
                         <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg border">
                             <div class="flex items-center gap-3">
@@ -474,9 +424,7 @@
                 </div>
             </div>
 
-            <!-- Additional Market Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                <!-- Korea AI Adoption -->
                 <div class="nb-box p-6 bg-white border-2 border-amber-400">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-amber-500 text-white px-3 py-1 rounded-md text-sm font-bold">MS 보고서</span>
@@ -495,7 +443,6 @@
                     <p class="text-gray-700 text-xs">지브리 바이럴 계기. OpenAI 서울 오피스 개설.</p>
                 </div>
 
-                <!-- Allianz Partnership -->
                 <div class="nb-box p-6 bg-white">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-purple-600 text-white px-3 py-1 rounded-md text-sm font-bold">Anthropic</span>
@@ -507,7 +454,6 @@
                     </div>
                 </div>
 
-                <!-- StockSnips -->
                 <div class="nb-box p-6 bg-white">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="bg-green-600 text-white px-3 py-1 rounded-md text-sm font-bold">Finance AI</span>
@@ -523,16 +469,13 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="max-w-6xl mx-auto mt-20 py-12 px-4 border-t-2 border-gray-200 text-center">
         <p class="text-2xl font-black text-gray-300 mb-4">AI NEWS INFO 1.1</p>
         <p class="text-gray-500 mb-2">본 리포트는 AI 뉴스 데이터를 기반으로 자동 생성되었습니다.</p>
         <p class="text-gray-400 text-sm">Copyright © 2026 AI Infographic Designer. All rights reserved.</p>
     </footer>
 
-    <!-- Chart.js Script -->
     <script>
-        // Performance Chart (Rubin vs Blackwell)
         const ctx = document.getElementById('performanceChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
@@ -577,9 +520,8 @@
             }
         });
 
-        // Navigation Highlight on Scroll
         const sections = document.querySelectorAll('section');
-        const navLi = document.querySelectorAll('nav ul li a');
+        const navLinks = document.querySelectorAll('nav ul li a');
 
         window.addEventListener('scroll', () => {
             let current = '';
@@ -590,10 +532,10 @@
                 }
             });
 
-            navLi.forEach(a => {
-                a.classList.remove('active');
-                if (a.getAttribute('href').includes(current)) {
-                    a.classList.add('active');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
                 }
             });
         });
