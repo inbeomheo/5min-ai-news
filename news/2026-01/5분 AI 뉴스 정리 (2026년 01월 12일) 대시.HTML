@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: 일일 AI 뉴스 보고서</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 equivalent */
+            color: #1e293b; /* text-slate-800 */
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-30 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-blue-600 rounded-full"></div>
+                <h1 class="text-xl md:text-2xl font-black tracking-tight text-slate-900">
+                    뉴스대시 <span class="text-blue-600 font-light">AI Brief</span>
+                </h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-sm md:text-base font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                    2026년 01월 12일
+                </div>
+                <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold text-sm">
+                    <span>←</span> 목록
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <section id="key-highlights" class="animate-fade-in-up">
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                오늘의 주요 수치
+            </h2>
+            <div id="highlights-container" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </section>
+
+        <section id="top-5-section">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-200 pb-2">
+                <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                    <span class="text-red-600 text-3xl leading-none">&bull;</span> Top 5 핵심 뉴스
+                </h2>
+                <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100">Must Read</span>
+            </div>
+            <div id="top-5-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <div id="thematic-container" class="space-y-12"></div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+            &copy; 2026 뉴스대시 Daily AI Report. All rights reserved.
+        </div>
+    </footer>
+
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0 w-full">
+            <div id="modal-panel" class="relative bg-white rounded-xl text-left shadow-2xl transform transition-all sm:my-8 sm:max-w-2xl w-full max-h-[85vh] flex flex-col opacity-0 translate-y-4 scale-95">
+                <div class="px-6 py-5 border-b border-slate-100 flex items-start justify-between bg-white rounded-t-xl sticky top-0 z-10">
+                    <div>
+                        <span id="modal-category" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800 mb-2">
+                            카테고리
+                        </span>
+                        <h3 class="text-xl leading-7 font-bold text-slate-900" id="modal-title">
+                            뉴스 제목
+                        </h3>
+                    </div>
+                    <button id="modal-close-btn" type="button" class="ml-4 bg-white rounded-full p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors focus:outline-none">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="px-6 py-6 overflow-y-auto modal-scroll bg-white">
+                    <div id="modal-content" class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-line text-sm md:text-base"></div>
+                </div>
+
+                <div class="bg-slate-50 px-6 py-4 flex flex-row-reverse rounded-b-xl border-t border-slate-100">
+                    <button id="modal-close-bottom" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Protocol/Commerce",
+                title: "구글, '유니버설 커머스 프로토콜(UCP)' 공개…에이전틱 쇼핑 시대 본격화",
+                isTop5: true,
+                details: "구글이 NRF 2026에서 AI 에이전트 기반 쇼핑을 위한 오픈 표준 '유니버설 커머스 프로토콜(UCP)'을 발표했다. UCP는 에이전트와 시스템이 소비자 인터페이스, 기업, 결제 제공업체 전반에서 공통 언어로 작동할 수 있게 한다. 개별 에이전트마다 고유한 연결이 필요했던 기존 방식과 달리, 모든 에이전트가 쉽게 상호작용할 수 있다.\n\n쇼피파이, 에치, 웨이페어, 타깃, 월마트 등이 개발에 참여했으며 Adyen, 아메리칸 익스프레스, 베스트바이, 마스터카드, 비자 등 20개 이상의 글로벌 파트너가 지지하고 있다. UCP는 Agent2Agent(A2A), MCP(Model Context Protocol)와 호환되며, Agent Payments Protocol(AP2)을 통해 보안 결제도 지원한다.\n\n구글 AI 모드에서 미국 일부 소매업체 제품을 검색 내에서 바로 구매할 수 있는 체크아웃 기능도 추가됐다. 맥킨지는 2030년까지 3~5조 달러 규모의 시장 기회를, 모건스탠리는 온라인 쇼핑객 절반이 AI 에이전트를 사용할 것으로 전망했다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Energy/Infrastructure",
+                title: "AI 데이터센터 전력 병목 현실화…'위기' 경고 잇따라",
+                isTop5: true,
+                details: "AI 데이터센터 확산으로 전력 공급 병목이 현실화되고 있다. 버니 샌더스 상원의원과 론 디샌티스 플로리다 주지사가 모두 데이터센터 붐에 대한 우려를 표명하며, 샌더스는 CNN 인터뷰에서 '이 과정을 늦춰야 한다'며 건설 모라토리엄을 촉구했다.\n\n미국 최대 전력망 운영사 PJM은 2027년까지 신뢰성 요건에 6기가와트 부족할 것으로 전망했다. 독립 시장 감시관 조 바우링은 '이런 수준의 부족 전망은 처음'이라고 밝혔다. 주거용 전기 요금은 2025년 5% 상승에 이어 2026년 4% 추가 상승이 예상된다.\n\n버지니아 해상풍력 프로젝트(2.6GW) 중단으로 전기 요금 상승 압력이 가중됐다. 메타는 프로메테우스 슈퍼클러스터용으로 2035년까지 6.6GW 규모의 원자력 계약을 체결했다. 업계는 공공 전력망 의존에서 'BYOG(자체 발전)' 모델로 전환하고 있다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Regulation/Deepfake",
+                title: "인도네시아·말레이시아, 세계 최초로 그록(Grok) 차단",
+                isTop5: true,
+                details: "인도네시아와 말레이시아가 세계 최초로 일론 머스크의 AI 챗봇 그록(Grok) 접근을 차단했다. 인도네시아 통신디지털부 장관 무띠아 하피드는 '비동의 성적 딥페이크는 인권, 존엄성, 시민의 디지털 안전에 대한 심각한 침해'라고 밝혔다.\n\n말레이시아 MCMC는 그록이 '음란, 성적으로 노골적인, 불쾌한 이미지(여성·미성년자 포함)'를 생성하는 데 반복적으로 오용됐다고 지적했다. MCMC는 X와 xAI에 효과적인 안전장치를 요구했으나, 사용자 신고에 의존하는 대응이 '피해 방지와 법적 준수에 불충분하다'고 판단했다.\n\nxAI는 이미지 생성·편집 기능을 유료 구독자로 제한했으나, 규제 당국은 이것이 부적절한 이미지 생성을 '프리미엄 서비스'로 만들 뿐이라고 비판했다. EU 집행위원회도 X에 그록 관련 자료를 2026년 말까지 보존하라고 명령했으며, 프랑스도 별도 수사에 착수했다."
+            },
+            {
+                theme: "AI와 사회",
+                category: "Health/Safety",
+                title: "구글, 의료 AI 요약 일부 중단…가디언 조사로 안전 리스크 인정",
+                isTop5: true,
+                details: "가디언 조사(1월 2일)에서 구글 AI 오버뷰가 부정확한 건강 정보를 제공해 사람들을 위험에 빠뜨리고 있다는 사실이 밝혀졌다. 조사는 수십 개의 AI 생성 요약을 검토하여 미묘한 오해부터 명백한 허위까지 다양한 부정확성을 발견했다.\n\n예를 들어 췌장암 관련 검색에서 AI는 지방을 완전히 피하라고 권고했는데, 이는 환자의 세밀한 식이 요구를 무시한 것이다. 간 기능 검사의 정상 범위도 잘못 보고해 불필요한 불안이나 잘못된 안심을 줄 수 있다. 췌장암 UK 연구원은 '이 검색 결과를 따르면 충분한 칼로리 섭취가 어려워지고 항암 치료나 수술을 견디지 못할 수 있다'고 경고했다.\n\n구글은 조사 후 '간 기능 검사 정상 범위' 관련 AI 오버뷰를 삭제했다. 구글 대변인은 '건강 등 주제에서 AI 오버뷰 품질 향상에 상당한 투자를 하고 있다'고 밝혔다. Ahrefs 분석에 따르면 의료 YMYL 검색어의 44.1%가 AI 오버뷰를 트리거한다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Market/China",
+                title: "중국 AI 리더들 '미국과의 격차 확대' 경고…근본적 돌파 가능성 20% 미만",
+                isTop5: true,
+                details: "블룸버그 보도(1월 10일)에 따르면 중국 생성형 AI 분야의 저명한 인사들이 중국이 글로벌 AI 경쟁에서 미국을 조만간 앞설 가능성이 낮다고 경고했다. 알리바바 Qwen 시리즈 책임자 저스틴 린은 향후 3~5년 내 중국 기업이 OpenAI, Anthropic을 근본적으로 뛰어넘을 확률을 20% 미만으로 평가했다.\n\n텐센트와 Zhipu AI 관계자들도 비슷한 견해를 공유했다. 린은 베이징 AGI-Next 서밋에서 'OpenAI는 막대한 컴퓨팅 자원을 차세대 연구에 투입하는 반면, 우리는 납품 수요 충족에 대부분의 자원을 쓴다'고 말했다.\n\n당 연구원은 '최근 오픈소스 모델 출시에 일부가 중국이 미국을 앞섰다고 느낄 수 있지만, 실제 답은 격차가 오히려 벌어지고 있을 수 있다'고 밝혔다. 딥시크 R1의 성공으로 중국 기업들이 오픈소스화에 나섰으나, 미국 수출 규제와 제한된 자원이 핵심 제약으로 남아있다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Regulation/US",
+                title: "미국 AI 규제 격전…연방-주 충돌 본격화",
+                isTop5: false,
+                details: "2026년 1월 1일부터 캘리포니아 '프론티어 AI 투명성법'과 텍사스 '책임 있는 AI 거버넌스법' 등 주요 주 AI 법률이 시행됐다. 그러나 2025년 12월 11일 트럼프 대통령의 행정명령이 주 차원 규제를 무력화하려는 시도로 해석되며 연방-주 간 충돌이 격화되고 있다.\n\n백악관은 이 행정명령을 '경제 성장, 일자리 창출, 국가 안보, 미국의 중국 대비 경쟁력을 약화시킬 수 있는 주 단위 규제 파편화에 대한 긴급 대응'으로 프레이밍했다. 법무부 내 AI 소송 태스크포스가 1월 10일부터 주 AI 법률에 대한 연방법원 소송을 담당한다.\n\n한국도 'AI 기본법'이 2026년 1월 발효되며 2026년 AI 예산을 10.1조 원으로 전년 대비 3배 이상 증액했다. 뉴욕은 대형 AI 개발사에 안전 프로토콜 공개와 72시간 내 사고 보고 의무를 부과하는 법안을 추진 중이다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "Military/Defense",
+                title: "미 국방부, AI 군사 활용 본격화…GenAI.mil 플랫폼 확대",
+                isTop5: false,
+                details: "미 국방부가 구글 제미나이를 탑재한 군사용 AI 플랫폼 GenAI.mil을 발표했다. 피트 헥세스 국방장관은 이 플랫폼이 '승리하는 방식을 혁명적으로 바꿀' AI 도구를 군인들에게 직접 제공하도록 설계됐다고 밝혔다.\n\n국방부는 일론 머스크의 xAI 그록 모델도 GenAI 플랫폼에 추가로 통합한다고 발표했다. 이를 통해 직원들이 민감하지만 비밀이 아닌 정보를 포함한 일상 업무에 xAI를 안전하게 사용할 수 있게 된다.\n\n공군의 1월 6일 실험에서 AI 도구들이 복잡한 다중 서비스, 다중 도메인 시나리오에서 군사 전문가보다 더 빠르고 오류도 적은 전술적 '행동 방침'을 생성했다. 육군은 '49B AI/머신러닝' 신규 특기를 신설해 2026년 1월부터 장교 선발을 시작한다. 헥세스 장관은 '미국 전쟁의 미래는 AI'라고 선언했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Partnership/Retail",
+                title: "월마트-구글, Gemini AI 쇼핑 파트너십 체결",
+                isTop5: false,
+                details: "월마트와 구글이 NRF 2026에서 Gemini AI 어시스턴트를 통한 쇼핑 경험 혁신을 위한 파트너십을 발표했다. 존 퍼너 차기 월마트 CEO와 순다 피차이 구글 CEO가 직접 무대에서 발표했다.\n\n월마트는 구글 Gemini에 쇼핑 경험을 직접 탑재해 고객이 채팅을 벗어나지 않고 제품 발견, 장바구니 구성, 구매까지 완료할 수 있게 한다. 계정 연동 시 월마트는 과거 온·오프라인 구매 이력을 기반으로 보완 상품을 추천하고, Walmart+ 및 Sam's Club 멤버십 혜택도 제공한다.\n\n월마트는 구글의 '유니버설 커머스 프로토콜(UCP)'을 도입한 첫 번째 주요 소매업체 중 하나다. 월마트는 2025년 10월 OpenAI ChatGPT와도 유사한 계약을 체결한 바 있다. 퍼너는 '웹/앱 검색에서 에이전트 주도 커머스로의 전환은 리테일의 다음 대진화'라고 밝혔다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Security/Startup",
+                title: "이스라엘 사이버보안 Torq, 12억 달러 가치 평가로 유니콘 등극",
+                isTop5: false,
+                details: "이스라엘 사이버보안 스타트업 Torq가 1억 4천만 달러 시리즈 D 투자를 유치하며 12억 달러 기업가치로 유니콘 대열에 합류했다. 머린 벤처스가 라운드를 주도했고, Evolution Equity Partners, Notable Capital, 베세머 벤처 파트너스, 인사이트 파트너스 등이 참여했다.\n\nTorq는 자율 AI 에이전트를 통한 보안운영센터(SOC) 관리 플랫폼을 개발한다. 2025년 약 300% 매출 성장을 기록했으며, 2026년 말까지 연간 반복 매출(ARR) 1억 달러 달성을 목표로 한다. 현재 매리어트, 펩시코, P&G, 지멘스, 우버, 버진 애틀랜틱 등 수백 개 글로벌 기업을 보호하고 있다.\n\n회사는 2020년 설립 이후 총 3억 3,200만 달러를 조달했다. 투자금으로 2026년 전 세계 200명 추가 채용을 계획하고 있으며, 뉴욕(미국 본사), 텔아비브(개발 센터), 일본, 독일, 암스테르담, 런던에 사무실을 두고 있다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Speech/AI",
+                title: "엔비디아, CES 2026서 실시간 음성인식 Nemotron Speech 공개",
+                isTop5: false,
+                details: "엔비디아가 CES 2026에서 실시간 음성 에이전트용 오픈 모델 'Nemotron Speech ASR'을 발표했다. 이 모델은 FastConformer 아키텍처를 기반으로 캐시 인식(cache-aware) 기술을 도입해 새로운 오디오 '델타'만 처리하고 과거 계산을 재사용한다.\n\n이를 통해 기존 버퍼링 시스템 대비 최대 3배 높은 효율성을 달성했다. Parakeet TDT 0.6B v2 모델은 6.05% 단어 오류율(WER)로 업계 최고 성능을 기록하며, 대안 모델 대비 50배 빠른 속도를 자랑한다. 현재 허깅페이스 ASR 리더보드 1위를 기록 중이다.\n\n1.1B 파라미터 버전은 RTFx 2,000 이상을 달성해 Open ASR에서 가장 빠른 모델 중 하나다. Parakeet 모델 제품군은 Suno.ai와 협력해 개발됐으며, 64,000시간 데이터셋으로 학습되어 다양한 억양, 방언, 노이즈 환경에서 뛰어난 정확도를 보인다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Drone/Delivery",
+                title: "Wing-월마트, 드론 배송 150개 매장 확대…4천만 미국인 커버",
+                isTop5: false,
+                details: "Wing과 월마트가 NRF 2026에서 드론 배송 서비스를 150개 추가 매장으로 확대한다고 발표했다. 1월 15일 휴스턴을 시작으로 LA, 세인트루이스, 신시내티, 마이애미 등 4개 주요 대도시권에 서비스를 확장한다.\n\n이로써 Wing은 270개 이상 월마트 매장에서 운영하게 되며, 미국 인구의 약 10%(4천만 명)에게 서비스를 제공할 수 있게 된다. 두 회사는 2027년까지 LA에서 마이애미까지 연결되는 드론 배송 네트워크 구축을 목표로 한다.\n\nWing에 따르면 상위 25% 고객은 주 3회 주문할 정도로 일상에 드론 배송이 정착되고 있다. 지난 6개월간 배송량이 3배로 증가했다. 월마트는 2021년 벤턴빌에서 Wing과 실험을 시작해 약 15만 건의 드론 배송을 완료했으며, 휴스턴 론칭 후 식료품, 선물, 생활용품, 일반의약품 등을 30분 내 배송할 수 있게 된다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Health/Research",
+                title: "스탠포드, 수면 데이터로 130개 질병 예측하는 AI 'SleepFM' 공개",
+                isTop5: false,
+                details: "스탠포드 의대 연구진이 하룻밤 수면 데이터로 100개 이상의 건강 상태를 예측할 수 있는 AI 모델 'SleepFM'을 개발했다. 65,000명 참가자로부터 수집한 약 60만 시간의 수면 데이터로 학습됐으며, Nature Medicine에 연구 결과가 게재됐다.\n\nSleepFM은 1,000개 이상의 질병 범주를 분석해 130개를 합리적 정확도로 예측할 수 있음을 확인했다. 특히 암, 임신 합병증, 순환기 질환, 정신 장애 예측에서 C-index 0.8 이상의 높은 성능을 보였다. 파킨슨병(0.89), 치매(0.85), 고혈압성 심장질환(0.84), 심장마비(0.81), 전립선암(0.89), 유방암(0.87) 예측에서 뛰어났다.\n\n전인 사망률 예측에서 C-index 0.84를 달성해 84%의 확률로 환자 위험을 정확히 순위화했다. 데이터는 뇌 활동, 심장 리듬, 호흡 패턴, 눈 움직임, 다리 움직임 등을 추적하는 수면다원검사에서 수집됐다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Energy/Stock",
+                title: "AI 데이터센터 버블 논쟁 속 에너지 기업 급부상",
+                isTop5: false,
+                details: "AI 데이터센터 전력 수요 급증으로 에너지 기업들이 부상하고 있다. CNBC 보도에 따르면 Bloom Energy 같은 기업들이 AI 인프라의 핵심 파트너로 주목받고 있다. 데이터센터가 2026년까지 미국 전력 수요의 9%를 차지할 것으로 예상되는 가운데, 기존 전력망만으로는 수요 충족이 어려워졌다.\n\n메타는 프로메테우스 AI 슈퍼클러스터용으로 다중 기가와트 규모의 원자력 계약을 체결했다. 이 프로젝트는 2035년까지 6.6GW의 전력을 추가해 뉴햄프셔주 전체 수요를 초과하는 규모다. 빅테크들은 공공 전력망 의존에서 '자체 발전(BYOG)' 모델로 전환하고 있다.\n\n일부 전문가들은 AI 인프라 투자 과열을 경고하는 반면, 다수는 2026년이 'AI ROI 증명의 해'가 될 것으로 전망한다. B. Riley Financial은 '데이터센터 전력 위기'가 이론적 병목이 아닌 AI 시대의 정의적 제약이 됐다고 분석했다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Real Estate/Retail",
+                title: "AI 기반 부동산·리테일 운영 최적화 확산",
+                isTop5: false,
+                details: "AI 기반 부동산 및 리테일 운영 최적화가 빠르게 확산되고 있다. 구글의 UCP(유니버설 커머스 프로토콜) 발표와 함께 월마트, 타깃, 웨이페어 등 주요 소매업체들이 AI 에이전트를 통한 고객 경험 혁신에 나서고 있다.\n\n구글은 'Business Agent'를 발표해 쇼핑객이 구글 검색 내에서 브랜드와 대화할 수 있게 했다. '브랜드 목소리로 제품 질문에 답하는 가상 판매원'으로, Lowe's, Michael's, Poshmark, Reebok이 1월 12일부터 서비스를 시작한다.\n\n한국에서도 AI 기반 금융·자산(부동산·인프라) 크로스오버가 가속화되고 있다. AI 에이전트가 재고 관리, 가격 최적화, 고객 서비스 자동화를 넘어 매장 위치 분석, 임대 협상, 공급망 최적화까지 확장되고 있다. 맥킨지는 AI 에이전트 커머스 시장이 2030년까지 3~5조 달러에 달할 것으로 전망했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Research/Vision",
+                title: "멀티모달 비전 에이전트 자동 프롬프트 최적화 연구 활발",
+                isTop5: false,
+                details: "멀티모달 비전 에이전트의 자동 프롬프트 최적화 연구가 활발히 진행되고 있다. AI 에이전트가 이미지, 비디오 등 시각적 정보를 처리하는 능력이 향상되면서, 최적의 프롬프트를 자동으로 생성하는 기술이 주목받고 있다.\n\n구글, OpenAI, Anthropic 등 주요 AI 기업들이 멀티모달 모델의 프롬프트 엔지니어링 자동화에 투자하고 있다. 이는 2026년 '에이전틱 AI' 원년과 맞물려 AI가 스스로 최적의 방식으로 작업을 수행할 수 있게 하는 핵심 기술로 부상했다.\n\n특히 소매, 의료, 제조 분야에서 비전 AI의 활용이 급증하고 있다. 야생동물 관리를 위한 AI 기반 얼굴인식 기술도 확장되고 있어, 비전 AI의 응용 범위가 산업 전반으로 넓어지고 있다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Healthcare/Insurance",
+                title: "AI 기반 의료 보험·청구 자동화 시장 성장",
+                isTop5: false,
+                details: "AI 기반 의료 보험 및 청구 자동화 시장이 빠르게 성장하고 있다. 복잡한 의료 청구 프로세스를 AI가 자동화하면서 병원과 보험사 모두에서 효율성이 크게 향상되고 있다. 특히 청구 오류 감소, 처리 시간 단축, 사기 탐지 강화에서 AI의 효과가 입증되고 있다.\n\n알리안츠-Anthropic 파트너십은 보험 업계의 AI 도입 가속화를 보여주는 대표 사례다. 알리안츠는 '책임 있는 AI' 프레임워크 하에 Claude를 전사적으로 도입하고, 인간이 참여하는 다단계 워크플로우용 맞춤형 AI 에이전트를 구축 중이다.\n\nOpenAI의 'ChatGPT 헬스' 출시도 의료 AI 시장 성장을 견인하고 있다. 전 세계 매주 2억 3천만 명이 ChatGPT에서 건강 관련 질문을 하고 있으며, Apple Health, MyFitnessPal, Peloton 등과 연동되는 건강 데이터 통합 플랫폼으로 발전하고 있다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Auto/Trust",
+                title: "자동차 AI 신뢰성 문제, 모빌리티 핵심 변수로 부상",
+                isTop5: false,
+                details: "자동차 AI 시스템의 신뢰성 문제가 모빌리티 산업의 핵심 변수로 떠오르고 있다. 자율주행, ADAS(첨단 운전자 지원 시스템), 차량 내 AI 비서 등에서 안전성과 신뢰성 확보가 중요한 과제로 부각되고 있다.\n\nCES 2026에서 '피지컬 AI'가 최대 화두로 떠오르면서, AI가 실제 물리적 환경에서 작동할 때의 안전성 문제가 집중 조명됐다. 삼성전자, LG전자, 현대자동차그룹 등이 AI를 생활공간 전반에 적용한 비전을 제시했으나, 소비자 신뢰 확보가 관건이다.\n\n자동차 업계는 AI 시스템의 투명성, 설명 가능성, 오류 대응 능력을 강화하는 방향으로 발전하고 있다. 특히 인간-AI 협업 모델과 AI 결정의 감사 가능성(auditability)이 차세대 모빌리티 AI의 핵심 설계 원칙으로 자리잡고 있다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "Tourism/Service",
+                title: "AI 기반 관광·서비스 산업 재편 가속",
+                isTop5: false,
+                details: "AI가 관광 및 서비스 산업의 재편을 가속화하고 있다. 개인화된 여행 추천, 실시간 번역, AI 컨시어지 서비스 등이 확산되면서 관광 산업의 디지털 전환이 빨라지고 있다. 호텔, 항공사, 여행사 모두 AI를 통한 고객 경험 혁신에 적극 나서고 있다.\n\n구글 Gemini, ChatGPT 등 대화형 AI가 여행 계획 도우미로 활용되면서, 기존 여행 검색 방식이 근본적으로 변화하고 있다. AI 에이전트가 항공권 예약, 호텔 추천, 일정 최적화를 통합적으로 수행하는 '원스톱' 여행 서비스가 등장하고 있다.\n\n매리어트, 버진 애틀랜틱 등 글로벌 호텔·항공사들이 Torq 같은 AI 보안 플랫폼을 도입해 사이버 보안을 강화하고 있다. 관광 산업에서 AI의 역할이 고객 서비스에서 운영 최적화, 보안, 매출 예측까지 확장되고 있다."
+            }
+        ];
+
+        const THEME_ORDER = [
+            "AI 인프라 및 투자",
+            "플랫폼, 제품 및 에이전트",
+            "산업별 AI 적용",
+            "법률, 규제 및 거버넌스",
+            "AI와 사회"
+        ];
+
+        const KEY_METRICS = [
+            { label: "구글 UCP 파트너", value: "20+", unit: "글로벌 기업", color: "text-blue-600" },
+            { label: "그록 차단 국가", value: "2개국", unit: "인니·말레이", color: "text-red-600" },
+            { label: "Torq 기업가치", value: "$12억", unit: "유니콘 등극", color: "text-emerald-600" },
+            { label: "Wing 드론 배송", value: "4천만", unit: "미국인 커버", color: "text-amber-600" }
+        ];
+
+        function truncateTitle(title) {
+            if (title.length <= 60) return title;
+
+            const separators = ['\u2014', ':', '- '];
+            for (const sep of separators) {
+                if (title.includes(sep)) {
+                    const firstPart = title.split(sep)[0];
+                    if (firstPart.length > 10 && firstPart.length < 60) {
+                        return firstPart.trim();
+                    }
+                }
+            }
+
+            return title.substring(0, 57) + "...";
+        }
+
+        function createCard(item) {
+            const displayTitle = truncateTitle(item.title);
+
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-lg p-5 shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full";
+
+            const badgeColor = item.isTop5
+                ? "bg-red-50 text-red-700 border-red-100"
+                : "bg-slate-100 text-slate-600 border-slate-200";
+
+            card.innerHTML = `
+                <div class="flex items-center justify-between mb-3">
+                    <span class="inline-block px-2 py-1 rounded text-xs font-semibold border ${badgeColor}">
+                        ${item.category}
+                    </span>
+                    ${item.isTop5 ? '<span class="text-xs font-bold text-red-500">TOP 5</span>' : ''}
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 leading-snug group-hover:text-blue-700 transition-colors mb-auto">
+                    ${displayTitle}
+                </h3>
+                <div class="mt-4 flex items-center text-sm text-slate-400 font-medium group-hover:text-blue-500 transition-colors">
+                    자세히 보기 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+            `;
+
+            card.addEventListener('click', () => showModal(item));
+            return card;
+        }
+
+        function createKeyNumbersSection() {
+            const container = document.getElementById('highlights-container');
+            KEY_METRICS.forEach(metric => {
+                const div = document.createElement('div');
+                div.className = "bg-white rounded-lg p-4 shadow-sm border border-slate-200 flex flex-col items-center justify-center text-center hover:border-blue-300 transition-colors";
+                div.innerHTML = `
+                    <span class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-1">${metric.label}</span>
+                    <span class="text-3xl lg:text-4xl font-black ${metric.color} tracking-tight">${metric.value}</span>
+                    <span class="text-xs font-bold text-slate-400 mt-1">${metric.unit}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderTop5Section() {
+            const container = document.getElementById('top-5-container');
+            const top5Items = reportData.filter(item => item.isTop5);
+
+            top5Items.forEach(item => {
+                container.appendChild(createCard(item));
+            });
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-container');
+            const remainingItems = reportData.filter(item => !item.isTop5);
+
+            THEME_ORDER.forEach(themeName => {
+                const themeItems = remainingItems.filter(item => item.theme === themeName);
+
+                if (themeItems.length === 0) return;
+
+                const section = document.createElement('section');
+                section.className = "animate-fade-in";
+
+                const header = document.createElement('h2');
+                header.className = "text-xl font-bold text-slate-800 mb-4 pb-2 border-b border-slate-200 flex items-center";
+                header.innerHTML = `<span class="w-2 h-6 bg-slate-800 mr-3 rounded-sm"></span>${themeName}`;
+
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+
+                themeItems.forEach(item => {
+                    grid.appendChild(createCard(item));
+                });
+
+                section.appendChild(header);
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        const modal = document.getElementById('news-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        function showModal(item) {
+            modalTitle.textContent = item.title;
+            modalCategory.textContent = item.category;
+            modalContent.textContent = item.details;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'translate-y-4', 'scale-95');
+                modalPanel.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-close-bottom').addEventListener('click', closeModal);
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>

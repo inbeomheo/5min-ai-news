@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT : 2026.01.12</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            color: #111;
+            overflow-x: hidden;
+        }
+        html { scroll-behavior: smooth; }
+
+        .nb-box {
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 16px;
+            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.85);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.95);
+        }
+
+        .kpi-red { background-color: #FFE5E5; }
+        .kpi-blue { background-color: #E5F0FF; }
+        .kpi-yellow { background-color: #FFF9C4; }
+        .kpi-green { background-color: #E8F5E9; }
+
+        .nav-item.active {
+            background-color: #333;
+            color: #fff;
+            box-shadow: 4px 4px 0px #888;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fffd8d 0%, #fffd8d 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+        }
+    </style>
+</head>
+<body class="pb-20">
+
+    <header class="pt-12 pb-8 px-4 text-center">
+        <a href="../../index.html"
+           class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
+            ← 전체 목록
+        </a>
+        <span class="inline-block py-1 px-3 border-2 border-black rounded-full bg-black text-white text-sm font-bold mb-3 tracking-widest">WEEKLY BRIEFING</span>
+        <h1 class="text-4xl md:text-5xl font-black text-[#333] mb-2 uppercase tracking-tight">AI TREND REPORT</h1>
+        <p class="text-lg text-gray-600 font-medium">2026년 1월 12일 기준 주요 이슈 브리핑</p>
+    </header>
+
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+        <h2 class="sr-only">핵심 지표</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-blue relative overflow-hidden">
+                <div class="z-10">
+                    <p class="text-sm font-bold text-gray-600">🛒 구글 UCP 파트너</p>
+                    <h3 class="text-4xl font-black mt-1">20<span class="text-2xl">+</span></h3>
+                </div>
+                <div class="z-10 flex items-center justify-between">
+                    <span class="text-sm font-medium">글로벌 기업 참여</span>
+                    <span class="text-2xl">🌐</span>
+                </div>
+                <div class="absolute -right-4 -bottom-4 text-9xl opacity-10 font-black">🛒</div>
+            </div>
+
+            <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-red relative overflow-hidden">
+                <div class="z-10">
+                    <p class="text-sm font-bold text-gray-600">🚫 그록 차단 국가</p>
+                    <h3 class="text-5xl font-black mt-1">2<span class="text-2xl">개국</span></h3>
+                </div>
+                <div class="z-10 flex items-center justify-between">
+                    <span class="text-sm font-medium">인니 · 말레이</span>
+                    <span class="text-2xl">🌏</span>
+                </div>
+            </div>
+
+            <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-green relative overflow-hidden">
+                <div class="z-10">
+                    <p class="text-sm font-bold text-gray-600">💰 Torq 기업가치</p>
+                    <h3 class="text-4xl font-black mt-1">$12<span class="text-2xl">억</span></h3>
+                </div>
+                <div class="z-10 flex items-center justify-between">
+                    <span class="text-sm font-medium">유니콘 등극</span>
+                    <span class="text-2xl">🦄</span>
+                </div>
+            </div>
+
+            <div class="nb-box p-6 flex flex-col justify-between h-40 kpi-yellow relative overflow-hidden">
+                <div class="z-10">
+                    <p class="text-sm font-bold text-gray-600">🚁 드론 배송 커버리지</p>
+                    <h3 class="text-4xl font-black mt-1">4천<span class="text-2xl">만명</span></h3>
+                </div>
+                <div class="z-10 flex items-center justify-between">
+                    <span class="text-sm font-medium">미국 인구 10%</span>
+                    <span class="text-2xl">📦</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur-sm py-4 border-b-2 border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 overflow-x-auto">
+            <ul class="flex space-x-2 md:space-x-4 min-w-max">
+                <li><a href="#theme1" class="nav-item block px-5 py-2 rounded-full border-2 border-gray-800 font-bold bg-white hover:bg-gray-100 transition-colors text-sm md:text-base">🛒 에이전틱 커머스</a></li>
+                <li><a href="#theme2" class="nav-item block px-5 py-2 rounded-full border-2 border-gray-800 font-bold bg-white hover:bg-gray-100 transition-colors text-sm md:text-base">⚡ 전력 위기</a></li>
+                <li><a href="#theme3" class="nav-item block px-5 py-2 rounded-full border-2 border-gray-800 font-bold bg-white hover:bg-gray-100 transition-colors text-sm md:text-base">🚫 AI 규제 격전</a></li>
+                <li><a href="#theme4" class="nav-item block px-5 py-2 rounded-full border-2 border-gray-800 font-bold bg-white hover:bg-gray-100 transition-colors text-sm md:text-base">🔬 기술 혁신</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 mt-8 space-y-20">
+
+        <section id="theme1" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🛒</span>
+                <h2 class="text-3xl md:text-4xl font-black">에이전틱 커머스 : AI가 쇼핑한다</h2>
+            </div>
+
+            <div class="nb-box p-8 bg-white border-b-8 border-b-blue-500">
+                <div class="text-center mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-bold">Google NRF 2026</span>
+                    <h3 class="text-2xl font-bold mt-3">유니버설 커머스 프로토콜(UCP) 공개</h3>
+                </div>
+
+                <div class="flex items-stretch mb-6 border-2 border-gray-200 rounded-lg overflow-hidden">
+                    <div class="flex-1 bg-blue-50 p-6 flex flex-col items-center justify-center text-center">
+                        <span class="text-4xl mb-2">🤖</span>
+                        <p class="font-bold text-blue-900 text-lg">AI 에이전트</p>
+                        <p class="text-sm text-gray-600 mt-1">검색 → 선택 → 결제<br>원스톱 쇼핑</p>
+                    </div>
+                    <div class="w-14 bg-white flex items-center justify-center relative z-10">
+                        <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center font-black text-sm absolute border-4 border-white">UCP</div>
+                    </div>
+                    <div class="flex-1 bg-green-50 p-6 flex flex-col items-center justify-center text-center">
+                        <span class="text-4xl mb-2">🏪</span>
+                        <p class="font-bold text-green-900 text-lg">20+ 파트너</p>
+                        <p class="text-sm text-gray-600 mt-1">월마트 · 타깃 · 비자<br>마스터카드 · 쇼피파이</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-blue-100 border-2 border-blue-300 rounded-xl p-4 text-center">
+                        <div class="text-2xl mb-2">📱</div>
+                        <h4 class="font-bold text-blue-800">Gemini 내 결제</h4>
+                        <p class="text-sm mt-1">AI 채팅에서 바로 구매</p>
+                    </div>
+                    <div class="bg-purple-100 border-2 border-purple-300 rounded-xl p-4 text-center">
+                        <div class="text-2xl mb-2">🔗</div>
+                        <h4 class="font-bold text-purple-800">MCP/A2A 호환</h4>
+                        <p class="text-sm mt-1">에이전트 간 상호운용</p>
+                    </div>
+                    <div class="bg-amber-100 border-2 border-amber-300 rounded-xl p-4 text-center">
+                        <div class="text-2xl mb-2">💰</div>
+                        <h4 class="font-bold text-amber-800">시장 전망</h4>
+                        <p class="text-sm mt-1">2030년 $3~5조</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-blue-600">
+                    <p class="font-bold text-blue-800 text-lg">💡 인사이트</p>
+                    <p class="text-gray-800">구글이 AI 에이전트 쇼핑의 <span class="highlight font-bold">오픈 표준</span>을 선점했습니다. 에이전틱 커머스 시대가 본격 시작됐습니다.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-bold">Walmart</span>
+                        <span class="text-gray-500 text-sm">NRF 2026</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">🤝 Gemini AI 쇼핑 파트너십</h3>
+                    <div class="flex gap-2 mb-3">
+                        <span class="bg-gray-100 px-2 py-1 rounded text-xs font-bold">UCP 최초 도입</span>
+                        <span class="bg-gray-100 px-2 py-1 rounded text-xs font-bold">계정 연동</span>
+                    </div>
+                    <p class="text-gray-700 text-sm">Gemini 채팅 내 쇼핑 경험 제공. 과거 구매 이력 기반 개인화 추천. ChatGPT와도 계약 체결.</p>
+                </div>
+
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-green-600 text-white px-3 py-1 rounded-md text-sm font-bold">Google</span>
+                        <span class="text-gray-500 text-sm">1월 12일</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">🏪 Business Agent 출시</h3>
+                    <p class="text-gray-700 text-sm mb-2">'브랜드 목소리로 답하는 가상 판매원'. 구글 검색 내에서 브랜드와 대화.</p>
+                    <div class="bg-gray-100 p-2 rounded text-xs text-gray-600">Lowe's, Michael's, Poshmark, Reebok 론칭</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="theme2" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">⚡</span>
+                <h2 class="text-3xl md:text-4xl font-black">AI 전력 위기 : 그리드의 한계</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="nb-box p-8 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-red-600 text-white px-3 py-1 rounded-md text-sm font-bold">위기 경고</span>
+                        <span class="text-gray-500 text-sm">CNBC / Bloomberg</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 leading-snug">데이터센터 전력 병목<br>현실화되다</h3>
+
+                    <div class="w-full h-48 bg-gray-50 rounded-lg p-2 mb-4 border border-gray-200">
+                        <canvas id="powerChart"></canvas>
+                    </div>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        PJM(미국 최대 전력망)이 2027년까지 <span class="highlight font-bold">6GW 부족</span>을 전망. 버니 샌더스가 데이터센터 건설 모라토리엄을 촉구했습니다.
+                    </p>
+
+                    <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-red-600">
+                        <p class="font-bold text-red-800 text-lg">💡 인사이트</p>
+                        <p class="text-gray-800">AI 인프라가 20세기 전력망의 물리적 한계와 충돌하고 있습니다. '자체 발전(BYOG)' 시대가 열립니다.</p>
+                    </div>
+                </div>
+
+                <div class="nb-box p-8 bg-white flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-purple-600 text-white px-3 py-1 rounded-md text-sm font-bold">빅테크 대응</span>
+                            <span class="text-gray-500 text-sm">에너지 전환</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-6 leading-snug">메타 원자력 계약 & 에너지 기업 부상</h3>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-purple-50 p-4 rounded-lg text-center border border-purple-100">
+                                <p class="text-sm text-purple-800 font-bold mb-1">메타 원자력</p>
+                                <p class="text-3xl font-black text-purple-900">6.6GW</p>
+                                <p class="text-xs text-gray-500">2035년까지</p>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-lg text-center border border-amber-100">
+                                <p class="text-sm text-amber-800 font-bold mb-1">전기요금 상승</p>
+                                <p class="text-3xl font-black text-amber-900">+4%</p>
+                                <p class="text-xs text-gray-500">2026년 예상</p>
+                            </div>
+                        </div>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            메타가 프로메테우스 슈퍼클러스터용 다중 기가와트 원자력 계약. Bloom Energy 등 에너지 기업 급부상.
+                        </p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-purple-600 mt-4">
+                        <p class="font-bold text-purple-800 text-lg">💡 인사이트</p>
+                        <p class="text-gray-800">공공 전력망 의존에서 '자체 발전(BYOG)' 모델로 빅테크들이 전환하고 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-cyan-600 text-white px-3 py-1 rounded-md text-sm font-bold">중국 AI</span>
+                        <span class="text-gray-500 text-sm">Bloomberg 1월 10일</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">📉 미·중 AI 격차 확대 경고</h3>
+                    <div class="bg-cyan-50 p-3 rounded-lg mb-3 border border-cyan-100">
+                        <p class="text-sm text-cyan-800 font-bold">알리바바 Qwen 책임자</p>
+                        <p class="text-gray-700 text-sm">"OpenAI 추월 확률 <b>20% 미만</b>" (3~5년 내)</p>
+                    </div>
+                    <p class="text-gray-700 text-sm">자원 제약과 미국 수출 규제가 핵심 장애물. 격차가 오히려 벌어지고 있다는 분석.</p>
+                </div>
+
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-green-700 text-white px-3 py-1 rounded-md text-sm font-bold">Torq</span>
+                        <span class="text-gray-500 text-sm">시리즈 D</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">🦄 보안 스타트업 유니콘 등극</h3>
+                    <div class="flex gap-4 mb-3">
+                        <div class="text-center">
+                            <p class="text-2xl font-black text-green-600">$1.4억</p>
+                            <p class="text-xs text-gray-500">투자 유치</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-black text-green-600">$12억</p>
+                            <p class="text-xs text-gray-500">기업가치</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">AI 자율 보안 에이전트. 매리어트, 펩시코, 우버 등 보호. 2025년 매출 300%↑</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="theme3" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🚫</span>
+                <h2 class="text-3xl md:text-4xl font-black">AI 규제 격전 : 글로벌 충돌</h2>
+            </div>
+
+            <div class="nb-box p-8 bg-white">
+                <div class="text-center mb-8">
+                    <span class="bg-red-600 text-white px-3 py-1 rounded-md text-sm font-bold">세계 최초</span>
+                    <h3 class="text-3xl font-black mt-3">인도네시아·말레이시아, 그록 차단</h3>
+                </div>
+
+                <div class="relative max-w-4xl mx-auto py-4">
+                    <div class="absolute top-1/2 left-0 w-full h-2 bg-gray-200 -translate-y-1/2 rounded-full hidden md:block"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6 relative z-10 text-center shadow-sm">
+                            <div class="text-sm font-bold text-red-500 mb-1">🇮🇩 인도네시아</div>
+                            <div class="text-4xl mb-2">🚫</div>
+                            <h4 class="text-xl font-bold text-red-800">세계 최초 차단</h4>
+                            <p class="text-sm mt-2 leading-tight">비동의 성적 딥페이크</p>
+                        </div>
+
+                        <div class="bg-orange-100 border-2 border-orange-500 rounded-xl p-6 relative z-10 text-center shadow-lg transform md:-translate-y-4">
+                            <div class="inline-block bg-black text-white text-xs px-2 py-1 rounded-full mb-2">WHY</div>
+                            <div class="text-sm font-bold text-orange-800 mb-1">핵심 이유</div>
+                            <div class="text-4xl mb-2">😈</div>
+                            <h4 class="text-xl font-black text-orange-900">Grok 딥페이크</h4>
+                            <p class="text-sm mt-2 font-medium">여성·미성년자 피해 확산</p>
+                        </div>
+
+                        <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 relative z-10 text-center shadow-sm">
+                            <div class="text-sm font-bold text-blue-500 mb-1">🇲🇾 말레이시아</div>
+                            <div class="text-4xl mb-2">⛔</div>
+                            <h4 class="text-xl font-bold text-blue-800">접근 제한</h4>
+                            <p class="text-sm mt-2 leading-tight">MCMC 차단 명령</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gray-100 p-4 rounded-lg border-l-4 border-red-600">
+                    <p class="font-bold text-red-800 text-lg">💡 인사이트</p>
+                    <p class="text-gray-800">유료 구독자 제한은 '부적절한 이미지 생성을 프리미엄 서비스로 만든 것뿐'이라는 비판. EU·프랑스도 조사 착수.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-bold">미국</span>
+                        <span class="text-gray-500 text-sm">연방 vs 주</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">⚔️ AI 규제 연방-주 충돌</h3>
+                    <div class="space-y-2 mb-3">
+                        <div class="bg-blue-50 p-2 rounded text-sm"><b>캘리포니아·텍사스:</b> 1월 1일 AI법 시행</div>
+                        <div class="bg-red-50 p-2 rounded text-sm"><b>트럼프 행정명령:</b> 주 규제 무력화 시도</div>
+                        <div class="bg-purple-50 p-2 rounded text-sm"><b>법무부:</b> 1월 10일 AI 소송 태스크포스 가동</div>
+                    </div>
+                </div>
+
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-red-500 text-white px-3 py-1 rounded-md text-sm font-bold">Guardian</span>
+                        <span class="text-gray-500 text-sm">1월 2일</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">⚠️ 구글 의료 AI 요약 중단</h3>
+                    <p class="text-gray-700 text-sm mb-2">가디언 조사로 부정확한 건강 정보 발각. 췌장암, 간 기능 검사 정보 오류.</p>
+                    <div class="bg-red-50 p-3 rounded-lg text-center border border-red-100">
+                        <p class="font-bold text-red-600">의료 YMYL 쿼리의 44.1%가 AI 오버뷰 트리거</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="nb-box p-6 bg-white border-2 border-green-400">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-green-600 text-white px-3 py-1 rounded-md text-sm font-bold">국방부</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">🎖️ AI 군사 활용 본격화</h3>
+                    <div class="space-y-2 mb-3">
+                        <div class="bg-green-50 p-2 rounded text-sm"><b>GenAI.mil:</b> 구글 Gemini 탑재</div>
+                        <div class="bg-blue-50 p-2 rounded text-sm"><b>xAI Grok:</b> 국방부 플랫폼 통합</div>
+                        <div class="bg-purple-50 p-2 rounded text-sm"><b>육군:</b> AI/ML 신규 특기 신설</div>
+                    </div>
+                    <p class="text-gray-600 text-xs">"미국 전쟁의 미래는 AI" - 피트 헥세스 국방장관</p>
+                </div>
+
+                <div class="nb-box p-6 bg-white border-2 border-amber-400">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-amber-500 text-white px-3 py-1 rounded-md text-sm font-bold">한국</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">🇰🇷 AI 기본법 시행 & 예산 3배↑</h3>
+                    <div class="flex gap-3 mb-3">
+                        <div class="text-center">
+                            <p class="text-xl font-black text-amber-600">10.1조</p>
+                            <p class="text-xs text-gray-500">2026년 예산</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl font-black text-amber-600">3.3배↑</p>
+                            <p class="text-xs text-gray-500">전년 대비</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 text-xs">AI 기본법 2026년 1월 발효. 체계적 AI 거버넌스 구축.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="theme4" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🔬</span>
+                <h2 class="text-3xl md:text-4xl font-black">기술 혁신 : 헬스케어부터 드론까지</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="nb-box p-6 bg-white relative">
+                    <div class="flex justify-between mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-md text-sm font-bold">Stanford</span>
+                        <span class="text-purple-500 font-bold text-sm">Nature Medicine</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4">수면 데이터로 130개 질병 예측</h3>
+
+                    <div class="bg-purple-50 p-6 rounded-xl text-center mb-4 border border-purple-100">
+                        <p class="text-gray-600 font-bold mb-2">SleepFM AI 모델</p>
+                        <p class="text-5xl font-black text-purple-600 mb-2">130</p>
+                        <p class="text-sm text-purple-800">예측 가능 질병 수</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <div class="bg-gray-50 p-2 rounded text-center text-sm">
+                            <p class="font-bold">파킨슨병</p>
+                            <p class="text-purple-600 font-black">0.89</p>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded text-center text-sm">
+                            <p class="font-bold">치매</p>
+                            <p class="text-purple-600 font-black">0.85</p>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded text-center text-sm">
+                            <p class="font-bold">유방암</p>
+                            <p class="text-purple-600 font-black">0.87</p>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded text-center text-sm">
+                            <p class="font-bold">심장마비</p>
+                            <p class="text-purple-600 font-black">0.81</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">65,000명의 60만 시간 수면 데이터로 학습. C-index(예측 정확도) 기준.</p>
+                </div>
+
+                <div class="nb-box p-6 bg-white border-2 border-cyan-500 shadow-[6px_6px_0px_#06b6d4]">
+                    <div class="flex justify-between mb-4">
+                        <span class="bg-cyan-600 text-white px-3 py-1 rounded-md text-sm font-bold">NVIDIA</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Nemotron Speech ASR 공개</h3>
+
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg border">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🎯</span>
+                                <span class="font-bold">단어 오류율</span>
+                            </div>
+                            <span class="text-cyan-600 font-black">6.05%</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg border">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">⚡</span>
+                                <span class="font-bold">속도</span>
+                            </div>
+                            <span class="text-cyan-600 font-black">50배 빠름</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg border">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🏆</span>
+                                <span class="font-bold">HuggingFace</span>
+                            </div>
+                            <span class="text-cyan-600 font-black">ASR 1위</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-cyan-50 p-3 rounded-lg text-center">
+                        <p class="font-bold text-sm text-cyan-800">캐시 인식 기술로 3배 효율 향상</p>
+                        <p class="text-xs mt-1 text-gray-600">실시간 음성 에이전트 최적화</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="nb-box p-6 bg-white border-2 border-blue-400">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-blue-500 text-white px-3 py-1 rounded-md text-sm font-bold">Wing</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">🚁 드론 배송 150개 매장 확대</h3>
+                    <div class="flex gap-3 mb-3">
+                        <div class="text-center">
+                            <p class="text-xl font-black text-blue-600">270+</p>
+                            <p class="text-xs text-gray-500">매장</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl font-black text-blue-600">4천만</p>
+                            <p class="text-xs text-gray-500">미국인</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 text-xs">LA~마이애미 네트워크. 상위 25% 고객 주 3회 주문.</p>
+                </div>
+
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-pink-600 text-white px-3 py-1 rounded-md text-sm font-bold">Healthcare</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">💊 의료 보험 AI 자동화</h3>
+                    <p class="text-gray-700 text-sm mb-2">청구 오류 감소, 처리 시간 단축, 사기 탐지 강화.</p>
+                    <div class="bg-pink-50 p-2 rounded text-xs text-pink-800">
+                        알리안츠-Anthropic 파트너십 체결
+                    </div>
+                </div>
+
+                <div class="nb-box p-6 bg-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-orange-600 text-white px-3 py-1 rounded-md text-sm font-bold">Mobility</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">🚗 자동차 AI 신뢰성 과제</h3>
+                    <p class="text-gray-700 text-sm mb-2">자율주행·ADAS 안전성 확보가 핵심 변수로 부상.</p>
+                    <div class="bg-orange-50 p-2 rounded text-xs text-orange-800">
+                        투명성 · 설명가능성 · 감사가능성
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-6xl mx-auto mt-20 py-12 px-4 border-t-2 border-gray-200 text-center">
+        <p class="text-2xl font-black text-gray-300 mb-4">AI NEWS INFO 1.1</p>
+        <p class="text-gray-500 mb-2">본 리포트는 AI 뉴스 데이터를 기반으로 자동 생성되었습니다.</p>
+        <p class="text-gray-400 text-sm">Copyright © 2026 AI Infographic Designer. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('powerChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2025', '2026', '2027'],
+                datasets: [{
+                    label: '예상 전력 부족 (GW)',
+                    data: [2, 4, 6],
+                    backgroundColor: ['#fbbf24', '#f97316', '#ef4444'],
+                    borderRadius: 8,
+                    borderSkipped: false,
+                    barThickness: 40
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw + ' GW 부족';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 8,
+                        grid: { display: true, color: '#f3f4f6' },
+                        title: { display: true, text: 'GW' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
