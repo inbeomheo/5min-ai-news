@@ -73,6 +73,19 @@ git status
 | 홈 버튼 누락 | 파일 생성 후 `grep "../../index.html"` 검증 필수 |
 | CSS 호환성 경고 | `-webkit-line-clamp` 사용 시 `line-clamp`도 함께 추가 |
 
+## Agent Rules (필독)
+
+**작업 순서 - 반드시 준수:**
+1. AGENTS.md 체크리스트 **먼저** 읽기
+2. 검증 명령어 실행 (홈 버튼, line-clamp 등)
+3. 검증 통과 후에만 커밋
+
+**금지:**
+- 지침 확인 없이 바로 커밋 금지
+- 검증 스킵 금지
+
+**2026-01-14 실수 기록:** 지침 미확인 → 홈 버튼 누락 상태로 커밋 → 재수정 필요했음
+
 ## Commit Message Format
 
 ```
