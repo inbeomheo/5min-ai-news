@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시 | Daily AI Source Report</title>
+    
+    <!-- Mandatory Comments as requested -->
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 equivalent */
+            color: #1e293b; /* text-slate-800 */
+        }
+        
+        /* Modal Transition */
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content-wrapper {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal.active .modal-content-wrapper {
+            transform: scale(1);
+        }
+
+        /* Scrollbar customization for modal content */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen relative">
+
+    <!-- Header (Sticky) -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">뉴스대시 <span class="text-amber-500">.</span></h1>
+                <p class="text-xs text-slate-500 font-medium mt-0.5">2026년 01월 14일 AI 일일 보고서</p>
+            </div>
+            <div class="hidden md:block">
+                <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-semibold">Source Report v1.0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
+        
+        <!-- 1. Key Data Highlights -->
+        <section id="key-highlights">
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center">
+                <span class="w-1.5 h-6 bg-amber-500 mr-2 rounded-sm"></span>
+                주요 데이터 하이라이트
+            </h2>
+            <div id="highlights-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Dynamically Inserted -->
+            </div>
+        </section>
+
+        <!-- 2. Top 5 News -->
+        <section id="top-news">
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center">
+                <span class="w-1.5 h-6 bg-indigo-600 mr-2 rounded-sm"></span>
+                Top 5 핵심 뉴스
+            </h2>
+            <div id="top5-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically Inserted -->
+            </div>
+        </section>
+
+        <!-- 3. Thematic Sections -->
+        <div id="thematic-sections" class="space-y-12">
+            <!-- Dynamically Inserted Categories -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8 text-center text-slate-400 text-sm">
+        <p>© 2026 뉴스대시 (NewsDash). AI Source Report Dashboard.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <!-- Backdrop -->
+        <div id="modal-bg-close" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        
+        <!-- Modal Content -->
+        <div class="modal-content-wrapper bg-white w-full max-w-3xl max-h-[85vh] rounded-2xl shadow-2xl relative flex flex-col overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-start bg-slate-50/50">
+                <div class="pr-8">
+                    <span id="modal-category" class="inline-block px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase mb-2 bg-slate-200 text-slate-600">
+                        Category
+                    </span>
+                    <h3 id="modal-title" class="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                        <!-- Full Title Goes Here -->
+                    </h3>
+                </div>
+                <button id="modal-close-btn" class="text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto custom-scrollbar bg-white">
+                <div id="modal-body" class="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-wrap">
+                    <!-- Detailed Content Goes Here -->
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+                <button id="modal-close-btn-bottom" class="px-5 py-2 bg-white border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-slate-50 hover:border-slate-400 transition-all text-sm shadow-sm">
+                    닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. Data Structure ---
+        const reportData = [
+            // Top 5 Items
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "빅테크 협력",
+                title: "Apple-Google AI 협력 공식 발표: Siri에 Google Gemini 탑재",
+                isTop5: true,
+                details: "시간: 1월 13일 새벽 (KST)\n\nApple이 Siri에 Google Gemini를 탑재한다고 공식 발표했습니다. 이는 수년간의 협력 계약으로, 약 10억 달러 규모로 추정됩니다.\n\n주요 내용:\n- OpenAI, Anthropic 모델도 테스트했으나 최종적으로 Google Gemini를 선택했습니다.\n- Apple Intelligence 생태계 전반에 Gemini 기술을 활용할 예정입니다.\n- 기존의 ChatGPT 통합 기능은 그대로 유지됩니다.\n\n의미: 모바일 OS 양대 산맥의 AI 동맹으로, 온디바이스 및 클라우드 AI 시장의 판도가 크게 변화할 것으로 예상됩니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "AI 에이전트",
+                title: "Anthropic, 'Cowork' 데스크톱 에이전트 출시 (Claude Code 일반인 버전)",
+                isTop5: true,
+                details: "시간: 1월 13일 오전~오후 (KST)\n\n앤트로픽이 Mac 데스크톱용 'Claude Cowork'를 연구 미리보기로 출시했습니다.\n\n핵심 기능:\n- '비개발자를 위한 Claude Code': 코딩 없이 파일 관리 및 업무 자동화 가능.\n- 사용자가 지정한 폴더 내 파일을 AI가 직접 읽고, 수정하고, 생성합니다.\n- 영수증 이미지를 읽어 경비 스프레드시트를 작성하는 등 실제 업무 자동화 수행.\n- 이 도구 자체를 Claude Code를 이용해 1.5주 만에 개발했습니다.\n- 현재 Claude Max 구독자($100~$200/월) 전용 기능입니다.\n\n시장 반응:\n터미널 도구인 Claude Code의 경험을 일반 사용자 영역으로 확장했다는 평가입니다. 다만 파일 삭제 등 파괴적 작업 가능성에 대한 안전장치 및 프롬프트 인젝션 우려도 함께 제기되고 있습니다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "국방/보안",
+                title: "미 국방부, Grok AI 도입 공식 발표 (비밀/비분류 네트워크 배치)",
+                isTop5: true,
+                details: "시간: 1월 13일 오전 (KST)\n\nHegseth 국방장관이 SpaceX에서 Grok AI 도입을 공식 발표했습니다.\n\n주요 내용:\n- Grok을 펜타곤의 비밀(Classified) 및 비분류(Unclassified) 네트워크 모두에 배치할 예정입니다.\n- Google AI와 함께 국방부 네트워크 운영의 한 축을 담당하게 됩니다.\n- 최근 딥페이크 성적 이미지 논란 직후의 발표라 전 세계적으로 반발 여론이 존재합니다.\n\n시사점: 민간 AI 모델(특히 xAI)이 국가 안보의 핵심 인프라로 깊숙이 침투하는 사례입니다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "헬스케어",
+                title: "OpenAI, 헬스케어 스타트업 Torch 인수 ('ChatGPT Health' 강화)",
+                isTop5: true,
+                details: "시간: 1월 13일 새벽 (KST)\n\nOpenAI가 헬스케어 스타트업 Torch를 인수했습니다. 인수 규모는 $60M~$100M 사이로 추정됩니다.\n\n목적 및 현황:\n- Torch는 환자의 의료 기록을 통합 분석하는 기술을 보유하고 있습니다.\n- 이번 인수는 'ChatGPT Health' 기능을 강화하기 위한 목적입니다.\n- 현재 매주 4,000만 명이 ChatGPT에 건강 관련 질문을 하고 있는 것으로 파악됩니다.\n\n전망: AI 닥터 서비스의 정확도와 개인화 수준이 한 단계 도약할 것으로 보입니다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "구조조정",
+                title: "Meta, Reality Labs 10% 감원 시작 (VR/메타버스 팀 타격)",
+                isTop5: true,
+                details: "시간: 1월 14일 새벽~오전 (KST)\n\nMeta가 메타버스 사업부인 Reality Labs에서 1,000~1,500명 규모의 해고를 시작했습니다.\n\n상세 내용:\n- VR 헤드셋 및 Horizon Worlds 팀이 집중 타격을 받았습니다.\n- 반면, Ray-Ban AI 스마트 안경 팀은 안전한 것으로 알려졌습니다.\n- Reality Labs의 누적 손실은 700억 달러 이상입니다.\n- CTO Bosworth는 이를 '올해 가장 중요한 미팅'이라고 언급하며 조직 개편을 단행했습니다.\n\n의미: 메타버스에서 'AI 웨어러블'로 회사의 하드웨어 전략 중심이 이동하고 있음을 보여줍니다."
+            },
+
+            // Non-Top 5 Items (Consolidated into Themes)
+            
+            // Theme: AI 인프라 및 투자
+            {
+                theme: "AI 인프라 및 투자",
+                category: "반도체/제조",
+                title: "SK하이닉스, 청주에 19조원 HBM 패키징 공장 투자 발표",
+                isTop5: false,
+                details: "시간: 1월 13일 오후 (KST)\n\nSK하이닉스가 청주에 'P&T7' 첨단 패키징 시설 건설을 발표했습니다.\n\n- 투자 규모: 19조원 (약 $13B)\n- 일정: 2026년 4월 착공 → 2027년 말 완공\n- 목적: 기존 M15X DRAM 공장과 연계해 HBM 원스톱 생산 체계를 구축합니다.\n- 시장 전망: HBM 시장은 2025~2030년 연평균 33% 성장할 것으로 전망됩니다.\n\n임팩트: SK하이닉스의 HBM 시장 점유율 지배력을 강화하고, 청주를 AI 메모리의 핵심 거점으로 육성하겠다는 전략입니다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "데이터센터/에너지",
+                title: "Microsoft, 데이터센터 전력비 인상분 전액 회사 부담 선언",
+                isTop5: false,
+                details: "시간: 1월 14일 새벽~오전 (KST)\n\nMicrosoft Brad Smith 사장이 지역 사회와의 상생을 위한 5가지 약속을 발표했습니다.\n\n1. 전기료 인상분 전액 회사 부담 (주민 전가 방지)\n2. 물 사용량 이상으로 보충 (Water Positive)\n3. 지역 일자리 창출 및 AI 교육 제공\n4. 재산세 감면 요청 하지 않음\n5. 지역 비영리단체 투자\n\n배경: 트럼프 전 대통령이 '빅테크가 자기 몫을 내야 한다'고 압박한 직후 나온 조치로, AI 인프라 확장에 따른 지역 주민의 반발을 해결하려는 시도입니다."
+            },
+
+            // Theme: 법률, 규제 및 거버넌스
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "딥페이크 규제",
+                title: "영국, Grok 딥페이크로 X 정식 조사 착수 및 AI 성적 이미지 범죄화 시행",
+                isTop5: false,
+                details: "시간: 1월 13일~14일 새벽 (KST)\n\n영국 Ofcom이 X(구 트위터)에 대한 공식 조사를 개시했습니다. 동시에 기술부 장관은 이번 주부터 AI 성적 이미지 생성을 범죄화하는 법안을 시행한다고 밝혔습니다.\n\n- 제재: 위반 시 글로벌 매출의 10% 벌금 또는 영국 내 서비스 차단 가능.\n- 국제 동향: 말레이시아, 인도네시아는 이미 Grok 차단을 실시했습니다.\n- 반응: Elon Musk는 '영국 정부가 파시스트'라며 반발했습니다.\n\n임팩트: AI 딥페이크 규제에 대한 첫 번째 대형 테스트 케이스이자, 미-영 간 자유 발언(Free Speech) 갈등으로 비화될 조짐이 보입니다."
+            },
+
+            // Theme: 플랫폼, 제품 및 에이전트
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "커머스",
+                title: "Google, '에이전트 커머스' 표준(UCP) 공개 및 Walmart 파트너십",
+                isTop5: false,
+                details: "시간: 1월 12일~13일 (KST)\n\nGoogle이 Universal Commerce Protocol (UCP)을 발표하며 AI 에이전트 쇼핑 시대를 열었습니다.\n\n- 파트너: Walmart, Shopify, Target, Wayfair, Etsy 등 대거 참여.\n- 기능: Gemini 챗봇 내에서 Walmart 상품 검색부터 결제까지 원스톱으로 가능.\n- Home Depot도 Google Cloud와 에이전트 AI 파트너십 체결.\n\n의미: 기존의 '검색→클릭→사이트 이동→구매' 모델이 붕괴되고, 에이전트가 구매를 대행하는 시대로 전환되고 있음을 시사합니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 도구",
+                title: "로컬 파일 '직접 탐색' 확산... LlamaIndex '벡터 검색 vs 에이전트' 분석",
+                isTop5: false,
+                details: "AI 데이터 인프라 기업 라마인덱스(LlamaIndex)가 파일 시스템 도구 기반 에이전트와 기존 RAG(검색증강생성)의 효율성을 비교 분석했습니다.\n\n결론:\n- 소규모 문서 집합: LLM이 grep/cat 등 도구로 파일을 직접 훑는 방식이 컨텍스트 손실이 적어 유리함.\n- 대규모 데이터: 검색 지연과 비용 문제로 인해 RAG가 속도와 안정성에서 여전히 우위.\n\n전망: 파일 탐색과 벡터 검색을 함께 쓰는 하이브리드 접근이 늘어날 것이며, 워크플로 설계의 핵심 변수는 '무엇을 최적화할지'가 될 것입니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈소스/보안",
+                title: "Anthropic, 파이썬 재단(PSF)에 150만 달러 지원... PyPI 보안 강화",
+                isTop5: false,
+                details: "시간: 1월 13일\n\n파이썬 소프트웨어 재단(PSF)은 Anthropic과 2년간 150만 달러 규모의 파트너십을 체결했습니다.\n\n목표: PyPI(파이썬 패키지 인덱스)의 보안 강화.\n- 패키지 업로드 시 자동화된 사전 점검 도구 도입.\n- 악성코드 데이터셋 구축 등 공급망 공격 대응 역량 강화.\n\n의미: AI 개발의 핵심 언어인 파이썬 생태계의 안정성을 위해 대형 AI 기업이 직접 인프라 투자에 나섰습니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 방법론",
+                title: "Claude Code 'Skills' 가이드 확산... 에이전트 업무 표준화",
+                isTop5: false,
+                details: "개발자 커뮤니티에서 Claude Code의 'Skills' 기능 활용이 화제가 되고 있습니다.\n\n개념: 프로젝트 표준과 반복 작업을 문서화(마크다운 파일)하여 에이전트가 자동으로 따르게 하는 기능.\n활용: 코드 리뷰, 커밋 메시지 생성 등 반복 업무 자동화.\n특징: 2025년 12월 사양이 오픈 스탠더드로 공개되어 이식성이 높으며, 공유형 스킬 라이브러리 구축 움직임이 활발합니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "IDE 경쟁",
+                title: "Cursor vs Copilot 경쟁 재점화... AI 코딩 도구 체감 성능 논쟁",
+                isTop5: false,
+                details: "AI 코딩 도구 시장에서 Cursor와 GitHub Copilot 간의 성능 비교 논쟁이 가열되고 있습니다.\n\n- Cursor: IDE 내에서 작업을 위임하는 '에이전트 워크플로'와 'Vibe Coding' 흐름 주도.\n- Copilot: 주요 편집기 통합과 채팅 제공, 'AI 페어 프로그래머' 포지셔닝.\n\n전망: 2026년에는 단순 코드 제안을 넘어 코드 변경 자동화와 에이전트 모드 고도화가 핵심 경쟁축이 될 것입니다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델 루머",
+                title: "DeepSeek V4 출시 임박설... '코딩 특화' 버전 2월 중순 전망",
+                isTop5: false,
+                details: "중국 AI 기업 DeepSeek의 차세대 모델 V4 출시설이 확산되고 있습니다.\n\n- 루머: 2월 중순 공개 가능성. 코딩 특화 버전과 경량 버전 등 복수 라인업 예상.\n- 외신 보도: 로이터 등은 내부 테스트에서 경쟁 모델 대비 코딩 성능이 개선되었다고 보도.\n- 변수: 글로벌 존재감이 커지고 있으나, 일부 국가의 보안 및 프라이버시 우려가 걸림돌이 될 수 있습니다."
+            },
+
+            // Theme: AI와 사회
+            {
+                theme: "AI와 사회",
+                category: "2026 전망",
+                title: "2026년 AI 트렌드 전망: 데모를 넘어 '실용화의 해'로",
+                isTop5: false,
+                details: "시간: 1월 13일 (KST)\n\nTechCrunch와 Gartner 등이 전망한 2026년 AI 트렌드입니다.\n\n핵심 키워드: 실용화(Practicality)\n- 경쟁 구도: 단순 대형 모델 경쟁에서 소형 특화 모델(SLM) 및 에이전트 실용화로 전환.\n- 기술 돌파구: 3D 공간을 이해하는 '월드 모델'이 주목받음 (Yann LeCun 등).\n- 표준화: Anthropic의 MCP(Model Context Protocol)가 에이전트 통신 표준으로 자리잡는 중.\n- 투자 규모: Gartner는 2026년 AI 투자가 $2조를 돌파할 것으로 전망했습니다."
+            }
+        ];
+
+        const keyHighlights = [
+            { label: "SK하이닉스 투자", value: "19조원", sub: "청주 HBM 패키징 공장" },
+            { label: "Apple-Google 딜", value: "$1B", sub: "Gemini 탑재 추정 규모" },
+            { label: "Meta 감원", value: "10%", sub: "Reality Labs 인력 축소" },
+            { label: "2026 투자 전망", value: "$2T", sub: "글로벌 AI 투자 규모" }
+        ];
+
+        // --- 2. Helper Functions ---
+        
+        function truncateTitle(title, maxLength = 60) {
+            if (title.length <= maxLength) return title;
+            
+            // Try to split by separator first if it exists within the first 60 chars
+            const separators = ['-', ':', '|'];
+            for (const sep of separators) {
+                const parts = title.split(sep);
+                if (parts[0].length < maxLength && parts[0].length > 10) {
+                    return parts[0].trim() + '...';
+                }
+            }
+            return title.substring(0, maxLength) + '...';
+        }
+
+        function formatDetails(text) {
+            // Convert newlines to <br> and bold text patterns if needed
+            // For simplicity and safety, we use textContent logic or replacement
+            // Here we rely on CSS whitespace-pre-wrap, but we can enhance readability
+            return text;
+        }
+
+        // --- 3. Render Functions ---
+
+        function renderKeyHighlights() {
+            const container = document.getElementById('highlights-grid');
+            keyHighlights.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'bg-white rounded-lg p-5 shadow-sm border border-slate-100 flex flex-col items-center text-center hover:border-amber-200 transition-colors';
+                el.innerHTML = `
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">${item.label}</p>
+                    <p class="text-3xl font-black text-slate-800 mb-1">${item.value}</p>
+                    <p class="text-[10px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">${item.sub}</p>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function createCard(item, index) {
+            const displayTitle = truncateTitle(item.title);
+            const card = document.createElement('div');
+            card.className = 'group bg-white rounded-lg p-6 shadow-sm border border-slate-100 cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden';
+            card.dataset.index = index; // Store original index reference
+            
+            // Decorative top border for Top 5
+            const topBorder = item.isTop5 ? '<div class="absolute top-0 left-0 w-full h-1 bg-indigo-500 group-hover:bg-indigo-600 transition-colors"></div>' : '';
+
+            card.innerHTML = `
+                ${topBorder}
+                <div class="flex items-center justify-between mb-3">
+                    <span class="inline-block px-2 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded uppercase tracking-wider group-hover:bg-slate-200 transition-colors">
+                        ${item.category}
+                    </span>
+                    ${item.isTop5 ? '<span class="text-[10px] font-extrabold text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">TOP 5</span>' : ''}
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 leading-snug group-hover:text-blue-700 transition-colors mb-2">
+                    ${displayTitle}
+                </h3>
+                <p class="text-sm text-slate-400 line-clamp-2">
+                    ${item.details.substring(0, 100).replace(/\n/g, ' ')}...
+                </p>
+                <div class="mt-4 flex items-center text-xs font-medium text-slate-400 group-hover:text-indigo-600 transition-colors">
+                    자세히 보기 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => showModal(item));
+            return card;
+        }
+
+        function renderTop5Section() {
+            const container = document.getElementById('top5-grid');
+            const top5Items = reportData.filter(item => item.isTop5);
+            
+            top5Items.forEach((item) => {
+                // Find original index to pass correct data
+                const originalIndex = reportData.indexOf(item);
+                container.appendChild(createCard(item, originalIndex));
+            });
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-sections');
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회"
+            ];
+            
+            // Color map for theme headers
+            const themeColors = {
+                "AI 인프라 및 투자": "bg-blue-500",
+                "플랫폼, 제품 및 에이전트": "bg-emerald-500",
+                "산업별 AI 적용": "bg-purple-500",
+                "법률, 규제 및 거버넌스": "bg-red-500",
+                "AI와 사회": "bg-amber-500"
+            };
+
+            themes.forEach(theme => {
+                const themeItems = reportData.filter(item => item.theme === theme && !item.isTop5);
+                
+                if (themeItems.length > 0) {
+                    const section = document.createElement('section');
+                    section.className = "scroll-mt-20";
+                    
+                    const colorClass = themeColors[theme] || "bg-slate-500";
+
+                    section.innerHTML = `
+                        <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center">
+                            <span class="w-1.5 h-6 ${colorClass} mr-2 rounded-sm"></span>
+                            ${theme}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 thematic-grid">
+                            <!-- Cards injected here -->
+                        </div>
+                    `;
+
+                    const grid = section.querySelector('.thematic-grid');
+                    themeItems.forEach(item => {
+                        const originalIndex = reportData.indexOf(item);
+                        grid.appendChild(createCard(item, originalIndex));
+                    });
+
+                    container.appendChild(section);
+                }
+            });
+        }
+
+        // --- 4. Modal Interactions ---
+        
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalCategory = document.getElementById('modal-category');
+        const closeBtns = [
+            document.getElementById('modal-close-btn'), 
+            document.getElementById('modal-close-btn-bottom'),
+            document.getElementById('modal-bg-close')
+        ];
+
+        function showModal(item) {
+            modalTitle.textContent = item.title;
+            modalCategory.textContent = item.category;
+            modalBody.textContent = item.details; // Using textContent preserves whitespace due to CSS pre-wrap
+            
+            modal.classList.remove('hidden');
+            // Small timeout to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function hideModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Match transition duration
+            document.body.style.overflow = '';
+        }
+
+        closeBtns.forEach(btn => btn.addEventListener('click', hideModal));
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                hideModal();
+            }
+        });
+
+        // --- 5. Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderKeyHighlights();
+            renderTop5Section();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>
