@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스대시: 일일 AI 리포트</title>
+
+    <!-- Mandatory Placeholder Comments -->
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 equivalent */
+            color: #1e293b; /* slate-800 */
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Line clamping fallback */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative">
+
+    <!-- Header (Sticky) -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-8 bg-blue-600 rounded-sm"></div>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">뉴스대시 <span class="text-slate-500 font-medium text-lg">| AI Daily Report</span></h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500">
+                <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold">
+                    <span>←</span> 목록
+                </a>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                2026년 01월 16일
+            </div>
+        </div>
+    </header>
+
+    <main id="app-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Section 1: Key Data Highlights -->
+        <section>
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <span class="text-amber-500">●</span> 주요 데이터 하이라이트
+            </h2>
+            <div id="highlights-area" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Javascript will inject highlight cards here -->
+            </div>
+        </section>
+
+        <!-- Section 2: Top 5 News -->
+        <section>
+            <div class="flex items-end justify-between mb-6">
+                <h2 class="text-2xl font-extrabold text-slate-900">🔥 오늘의 Top 5 뉴스</h2>
+                <span class="text-sm text-slate-500 hidden sm:block">에이전트·하드웨어·규제 격변</span>
+            </div>
+            <div id="top5-area" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will inject Top 5 cards here -->
+            </div>
+        </section>
+
+        <!-- Section 3: Thematic Sections -->
+        <div id="thematic-area" class="space-y-12">
+            <!-- Javascript will inject thematic sections here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-8 border-t border-slate-200 text-center text-slate-400 text-sm">
+        <p>© 2026 AI News Dashboard. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background backdrop -->
+        <div id="modal-bg-close" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity opacity-0 pointer-events-none data-[state=open]:opacity-100 data-[state=open]:pointer-events-auto"></div>
+
+        <!-- Modal panel -->
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+            <div id="modal-panel" class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col transform transition-all scale-95 opacity-0 data-[state=open]:scale-100 data-[state=open]:opacity-100 pointer-events-auto">
+
+                <!-- Modal Header -->
+                <div class="px-6 py-5 border-b border-slate-100 flex items-start justify-between bg-slate-50/50 rounded-t-xl">
+                    <div class="pr-8">
+                        <span id="modal-category" class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-700 mb-2">카테고리</span>
+                        <h3 id="modal-title" class="text-xl font-bold text-slate-900 leading-snug">모달 제목 영역</h3>
+                    </div>
+                    <button id="modal-close-btn" class="text-slate-400 hover:text-slate-600 transition-colors p-1">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="p-6 overflow-y-auto modal-scroll bg-white rounded-b-xl">
+                    <div id="modal-content" class="prose prose-slate prose-sm max-w-none text-slate-700 leading-relaxed whitespace-pre-wrap">
+                        상세 내용이 여기에 표시됩니다.
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="px-6 py-3 bg-slate-50 border-t border-slate-100 text-right rounded-b-xl">
+                    <button id="modal-footer-close" class="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors shadow-sm">
+                        닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data & Logic -->
+    <script>
+        // 1. Data Structure
+        const reportData = [
+            // --- TOP 5 ---
+            {
+                theme: "AI 인프라 및 투자",
+                category: "하드웨어/확장",
+                title: "오픈AI, 데이터센터·로봇·소비자 기기까지 하드웨어 확장 시동",
+                isTop5: true,
+                details: "오픈AI가 미국 내 제조 파트너를 대상으로 공급망을 강화하며 데이터센터·로봇·소비자 기기 등 하드웨어 영역으로 사업 확장을 준비하고 있는 것으로 전해졌다. (Bloomberg)\n\n이번 움직임은 소비자용 디바이스와 로보틱스, 클라우드 데이터센터 장비까지 아우르는 대규모 제품 확대를 염두에 둔 조달 작업으로, 구체적 투자 규모나 기간은 공개되지 않았다.\n\n오픈AI는 '스타게이트' 구상 아래 미국 내 AI 데이터센터 부지를 늘리는 한편, 전력·데이터센터 인프라 파트너와의 협력도 확대해 왔다. 보도에 따르면 오픈AI는 제안요청서(RFP)를 통해 반도체·모터·포장재와 데이터센터 냉각 장비 등 부품·설비를 미국에서 생산 가능한 업체를 찾고 있으며, 칩 업체 세레브라스의 컴퓨팅 파워를 대규모로 확보하는 계약도 추진했다."
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "규제/딥페이크",
+                title: "캐나다·미국·한국, X·xAI 'Grok' 딥페이크 의혹 공식 조사 확대",
+                isTop5: true,
+                details: "캐나다 개인정보보호위원회(OPC)는 2026년 1월 15일(현지시간) 소셜미디어 X와 챗봇 Grok 개발사 xAI를 대상으로 비동의 성적 딥페이크 생성 의혹에 대한 조사를 확대했다고 밝혔다. (Reuters)\n\n이번 조치는 Grok이 여성·아동을 포함한 실존 인물을 성적으로 노출시키는 이미지를 만들어 확산시켰다는 신고와 보도가 잇따른 데 따른 것이다. 미국에서도 캘리포니아 법무장관 롭 본타가 xAI에 대한 조사 착수를 공식화했고, 피해자 신고 접수도 안내했다.\n\n한국 정부도 1월 14일 X에 청소년 보호 안전장치 마련을 요구하며, 당사자 의사에 반한 성적 허위 영상물 제작·유통 등은 형사 처벌 대상이 될 수 있다고 통보했다. 미 상원은 비동의 성적 딥페이크 제작자를 상대로 소송할 수 있도록 하는 DEFIANCE 법안을 통과시켰다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "에이전트/생산성",
+                title: "앤트로픽 'Claude Cowork' 공개…실무형 AI 동료 시대 개막",
+                isTop5: true,
+                details: "앤트로픽은 2026년 1월 12일(현지시간) Claude Cowork를 공개하고, 맥OS용 클로드 앱에서 Claude Max 구독자를 대상으로 리서치 프리뷰 형태로 제공하기 시작했다. (Claude 공식 블로그)\n\nCowork는 사용자가 지정한 폴더와 커넥터·브라우저 접근 권한을 바탕으로, 대화에 그치지 않고 계획을 세운 뒤 여러 단계의 작업을 스스로 수행하는 에이전트형 워크플로를 전면에 내세웠다. 이에 따라 파일 정리, 포맷 변환, 보고서 초안 작성, 이메일 정리 같은 반복 업무 자동화가 쉬워지면서, 비개발자 대상 생산성 도구 시장에서 파급이 커질 것으로 전망된다.\n\n다만 앤트로픽은 프롬프트 인젝션과 잘못된 지시로 인한 파일 삭제 같은 위험을 공개적으로 경고하며, 민감 정보 접근을 최소화하고 지시를 명확히 하라고 강조했다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "AI 코딩/에이전트",
+                title: "Cursor CEO 'GPT-5.2 에이전트로 1주일 만에 브라우저 구축' 공개",
+                isTop5: true,
+                details: "AI 코딩 에디터 Cursor의 마이클 트루엘 CEO는 1월 14일(현지시간) GPT-5.2를 활용해 브라우저를 구축했으며, 작업이 1주일 내내 중단 없이 진행됐다고 밝혔다. (X @mntruell)\n\n그는 결과물이 수천 개 파일에 걸친 300만 줄 이상 코드라고 설명하며, 장시간 자율 코딩이 가능한 에이전트 운영 역량을 전면에 내세웠다. 이 발표는 '에이전트 오케스트레이션'이 대규모 소프트웨어 개발 방식 자체를 바꿀 수 있다는 논의에 불을 붙였다.\n\n추가 보도에 따르면 해당 프로젝트는 렌더링 파이프라인을 포함해 브라우저 핵심 구성요소를 새로 구현하는 방향으로 진행됐다고 전해졌다. 다만 공개된 내용만으로는 품질·검증·보안 등에서 실사용 수준의 완성도를 평가하기 어렵다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "소비재/스마트홈",
+                title: "중국, 자동차·가전·욕실까지 AI 확산…'AI 탑재' 경쟁 가속",
+                isTop5: true,
+                details: "중국의 자동차·가전업체들이 최근 1~2년 사이 차량과 TV, 냉장고, 로봇청소기 등 일상 제품 전반에 대규모 언어모델 기반 AI를 잇달아 적용하며 'AI 내장형' 경쟁을 본격화하고 있다. (Reuters)\n\n업계는 딥시크(DeepSeek) 같은 중국산 모델을 기기에 심어 음성·문장 명령을 더 정교하게 이해하도록 만드는 방식으로, 사용자 지시를 실행하는 '실무형 스마트 기기'로의 전환을 서두르고 있다.\n\n로이터는 하이얼·하이센스·TCL 등 가전업체들이 딥시크 모델 도입을 발표했으며, 한 업계 분석가는 로봇청소기가 '레고를 피하면서 특정 바닥을 왁스칠하라' 같은 복합 지시를 이해할 수 있다고 설명했다. 업계는 차량 인포테인먼트·웨어러블·욕실·주방 설비 등으로 적용 범위가 더 넓어질 것으로 보고 있다."
+            },
+            // --- Rest of News (Mapped to Themes) ---
+            // Theme: AI 인프라 및 투자
+            {
+                theme: "AI 인프라 및 투자",
+                category: "BCI/투자",
+                title: "오픈AI, BCI 스타트업 Merge Labs 시드 참여…뇌-컴퓨터 인터페이스 진출",
+                isTop5: false,
+                details: "오픈AI는 1월 15일(현지시간) 뇌-컴퓨터 인터페이스(BCI) 연구 스타트업 Merge Labs의 시드 라운드에 투자 참여한다고 발표했다. (OpenAI 공식 블로그)\n\n블룸버그는 Merge Labs가 2억5200만달러를 조달했다고 보도했으며, 오픈AI는 BCI를 '새로운 프런티어'로 규정했다. 이번 투자는 AI 모델 발전과 별개로, 인간의 의도 표현과 상호작용 방식을 더 직접적으로 확장하려는 시도로 풀이된다.\n\n오픈AI는 투자 배경으로 BCI가 학습·소통·기기 상호작용의 새로운 경로를 열 수 있다고 설명하며, Merge Labs가 생물학·디바이스·AI를 결합해 더 높은 대역폭의 안전한 인터페이스를 개발하려 한다고 밝혔다."
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "훈련 인프라",
+                title: "'Claude Opus 4.5' TPU 훈련 정황…인프라 다변화로 비용 인하 여지",
+                isTop5: false,
+                details: "앤트로픽의 Claude Opus 4.5가 구글 TPU와 아마존 인프라를 폭넓게 활용했다는 분석이 나오면서, 최첨단 모델 훈련 인프라가 GPU 단일 축에서 벗어나 다변화되는 흐름이 재확인됐다. (SemiAnalysis)\n\n복수 분석에서는 Claude 4.5 Opus가 구글 TPU와 아마존의 대규모 인프라(Trainium 등) 비중을 키운 것으로 언급되며, 공급 경쟁이 심화될수록 훈련·추론 단가가 낮아질 가능성이 제기된다.\n\nClaude Opus 4.5는 이미 주요 클라우드 채널에서 제공이 확대되고 있으며, AWS는 Bedrock을 통해 Opus 4.5 제공 소식을 공지한 바 있다."
+            },
+            // Theme: 플랫폼, 제품 및 에이전트
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "클라우드/MLOps",
+                title: "아마존, SageMaker AI에 모델 커스터마이징·대규모 학습 기능 추가",
+                isTop5: false,
+                details: "아마존웹서비스(AWS)는 2026년 1월 14일(현지시간) Amazon SageMaker AI에 서버리스 모델 커스터마이징과 대규모 분산 학습을 지원하는 신규 기능을 공개했다. (AWS 공식 블로그)\n\n이번 업데이트는 탄력적 훈련과 체크포인트리스 복구로 장기 학습 도중 인프라 장애로 인한 중단을 줄이고, 서버리스 MLflow로 실험 추적·관찰 가능성을 높이는 데 초점을 맞췄다.\n\nSageMaker AI는 자연어 기반 에이전트 안내 워크플로(프리뷰)와 함께 SFT·DPO·RLAIF·RLVR 등 기법을 지원하고, HyperPod에서는 피어 투 피어 상태 복구로 장애 시 재개 시간을 줄이며 리소스 가용성에 맞춰 학습 규모를 자동 조정하도록 설계됐다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "MCP/효율화",
+                title: "앤트로픽, MCP '컨텍스트 오염' 완화…도구 검색·지연 로딩 도입",
+                isTop5: false,
+                details: "앤트로픽은 최근 Claude Code에서 MCP 도구를 한꺼번에 프롬프트에 적재하던 방식 대신, 도구 검색 기반의 온디맨드 로딩을 적용해 '컨텍스트 오염' 문제를 줄이는 방향을 제시했다. (Anthropic 개발자 문서)\n\n대규모 MCP 연결 시 도구 설명이 선적재돼 토큰을 잠식하던 구조를 바꿔, 필요할 때만 관련 도구를 찾아 불러오는 방식으로 기본 토큰 점유를 대폭 낮추는 것이 핵심이다.\n\n실제로 커뮤니티에서는 7개 MCP 서버 구성에서 약 6만7000 토큰이 도구 정의로만 사용됐다는 사례가 공유됐고, 이를 겨냥해 '지연 로딩'과 '도구 검색'이 가장 많이 요청된 기능 중 하나로 꼽혀 왔다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "번역/오픈소스",
+                title: "구글, TranslateGemma 공개…Gemma 3 기반 55개 언어 지원 오픈 번역 모델",
+                isTop5: false,
+                details: "구글은 2026년 1월 15일 TranslateGemma를 공개하며 Gemma 3 기반 오픈 번역 모델을 4B·12B·27B 파라미터 구성으로 제공한다고 밝혔다. (Google 공식 블로그)\n\nTranslateGemma는 55개 언어를 중심으로 번역 품질을 검증했고, 모바일·노트북·클라우드 등 다양한 환경에서 동작하도록 설계됐다. 구글은 소형 모델에서도 효율을 높여 지연 시간과 처리량 측면의 이점을 노린다고 설명했다.\n\n이번 모델군은 55개 핵심 언어쌍에 대한 엄격한 평가 외에도, 추가로 약 500개에 가까운 언어쌍까지 학습 범위를 넓혔다고 밝혔다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "모델 출시",
+                title: "'Gemini 3 Pro' GA 전환 임박 관측…현재는 '프리뷰' 제공 중",
+                isTop5: false,
+                details: "구글은 Gemini API와 Vertex AI 문서에서 Gemini 3 Pro를 공개 프리뷰 모델로 제공 중이며, 2025년 11월 18일 'gemini-3-pro-preview' 공개 이후 개발자 접근이 확대돼 왔다. (Google AI 개발자 문서)\n\n프리뷰 단계에서는 추론·도구 사용·멀티모달 이해 등 기능 개선을 전면에 내세우고, 상용 워크로드로의 이전을 위한 마이그레이션 가이드도 함께 제공하고 있다. 이에 따라 시장에서는 2026년 초 GA 전환 가능성이 거론되지만, GA 일정은 공식 확정 공지로 확인되진 않았다.\n\n업계에서는 프리뷰가 장기화될 경우 고객 도입이 지연될 수 있는 만큼, 구글이 GA 전환 시점을 조기에 제시할지 여부에 관심이 쏠린다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "수학/추론",
+                title: "xAI 'Grok 4.20', 미해결 수학 문제에 새 해법 주장…검증 단계 주목",
+                isTop5: false,
+                details: "xAI의 Grok 4.20(베타)이 수학 연구 난제에 대해 수 분 만에 새로운 해법을 제시했다는 주장이 소셜미디어를 통해 확산되고 있다. (X @PI010101)\n\n수학자 파타 이바니시빌리(Paata Ivanisvili) 계정과 관련 게시물에서는 Grok 4.20이 최적화·확률 과정과 연관된 문제에서 벨만 함수 형태의 후보식을 제안했고, 연구자가 이를 후속 검토 중이라는 취지의 내용이 공유됐다.\n\n다만 현재까지 공개된 정보는 게시물 중심으로, 해법의 엄밀한 증명과 동료 검토가 완료됐는지는 확인되지 않았다. AI가 제시한 수식이 실제로 문제의 제약 조건을 만족하는지, 기존 결과 대비 개선 폭이 재현 가능한지 등은 향후 검증을 통해 가려질 전망이다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "API/표준화",
+                title: "오픈AI, 'Open Responses' 공개…다중 프로바이더 LLM 인터페이스 표준화 추진",
+                isTop5: false,
+                details: "오픈AI 개발자 커뮤니티는 1월 15일(현지시간) Open Responses 오픈소스 스펙을 공개하고, 다중 프로바이더 환경에서 상호운용 가능한 LLM 인터페이스를 만들겠다고 밝혔다. (OpenAI Developer Community)\n\n이 스펙은 OpenAI의 Responses API에서 영감을 받아, 요청·응답 스키마와 스트리밍, 도구 호출 패턴 등을 공통 규격으로 정리해 '벤더 락인'을 줄이는 데 초점을 맞춘다.\n\n공식 사이트는 Open Responses를 스펙과 툴링 생태계로 정의하며, 멀티모달·에이전트형 사용 사례까지 염두에 둔 확장성을 내세웠다. GitHub에는 Responses API와 호환되는 형태로 자가 호스팅 구현체를 제공해, 개발자가 특정 제공자에 종속되지 않고 운영할 수 있도록 한다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 도구",
+                title: "OpenCode, GitHub Copilot 구독 연동 확대…Pro+로 프리미엄 모델 접근",
+                isTop5: false,
+                details: "오픈소스 코딩 에이전트 OpenCode는 최근 GitHub Copilot 구독을 통해 계정 연동 로그인을 지원한다고 안내했다. (OpenCode 공식 문서)\n\nOpenCode 측은 특히 Copilot Pro+ 구독 이용 시 더 폭넓은 모델 접근이 가능하다고 밝혔고, GitHub 문서도 Pro+가 Copilot Chat에서 모든 사용 가능 모델 접근과 월 1,500건 프리미엄 요청을 제공한다고 명시하고 있다.\n\nGitHub은 Pro+를 월 39달러 구간으로 운영하며, 프리미엄 모델 이용에 대해 요청 기반 과금·쿼터 체계를 강화해왔다. 업계에서는 '구독 기반 모델 접근권'이 IDE·에이전트 도구로 확산되면서, 코딩 AI 경쟁이 기능보다 연동 생태계와 비용 구조 중심으로 재편될 가능성도 거론된다."
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "개발 가이드",
+                title: "Vercel, 'React 베스트 프랙티스' 공개…Claude Code용 스킬로 배포",
+                isTop5: false,
+                details: "Vercel은 1월 15일(현지시간) React 개발 가이드라인을 정리한 React Best Practices를 공개했다고 밝혔다. (Vercel 공식 블로그)\n\nVercel은 이를 에이전트가 참조할 수 있도록 Agent Skills 형태로 패키징해, Claude Code를 포함한 여러 코딩 에이전트에서 설치·활용할 수 있도록 했다. 회사는 에이전트가 코드에서 비효율 패턴을 감지할 때 해당 규칙을 근거로 개선안을 제시하는 방식으로, 실무 품질을 끌어올리는 데 목적이 있다고 밝혔다.\n\n공개된 저장소는 React 및 Next.js 성능 최적화 관점에서 40개 이상 규칙을 카테고리별로 정리했다. 향후 이런 '스킬 기반 지식 배포'가 확산될 경우, 기업·개발팀이 자체 코딩 규칙을 에이전트에 이식해 생산성을 표준화하는 흐름이 더 빨라질 수 있다는 전망이 나온다."
+            },
+            // Theme: 산업별 AI 적용
+            {
+                theme: "산업별 AI 적용",
+                category: "3D 프린팅",
+                title: "MIT, 생성형 AI 'MechStyle' 공개…3D 프린팅 기계적 내구성까지 보장",
+                isTop5: false,
+                details: "MIT 컴퓨터과학·인공지능연구소(CSAIL) 연구진은 2026년 1월 14일(현지시간) 3D 프린팅 모델을 개인 취향대로 바꾸면서도 MechStyle로 제작 후 강도 저하를 최소화하는 생성형 AI 도구를 발표했다. (MIT 뉴스)\n\n이 도구는 사용자가 3D 모델을 업로드하거나 기본 자산을 고른 뒤 텍스트·이미지 프롬프트를 입력하면, AI가 형상을 스타일링하되 유한요소해석 기반 시뮬레이션으로 취약 부위를 점검해 구조적 무결성을 유지하도록 설계됐다.\n\n연구진은 이를 통해 벽걸이 후크, 안경, 약통, 램프갓 같은 일상용품과 보조기기를 보다 쉽게 맞춤 제작해 '출력은 되지만 금방 깨지는' 문제를 줄일 수 있다고 설명했다. 논문 주저자는 30개 모델 실험에서 최대 100% 구조적 적합 수준을 달성했다고 밝혔다."
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "헬스케어/진단",
+                title: "KAIST, 행동만으로 우울 상태 포착…우울증 진단 AI '클로저' 개발",
+                isTop5: false,
+                details: "KAIST 허원도 생명과학과 석좌교수 연구팀이 2026년 1월 13일 대전 KAIST에서 실험동물의 일상 행동만으로 우울 상태를 가려내는 AI 플랫폼 클로저(CLOSER)를 개발했다고 밝혔다. (KAIST 뉴스)\n\n이 기술은 3차원 행동 분석과 대조학습(contrastive learning)을 결합해, 사람이 라벨을 달지 않아도 행동을 미세 단위로 분해·학습하며 '정신운동' 변화 신호를 포착하는 방식이 핵심이다. 연구팀은 만성 예측 불가능 스트레스(CUS) 마우스 모델에서 성별·중증도 구분이 가능함을 확인해, 우울증의 객관적 진단 및 치료 효과 평가로의 확장 가능성을 제시했다.\n\n연구 결과는 국제학술지 네이처 커뮤니케이션즈에 2025년 12월 30일 온라인 게재됐다."
+            },
+            // Theme: AI와 사회
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "인재 이동",
+                title: "오픈AI, 미라 무라티 스타트업 공동창업자 2명 재영입…인재 이동 가속",
+                isTop5: false,
+                details: "오픈AI가 2026년 1월 15일(현지시간) 미라 무라티가 설립한 AI 스타트업 띵킹 머신스 랩의 공동창업자 바렛 조프와 루크 메츠를 다시 영입했다고 밝혔다. (WIRED)\n\n이번 영입은 오픈AI의 애플리케이션 부문 CEO인 피지 시모가 사내 메모를 통해 공유한 것으로 전해졌으며, 조프가 시모에게 직보하고 메츠는 조프 산하에서 업무를 맡는 구조로 논의되는 것으로 알려졌다.\n\n띵킹 머신스 랩은 무라티가 오픈AI를 떠난 뒤 출범한 회사로, 출범 당시부터 다수의 전(前) 오픈AI 인력을 흡수하며 주목받아 왔다. 무라티는 소셜미디어를 통해 조프와 결별했음을 확인하고 새 CTO 인선을 언급했다."
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "조직/Labs",
+                title: "앤트로픽, 'Labs' 공식 확대…마이크 크리거 합류해 실험 제품 인큐베이팅",
+                isTop5: false,
+                details: "앤트로픽은 1월 13일(현지시간) 내부 인큐베이터 조직을 Anthropic Labs로 확대하고, 인스타그램 공동창업자 마이크 크리거가 Labs 공동 리드로 합류한다고 발표했다. (Anthropic 공식 블로그)\n\nLabs는 Claude의 역량을 전제로 한 실험적 제품을 빠르게 프로토타이핑하는 팀으로, 앤트로픽은 향후 인력도 확충하겠다고 밝혔다. 이번 개편은 생성형 AI 경쟁이 격화되는 가운데, 제품 혁신 속도를 높이려는 조직 재정비로 해석된다.\n\n앤트로픽은 Labs가 그동안 Claude Code와 MCP 관련 프로젝트 등 실험 성격의 시도를 이어왔고, 앞으로도 '빌더 중심'의 방식으로 신제품을 육성하겠다는 방향성을 제시했다."
+            }
+        ];
+
+        // 2. Key Data Highlights Configuration
+        const keyHighlights = [
+            { label: "Cursor 브라우저 코드", value: "300만줄", desc: "GPT-5.2로 1주일 만에 생성" },
+            { label: "Merge Labs 투자", value: "$2.52억", desc: "오픈AI BCI 스타트업 투자" },
+            { label: "TranslateGemma 언어", value: "55개", desc: "Gemma 3 기반 번역 모델" },
+            { label: "Claude Cowork", value: "Max전용", desc: "에이전트형 업무 자동화" }
+        ];
+
+        // 3. Helper Functions
+
+        // Title Truncation Logic
+        function formatTitle(title) {
+            const maxLength = 60;
+            if (title.length <= maxLength) return title;
+
+            // Try to split by separators first
+            const separators = ['…', ':', ' - ', ' – ']; // Check for Korean ellipsis or colon
+            for (let sep of separators) {
+                if (title.includes(sep)) {
+                    const parts = title.split(sep);
+                    if (parts[0].length > 10 && parts[0].length < maxLength) {
+                        return parts[0] + '...';
+                    }
+                }
+            }
+
+            // Hard truncate
+            return title.substring(0, maxLength) + '...';
+        }
+
+        // Create Card Element
+        function createCard(item, index) {
+            const displayTitle = formatTitle(item.title);
+
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer p-5 flex flex-col h-full group";
+            card.setAttribute('data-index', index);
+            card.onclick = () => showModal(item);
+
+            const categoryTag = `<span class="inline-block px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded mb-3 w-fit group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">${item.category}</span>`;
+
+            const titleEl = `<h3 class="text-lg font-bold text-slate-800 mb-2 leading-snug group-hover:text-blue-700 transition-colors line-clamp-3">${displayTitle}</h3>`;
+
+            // Preview text (first 60 chars of details)
+            const previewText = `<p class="text-sm text-slate-500 mt-auto pt-4 border-t border-slate-100 line-clamp-3">${item.details}</p>`;
+
+            card.innerHTML = categoryTag + titleEl + previewText;
+            return card;
+        }
+
+        // 4. Modal Logic
+        const modal = document.getElementById('news-modal');
+        const modalBg = document.getElementById('modal-bg-close');
+        const modalPanel = document.getElementById('modal-panel');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+        const closeBtns = [document.getElementById('modal-close-btn'), document.getElementById('modal-footer-close'), modalBg];
+
+        function showModal(item) {
+            modalTitle.textContent = item.title; // Full original title
+            modalCategory.textContent = item.category;
+            modalContent.textContent = item.details; // Pre-wrap handles newlines
+
+            modal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                modalBg.setAttribute('data-state', 'open');
+                modalPanel.setAttribute('data-state', 'open');
+            }, 10);
+
+            document.body.style.overflow = 'hidden'; // Prevent body scroll
+        }
+
+        function closeModal() {
+            modalBg.removeAttribute('data-state');
+            modalPanel.removeAttribute('data-state');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300); // Match transition duration
+        }
+
+        closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        });
+
+
+        // 5. Render Functions
+        function renderHighlights() {
+            const container = document.getElementById('highlights-area');
+            keyHighlights.forEach(h => {
+                const el = document.createElement('div');
+                el.className = "bg-white p-5 rounded-lg shadow-sm border border-slate-200 text-center hover:border-blue-300 transition-colors";
+                el.innerHTML = `
+                    <div class="text-3xl font-black text-blue-600 mb-1">${h.value}</div>
+                    <div class="text-sm font-bold text-slate-800 mb-1">${h.label}</div>
+                    <div class="text-xs text-slate-500">${h.desc}</div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function renderTop5() {
+            const container = document.getElementById('top5-area');
+            const top5Items = reportData.filter(item => item.isTop5);
+
+            top5Items.forEach(item => {
+                // Find index in original array for data-attribute
+                const originalIndex = reportData.indexOf(item);
+                container.appendChild(createCard(item, originalIndex));
+            });
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-area');
+            const themes = [
+                "AI 인프라 및 투자",
+                "플랫폼, 제품 및 에이전트",
+                "산업별 AI 적용",
+                "법률, 규제 및 거버넌스",
+                "AI와 사회 (활용, 심리, 노동)"
+            ];
+
+            themes.forEach(themeName => {
+                // Filter items for this theme and NOT top 5
+                const themeItems = reportData.filter(item => item.theme === themeName && !item.isTop5);
+
+                if (themeItems.length === 0) return;
+
+                const section = document.createElement('section');
+
+                // Header Styling based on Theme (Visual Cues)
+                let icon = '📂';
+                if(themeName.includes('인프라')) icon = '🏗️';
+                else if(themeName.includes('플랫폼')) icon = '🚀';
+                else if(themeName.includes('산업')) icon = '🏭';
+                else if(themeName.includes('법률')) icon = '⚖️';
+                else if(themeName.includes('사회')) icon = '👥';
+
+                section.innerHTML = `
+                    <h2 class="text-xl font-bold text-slate-800 mb-5 pb-2 border-b border-slate-200 flex items-center gap-2">
+                        <span>${icon}</span> ${themeName}
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 theme-grid"></div>
+                `;
+
+                const grid = section.querySelector('.theme-grid');
+                themeItems.forEach(item => {
+                    const originalIndex = reportData.indexOf(item);
+                    grid.appendChild(createCard(item, originalIndex));
+                });
+
+                container.appendChild(section);
+            });
+        }
+
+        // 6. Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHighlights();
+            renderTop5();
+            renderThematicSections();
+        });
+
+    </script>
+</body>
+</html>
