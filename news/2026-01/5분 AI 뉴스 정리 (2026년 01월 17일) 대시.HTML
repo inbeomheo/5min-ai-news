@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 - 2026년 01월 17일</title>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .theme-badge {
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+        .modal-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 3px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .top5-badge {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        .highlight-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <h1 class="text-2xl sm:text-3xl font-bold gradient-text">AI 뉴스 대시보드</h1>
+                <div class="flex items-center gap-3">
+                    <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold text-sm">
+                        <span>←</span> 목록
+                    </a>
+                    <span class="text-slate-500 text-sm">Daily Brief</span>
+                    <span class="bg-slate-800 text-white px-3 py-1 rounded-full text-sm font-medium">2026년 01월 17일</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="content-area">
+        <!-- Key Data Highlights Section -->
+        <section id="key-highlights" class="mb-12"></section>
+
+        <!-- Top 5 News Section -->
+        <section id="top5-section" class="mb-12"></section>
+
+        <!-- Thematic Sections -->
+        <div id="thematic-sections"></div>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative animate-fade-in">
+                <div class="p-6 border-b border-slate-100">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <span id="modal-category" class="theme-badge text-amber-700 bg-amber-50 px-2 py-1 rounded font-medium uppercase"></span>
+                            <h2 id="modal-title" class="text-xl font-bold text-slate-800 mt-2 leading-tight"></h2>
+                        </div>
+                        <button id="modal-close-btn" class="flex-shrink-0 p-2 hover:bg-slate-100 rounded-full transition-colors">
+                            <span class="text-2xl text-slate-400 hover:text-slate-600 leading-none">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-content p-6">
+                    <div id="modal-content" class="text-slate-600 leading-relaxed whitespace-pre-line"></div>
+                </div>
+                <div class="p-4 border-t border-slate-100 bg-slate-50 rounded-b-2xl">
+                    <span id="modal-theme" class="text-xs text-slate-500"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            // Top 5 News (빅테크 위주)
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "OpenAI",
+                title: "OpenAI, 월 8달러 'ChatGPT Go' 전 세계 출시…무료·저가 요금제 광고 도입 예고",
+                isTop5: true,
+                details: `OpenAI가 1월 16일 저가 구독 요금제인 'ChatGPT Go'를 전 세계적으로 출시했다고 발표했다. 미국 기준 월 8달러에 제공되는 이 요금제는 무료 버전 대비 메시지 전송량, 파일 업로드, 이미지 생성 기능을 10배 확대하고 GPT-5.2 Instant 모델에 대한 무제한 접근을 제공한다. OpenAI는 이를 통해 AI 서비스의 접근성을 높이고 구독자 기반 확대를 도모한다는 전략이다.
+
+ChatGPT Go는 2025년 8월 인도에서 처음 출시된 후 170개국 이상으로 확대되며 OpenAI 역사상 가장 빠르게 성장한 요금제로 기록됐다. 이번 글로벌 출시로 ChatGPT는 Go(8달러), Plus(20달러), Pro(200달러)의 3단계 소비자 구독 체계를 갖추게 됐다. 특히 OpenAI는 미국 내 무료 및 Go 요금제에서 광고 테스트를 시작할 예정이라고 밝혔다. 광고는 응답 하단에 표시되며 18세 미만 사용자나 건강·정치 등 민감한 주제에서는 노출되지 않는다. Plus, Pro, Business, Enterprise 요금제는 광고 없이 유지된다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic",
+                title: "Claude Code 2.1.9 출시, 9개 CLI 도구와 개발자 편의성 대폭 개선",
+                isTop5: true,
+                details: `Anthropic이 2026년 1월 Claude Code 2.1.9 버전을 출시했다. 이번 업데이트에서는 9개의 CLI 기능, 2개의 플래그, 1개의 프롬프트 변경사항이 포함되어 개발자 워크플로우가 대폭 개선되었다. 주요 기능으로는 Shift+Enter 줄바꿈 지원, 스킬 핫 리로드, 와일드카드 도구 권한 등이 있으며, 이번 릴리스에는 1,096개의 커밋이 포함되었다. VentureBeat에 따르면 Claude Code가 기존 명령줄 도구에서 진화하여 더 스마트한 에이전트 기능을 갖추게 되었다.
+
+Claude Code 2.1.0부터 도입된 세션 텔레포트 기능(/teleport)을 통해 로컬 터미널과 웹 인터페이스 간 작업 이동이 가능해졌다. Anthropic 엔지니어 Boris Cherny는 X에서 "스킬에 에이전트와 훅 프론트매터를 직접 추가할 수 있으며, 사용자가 도구 사용을 거부해도 에이전트가 중단되지 않는다"고 설명했다. Claude Code는 이제 115,000명 이상의 개발자가 사용하며 주간 1억 9,500만 줄의 코드를 처리하는 것으로 보고되었다.`
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "xAI",
+                title: "일론 머스크 자녀 어머니 애슐리 세인트클레어, xAI 상대 딥페이크 소송 제기",
+                isTop5: true,
+                details: `일론 머스크의 자녀를 둔 보수 성향 인플루언서 애슐리 세인트클레어(27)가 1월 15일 뉴욕 연방법원에 xAI를 상대로 소송을 제기했다. 소장에 따르면 xAI의 AI 챗봇 Grok이 그녀의 동의 없이 14세 시절 사진을 포함한 다수의 이미지를 비키니 착용 모습이나 성적으로 노골적인 포즈로 변조해 X 플랫폼에 유포했다. 세인트클레어 측은 xAI에 해당 콘텐츠 생성 중단을 요청했으나, 오히려 X 계정이 수익 창출 금지 조치를 당했다고 주장했다.
+
+세인트클레어의 변호사 캐리 골드버그는 "xAI는 합리적으로 안전한 제품이 아니며 공공의 골칫거리"라고 비판하며, Grok이 괴롭힘과 모욕의 도구로 사용될 수 있도록 의도적으로 설계됐다고 주장했다. 한편 xAI는 같은 날 텍사스 연방법원에 세인트클레어를 상대로 이용약관 위반을 이유로 7만 5000달러 이상의 손해배상을 청구하는 맞소송을 제기했다. 이번 소송은 캘리포니아 법무장관의 xAI 조사 발표, 영국 Ofcom의 공식 조사 착수 등 전 세계적인 Grok 딥페이크 논란 속에서 제기됐다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "벤치마크",
+                title: "SWE-rebench 12월 업데이트…Claude Opus 4.5, GPT-5.2 제치고 1위",
+                isTop5: true,
+                details: `AI 코딩 벤치마크 SWE-rebench가 12월 과제를 반영한 최신 업데이트를 공개했다. 실제 GitHub 이슈를 해결하는 능력을 평가하는 이 벤치마크에서 Anthropic의 Claude Opus 4.5가 1위를 차지했으며, OpenAI의 GPT-5.2-2025-12-11-xhigh가 2위, Google의 Gemini 3 Flash Preview가 3위를 기록했다. Claude Opus 4.5는 SWE-bench Verified에서 80.9%의 정확도로 80%를 최초로 돌파한 AI 모델로 기록됐다.
+
+SWE-rebench는 매월 새로운 GitHub 태스크를 추가해 AI 모델의 실제 소프트웨어 엔지니어링 능력을 평가하는 '라이브 벤치마크'다. 특히 OpenRouter 데이터에 따르면 Claude Opus 4.5가 처음으로 일일 토큰 사용량 1위를 기록하며 개발자 커뮤니티에서의 인기를 입증했다. 다만 더 어려운 SWE-bench Pro에서는 GPT-5.2 Codex가 56.4%로 선두를 차지해, 모델 선택은 작업 유형과 워크플로우에 따라 달라질 것으로 전망된다.`
+            },
+            {
+                theme: "AI와 사회",
+                category: "트렌드",
+                title: "AI가 코드의 80% 작성…\"2026년, 코드는 자산이 아닌 부채\"",
+                isTop5: true,
+                details: `투자 애널리스트 디디(Deedy)가 "현재 AI가 전체 코드의 약 80%를 작성하고 있다"는 추정치를 발표하며 소프트웨어 개발 패러다임의 급격한 변화를 시사했다. 그에 따르면 2022년 GitHub의 연간 코드 변경량은 1,000~1,500억 라인이었으나, 2025년 Cursor 하나만으로도 하루 50억 라인 이상을 생성하고 있다. 이러한 추세는 코드 작성 비용이 사실상 제로에 수렴하는 '일회용 소프트웨어' 시대의 도래를 의미한다.
+
+업계 전문가들은 2026년 기업의 경쟁력이 코드 라인 수가 아닌 프롬프트 라이브러리와 독점 데이터에서 나올 것이라고 전망한다. 리플릿(Replit) CEO 암자드 마사드는 "에이전트와 바이브 코딩 앱이 연동될 수 있는 플랫폼이 된 기업만 살아남을 것"이라고 경고했다. 다만 보안 전문가들은 AI 생성 코드의 '섀도 버그' 문제와 유지보수 불가능한 '좀비 앱' 양산에 대한 우려도 제기하고 있어, '신뢰하되 검증하라'는 하이브리드 접근법이 요구되고 있다.`
+            },
+            // 플랫폼, 제품 및 에이전트
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic",
+                title: "Claude Speech-to-Text 플러그인, Whisper 기반 로컬 음성 인식 지원",
+                isTop5: false,
+                details: `개발자 커뮤니티에서 Claude Code용 Whisper 기반 음성 입력 플러그인이 공개되어 주목받고 있다. VoiceMode MCP와 listen-claude-code 등의 프로젝트는 완전한 로컬 실행으로 개인정보를 보호하면서 음성 명령을 Claude Code에 전달할 수 있게 해준다. 이 도구는 자연스러운 대화를 즉각 듣고 응답하며, 오프라인 작동과 스마트 무음 감지 기능을 제공한다.
+
+한 Medium 기고자는 "Claude Code에 음성 입력을 추가하면 클라우드 서비스에 오디오를 맡길 필요 없이 완전한 프라이버시를 유지할 수 있다"고 설명했다. Whisper STT와 Kokoro TTS를 로컬로 설치하면 OpenAI 호환 API와 동일한 인터페이스를 제공하여 클라우드와 로컬 처리 간 원활한 전환이 가능하다. GPU 가속 시 11초 오디오 전사에 4초 미만이 소요되어 실시간 음성 입력이 실용화되었다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic",
+                title: "Claude Code Diff 기능, 앱 내에서 코드 변경 사항 직접 확인 가능",
+                isTop5: false,
+                details: `Anthropic이 2026년 1월 15일 Claude Code 웹 및 데스크톱 버전에 diff 뷰 기능을 도입했다고 발표했다. 공식 X 계정에 따르면 "Claude가 수행한 정확한 변경 사항을 앱을 떠나지 않고 확인할 수 있다." 이 기능은 개발자들이 GitHub로 전환하지 않고도 인라인 diff로 실시간 변경 사항을 검토할 수 있게 해준다.
+
+Anthropic은 "VS Code 확장에서 전용 사이드바 패널을 통해 Claude의 변경 사항을 실시간으로 확인할 수 있으며, 인라인 diff를 제공한다"고 설명했다. 최근 CHANGELOG에서는 "터미널 크기 조정 시 diff 뷰가 업데이트되지 않는 문제가 수정되었다"고 명시되었다. 이 기능은 코드 리뷰 프로세스를 간소화하고 개발자 생산성을 크게 향상시킬 것으로 기대된다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic",
+                title: "MCP Tool Search 출시, 컨텍스트 사용량 85% 절감",
+                isTop5: false,
+                details: `Anthropic이 Claude Code 2.1.7에서 MCP Tool Search 기능을 출시하여 MCP 도구의 지연 로딩을 구현했다. Anthropic 관계자는 "MCP 도구 설명이 컨텍스트의 10% 이상을 차지하면 자동으로 감지하여 사전 로딩 대신 검색 모드로 도구를 로딩한다"고 설명했다. 이로써 기존 67,000 토큰에서 약 8,700 토큰으로 85% 토큰 사용량 감소가 가능해졌다.
+
+이 기능은 GitHub에서 가장 많이 요청된 기능 중 하나인 MCP 서버의 지연 로딩 문제를 해결한다. 분석가 JP Caparas는 "7개 이상의 서버를 운영하며 67,000개 이상의 토큰을 소비하는 사용자 설정이 문서화되어 있었다"며, "이제 20개 이상의 MCP 서버를 컨텍스트 부담 없이 구성할 수 있게 되어 대규모 MCP 설정이 실용적으로 가능해졌다"고 평가했다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic",
+                title: "Claude Code for Marketing, 브라우저 자동화로 마케팅 워크플로우 혁신",
+                isTop5: false,
+                details: `Anthropic은 Claude Code를 활용한 마케팅 자동화 사례를 공개하며 비기술 팀도 AI 워크플로우를 구축할 수 있다고 밝혔다. 주요 자동화 사례로는 Google Ads 크리에이티브 자동 생성, 대량 크리에이티브 제작을 위한 Figma 플러그인, Meta Ads API 연동 MCP 서버 등이 있다. Claude in Chrome 확장을 활용하면 로그인 상태에서 브라우저를 직접 제어할 수 있다.
+
+Claude in Chrome은 기존 브라우저 세션과 쿠키를 활용하여 여러 탭에서 병렬 작업, 데이터 전송, 복잡한 다단계 워크플로우를 수행할 수 있다. Digital Applied 에이전시는 서브에이전트 오케스트레이션으로 콘텐츠 감사를 81% 빠르게 완료(8시간→1.5시간)했으며, 감사당 325달러의 비용을 절감했다고 보고했다. 이는 소규모 팀이 대규모 팀처럼 운영할 수 있게 해주는 혁신적 변화로 평가받고 있다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic",
+                title: "Claude Cowork, Claude Code가 10일 만에 직접 코드 작성해 출시",
+                isTop5: false,
+                details: `Anthropic이 2026년 1월 12일 Claude Cowork을 출시했다. 놀랍게도 이 제품은 단 4명의 팀이 약 10일 만에 개발했으며, 대부분의 코드를 Claude Code가 직접 작성했다. Cowork은 "Claude Code for the rest of your work"로 설명되며, 비기술 사용자가 코딩 없이 파일 관리와 문서 생성 작업을 자동화할 수 있게 해준다.
+
+VentureBeat에 따르면 Claude Cowork은 Claude Max 구독자($100-200/월)를 대상으로 macOS 데스크톱 앱에서 리서치 프리뷰로 제공된다. 저명한 개발자 Simon Willison은 "Anthropic이 Apple의 VZVirtualMachine 프레임워크를 사용하여 커스텀 Linux 루트 파일시스템을 다운로드하고 부팅한다"고 분석했다. Anthropic은 "Claude와 함께 일하는 것이 도구를 조작하는 것이 아닌 동료에게 업무를 위임하는 것처럼 느껴지도록 하는 것이 목표"라고 밝혔다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "Anthropic",
+                title: "Claude in Chrome 업데이트, 세션 초기화 오류 및 드롭다운 메뉴 개선",
+                isTop5: false,
+                details: `Anthropic이 Claude in Chrome 확장의 여러 버그를 수정하는 업데이트를 배포했다. 최근 릴리스 노트에 따르면 "이전 세션 재개 시 속도 제한 옵션 메뉴가 잘못 자동 열리는 문제가 수정"되었으며, "-c 또는 --resume으로 세션 재개 시 파일과 스킬이 제대로 검색되지 않는 문제도 해결되었다. 또한 macOS 코드 서명 경고 문제와 WSL 환경 지원도 개선되었다.
+
+Claude Code 문서에 따르면 Chrome 통합은 실제 브라우저 세션을 사용하므로 이미 로그인된 사이트에 재인증 없이 접근할 수 있다. "Claude Code가 Chrome 확장을 감지하지 못하면 설치 링크가 포함된 경고가 표시되며, /chrome 슬래시 명령으로 기존 세션에서도 Chrome 통합을 활성화할 수 있다." 사용자들은 버전 1.0.36 이상의 확장과 Claude Code 2.0.73 이상을 사용해야 한다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "OpenAI",
+                title: "OpenAI, ChatGPT 무료·저가 요금제에 광고 테스트 공식 발표",
+                isTop5: false,
+                details: `OpenAI가 1월 16일(현지시간) ChatGPT 무료 및 월 8달러 'Go' 요금제 사용자를 대상으로 광고 테스트를 수주 내 시작한다고 공식 발표했다. 광고는 사용자의 대화 맥락에 기반한 관련 제품·서비스를 답변 하단에 'Sponsored' 라벨과 함께 표시하는 방식으로 운영되며, 18세 미만 사용자와 건강·정치 등 민감한 주제에는 광고가 노출되지 않는다. OpenAI는 사용자 데이터를 광고주에게 판매하지 않으며, ChatGPT의 답변이 광고에 영향받지 않을 것이라고 강조했다.
+
+샘 올트먼 CEO는 과거 인터뷰에서 AI와 광고의 결합이 "독특하게 불안하다"고 언급하며 부정적 입장을 보여왔으나, 향후 8년간 1조 4000억 달러 규모의 AI 인프라 투자 계획을 감당하기 위해 수익 다각화가 불가피해졌다. 올트먼은 X(구 트위터)에 "많은 사람들이 AI를 원하지만 비용을 지불하고 싶어하지 않는다"며 광고 기반 비즈니스 모델에 대한 기대감을 표명했다. Plus, Pro, Business, Enterprise 유료 구독자는 광고 없이 서비스를 이용할 수 있으며, OpenAI는 사용자 피드백을 반영해 광고 형식을 지속적으로 개선해 나갈 계획이다.`
+            },
+            // AI 인프라 및 투자
+            {
+                theme: "AI 인프라 및 투자",
+                category: "Anthropic",
+                title: "Claude Max 사용량 이슈, 5시간 허용량이 14분 만에 소진되는 사례 보고",
+                isTop5: false,
+                details: `2026년 1월 초 Claude Max 구독자들이 사용량 제한이 급격히 축소되었다고 보고하며 논란이 일었다. The Register에 따르면 한 Discord 사용자는 "Pro 요금제가 활성화되어 있음에도 Sonnet 사용 10-15분 만에 지속적으로 사용 제한에 도달하며, 사용량 바가 거의 100% 소비를 표시한다"고 호소했다. GitHub 이슈에서는 "2026년 1월 8일 주간 리셋 이후 Opus 4.5 사용 제한이 출시 이래 가장 제한적인 수준으로 축소되었다"고 보고되었다.
+
+Anthropic 도움말 센터에 따르면 Max 플랜의 세션 기반 사용 제한은 5시간마다 재설정되며, 5배 요금제는 최소 225개 메시지, 20배 요금제는 최소 900개 메시지가 보장된다. 그러나 일부 사용자는 하루 만에 주간 Opus 4.5 제한의 27% 이상을 소진했다고 보고했다. Anthropic은 관련 이슈에 대해 공식 답변을 내놓지 않아 개발자 커뮤니티의 불만이 커지고 있다.`
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "파트너십",
+                title: "Anthropic AI for Science, 미 에너지부와 파트너십으로 과학 연구 가속화",
+                isTop5: false,
+                details: `Anthropic이 2025년 12월 미국 에너지부(DOE)와 Genesis Mission 파트너십을 발표했다. 이 다년간 협력은 에너지 지배력, 생물학 및 생명과학, 과학 생산성의 세 가지 영역에 집중하며, 17개 미국 국립연구소 전체에 영향을 미칠 잠재력을 가진다. Anthropic은 DOE 연구자들에게 Claude 접근권과 전담 엔지니어 팀을 제공하여 연구 주기를 단축할 계획이다.
+
+Anthropic의 최고과학책임자 Jared Kaplan은 "Anthropic은 AI가 연구 자체에 혁신적 진보를 가져올 수 있다고 믿는 과학자들에 의해 설립되었다"고 밝혔다. 구체적으로 Claude는 에너지 분야의 허가 검토 가속화, 핵 기술 연구 지원, 팬데믹 조기 경보 시스템 개발, 신약 발견 가속화 등을 지원할 예정이다. 이번 파트너십은 국가핵안보국과의 핵 위험 분류기 공동 개발, Lawrence Livermore 연구소에서의 Claude 배포 등 기존 협력의 연장선상에 있다.`
+            },
+            // 법률, 규제 및 거버넌스
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "환경규제",
+                title: "美 EPA, xAI 멤피스 데이터센터 천연가스 발전기 무허가 운영 '위법' 판정",
+                isTop5: false,
+                details: `미국 환경보호청(EPA)이 xAI의 멤피스 데이터센터에서 사용된 휴대용 천연가스 터빈의 무허가 운영이 대기질 관련 연방법을 위반했다고 판정했다. xAI는 그동안 해당 발전기가 이동식·임시 장비라는 이유로 대기질 허가가 면제된다고 주장해왔으나, EPA는 이러한 터빈도 청정대기법(Clean Air Act)에 따른 허가가 필요하다는 새로운 정책 해석을 발표해 기존 허점을 차단했다. 최대 35대의 무허가 터빈이 'Colossus 1' 시설에서 운영됐으며, 현재 15대에 대해서만 허가를 취득한 상태다.
+
+이번 판정은 NAACP와 환경단체들이 제기한 청정대기법 위반 소송의 중요한 승리로 평가된다. 해당 시설은 역사적으로 흑인 커뮤니티가 밀집한 지역에 위치해 있으며, 주민들은 전국 평균의 4배에 달하는 암 발생 위험에 노출돼 있다. NAACP 환경정의국장 아브레 코너는 "우리 공동체와 공기, 물, 땅은 억만장자들의 놀이터가 아니다"라고 비판했다. xAI는 아직 공식 입장을 밝히지 않았으며, 미시시피주 사우스헤이븐에 건설 중인 두 번째 대형 데이터센터에서도 수십 대의 무허가 발전기가 운영되고 있는 것으로 알려졌다.`
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "콘텐츠 정책",
+                title: "xAI, Grok 실제 인물 '비키니 이미지' 편집 기능 전면 차단",
+                isTop5: false,
+                details: `xAI가 1월 15일(현지시간) AI 챗봇 Grok의 실제 인물 대상 노출 의상 이미지 편집 기능을 전면 차단한다고 발표했다. X 안전팀 계정을 통해 공개된 성명에 따르면, Grok은 더 이상 실제 인물 사진을 비키니, 속옷 등 노출 의상으로 편집할 수 없으며, 해당 제한은 유료 구독자를 포함한 모든 사용자에게 적용된다. 또한 이미지 생성·편집 기능 자체를 유료 구독자로 제한해 정책 위반자 추적을 용이하게 했다.
+
+이번 조치는 여성과 아동을 대상으로 한 비동의 성적 딥페이크 콘텐츠가 대량 유포되면서 전 세계적인 비난이 쏟아진 데 따른 것이다. 캘리포니아 법무장관은 xAI에 대한 공식 조사를 발표했고, 영국 통신규제기관 Ofcom도 조사에 착수했다. 인도네시아와 말레이시아는 Grok 접속을 일시 차단했으며, EU 집행위원회는 xAI에 2026년 말까지 Grok 관련 내부 문서 보존을 명령했다. 개빈 뉴섬 캘리포니아 주지사는 X에 "아동을 디지털로 벗기는 이미지를 포함한 비동의 딥페이크의 온상을 만든 xAI의 결정은 혐오스럽다"고 강하게 비판했다.`
+            },
+            // AI와 사회
+            {
+                theme: "AI와 사회",
+                category: "트렌드",
+                title: "'바이브 코딩' 시대 개막…\"소프트웨어는 이제 냅킨처럼 일회용\"",
+                isTop5: false,
+                details: `구글 엔지니어 애디 오스마니(Addy Osmani)가 SNS를 통해 "우리는 일회용 소프트웨어 시대에 진입했다"고 선언하며 '바이브 코딩(Vibe Coding)' 트렌드에 대한 논의가 확산되고 있다. 바이브 코딩은 개발자가 코드를 직접 작성하는 대신 AI에게 자연어로 목표를 설명하고, 생성된 코드를 이해하지 않고도 결과물만 활용하는 방식이다. 오스마니는 이제 "최소 시장 단위가 1인"이며, 단 한 시간, 한 번 사용을 위해 앱을 만들 수 있다고 강조했다.
+
+바이브 코딩이라는 용어는 2025년 2월 OpenAI 창립 멤버 안드레이 카르파시(Andrej Karpathy)가 처음 사용했으며, 2025년 콜린스 사전 올해의 단어로 선정됐다. Y Combinator에 따르면 2025년 겨울 배치 스타트업의 25%가 코드베이스의 95%를 AI로 생성했다. 다만 보안 전문가들은 바이브 코딩으로 생성된 앱이 40% 더 높은 보안 취약점을 가질 수 있다고 경고하고 있어, 검증 없는 AI 코드 수용에 대한 우려도 제기되고 있다.`
+            }
+        ];
+
+        // Key Data for Highlights
+        const keyHighlights = [
+            { value: "115,000+", label: "Claude Code 개발자 수", description: "주간 1.95억 줄 코드 처리" },
+            { value: "85%", label: "MCP 컨텍스트 절감", description: "67K → 8.7K 토큰" },
+            { value: "80%", label: "AI 코드 작성 비율", description: "일회용 소프트웨어 시대" },
+            { value: "170+", label: "ChatGPT Go 출시 국가", description: "월 $8 저가 요금제" }
+        ];
+
+        // Theme configuration
+        const themeConfig = {
+            "AI 인프라 및 투자": { color: "emerald", icon: "💰" },
+            "플랫폼, 제품 및 에이전트": { color: "blue", icon: "🚀" },
+            "산업별 AI 적용": { color: "purple", icon: "🏭" },
+            "법률, 규제 및 거버넌스": { color: "rose", icon: "⚖️" },
+            "AI와 사회": { color: "amber", icon: "🌐" }
+        };
+
+        function truncateTitle(title, maxLength = 60) {
+            if (title.length <= maxLength) return title;
+            
+            const separators = ['—', ':', '…'];
+            for (const sep of separators) {
+                const idx = title.indexOf(sep);
+                if (idx > 0 && idx <= maxLength) {
+                    return title.substring(0, idx).trim() + '...';
+                }
+            }
+            return title.substring(0, maxLength).trim() + '...';
+        }
+
+        function createKeyNumbersSection() {
+            const section = document.getElementById('key-highlights');
+            section.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-lg font-bold text-slate-700 mb-1">📊 주요 데이터 하이라이트</h2>
+                    <p class="text-sm text-slate-500">오늘의 핵심 수치</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    ${keyHighlights.map(item => `
+                        <div class="highlight-card rounded-xl p-5 border border-slate-200">
+                            <div class="text-3xl font-black text-slate-800 mb-1">${item.value}</div>
+                            <div class="text-sm font-semibold text-slate-700 mb-1">${item.label}</div>
+                            <div class="text-xs text-slate-500">${item.description}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderTop5Section() {
+            const section = document.getElementById('top5-section');
+            const top5Items = reportData.filter(item => item.isTop5);
+            
+            section.innerHTML = `
+                <div class="mb-6">
+                    <div class="flex items-center gap-3 mb-1">
+                        <h2 class="text-lg font-bold text-slate-700">🔥 Top 5 뉴스</h2>
+                        <span class="top5-badge text-white text-xs px-2 py-0.5 rounded-full font-medium">빅테크 중심</span>
+                    </div>
+                    <p class="text-sm text-slate-500">오늘 가장 주목할 AI 뉴스</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    ${top5Items.map((item, idx) => {
+                        const globalIdx = reportData.indexOf(item);
+                        const displayTitle = truncateTitle(item.title);
+                        const config = themeConfig[item.theme] || { color: "slate", icon: "📰" };
+                        return `
+                            <div class="bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-xl card-hover cursor-pointer p-5" data-index="${globalIdx}">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="top5-badge text-white text-xs px-2 py-0.5 rounded font-bold">#${idx + 1}</span>
+                                    <span class="theme-badge text-${config.color}-700 bg-${config.color}-50 px-2 py-0.5 rounded font-medium">${item.category}</span>
+                                </div>
+                                <h3 class="text-base font-bold text-slate-800 leading-snug mb-2">${displayTitle}</h3>
+                                <p class="text-xs text-slate-500">${item.theme}</p>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-sections');
+            const themes = ["AI 인프라 및 투자", "플랫폼, 제품 및 에이전트", "산업별 AI 적용", "법률, 규제 및 거버넌스", "AI와 사회"];
+            
+            let html = '';
+            
+            themes.forEach(theme => {
+                const items = reportData.filter(item => item.theme === theme && !item.isTop5);
+                if (items.length === 0) return;
+                
+                const config = themeConfig[theme] || { color: "slate", icon: "📰" };
+                
+                html += `
+                    <section class="mb-12">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-2xl">${config.icon}</span>
+                                <h2 class="text-lg font-bold text-slate-700">${theme}</h2>
+                                <span class="bg-slate-200 text-slate-600 text-xs px-2 py-0.5 rounded-full font-medium">${items.length}건</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            ${items.map(item => {
+                                const globalIdx = reportData.indexOf(item);
+                                const displayTitle = truncateTitle(item.title);
+                                return `
+                                    <div class="bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-xl card-hover cursor-pointer p-5" data-index="${globalIdx}">
+                                        <div class="mb-3">
+                                            <span class="theme-badge text-${config.color}-700 bg-${config.color}-50 px-2 py-0.5 rounded font-medium">${item.category}</span>
+                                        </div>
+                                        <h3 class="text-base font-bold text-slate-800 leading-snug">${displayTitle}</h3>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </section>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function showModal(index) {
+            const item = reportData[index];
+            const modal = document.getElementById('news-modal');
+            const config = themeConfig[item.theme] || { color: "slate", icon: "📰" };
+            
+            document.getElementById('modal-category').textContent = item.category;
+            document.getElementById('modal-category').className = `theme-badge text-${config.color}-700 bg-${config.color}-50 px-2 py-1 rounded font-medium uppercase`;
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-content').textContent = item.details;
+            document.getElementById('modal-theme').textContent = `${config.icon} ${item.theme}`;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('news-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+
+            // Add click listeners to all cards
+            document.querySelectorAll('[data-index]').forEach(card => {
+                card.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    showModal(index);
+                });
+            });
+
+            // Modal close handlers
+            document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+            document.getElementById('modal-bg-close').addEventListener('click', hideModal);
+            
+            // ESC key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') hideModal();
+            });
+        });
+    </script>
+</body>
+</html>
