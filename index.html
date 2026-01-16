@@ -18,6 +18,15 @@
             --light: #FDF0E0;
             --bg-color: #FDF0E0;
             --card-bg: #ffffff;
+            /* 미니멀 섀도우 */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
+            /* 버튼 색상 */
+            --btn-dashboard-bg: #FFF5F5;
+            --btn-dashboard-border: #E8B4B4;
+            --btn-infographic-bg: #F0FAFA;
+            --btn-infographic-border: #A8D8D8;
         }
 
         * {
@@ -96,14 +105,15 @@
         .stat-item {
             background: #fff;
             padding: 20px;
-            border: 3px solid var(--dark);
-            box-shadow: 5px 5px 0px var(--dark);
+            border: 2px solid var(--dark);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
             transition: all 0.2s ease;
         }
 
         .stat-item:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px var(--dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .stat-label {
@@ -123,12 +133,12 @@
 
         /* Month Section */
         .month-section {
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             background: #fff;
-            border: 3px solid var(--dark);
-            border-radius: 12px;
+            border: 2px solid var(--dark);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
         }
 
         .month-header {
@@ -139,7 +149,7 @@
             background: #fff;
             cursor: pointer;
             transition: background 0.2s;
-            border-bottom: 3px solid var(--dark);
+            border-bottom: 2px solid var(--dark);
         }
 
         .month-header:hover {
@@ -245,23 +255,39 @@
 
         .card {
             grid-column: span 4;
-            /* Default 3 cards per row */
             background: #fff;
-            border: 3px solid var(--dark);
+            border: 2px solid var(--dark);
+            border-radius: 12px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
-            min-height: 200px;
-            box-shadow: 6px 6px 0px var(--dark);
+            min-height: 180px;
+            box-shadow: var(--shadow-sm);
         }
 
         .card:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px var(--dark);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Featured 카드 (최신 뉴스) */
+        .card.featured {
+            grid-column: span 6;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            border: 2px solid var(--dark);
+            min-height: 200px;
+        }
+
+        .card.featured:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card.featured .card-date {
+            font-size: 1.8rem;
         }
 
         .card-date {
@@ -281,19 +307,45 @@
         .card-link {
             flex: 1;
             text-align: center;
-            padding: 12px;
-            background: #fff;
+            padding: 14px 16px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--dark);
             text-decoration: none;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 0.9rem;
             transition: all 0.2s;
             border: 2px solid var(--dark);
+            border-radius: 8px;
         }
 
         .card-link:hover {
-            background: var(--dark);
-            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* 대시보드 버튼 */
+        .card-link.dashboard {
+            background: var(--btn-dashboard-bg);
+            border-color: var(--btn-dashboard-border);
+        }
+
+        .card-link.dashboard:hover {
+            background: #FFE8E8;
+            border-color: #D9A0A0;
+        }
+
+        /* 인포그래픽 버튼 */
+        .card-link.infographic {
+            background: var(--btn-infographic-bg);
+            border-color: var(--btn-infographic-border);
+        }
+
+        .card-link.infographic:hover {
+            background: #E0F5F5;
+            border-color: #8AC8C8;
         }
 
         .badge-new {
@@ -399,88 +451,88 @@
                 <div class="toggle-icon">▼</div>
             </div>
             <div class="grid">
-                <div class="card">
+                <div class="card featured">
                     <div class="card-date">1월 17일 <span class="badge-new">NEW</span></div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 17일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 17일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 17일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 17일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 16일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 16일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 16일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 16일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 16일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 15일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 15일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 15일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 15일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 15일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 14일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 14일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 14일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 14일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 14일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 13일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 13일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 13일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 13일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 13일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 12일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 12일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 12일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 12일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 12일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 11일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 11일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 11일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 11일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 11일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 10일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 10일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 10일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 10일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 10일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 9일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 09일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 09일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 09일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 09일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 8일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 08일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 08일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 08일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 08일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 7일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 07일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 07일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 07일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 07일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">1월 6일</div>
                     <div class="card-links">
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 06일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 06일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 06일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2026-01/5분 AI 뉴스 정리 (2026년 01월 06일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
             </div>
@@ -499,227 +551,227 @@
                 <div class="card">
                     <div class="card-date">12월 29일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 29일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 29일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 29일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 29일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">12월 28일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 28일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 28일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 28일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 28일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">12월 27일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 27일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 27일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 27일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 27일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">12월 26일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 26일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 26일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 26일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 26일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">12월 25일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 25일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 25일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 25일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 25일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">12월 24일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 24일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 24일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 24일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 24일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 23일 (Featured) -->
                 <div class="card">
                     <div class="card-date">12월 23일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 23일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 23일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 23일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 23일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 22일 -->
                 <div class="card">
                     <div class="card-date">12월 22일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 22일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 22일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 22일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 22일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 21일 -->
                 <div class="card">
                     <div class="card-date">12월 21일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 21일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 21일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 21일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 21일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 20일 -->
                 <div class="card">
                     <div class="card-date">12월 20일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 20일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 20일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 20일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 20일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 19일 -->
                 <div class="card">
                     <div class="card-date">12월 19일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 19일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 19일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 19일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 19일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 18일 -->
                 <div class="card">
                     <div class="card-date">12월 18일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 18일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 18일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 18일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 18일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 17일 -->
                 <div class="card">
                     <div class="card-date">12월 17일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 17일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 17일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 17일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 17일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 16일 -->
                 <div class="card">
                     <div class="card-date">12월 16일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 16일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 16일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 16일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 16일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 15일 -->
                 <div class="card">
                     <div class="card-date">12월 15일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 15일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 15일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 15일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 15일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 14일 -->
                 <div class="card">
                     <div class="card-date">12월 14일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 14일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 14일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 14일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 14일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 13일 -->
                 <div class="card">
                     <div class="card-date">12월 13일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 13일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 13일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 13일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 13일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 12일 -->
                 <div class="card">
                     <div class="card-date">12월 12일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 12일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 12일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 12일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 12일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 11일 -->
                 <div class="card">
                     <div class="card-date">12월 11일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 11일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 11일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 11일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 11일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 10일 -->
                 <div class="card">
                     <div class="card-date">12월 10일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 10일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 10일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 10일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 10일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 9일 -->
                 <div class="card">
                     <div class="card-date">12월 9일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 09일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 09일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 09일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 09일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 8일 -->
                 <div class="card">
                     <div class="card-date">12월 8일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 08일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 08일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 08일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 08일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 7일 -->
                 <div class="card">
                     <div class="card-date">12월 7일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 07일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 07일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 07일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 07일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 6일 -->
                 <div class="card">
                     <div class="card-date">12월 6일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 06일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 06일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 06일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 06일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 5일 -->
                 <div class="card">
                     <div class="card-date">12월 5일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 05일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 05일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 05일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 05일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 4일 -->
                 <div class="card">
                     <div class="card-date">12월 4일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 04일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 04일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 04일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 04일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 3일 -->
                 <div class="card">
                     <div class="card-date">12월 3일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 03일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 03일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 03일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 03일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 2일 -->
                 <div class="card">
                     <div class="card-date">12월 2일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 02일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 02일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 02일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 02일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 1일 -->
                 <div class="card">
                     <div class="card-date">12월 1일</div>
                     <div class="card-links">
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 01일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 01일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 01일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-12/5분 AI 뉴스 정리 (2025년 12월 01일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
             </div>
@@ -739,216 +791,216 @@
                 <div class="card">
                     <div class="card-date">11월 30일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 30일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 30일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 30일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 30일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 29일 -->
                 <div class="card">
                     <div class="card-date">11월 29일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 29일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 29일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 29일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 29일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 28일 -->
                 <div class="card">
                     <div class="card-date">11월 28일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 28일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 28일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 28일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 28일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 27일 -->
                 <div class="card">
                     <div class="card-date">11월 27일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 27일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 27일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 27일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 27일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 26일 -->
                 <div class="card">
                     <div class="card-date">11월 26일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 26일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 26일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 26일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 26일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 25일 -->
                 <div class="card">
                     <div class="card-date">11월 25일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 25일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 25일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 25일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 25일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 24일 -->
                 <div class="card">
                     <div class="card-date">11월 24일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 24일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 24일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 24일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 24일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 21일 -->
                 <div class="card">
                     <div class="card-date">11월 21일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 21일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 21일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 21일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 21일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 20일 -->
                 <div class="card">
                     <div class="card-date">11월 20일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 20일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 20일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 20일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 20일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 19일 -->
                 <div class="card">
                     <div class="card-date">11월 19일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 19일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 19일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 19일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 19일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 18일 -->
                 <div class="card">
                     <div class="card-date">11월 18일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 18일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 18일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 18일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 18일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 17일 -->
                 <div class="card">
                     <div class="card-date">11월 17일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 17일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 17일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 17일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 17일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 15일 -->
                 <div class="card">
                     <div class="card-date">11월 15일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 15일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 15일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 15일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 15일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 14일 -->
                 <div class="card">
                     <div class="card-date">11월 14일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 14일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 14일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 14일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 14일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 13일 -->
                 <div class="card">
                     <div class="card-date">11월 13일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 13일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 13일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 13일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 13일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 12일 -->
                 <div class="card">
                     <div class="card-date">11월 12일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 12일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 12일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 12일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 12일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 11일 -->
                 <div class="card">
                     <div class="card-date">11월 11일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 11일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 11일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 11일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 11일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 10일 -->
                 <div class="card">
                     <div class="card-date">11월 10일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 10일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 10일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 10일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 10일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 9일 -->
                 <div class="card">
                     <div class="card-date">11월 9일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 09일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 09일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 09일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 09일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 8일 -->
                 <div class="card">
                     <div class="card-date">11월 8일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 08일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 08일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 08일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 08일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 7일 -->
                 <div class="card">
                     <div class="card-date">11월 7일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 07일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 07일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 07일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 07일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 6일 -->
                 <div class="card">
                     <div class="card-date">11월 6일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 06일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 06일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 06일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 06일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 5일 -->
                 <div class="card">
                     <div class="card-date">11월 5일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 05일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 05일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 05일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 05일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 4일 -->
                 <div class="card">
                     <div class="card-date">11월 4일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 04일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 04일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 04일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 04일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 3일 -->
                 <div class="card">
                     <div class="card-date">11월 3일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 03일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 03일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 03일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 03일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 2일 -->
                 <div class="card">
                     <div class="card-date">11월 2일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 02일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 02일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 02일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 02일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <!-- 1일 -->
                 <div class="card">
                     <div class="card-date">11월 1일</div>
                     <div class="card-links">
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 01일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 01일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 01일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-11/5분 AI 뉴스 정리 (2025년 11월 01일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
             </div>
@@ -967,57 +1019,57 @@
                 <div class="card">
                     <div class="card-date">10월 30일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 30일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 30일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 30일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 30일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">10월 29일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 29일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 29일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 29일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 29일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">10월 28일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 28일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 28일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 28일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 28일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">10월 27일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 27일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 27일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 27일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 27일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">10월 23일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 23일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 23일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 23일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 23일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">10월 22일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 22일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 22일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 22일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 22일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">10월 21일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 21일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 21일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 21일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 21일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-date">10월 17일</div>
                     <div class="card-links">
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 17일) 대시.HTML" class="card-link">대시보드</a>
-                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 17일) 인포.HTML" class="card-link">인포그래픽</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 17일) 대시.HTML" class="card-link dashboard">대시보드</a>
+                        <a href="news/2025-10/5분 AI 뉴스 정리 (2025년 10월 17일) 인포.HTML" class="card-link infographic">인포그래픽</a>
                     </div>
                 </div>
             </div>
