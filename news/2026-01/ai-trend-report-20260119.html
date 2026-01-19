@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT | 2026.01.19</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            color: #111;
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        /* 네오 브루탈리즘 컴포넌트 */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #111;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0px 0px #111;
+            transition: all 0.2s ease;
+        }
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #111;
+        }
+
+        .nb-btn {
+            border: 2px solid #111;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0px 0px #111;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px 0px #111;
+        }
+
+        .nb-tag {
+            border: 1.5px solid #111;
+            border-radius: 8px;
+            box-shadow: 2px 2px 0px 0px #111;
+        }
+
+        /* 파스텔 컬러 */
+        .bg-pastel-blue { background-color: #C4E4FF; }
+        .bg-pastel-red { background-color: #FFC4C4; }
+        .bg-pastel-green { background-color: #C4FFD6; }
+        .bg-pastel-yellow { background-color: #FFF4BD; }
+        .bg-pastel-purple { background-color: #E2C4FF; }
+
+        /* 스크롤바 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb { 
+            background: #333; 
+            border-radius: 4px; 
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200">
+
+    <!-- ========== HEADER ========== -->
+    <header class="max-w-6xl mx-auto pt-10 pb-6 px-4 text-center">
+        <a href="../../index.html"
+           class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
+            ← 전체 목록
+        </a>
+        <div class="inline-block bg-black text-white px-4 py-1 rounded-full text-sm font-bold mb-3 ml-2">
+            DAILY BRIEFING
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-2">
+            AI TREND REPORT
+        </h1>
+        <p class="text-lg text-gray-600 font-medium">
+            2026.01.19 기준 · OpenAI 위기 · AI 코딩 혁명 · 투자 격변
+        </p>
+    </header>
+
+    <!-- ========== KPI DASHBOARD ========== -->
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box bg-pastel-red p-5">
+                <span class="text-xs font-bold text-gray-600">🚨 OpenAI 예상 손실</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$140억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">2026년 연간 손실 전망</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box bg-pastel-green p-5">
+                <span class="text-xs font-bold text-gray-600">💰 JP모건 지출</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$1,050억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">2026년 AI 인프라 투자</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box bg-pastel-blue p-5">
+                <span class="text-xs font-bold text-gray-600">📊 경영진 AI 기대</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">79%</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">2030년 AI 매출 기여 전망</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box bg-pastel-yellow p-5">
+                <span class="text-xs font-bold text-gray-600">⚡ 테슬라 칩 주기</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">9개월</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">AI 칩 설계 목표 주기</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STICKY NAVIGATION ========== -->
+    <nav class="sticky top-4 z-50 px-4 mb-12">
+        <div class="max-w-4xl mx-auto nb-box bg-white p-2 flex justify-center gap-2 overflow-x-auto">
+            <a href="#theme1" class="nb-btn px-4 py-2 bg-pastel-red text-sm whitespace-nowrap hover:opacity-80">💰 투자 격변</a>
+            <a href="#theme2" class="nb-btn px-4 py-2 bg-pastel-purple text-sm whitespace-nowrap hover:opacity-80">🛠️ 코딩 혁명</a>
+            <a href="#theme3" class="nb-btn px-4 py-2 bg-pastel-blue text-sm whitespace-nowrap hover:opacity-80">🧠 기술 경쟁</a>
+            <a href="#theme4" class="nb-btn px-4 py-2 bg-pastel-green text-sm whitespace-nowrap hover:opacity-80">📉 산업 변화</a>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="max-w-6xl mx-auto px-4 space-y-20 pb-20">
+
+        <!-- ========== 테마 1: AI 투자 & 재정 격변 ========== -->
+        <section id="theme1" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">1</div>
+                <h2 class="text-2xl md:text-3xl font-black">💰 AI 투자 & 재정 격변</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- OpenAI 자금 위기 - Type A -->
+                <div class="nb-box p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="nb-tag bg-pastel-red px-3 py-1 text-xs font-bold">🔥 TOP NEWS</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">OpenAI, 2027년 중반 자금 고갈 위기</h3>
+                    
+                    <!-- Big Number -->
+                    <div class="text-center py-6 bg-red-50 rounded-lg border border-gray-200">
+                        <div class="text-5xl md:text-6xl font-black text-red-500">18개월</div>
+                        <p class="text-sm text-gray-600 mt-2">파산까지 남은 시간 (전문가 분석)</p>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mt-6 space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>2025년 손실</span>
+                                <span>$80억</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                                <div class="bg-pastel-yellow h-full rounded-full" style="width: 57%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>2026년 손실 (예상)</span>
+                                <span>$140억</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                                <div class="bg-pastel-red h-full rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">OpenAI가 자금난에 빠지면 MS·아마존에 인수될 가능성이 제기됨. ChatGPT Go($8/월) 출시 등 수익화 가속화 중</p>
+                    </div>
+                </div>
+
+                <!-- 세쿼이아 앤트로픽 투자 - Type B -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4 text-center">세쿼이아, VC 금기 깨고 앤트로픽 투자</h3>
+                    
+                    <!-- VS 레이아웃 -->
+                    <div class="flex items-stretch relative">
+                        <div class="flex-1 bg-blue-50 p-4 rounded-l-lg text-center border-r border-gray-200">
+                            <div class="text-3xl mb-2">🤖</div>
+                            <h4 class="font-bold text-lg">OpenAI</h4>
+                            <p class="text-sm text-gray-600 mt-2">기존 투자처</p>
+                        </div>
+                        
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                            <div class="w-10 h-10 bg-yellow-400 border-2 border-black rounded-full flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#111]">
+                                +
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 bg-purple-50 p-4 rounded-r-lg text-center">
+                            <div class="text-3xl mb-2">🧠</div>
+                            <h4 class="font-bold text-lg">Anthropic</h4>
+                            <p class="text-sm text-gray-600 mt-2">신규 투자 (경쟁사)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <div class="text-3xl font-black text-purple-600">$3,500억</div>
+                        <p class="text-sm text-gray-600">앤트로픽 목표 기업가치</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">AI 시장은 승자독식이 아닌 복수 대형 플레이어 공존 구조로 발전. 앤트로픽 IPO 가능성도 제기</p>
+                    </div>
+                </div>
+
+                <!-- JP모건 투자 - Type A -->
+                <div class="nb-box p-6 md:col-span-2">
+                    <h3 class="text-xl font-bold mb-4">JP모건체이스, 2026년 AI 투자 대폭 확대</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="text-center p-4 bg-green-50 rounded-lg border border-gray-200">
+                            <div class="text-4xl font-black text-green-600">$1,050억</div>
+                            <p class="text-sm text-gray-600 mt-1">2026년 총 지출</p>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg border border-gray-200">
+                            <div class="text-4xl font-black text-blue-600">+$90억</div>
+                            <p class="text-sm text-gray-600 mt-1">전년 대비 증가</p>
+                        </div>
+                        <div class="text-center p-4 bg-yellow-50 rounded-lg border border-gray-200">
+                            <div class="text-4xl font-black text-yellow-600">80%</div>
+                            <p class="text-sm text-gray-600 mt-1">클라우드 이전 완료</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">제이미 다이먼 CEO: "AI에 투자하지 않으면 뒤처질 위험. 기술 지출은 핀테크 대응에 필수"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 2: AI 코딩 혁명 ========== -->
+        <section id="theme2" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">2</div>
+                <h2 class="text-2xl md:text-3xl font-black">🛠️ AI 코딩 혁명</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 하이브리드 워크플로우 - Type C -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">GPT-5.2 + Opus 4.5 하이브리드 워크플로우</h3>
+                    
+                    <!-- 프로세스 흐름 -->
+                    <div class="flex flex-col items-center gap-3 py-4">
+                        <div class="nb-tag bg-pastel-blue px-4 py-3 rounded-lg text-center w-full">
+                            <span class="block text-xs text-gray-500 mb-1">STEP 1</span>
+                            <span class="font-bold">🧠 GPT-5.2로 설계/계획</span>
+                            <p class="text-xs text-gray-600 mt-1">400K 토큰 컨텍스트로 아키텍처 분석</p>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400">↓</div>
+                        
+                        <div class="nb-tag bg-pastel-purple px-4 py-3 rounded-lg text-center w-full">
+                            <span class="block text-xs text-gray-500 mb-1">STEP 2</span>
+                            <span class="font-bold">⚡ Claude Opus 4.5로 구현</span>
+                            <p class="text-xs text-gray-600 mt-1">SWE-bench 80.9% 정밀 코딩</p>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400">↓</div>
+                        
+                        <div class="nb-tag bg-pastel-green px-4 py-3 rounded-lg text-center w-full border-2 border-black">
+                            <span class="block text-xs text-gray-500 mb-1">STEP 3</span>
+                            <span class="font-bold">✅ GPT-5.2로 코드 리뷰</span>
+                            <p class="text-xs text-gray-600 mt-1">버그 감소 + 리팩토링 시간 단축</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">단일 모델보다 "적재적소 배치"가 AI 코딩의 새로운 표준으로 부상</p>
+                    </div>
+                </div>
+
+                <!-- Auto Claude - Type A -->
+                <div class="nb-box p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">🆕 오픈소스</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Auto Claude - 자율 빌드 프레임워크</h3>
+                    
+                    <div class="text-center py-4">
+                        <div class="text-5xl font-black text-purple-600">12개</div>
+                        <p class="text-sm text-gray-600 mt-2">동시 병렬 Claude Code 세션</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="bg-purple-50 p-3 rounded-lg text-center">
+                            <span class="text-2xl">📋</span>
+                            <p class="text-xs font-bold mt-1">Kanban 보드 UI</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-lg text-center">
+                            <span class="text-2xl">🔒</span>
+                            <p class="text-xs font-bold mt-1">격리된 Git worktree</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg text-center">
+                            <span class="text-2xl">🔔</span>
+                            <p class="text-xs font-bold mt-1">완료 시 알림</p>
+                        </div>
+                        <div class="bg-yellow-50 p-3 rounded-lg text-center">
+                            <span class="text-2xl">🧠</span>
+                            <p class="text-xs font-bold mt-1">FalkorDB 메모리</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">AGPL-3.0 라이선스, Claude Pro/Max 구독 필요. 전체 개발 라이프사이클 자동화 가능</p>
+                    </div>
+                </div>
+
+                <!-- 바이브 코딩 현실 - Type B -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4 text-center">바이브 코딩의 이상 vs 현실</h3>
+                    
+                    <div class="flex items-stretch relative">
+                        <div class="flex-1 bg-green-50 p-4 rounded-l-lg text-center border-r border-gray-200">
+                            <div class="text-3xl mb-2">✨</div>
+                            <h4 class="font-bold text-lg">기대</h4>
+                            <p class="text-sm text-gray-600 mt-2">"10분 만에 앱 완성"</p>
+                        </div>
+                        
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                            <div class="w-10 h-10 bg-red-400 border-2 border-black rounded-full flex items-center justify-center font-black text-sm text-white shadow-[2px_2px_0px_#111]">
+                                VS
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 bg-red-50 p-4 rounded-r-lg text-center">
+                            <div class="text-3xl mb-2">💥</div>
+                            <h4 class="font-bold text-lg">현실</h4>
+                            <p class="text-sm text-gray-600 mt-2">"사용자 10명이면 무너짐"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span>Lovable 보안 취약점 발견 앱</span>
+                            <span class="font-bold text-red-600">170개/1,645개</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>METR 연구: 체감 속도 향상</span>
+                            <span class="font-bold text-green-600">+20%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>METR 연구: 실제 속도 변화</span>
+                            <span class="font-bold text-red-600">-19%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">프로토타이핑에는 유효하나, 프로덕션에는 인간 감독 필수. "주니어에게 맡기고 시니어가 리뷰"</p>
+                    </div>
+                </div>
+
+                <!-- Claude Code 팁 모음 - Type A -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🔥 Claude Code 실전 팁</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <p class="font-bold text-sm">❌ AGENTS.md에 파일 트리 넣지 마라</p>
+                            <p class="text-xs text-gray-600 mt-1">프로젝트 변경 시 가장 먼저 구식되는 정보 → 에이전트 혼란</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <p class="font-bold text-sm">🔄 자기개선 루프 활용하기</p>
+                            <p class="text-xs text-gray-600 mt-1">실수 발생 시 CLAUDE.md에 규칙 추가 → 다음 세션에서 같은 실수 방지</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="font-bold text-sm">🎯 "최고 1개" 대신 "10가지 변형" 요청</p>
+                            <p class="text-xs text-gray-600 mt-1">프로젝트당 최대 3시간 절약, 30초 내 최적 방향 선택</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">상세한 AGENTS.md 보유 시 에이전트 버그 35~55% 감소, 설정 시간 2분 미만으로 단축</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 3: AI 기술 경쟁 ========== -->
+        <section id="theme3" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">3</div>
+                <h2 class="text-2xl md:text-3xl font-black">🧠 AI 기술 경쟁</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- GPT-5.2 수학 문제 - Type A -->
+                <div class="nb-box p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">🏆 브레이크스루</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">GPT-5.2, 30년 미해결 수학 문제 해결</h3>
+                    
+                    <div class="text-center py-4">
+                        <div class="text-5xl font-black text-blue-600">15분</div>
+                        <p class="text-sm text-gray-600 mt-2">에르되시 문제 #397 해결 시간</p>
+                    </div>
+                    
+                    <div class="mt-4 space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>경쟁 수준 수학 벤치마크</span>
+                                <span>77%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                                <div class="bg-pastel-blue h-full rounded-full" style="width: 77%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>개방형 연구 문제</span>
+                                <span>25%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                                <div class="bg-pastel-yellow h-full rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">테렌스 타오: "표준 기법으로 풀 수 있는 문제들" - 진정한 수학적 돌파구와는 거리 있음</p>
+                    </div>
+                </div>
+
+                <!-- 테슬라 AI5 - Type C -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">테슬라 AI 칩 로드맵</h3>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-3 py-4">
+                        <div class="nb-tag bg-gray-100 px-3 py-2 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">현재</span>
+                            <span class="font-bold">AI4</span>
+                        </div>
+                        
+                        <div class="text-xl font-black text-gray-400 rotate-90 md:rotate-0">➜</div>
+                        
+                        <div class="nb-tag bg-pastel-blue px-3 py-2 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">설계 완료</span>
+                            <span class="font-bold">AI5</span>
+                            <p class="text-xs text-gray-600">50배 성능↑</p>
+                        </div>
+                        
+                        <div class="text-xl font-black text-gray-400 rotate-90 md:rotate-0">➜</div>
+                        
+                        <div class="nb-tag bg-pastel-green px-3 py-2 rounded-lg text-center flex-1 border-2 border-black">
+                            <span class="block text-xs text-gray-500 mb-1">개발 중</span>
+                            <span class="font-bold">AI6~9</span>
+                            <p class="text-xs text-gray-600">9개월 주기</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 grid grid-cols-2 gap-3">
+                        <div class="bg-blue-50 p-3 rounded-lg text-center">
+                            <p class="text-xs text-gray-500">생산 파트너</p>
+                            <p class="font-bold">삼성 + TSMC</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg text-center">
+                            <p class="text-xs text-gray-500">삼성 계약</p>
+                            <p class="font-bold">$165억</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">엔비디아/AMD 연간 주기 vs 테슬라 9개월 주기 - 업계 전례 없는 야심찬 계획</p>
+                    </div>
+                </div>
+
+                <!-- Kimi 업데이트 - Type A -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🐲 Kimi 대규모 업데이트</h3>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="bg-green-50 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-black text-green-600">50개</div>
+                            <p class="text-xs text-gray-600 mt-1">동시 파일 분석</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-black text-blue-600">256K</div>
+                            <p class="text-xs text-gray-600 mt-1">토큰 컨텍스트</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="text-green-500">✓</span>
+                            <span>VLOOKUP, SUMIF 등 복잡한 Excel 수식 처리</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="text-green-500">✓</span>
+                            <span>Word, PPT 직접 편집 및 생성</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="text-green-500">✓</span>
+                            <span>200만 자 장문 처리 (무료)</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="text-green-500">✓</span>
+                            <span>SWE-Bench 71.3% (일부 서양 모델 능가)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">K2 Thinking 모델 훈련비용 $460만. 고가의 서양 AI 대안으로 급부상</p>
+                    </div>
+                </div>
+
+                <!-- 딥마인드 CEO - Type A -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">딥마인드 CEO, AI 발명 능력 강조</h3>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                        <p class="text-lg font-bold text-blue-800">"무언가를 발명하는 것은 복제하는 것보다 <span class="text-3xl">100배</span> 어렵다"</p>
+                        <p class="text-sm text-gray-600 mt-2">- 데미스 하사비스, 2024 노벨 화학상 수상자</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">중국 AI 격차</span>
+                            <span class="nb-tag bg-yellow-100 px-2 py-1 text-xs font-bold">수개월</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">AGI 달성 예상</span>
+                            <span class="nb-tag bg-blue-100 px-2 py-1 text-xs font-bold">5~10년</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">딥마인드를 "현대판 벨연구소"에 비유. 트랜스포머 같은 새 혁신을 만들 수 있는지가 핵심</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 4: 산업 지각변동 ========== -->
+        <section id="theme4" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">4</div>
+                <h2 class="text-2xl md:text-3xl font-black">📉 산업 지각변동</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- SaaS 폭락 - Type A -->
+                <div class="nb-box p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="nb-tag bg-pastel-red px-3 py-1 text-xs font-bold">📉 급락</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">SaaS 주식, 2022년 이후 최악의 출발</h3>
+                    
+                    <!-- 차트 영역 -->
+                    <div class="h-48 mb-4">
+                        <canvas id="saasChart"></canvas>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Intuit</span>
+                            <span class="font-bold text-red-600">-16%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Adobe</span>
+                            <span class="font-bold text-red-600">-11%+</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Salesforce</span>
+                            <span class="font-bold text-red-600">-11%+</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">미즈호증권: "주가가 아무리 저렴해도 소프트웨어를 보유할 이유가 없다" - AI 에이전트가 SaaS 대체 우려</p>
+                    </div>
+                </div>
+
+                <!-- IBM 조사 - Type A -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">IBM 연구: 2030년 AI 전망</h3>
+                    
+                    <div class="text-center py-4">
+                        <div class="text-5xl font-black text-green-600">79%</div>
+                        <p class="text-sm text-gray-600 mt-2">AI가 매출에 크게 기여할 것으로 예상 (현재 40%)</p>
+                    </div>
+                    
+                    <div class="mt-4 space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>AI 투자 증가 예상</span>
+                                <span>150%↑</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                                <div class="bg-pastel-green h-full rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>생산성 향상 예상</span>
+                                <span>42%↑</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                                <div class="bg-pastel-blue h-full rounded-full" style="width: 42%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>AI 매출원 명확히 파악</span>
+                                <span class="text-red-600">24%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                                <div class="bg-pastel-red h-full rounded-full" style="width: 24%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">"2030년 승자는 모든 결정과 운영에 AI를 엮어넣는 기업" - IBM 컨설팅 수석부사장</p>
+                    </div>
+                </div>
+
+                <!-- 일자리 변화 - Type B -->
+                <div class="nb-box p-6 md:col-span-2">
+                    <h3 class="text-xl font-bold mb-4 text-center">AI 시대 일자리 변화 (2025-2030)</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-red-50 p-4 rounded-lg text-center">
+                            <div class="text-3xl mb-2">📉</div>
+                            <div class="text-3xl font-black text-red-600">-9,200만</div>
+                            <p class="text-sm text-gray-600 mt-1">대체 일자리</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg text-center">
+                            <div class="text-3xl mb-2">📈</div>
+                            <div class="text-3xl font-black text-green-600">+1.7억</div>
+                            <p class="text-sm text-gray-600 mt-1">신규 일자리</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center border-2 border-black">
+                            <div class="text-3xl mb-2">⚖️</div>
+                            <div class="text-3xl font-black text-blue-600">+7,800만</div>
+                            <p class="text-sm text-gray-600 mt-1">순증가 (WEF 전망)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="font-bold text-sm">🔄 새로운 평가 기준</p>
+                        <p class="text-sm mt-1 text-gray-700">"사람이 그 일을 할 수 있는가?" → "AI와 사람이 각각 할 수 있는 것을 넘어서는 고유한 가치를 더할 수 있는가?"</p>
+                        <p class="text-xs text-gray-500 mt-2">- MIT CSAIL 다니엘라 러스 소장</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">배관공, 전기기사 등 육체 노동 기술직은 상대적으로 AI 대체 위험 낮음. 효과적인 재교육 프로그램이 시급</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-[#111] text-white py-10 px-4 mt-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl font-black">AI TREND REPORT</h2>
+                <p class="text-gray-400 text-sm mt-1">News Infographic v2.0</p>
+            </div>
+            <p class="text-sm text-gray-400">© 2026 AI News Lab</p>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // SaaS 주식 차트
+        const ctx = document.getElementById('saasChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Intuit', 'Adobe', 'Salesforce', 'SaaS 그룹'],
+                datasets: [{
+                    label: '2026년 연초 수익률',
+                    data: [-16, -11, -11, -15],
+                    backgroundColor: [
+                        '#FFC4C4',
+                        '#FFC4C4',
+                        '#FFC4C4',
+                        '#FFC4C4'
+                    ],
+                    borderColor: '#111',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 0,
+                        min: -20,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            },
+                            font: {
+                                family: 'Noto Sans KR',
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: '#E5E5E5'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                family: 'Noto Sans KR',
+                                weight: 'bold',
+                                size: 11
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
