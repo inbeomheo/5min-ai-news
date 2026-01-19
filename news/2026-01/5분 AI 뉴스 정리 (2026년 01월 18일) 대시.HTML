@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 - 2026년 01월 18일</title>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .theme-badge {
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+        .modal-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 3px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .top5-badge {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        .highlight-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <h1 class="text-2xl sm:text-3xl font-bold gradient-text">AI 뉴스 대시보드</h1>
+                <div class="flex items-center gap-3">
+                    <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold text-sm">
+                        <span>←</span> 목록
+                    </a>
+                    <span class="text-slate-500 text-sm">Daily Brief</span>
+                    <span class="bg-slate-800 text-white px-3 py-1 rounded-full text-sm font-medium">2026년 01월 18일</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="content-area">
+        <!-- Key Data Highlights Section -->
+        <section id="key-highlights" class="mb-12"></section>
+
+        <!-- Top 5 News Section -->
+        <section id="top5-section" class="mb-12"></section>
+
+        <!-- Thematic Sections -->
+        <div id="thematic-sections"></div>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative animate-fade-in">
+                <div class="p-6 border-b border-slate-100">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <span id="modal-category" class="theme-badge text-amber-700 bg-amber-50 px-2 py-1 rounded font-medium uppercase"></span>
+                            <h2 id="modal-title" class="text-xl font-bold text-slate-800 mt-2 leading-tight"></h2>
+                        </div>
+                        <button id="modal-close-btn" class="flex-shrink-0 p-2 hover:bg-slate-100 rounded-full transition-colors">
+                            <span class="text-2xl text-slate-400 hover:text-slate-600 leading-none">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-content p-6">
+                    <div id="modal-content" class="text-slate-600 leading-relaxed whitespace-pre-line"></div>
+                </div>
+                <div class="p-4 border-t border-slate-100 bg-slate-50 rounded-b-2xl">
+                    <span id="modal-theme" class="text-xs text-slate-500"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            // Top 5 News (빅뉴스)
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "소송",
+                title: "머스크, OpenAI·마이크로소프트에 최대 1,340억 달러 손해배상 청구",
+                isTop5: true,
+                details: `일론 머스크가 OpenAI와 마이크로소프트를 상대로 790억~1,340억 달러(약 115조~197조 원) 규모의 손해배상을 청구했다. 머스크 측은 2015년 OpenAI 설립 당시 약 3,800만 달러의 초기 자금과 인재 영입, 사업 조언 등을 제공했으며, 이러한 기여가 현재 OpenAI의 5,000억 달러 기업가치 형성에 결정적 역할을 했다고 주장했다. 캘리포니아 연방법원은 이번 소송을 4월 말 배심원 재판으로 진행하기로 결정했다.
+
+이번 소송의 핵심은 OpenAI가 비영리 단체로서의 창립 정신을 저버리고 영리 기업으로 전환했다는 것이다. 머스크의 수석 재판 변호사 스티븐 몰로는 "머스크가 없었다면 OpenAI도 없었을 것"이라며, "초기 자금의 약 60%를 제공하고 명성을 빌려주었으며 사업 확장에 관한 모든 것을 가르쳐주었다"고 밝혔다. OpenAI 측은 이 소송이 경쟁사 xAI를 운영하는 머스크의 "지속적인 괴롭힘 패턴의 일부"라며 근거 없는 주장이라고 반박했다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "OpenAI",
+                title: "ChatGPT에 광고 도입…OpenAI, 무료 사용자 대상 테스트 시작",
+                isTop5: true,
+                details: `OpenAI가 ChatGPT에 광고를 도입한다고 1월 16일 발표했다. 광고는 향후 몇 주 내 미국의 무료 사용자와 월 8달러의 'Go' 구독자를 대상으로 테스트되며, Plus(월 20달러), Pro(월 200달러), Business, Enterprise 구독자에게는 광고가 표시되지 않는다. 광고는 ChatGPT 응답 하단에 명확하게 표시되며, 사용자 대화 내용이 광고주에게 판매되지 않는다고 OpenAI는 강조했다.
+
+이번 결정은 OpenAI가 향후 8년간 1.4조 달러의 AI 인프라 투자 비용을 충당해야 하는 상황에서 나왔다. 샘 올트먼 CEO는 과거 광고 도입에 대해 사용자 신뢰를 훼손할 수 있다며 유보적인 입장을 보였으나, X에 "많은 사람들이 AI를 사용하고 싶어하지만 비용을 지불하고 싶어하지 않는다"며 이번 비즈니스 모델에 희망을 표했다. 건강, 정신건강, 정치 등 민감한 주제에 대한 대화에서는 광고가 표시되지 않으며, 18세 미만 사용자에게도 광고가 노출되지 않을 예정이다.`
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "메타",
+                title: "메타, VR 부문서 1,500명 해고…메타버스 비전 사실상 축소",
+                isTop5: true,
+                details: `메타가 Reality Labs 부문에서 약 1,500명을 해고하고 3개의 VR 게임 스튜디오를 폐쇄한다고 발표했다. 이는 Reality Labs 전체 인력 약 1만 5,000명의 약 10%에 해당하며, 마크 저커버그가 2021년 회사명을 '메타'로 변경하며 추진한 메타버스 비전의 실질적인 방향 전환을 의미한다. 폐쇄되는 스튜디오는 Armature, Sanzaru, Twisted Pixel이다.
+
+메타 대변인은 "지난달 메타버스에서 웨어러블로 일부 투자를 전환한다고 밝혔다"며 "이번 조치는 그 노력의 일환이며, 절감된 비용을 올해 웨어러블 성장 지원에 재투자할 계획"이라고 설명했다. Reality Labs는 2020년 출범 이래 770억 달러 이상의 누적 손실을 기록했다. 메타는 대신 AI 연구개발에 집중하며, 지난해 6월 Scale AI 창업자 알렉산드르 왕 영입에 143억 달러를 투자하는 등 AI 인재 확보에 공격적으로 나서고 있다.`
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "딥페이크",
+                title: "Grok AI 딥페이크 포르노 생성 논란…캘리포니아·미시간 법무장관 법적 조치",
+                isTop5: true,
+                details: `캘리포니아주 법무장관 롭 본타가 일론 머스크의 AI 기업 xAI에 중단 명령서(cease and desist)를 발송했다. xAI의 AI 챗봇 Grok이 여성과 아동의 동의 없는 성적 딥페이크 이미지를 생성·배포하는 데 사용되고 있다는 것이다. 본타 장관은 이러한 행위가 캘리포니아 공중도덕법과 1월 1일 발효된 딥페이크 포르노 금지법(AB 621)을 위반한다고 지적했다.
+
+미시간주 법무장관 다나 네셀도 xAI에 법적 조치를 경고하며, Grok의 'spicy mode' 기능이 실제 인물의 옷을 벗기거나 동의 없이 성적으로 묘사하는 데 악용되고 있다고 밝혔다. 블룸버그가 입수한 연구에 따르면 "X 사용자들이 Grok을 이용해 다른 어떤 웹사이트보다 더 많은 비동의 성적 이미지를 게시했다". xAI는 이후 이미지 편집 기능을 유료 구독자로 제한하고 일부 지역에서 실제 인물 편집을 차단했으나, 여러 국가에서 X가 금지되는 등 국제적 규제 압박이 거세지고 있다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "BCI",
+                title: "OpenAI, 샘 올트먼의 뇌-컴퓨터 인터페이스 스타트업에 투자",
+                isTop5: true,
+                details: `OpenAI가 CEO 샘 올트먼이 공동 설립한 뇌-컴퓨터 인터페이스(BCI) 스타트업 Merge Labs에 투자했다. Merge Labs는 2억 5,200만 달러 규모의 시드 라운드를 완료했으며, 기업가치는 8억 5,000만 달러로 평가됐다. OpenAI가 가장 큰 단일 투자자이며, Bain Capital과 밸브 공동창업자 게이브 뉴웰도 참여했다.
+
+Merge Labs는 "생물학적 지능과 인공지능을 연결해 인간의 능력을 극대화"하는 것을 목표로 한다. 일론 머스크의 Neuralink가 침습적 수술이 필요한 방식인 반면, Merge Labs는 전극 대신 분자를 사용하고 초음파로 데이터를 전송하는 비침습적 방식을 추구한다. OpenAI는 블로그에서 "BCI는 중요한 새로운 프론티어이며, 누구나 AI와 자연스럽게 상호작용할 수 있는 인간 중심적 방법을 만들 것"이라고 밝혔다. 다만 Merge Labs는 기술 개발에 "수년이 아닌 수십 년"이 걸릴 수 있다고 인정했다.`
+            },
+            // 국내 주목
+            {
+                theme: "AI와 사회",
+                category: "트렌드",
+                title: "바이브 코딩으로 눈높이 상승…스타트업은 '미친 개발자' 원해",
+                isTop5: false,
+                details: `AI 코딩 도구를 활용해 자연어로 소프트웨어를 개발하는 '바이브 코딩(Vibe Coding)'이 2026년 개발 트렌드의 주류로 자리 잡았다. Y Combinator 2025년 겨울 배치에서 스타트업의 25%가 코드베이스의 95%를 AI로 생성했으며, 구글과 마이크로소프트에서는 신규 코드의 30%가 AI 생성 코드다. 바이브 코딩을 사용한 프로젝트는 기존 대비 55% 빠른 완료 속도를 보이고 있다.
+
+바이브 코딩은 OpenAI 공동창업자 안드레이 카르파시가 2025년 2월 명명한 개념으로, "자연어 프롬프트를 사용해 AI 도구가 코드를 생성하게 하는 방식"이다. 테크 스타트업의 73%가 이를 도입했으며, 비개발자의 63%도 바이브 코딩을 활용해 UI, 풀스택 애플리케이션 등을 만들고 있다. 다만 AI 생성 코드의 보안 취약점, 유지보수 문제, 깊은 맥락 이해 부족 등의 한계로 인해 인간 개발자의 코드 리뷰와 품질 관리 역할이 오히려 더 중요해지고 있다.`
+            },
+            {
+                theme: "AI와 사회",
+                category: "시장동향",
+                title: "한국인 생성AI 구독에 연간 1조 원 지출…넷플릭스 추월",
+                isTop5: false,
+                details: `한국 소비자의 생성형 AI 서비스 구독 결제액이 월 803억 원을 돌파하며 넷플릭스의 국내 월평균 구독료(750억 원)를 넘어섰다. 한경에이셀 리서치팀이 18일 발표한 '2025년 한국 생성형 AI 소비 동향 보고서'에 따르면, ChatGPT 등 주요 7개 서비스의 월간 결제 건수는 2024년 1월 5만 2,000건에서 2025년 12월 166만 6,000건으로 32배 급증했다.
+
+건당 평균 결제액은 약 4만 6,000원으로, 넷플릭스(7,000원), 쿠팡(7,890원), 멜론(7,590원)의 최저 요금제를 크게 웃돈다. "연간반복매출(ARR)로 환산하면 9,636억 원에 달한다". 마이크로소프트 AI이코노미인스티튜트 조사에 따르면 한국의 생성형 AI 사용 인구 비중 증가 속도는 조사 대상 30개국 중 1위를 기록했다. OpenAI에 따르면 한국은 ChatGPT 유료 구독자 기준 미국 다음으로 큰 시장이다.`
+            },
+            {
+                theme: "AI와 사회",
+                category: "정책",
+                title: "과기부, AI중심대학 10곳 선정…연간 30억 원, 최대 8년 지원",
+                isTop5: false,
+                details: `과학기술정보통신부가 'AI중심대학' 사업을 공고하고 올해 10개 대학을 선정해 총 255억 원을 지원한다고 18일 밝혔다. 선정된 대학은 대학당 연간 30억 원씩 최장 8년(3+3+2년)간 지원받아 누적 최대 240억 원을 확보할 수 있다. 2030년까지 AI중심대학을 30개교로 확대할 계획이다.
+
+AI중심대학 사업은 기존 SW중심대학 교육 기반을 활용해 대학 내 AI 교육체계를 신속히 확립하는 것이 목표다. AI 기술 자체를 개발하는 'AI 전문인재'뿐 아니라 각 전공에 AI를 융합·활용하는 'AX 융합인재'도 함께 양성한다. "총장 직속 전담조직 설치, 학사-석사 연계 패스트트랙 운영, AI융합학과 운영체계 구축" 등 전반적인 AI 교육체계를 확립하게 된다. 배경훈 부총리 겸 과기정통부 장관은 "대학이 AI 인재 양성의 관문 역할을 수행하고 있다"고 강조했다.`
+            },
+            // 기술/제품
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "이미지생성",
+                title: "1초 만에 고품질 이미지 생성 'FLUX.2 [klein]' 출시",
+                isTop5: false,
+                details: `독일 AI 스타트업 Black Forest Labs가 1초 미만의 이미지 생성이 가능한 'FLUX.2 [klein]'을 1월 15일 출시했다. 40억(4B)과 90억(9B) 파라미터 두 가지 버전으로 제공되며, 4B 모델은 Apache 2.0 라이선스로 완전 오픈소스로 공개됐다. RTX 3090/4070급 소비자용 GPU에서 13GB VRAM만으로도 구동 가능하다.
+
+FLUX.2 [klein]은 텍스트-이미지 생성, 이미지 편집, 다중 참조 생성을 단일 아키텍처로 통합했다. "최신 하드웨어에서 0.5초 미만의 추론 속도"를 달성하면서도 사진 같은 품질과 높은 다양성을 유지한다. 'klein'은 독일어로 '작은'을 의미하며, 컴팩트한 모델 크기와 최소 지연시간을 반영한다. Black Forest Labs는 "AI 에이전트가 더 강력해짐에 따라 실시간으로 반응하고 빠르게 반복할 수 있는 시각 생성이 필요하다"고 설명했다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글",
+                title: "구글 크롬, Gemini 기반 'AI Skills' 테스트…브라우저 자동화 기능",
+                isTop5: false,
+                details: `구글이 크롬 브라우저에 'Skills'라는 새로운 Gemini 기반 기능을 테스트하고 있다. 사용자가 'chrome://skills' 페이지에서 이름과 지시사항을 입력해 커스텀 스킬을 추가하면, Gemini가 브라우저 내에서 자동으로 작업을 수행할 수 있게 된다. 이는 구글이 지난 9월 예고한 '에이전트형 브라우징' 기능의 연장선이다.
+
+구글은 이미 크롬의 Gemini를 통해 "미용실 예약이나 주간 식료품 주문 같은 반복적인 작업을 대신 처리"하는 에이전트 기능을 수개월 내 도입할 계획이라고 밝힌 바 있다. 사용자는 언제든 작업을 중단할 수 있어 통제권을 유지할 수 있다. 또한 Gemini가 과거 방문한 페이지를 자연어 질문으로 찾아주는 기능, 캘린더·유튜브·지도 등 구글 앱과의 연동 기능도 추가될 예정이다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "구글",
+                title: "구글, 55개 언어 번역 오픈소스 sLM 'TranslateGemma' 출시",
+                isTop5: false,
+                details: `구글이 55개 언어를 지원하는 오픈소스 번역 모델 'TranslateGemma'를 1월 15일 출시했다. Gemma 3 기반으로 구축됐으며, 40억(4B), 120억(12B), 270억(27B) 파라미터 세 가지 크기로 제공된다. 가장 주목할 만한 점은 12B 모델이 27B 베이스라인 모델보다 더 나은 성능을 보인다는 것이다.
+
+WMT24++ 벤치마크 테스트에서 "TranslateGemma는 모든 언어에서 베이스라인 Gemma 모델 대비 오류율을 크게 감소시켰다". 특히 저자원 언어에서 가장 큰 개선을 보여, 영어-아이슬란드어 오류율은 30% 이상, 영어-스와힐리어는 약 25% 감소했다. 4B 모델은 모바일 기기용, 12B는 노트북용, 27B는 클라우드 서버용으로 설계됐다. Kaggle과 Hugging Face에서 무료 다운로드할 수 있다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "국내AI",
+                title: "비큐AI, 초경량 sLM 'RDP-N1' 개발…CoT 데이터로 성능 93% 향상",
+                isTop5: false,
+                details: `비큐AI가 자체 구축한 CoT(Chain-of-Thought) 데이터셋을 활용해 초경량 소형언어모델(sLLM) 'RDP-N1'을 개발했다고 16일 밝혔다. 이번 모델은 오픈소스 7B(70억 파라미터) 기반 모델을 QLoRA 기법으로 효율적 미세 조정해 모델 용량을 29GB에서 7.1GB로 75% 축소했다. 그 결과 EM·ROUGE·BLEU·KoBERT 유사도 등 주요 평가 지표에서 최대 93%의 성능 향상을 달성했다.
+
+CoT 데이터는 단순히 정답을 제공하는 것이 아니라 정답에 도달하는 추론 과정을 함께 학습하도록 설계된 데이터다. 비큐AI 관계자는 "CoT 데이터는 수작업 구축이 어려워 로우데이터를 기반으로 질의응답과 추론 과정을 생성하고, 상용 고성능 LLM으로 자동 평가해 오답·모순을 제거하는 단계적 검증 체계를 적용했다"고 설명했다. 향후 비큐AI는 RDPLINE을 통해 확보한 대규모 뉴스·미디어 데이터 파이프라인을 기반으로 경량 모델과 고성능 모델을 조합한 성능·비용 최적화 전략을 추진할 계획이다.`
+            },
+            // 인프라 전쟁
+            {
+                theme: "AI 인프라 및 투자",
+                category: "정책",
+                title: "트럼프 행정부, AI 발전소 비용 테크기업에 전가 추진",
+                isTop5: false,
+                details: `트럼프 행정부와 13개 주 주지사들이 미국 최대 전력망 운영사 PJM Interconnection에 테크 기업들이 새 발전소 건설 비용을 부담하도록 요청했다. 1월 16일 백악관에서 발표된 이 계획은 테크 기업들이 15년 장기 전력 계약을 위한 긴급 경매에 참여해 약 150억 달러 규모의 신규 발전소에 투자하도록 유도하는 것이다. PJM은 13개 주와 워싱턴 D.C.의 6,700만 명 이상에게 전력을 공급한다.
+
+트럼프 대통령은 이번 주 초 "미국인들이 데이터센터 때문에 더 높은 전기요금을 내는 것을 원하지 않는다"고 밝혔다. "전기 가격이 부분적으로 AI 데이터센터로 인해 PJM에서 폭등했다". 미국 소비자물가지수에 따르면 전기료는 지난 1년간 6.7% 상승했으며, 2021년 말 이후 약 30% 올랐다. 이 계획은 AI 데이터센터 건설을 가속화하면서도 일반 가정의 전기요금 인상을 방지하려는 정치적 딜레마를 해결하기 위한 시도로 평가된다.`
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "반도체",
+                title: "중국, 엔비디아 H200 수입 사실상 금지…미국 승인 하루 만에 반격",
+                isTop5: false,
+                details: `중국 세관당국이 엔비디아 H200 AI 칩의 수입을 사실상 금지했다. 로이터 등 외신에 따르면 중국 정부는 1월 14일 세관 직원들에게 H200 칩의 입국을 허용하지 말라고 지시했으며, 같은 날 국내 기술 기업들을 소집해 "필수적인 경우가 아니면 칩을 구매하지 말라"고 명시적으로 지시했다. 관계자는 "관리들의 표현이 너무 강해서 사실상 금지나 다름없다"고 전했다.
+
+이번 조치는 미국 상무부가 H200 수출을 '건별 심사' 방식으로 허용한다고 발표한 바로 다음 날 나왔다. 중국 기업들은 이미 개당 약 2만 7,000달러에 200만 대 이상의 H200을 주문한 상태지만, 엔비디아 재고는 70만 대에 불과하다. H200은 이전에 중국에 허용됐던 H20보다 약 6배 높은 성능을 제공한다. 분석가들은 베이징이 국내 반도체 산업 육성을 위해 미국 칩을 차단하거나, 트럼프 대통령의 4월 중국 방문을 앞두고 협상 지렛대로 활용하려는 것으로 해석하고 있다.`
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "반도체",
+                title: "엔비디아 중국 AI칩 야망에 메모리 부족 위기…미 의원 '수출 허가 제한될 것'",
+                isTop5: false,
+                details: `미국 하원 중국위원회 공화당 간사 존 물레나르 의원이 DRAM 공급 부족이 엔비디아의 H200 중국 수출 허가를 제한할 것이라고 경고했다. 물레나르 의원은 15일 하워드 루트닉 상무장관에게 보낸 서한에서, 이번 주 발표된 상무부 규정의 라이선스 조건상 메모리칩 부족이 "즉각적인 도전"이 될 것이라고 지적했다. 새 규정은 중국 수출이 미국 시장 공급에 영향을 미치지 않음을 수출업체가 인증하도록 요구하고 있다.
+
+DRAM은 AI 가속기의 핵심 부품으로, 특히 고대역폭 메모리(HBM)는 전 세계적으로 심각한 공급 부족 상태다. 외교협회(CFR)는 "AI 칩 공급망의 여러 요소, 특히 HBM에서 심각한 글로벌 부족이 발생하고 있어 중국용 AI 칩 생산 증가가 공급망에 영향을 미치지 않을 것이라고 신뢰성 있게 인증하기 어려울 수 있다"고 분석했다. 엔비디아 젠슨 황 CEO는 메모리 부족을 인정하면서도, 회사가 차세대 메모리 HBM4의 유일한 구매자로서 보호받고 있다고 주장했다.`
+            }
+        ];
+
+        // Key Data for Highlights
+        const keyHighlights = [
+            { value: "$1,340억", label: "머스크 소송 청구액", description: "OpenAI·MS 상대" },
+            { value: "1조 원", label: "한국 생성AI 연간 지출", description: "넷플릭스 추월" },
+            { value: "1,500명", label: "메타 VR 해고 규모", description: "Reality Labs 10%" },
+            { value: "$8.5억", label: "Merge Labs 기업가치", description: "BCI 스타트업" }
+        ];
+
+        // Theme configuration
+        const themeConfig = {
+            "AI 인프라 및 투자": { color: "emerald", icon: "💰" },
+            "플랫폼, 제품 및 에이전트": { color: "blue", icon: "🚀" },
+            "산업별 AI 적용": { color: "purple", icon: "🏭" },
+            "법률, 규제 및 거버넌스": { color: "rose", icon: "⚖️" },
+            "AI와 사회": { color: "amber", icon: "🌐" }
+        };
+
+        function truncateTitle(title, maxLength = 60) {
+            if (title.length <= maxLength) return title;
+
+            const separators = ['—', ':', '…'];
+            for (const sep of separators) {
+                const idx = title.indexOf(sep);
+                if (idx > 0 && idx <= maxLength) {
+                    return title.substring(0, idx).trim() + '...';
+                }
+            }
+            return title.substring(0, maxLength).trim() + '...';
+        }
+
+        function createKeyNumbersSection() {
+            const section = document.getElementById('key-highlights');
+            section.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-lg font-bold text-slate-700 mb-1">📊 주요 데이터 하이라이트</h2>
+                    <p class="text-sm text-slate-500">오늘의 핵심 수치</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    ${keyHighlights.map(item => `
+                        <div class="highlight-card rounded-xl p-5 border border-slate-200">
+                            <div class="text-3xl font-black text-slate-800 mb-1">${item.value}</div>
+                            <div class="text-sm font-semibold text-slate-700 mb-1">${item.label}</div>
+                            <div class="text-xs text-slate-500">${item.description}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderTop5Section() {
+            const section = document.getElementById('top5-section');
+            const top5Items = reportData.filter(item => item.isTop5);
+
+            section.innerHTML = `
+                <div class="mb-6">
+                    <div class="flex items-center gap-3 mb-1">
+                        <h2 class="text-lg font-bold text-slate-700">🔥 Top 5 뉴스</h2>
+                        <span class="top5-badge text-white text-xs px-2 py-0.5 rounded-full font-medium">빅뉴스</span>
+                    </div>
+                    <p class="text-sm text-slate-500">오늘 가장 주목할 AI 뉴스</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    ${top5Items.map((item, idx) => {
+                        const globalIdx = reportData.indexOf(item);
+                        const displayTitle = truncateTitle(item.title);
+                        const config = themeConfig[item.theme] || { color: "slate", icon: "📰" };
+                        return `
+                            <div class="bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-xl card-hover cursor-pointer p-5" data-index="${globalIdx}">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="top5-badge text-white text-xs px-2 py-0.5 rounded font-bold">#${idx + 1}</span>
+                                    <span class="theme-badge text-${config.color}-700 bg-${config.color}-50 px-2 py-0.5 rounded font-medium">${item.category}</span>
+                                </div>
+                                <h3 class="text-base font-bold text-slate-800 leading-snug mb-2">${displayTitle}</h3>
+                                <p class="text-xs text-slate-500">${item.theme}</p>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function renderThematicSections() {
+            const container = document.getElementById('thematic-sections');
+            const themes = ["AI 인프라 및 투자", "플랫폼, 제품 및 에이전트", "산업별 AI 적용", "법률, 규제 및 거버넌스", "AI와 사회"];
+
+            let html = '';
+
+            themes.forEach(theme => {
+                const items = reportData.filter(item => item.theme === theme && !item.isTop5);
+                if (items.length === 0) return;
+
+                const config = themeConfig[theme] || { color: "slate", icon: "📰" };
+
+                html += `
+                    <section class="mb-12">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-2xl">${config.icon}</span>
+                                <h2 class="text-lg font-bold text-slate-700">${theme}</h2>
+                                <span class="bg-slate-200 text-slate-600 text-xs px-2 py-0.5 rounded-full font-medium">${items.length}건</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            ${items.map(item => {
+                                const globalIdx = reportData.indexOf(item);
+                                const displayTitle = truncateTitle(item.title);
+                                return `
+                                    <div class="bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-xl card-hover cursor-pointer p-5" data-index="${globalIdx}">
+                                        <div class="mb-3">
+                                            <span class="theme-badge text-${config.color}-700 bg-${config.color}-50 px-2 py-0.5 rounded font-medium">${item.category}</span>
+                                        </div>
+                                        <h3 class="text-base font-bold text-slate-800 leading-snug">${displayTitle}</h3>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </section>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function showModal(index) {
+            const item = reportData[index];
+            const modal = document.getElementById('news-modal');
+            const config = themeConfig[item.theme] || { color: "slate", icon: "📰" };
+
+            document.getElementById('modal-category').textContent = item.category;
+            document.getElementById('modal-category').className = `theme-badge text-${config.color}-700 bg-${config.color}-50 px-2 py-1 rounded font-medium uppercase`;
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-content').textContent = item.details;
+            document.getElementById('modal-theme').textContent = `${config.icon} ${item.theme}`;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('news-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+
+            // Add click listeners to all cards
+            document.querySelectorAll('[data-index]').forEach(card => {
+                card.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    showModal(index);
+                });
+            });
+
+            // Modal close handlers
+            document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+            document.getElementById('modal-bg-close').addEventListener('click', hideModal);
+
+            // ESC key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') hideModal();
+            });
+        });
+    </script>
+</body>
+</html>
