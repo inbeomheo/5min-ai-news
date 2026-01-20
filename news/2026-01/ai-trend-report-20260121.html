@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT | 2026.01.21</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            color: #111;
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        /* 네오 브루탈리즘 컴포넌트 */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #111;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0px 0px #111;
+            transition: all 0.2s ease;
+        }
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #111;
+        }
+
+        .nb-btn {
+            border: 2px solid #111;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0px 0px #111;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px 0px #111;
+        }
+
+        .nb-tag {
+            border: 1.5px solid #111;
+            border-radius: 8px;
+            box-shadow: 2px 2px 0px 0px #111;
+        }
+
+        /* 파스텔 컬러 */
+        .bg-pastel-blue { background-color: #C4E4FF; }
+        .bg-pastel-red { background-color: #FFC4C4; }
+        .bg-pastel-green { background-color: #C4FFD6; }
+        .bg-pastel-yellow { background-color: #FFF4BD; }
+        .bg-pastel-purple { background-color: #E2C4FF; }
+
+        /* 스크롤바 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb { 
+            background: #333; 
+            border-radius: 4px; 
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200">
+
+    <!-- ========== HEADER ========== -->
+    <header class="max-w-6xl mx-auto pt-10 pb-6 px-4 text-center">
+        <a href="../../index.html"
+           class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
+            ← 전체 목록
+        </a>
+        <div class="inline-block bg-black text-white px-4 py-1 rounded-full text-sm font-bold mb-3">
+            WEEKLY BRIEFING
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-2">
+            AI TREND REPORT
+        </h1>
+        <p class="text-lg text-gray-600 font-medium">
+            2026.01.21 기준 · 다보스 경고 · 빅테크 성장 · 개발자 미래
+        </p>
+    </header>
+
+    <!-- ========== KPI DASHBOARD ========== -->
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box bg-pastel-green p-5">
+                <span class="text-xs font-bold text-gray-600">💰 OpenAI 연매출</span>
+                <div class="text-4xl font-black mt-1">$200억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">전년 대비 3배 이상 성장</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box bg-pastel-blue p-5">
+                <span class="text-xs font-bold text-gray-600">📊 제미니 API 호출</span>
+                <div class="text-4xl font-black mt-1">850억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">8월까지 2배 이상 증가</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box bg-pastel-purple p-5">
+                <span class="text-xs font-bold text-gray-600">🧠 머지 랩스 투자</span>
+                <div class="text-4xl font-black mt-1">$2.52억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">올트먼 BCI 스타트업</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box bg-pastel-yellow p-5">
+                <span class="text-xs font-bold text-gray-600">🌐 Seedance 지원 언어</span>
+                <div class="text-4xl font-black mt-1">8개+</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">한국어 포함 다국어 립싱크</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STICKY NAVIGATION ========== -->
+    <nav class="sticky top-4 z-50 px-4 mb-12">
+        <div class="max-w-4xl mx-auto nb-box bg-white p-2 flex justify-center gap-2 overflow-x-auto">
+            <a href="#theme1" class="nb-btn px-4 py-2 bg-pastel-red text-sm whitespace-nowrap hover:opacity-80">🎤 다보스 경고</a>
+            <a href="#theme2" class="nb-btn px-4 py-2 bg-pastel-green text-sm whitespace-nowrap hover:opacity-80">💰 빅테크 성장</a>
+            <a href="#theme3" class="nb-btn px-4 py-2 bg-pastel-blue text-sm whitespace-nowrap hover:opacity-80">👨‍💻 개발자 미래</a>
+            <a href="#theme4" class="nb-btn px-4 py-2 bg-pastel-purple text-sm whitespace-nowrap hover:opacity-80">🚀 플랫폼 혁신</a>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="max-w-6xl mx-auto px-4 space-y-20 pb-20">
+
+        <!-- ========== 테마 1: 다보스 포럼 경고 ========== -->
+        <section id="theme1" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">1</div>
+                <h2 class="text-2xl md:text-3xl font-black">다보스 포럼: AI 리더들의 경고</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 카드 1-1: VS 대립 구도 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4 text-center">앤트로픽 CEO의 칩 수출 비판</h3>
+                    
+                    <div class="flex items-stretch relative">
+                        <div class="flex-1 bg-blue-50 p-4 rounded-l-lg text-center border-r border-gray-200">
+                            <div class="text-3xl mb-2">🇺🇸</div>
+                            <h4 class="font-bold text-lg">H200 칩</h4>
+                            <p class="text-sm text-gray-600 mt-2">미국의 첨단 AI 칩<br/>전략적 우위 자산</p>
+                        </div>
+                        
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                            <div class="w-10 h-10 bg-yellow-400 border-2 border-black rounded-full flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#111]">
+                                ⚠️
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 bg-red-50 p-4 rounded-r-lg text-center">
+                            <div class="text-3xl mb-2">🇨🇳</div>
+                            <h4 class="font-bold text-lg">중국 수출</h4>
+                            <p class="text-sm text-gray-600 mt-2">"북한에 핵무기<br/>파는 것과 같다"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">다리오 아모데이 CEO는 트럼프 행정부의 엔비디아 칩 수출 허용을 강하게 비판. AI 칩이 국가 안보의 핵심 자산임을 강조했습니다.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 1-2: Big Number -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">MS CEO "AI 혜택 분산 안 되면 거품"</h3>
+                    
+                    <div class="text-center py-6">
+                        <div class="text-5xl md:text-6xl font-black text-red-500">⚠️</div>
+                        <p class="text-lg font-bold mt-3">"거품의 징후"</p>
+                        <p class="text-sm text-gray-600 mt-2">기술 기업들에 대해서만 이야기하는 것</p>
+                    </div>
+                    
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="font-bold">사티아 나델라 핵심 메시지</span>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• 혜택이 균등하게 분배되어야 함</li>
+                            <li>• 에너지 비용이 AI 경쟁의 핵심</li>
+                            <li>• 의료·교육·공공부문 실질 기여 필요</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">빅테크 CEO가 스스로 "거품 경고"를 발신. AI의 사회적 가치 증명이 시급함을 인정했습니다.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 1-3: 프로세스 흐름형 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">앤트로픽 CEO "AI 발전 속도가 너무 빠르다"</h3>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-4">
+                        <div class="nb-tag bg-gray-100 px-4 py-3 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">NOW</span>
+                            <span class="font-bold">거의 모든 지적 과업에서<br/>인간 능가 시작</span>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400 rotate-90 md:rotate-0">➜</div>
+                        
+                        <div class="nb-tag bg-pastel-yellow px-4 py-3 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">2년 내</span>
+                            <span class="font-bold">세계를 근본적으로<br/>바꿀 수 있음</span>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400 rotate-90 md:rotate-0">➜</div>
+                        
+                        <div class="nb-tag bg-pastel-red px-4 py-3 rounded-lg text-center flex-1 border-2 border-black">
+                            <span class="block text-xs text-gray-500 mb-1">10년 후</span>
+                            <span class="font-bold">모든 것이<br/>불확실</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">"몇몇 기업, 몇몇 사람들이 이런 결정을 내리는 것이 매우 불편하다"며 국제적 안전 기준 합의를 촉구했습니다.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 1-4: Big Number -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">세일즈포스 CEO "AI가 자살 코치가 됐다"</h3>
+                    
+                    <div class="text-center py-6">
+                        <div class="text-5xl md:text-6xl font-black text-gray-800">섹션 230</div>
+                        <p class="text-sm text-gray-600 mt-2">LLM이 아이를 자살로 유도해도 책임 없는 법</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>베니오프 CEO 규제 필요성 주장</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 border border-black">
+                            <div class="bg-pastel-red h-full rounded-full" style="width: 100%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">2018년 소셜미디어→담배 비유에 이은 지속적 경고</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">기술과 연관된 여러 자살 사례를 언급하며 섹션 230 개정 필요성을 역설. AI 안전 규제 논의가 더욱 뜨거워지고 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 2: 빅테크 AI 투자와 성장 ========== -->
+        <section id="theme2" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">2</div>
+                <h2 class="text-2xl md:text-3xl font-black">빅테크 AI 투자와 성장</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 카드 2-1: Big Number + 차트 -->
+                <div class="nb-box p-6 md:col-span-2">
+                    <h3 class="text-xl font-bold mb-4">OpenAI vs 구글 제미니 성장 대비</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="text-center py-4">
+                                <div class="text-5xl font-black text-green-600">$200억</div>
+                                <p class="text-sm text-gray-600 mt-2">OpenAI 2025년 연매출</p>
+                                <p class="text-xs text-gray-500 mt-1">전년($60억) 대비 3배 이상 성장</p>
+                            </div>
+                            <div class="h-48">
+                                <canvas id="openaiChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-center py-4">
+                                <div class="text-5xl font-black text-blue-600">850억</div>
+                                <p class="text-sm text-gray-600 mt-2">구글 제미니 API 호출 수</p>
+                                <p class="text-xs text-gray-500 mt-1">8월까지 2배 이상 증가</p>
+                            </div>
+                            <div class="h-48">
+                                <canvas id="geminiChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">OpenAI는 컴퓨팅 용량도 0.6→1.9기가와트로 3배 증가. 구글 제미니는 6.5억 MAU 돌파하며 시장 점유율 13.7%로 2배 상승. 양강 구도 심화 중입니다.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 2-2: 엔비디아 바세텐 투자 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">엔비디아, AI 추론 스타트업에 대규모 투자</h3>
+                    
+                    <div class="text-center py-6">
+                        <div class="text-5xl md:text-6xl font-black text-purple-600">$1.5억</div>
+                        <p class="text-sm text-gray-600 mt-2">바세텐(Baseten) 투자금</p>
+                    </div>
+                    
+                    <div class="mt-4 space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span>총 펀딩 라운드</span>
+                            <span class="font-bold">$3억</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>기업가치 상승</span>
+                            <span class="font-bold text-green-600">$50억 (2배↑)</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>성능 향상</span>
+                            <span class="font-bold">225%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">바세텐은 AI 추론 서비스 전문 기업. 엔비디아 블랙웰 GPU로 DeepSeek-R1 등 최첨단 모델에서 비용 대비 성능 225% 향상 달성.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 2-3: 시스코-OpenAI 협력 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">시스코-OpenAI 엔터프라이즈 협력</h3>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-4">
+                        <div class="nb-tag bg-blue-100 px-4 py-3 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">시스코</span>
+                            <span class="font-bold">네트워크<br/>인프라</span>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400 rotate-90 md:rotate-0">🤝</div>
+                        
+                        <div class="nb-tag bg-green-100 px-4 py-3 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">OpenAI</span>
+                            <span class="font-bold">코덱스 AI<br/>코딩 에이전트</span>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400 rotate-90 md:rotate-0">➜</div>
+                        
+                        <div class="nb-tag bg-pastel-yellow px-4 py-3 rounded-lg text-center flex-1 border-2 border-black">
+                            <span class="block text-xs text-gray-500 mb-1">2/3 AI 서밋</span>
+                            <span class="font-bold">젠슨 황 +<br/>샘 올트먼 발표</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">"AI의 진정한 힘은 인력 대체가 아닌 생산성·창의성·잠재력 10배 향상" - 시스코 CPO. 1,000억 달러 스타게이트 프로젝트와 연계됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 3: AI 시대 개발자의 미래 ========== -->
+        <section id="theme3" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">3</div>
+                <h2 class="text-2xl md:text-3xl font-black">AI 시대 개발자의 미래</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 카드 3-1: 라이언 달 발언 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">Node.js 창시자 "코드 직접 작성 시대 끝났다"</h3>
+                    
+                    <div class="text-center py-6 bg-gray-900 rounded-lg">
+                        <div class="text-4xl md:text-5xl font-black text-white">"THE END"</div>
+                        <p class="text-sm text-gray-300 mt-2">인간이 코드를 직접 작성하는 시대</p>
+                    </div>
+                    
+                    <div class="mt-6 space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">👤</span>
+                            <div>
+                                <p class="font-bold">라이언 달 (Ryan Dahl)</p>
+                                <p class="text-sm text-gray-600">Node.js & Deno 창시자</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 italic">"소프트웨어 엔지니어에게 할 일이 없다는 것이 아니라 문법을 직접 작성하는 것이 더 이상 핵심 업무가 아니다"</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">개발자의 역할이 코드 생성에서 설계와 검증으로 전환되고 있음을 시사합니다. AI 코딩 에이전트 시대의 도래.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 3-2: 효율성의 역설 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">구글 "효율성의 역설" - 제본스 패러독스</h3>
+                    
+                    <div class="flex items-stretch relative my-4">
+                        <div class="flex-1 bg-blue-50 p-4 rounded-l-lg text-center border-r border-gray-200">
+                            <div class="text-3xl mb-2">📉</div>
+                            <h4 class="font-bold text-lg">기대</h4>
+                            <p class="text-sm text-gray-600 mt-2">개발 쉬워지면<br/>코드량 감소?</p>
+                        </div>
+                        
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                            <div class="w-10 h-10 bg-yellow-400 border-2 border-black rounded-full flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#111]">
+                                VS
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 bg-green-50 p-4 rounded-r-lg text-center">
+                            <div class="text-3xl mb-2">📈</div>
+                            <h4 class="font-bold text-lg">현실</h4>
+                            <p class="text-sm text-gray-600 mt-2">코드량<br/>기하급수적 증가</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-pastel-yellow rounded-lg">
+                        <p class="text-sm font-bold">애디 오스마니 (구글 클라우드 AI 디렉터)</p>
+                        <p class="text-sm text-gray-700 mt-1">"AI가 개발자를 대체할까?" 대신 "지식 노동 산출량의 기하급수적 증가는 얼마나 될까?"를 물어야 한다</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">효율성 향상 → 수요 감소가 아닌 잠재 수요 폭발. 고급 언어, 프레임워크, 클라우드 등장 때마다 같은 패턴 반복.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 3-3: 랄프 위검 플러그인 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">'랄프 위검' - 클로드 코드 자동화의 새 트렌드</h3>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-4">
+                        <div class="nb-tag bg-gray-100 px-4 py-3 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">STEP 1</span>
+                            <span class="font-bold">AI가 작업 시도</span>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400 rotate-90 md:rotate-0">➜</div>
+                        
+                        <div class="nb-tag bg-pastel-red px-4 py-3 rounded-lg text-center flex-1">
+                            <span class="block text-xs text-gray-500 mb-1">STEP 2</span>
+                            <span class="font-bold">실패 = 데이터</span>
+                        </div>
+                        
+                        <div class="text-2xl font-black text-gray-400 rotate-90 md:rotate-0">➜</div>
+                        
+                        <div class="nb-tag bg-pastel-green px-4 py-3 rounded-lg text-center flex-1 border-2 border-black">
+                            <span class="block text-xs text-gray-500 mb-1">LOOP</span>
+                            <span class="font-bold">완료될 때까지 반복</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 space-y-2 text-sm">
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>개발자</span>
+                            <span class="font-bold">제프리 헌틀리 (호주)</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>원본</span>
+                            <span class="font-bold">5줄짜리 배시 스크립트</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-pastel-green rounded">
+                            <span>사례</span>
+                            <span class="font-bold">API $297 → 계약 $5만</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">앤트로픽이 공식 플러그인으로 채택. 밤새 AI에게 코딩을 맡기는 새로운 개발 패러다임. 단, --max-iterations 설정 필수!</p>
+                    </div>
+                </div>
+
+                <!-- 카드 3-4: AI 에이전트 코딩 팁 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">AI 에이전트 코딩 효율 높이는 핵심 팁 3가지</h3>
+                    
+                    <div class="space-y-4 py-4">
+                        <div class="flex items-start gap-3 p-3 bg-pastel-blue rounded-lg">
+                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+                            <div>
+                                <p class="font-bold">Plan-Act-Reflect 워크플로우</p>
+                                <p class="text-sm text-gray-700">코드 작성 전 계획 → 단계별 실행 → 결과 검토</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-pastel-yellow rounded-lg">
+                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+                            <div>
+                                <p class="font-bold">작업 범위 작게 분할</p>
+                                <p class="text-sm text-gray-700">한 번에 하나의 기능, 하나의 버그 수정에 집중</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-pastel-green rounded-lg">
+                            <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+                            <div>
+                                <p class="font-bold">명확한 스펙 문서(.md) 작성</p>
+                                <p class="text-sm text-gray-700">코딩 컨벤션, 프로젝트 구조, 금지 사항 명시</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">"AI는 리터럴리스트" - 상세하고 맥락 있는 지시 필수. "설명할 수 없는 코드는 커밋하지 않는다" 원칙 준수!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 4: 플랫폼 혁신과 투명성 ========== -->
+        <section id="theme4" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">4</div>
+                <h2 class="text-2xl md:text-3xl font-black">플랫폼 혁신과 투명성</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 카드 4-1: X 알고리즘 오픈소스 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">X, Grok 기반 추천 알고리즘 오픈소스 공개</h3>
+                    
+                    <div class="text-center py-6">
+                        <div class="text-5xl md:text-6xl font-black text-blue-600">1억+</div>
+                        <p class="text-sm text-gray-600 mt-2">매일 AI로 처리하는 게시물 수</p>
+                    </div>
+                    
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm p-2 bg-gray-50 rounded">
+                            <span>공개 위치</span>
+                            <span class="font-bold">github.com/xai-org/x-algorithm</span>
+                        </div>
+                        <div class="flex justify-between text-sm p-2 bg-gray-50 rounded">
+                            <span>업데이트 주기</span>
+                            <span class="font-bold">4주마다</span>
+                        </div>
+                        <div class="flex justify-between text-sm p-2 bg-pastel-purple rounded">
+                            <span>예정 기능</span>
+                            <span class="font-bold">프롬프터블 피드</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">머스크: "다른 소셜미디어 기업들은 이렇게 하지 않는다." 향후 Grok에게 자연어로 피드 조정 요청 가능해질 예정.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 4-2: ByteDance Seedance -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">ByteDance Seedance 1.5 Pro - 다국어 영상 생성</h3>
+                    
+                    <div class="text-center py-4">
+                        <div class="text-5xl md:text-6xl font-black text-purple-600">8+</div>
+                        <p class="text-sm text-gray-600 mt-2">지원 언어 및 방언 수</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <p class="text-sm font-bold mb-2">지원 언어</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="nb-tag bg-pastel-blue px-2 py-1 text-xs font-bold">🇺🇸 영어</span>
+                            <span class="nb-tag bg-pastel-red px-2 py-1 text-xs font-bold">🇨🇳 중국어</span>
+                            <span class="nb-tag bg-pastel-yellow px-2 py-1 text-xs font-bold">🇯🇵 일본어</span>
+                            <span class="nb-tag bg-pastel-green px-2 py-1 text-xs font-bold">🇰🇷 한국어</span>
+                            <span class="nb-tag bg-pastel-purple px-2 py-1 text-xs font-bold">🇪🇸 스페인어</span>
+                            <span class="nb-tag bg-gray-100 px-2 py-1 text-xs font-bold">🇮🇩 인도네시아어</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-pastel-green rounded-lg">
+                        <p class="text-sm"><span class="font-bold">핵심 기술:</span> 듀얼 브랜치 디퓨전 트랜스포머(DB-DiT)</p>
+                        <p class="text-sm mt-1"><span class="font-bold">추론 속도:</span> 기존 대비 10배↑</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">영상과 오디오 동시 생성 + 정밀 립싱크. 광고, 교육, 단편 영화 등에서 더빙 비용과 시간을 획기적으로 절감.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 4-3: 알리바바 Quark -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">알리바바 Quark - Qwen3 기반 AI 슈퍼 어시스턴트</h3>
+                    
+                    <div class="text-center py-4">
+                        <div class="text-5xl md:text-6xl font-black text-orange-600">149%</div>
+                        <p class="text-sm text-gray-600 mt-2">11월 MAU 성장률 (전월 대비)</p>
+                    </div>
+                    
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm p-2 bg-gray-50 rounded">
+                            <span>11월 MAU</span>
+                            <span class="font-bold">1,834만 명</span>
+                        </div>
+                        <div class="flex justify-between text-sm p-2 bg-gray-50 rounded">
+                            <span>Qwen App 첫 주 다운로드</span>
+                            <span class="font-bold">1,000만</span>
+                        </div>
+                        <div class="flex justify-between text-sm p-2 bg-pastel-yellow rounded">
+                            <span>향후 3년 투자 계획</span>
+                            <span class="font-bold">3,800억 위안 (~$535억)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">AI 검색 + 대화 듀얼 엔진 제공. 학술 연구부터 여행 계획, 의료 진단까지. 글로벌 AI 앱 성장률 1위 달성.</p>
+                    </div>
+                </div>
+
+                <!-- 카드 4-4: 샘 올트먼 BCI 스타트업 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">샘 올트먼, BCI 스타트업 '머지 랩스' 창업</h3>
+                    
+                    <div class="flex items-stretch relative my-4">
+                        <div class="flex-1 bg-red-50 p-4 rounded-l-lg text-center border-r border-gray-200">
+                            <div class="text-3xl mb-2">🧠</div>
+                            <h4 class="font-bold text-lg">뉴럴링크</h4>
+                            <p class="text-sm text-gray-600 mt-2">침습적<br/>(뇌 이식)</p>
+                        </div>
+                        
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                            <div class="w-10 h-10 bg-yellow-400 border-2 border-black rounded-full flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#111]">
+                                VS
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 bg-green-50 p-4 rounded-r-lg text-center">
+                            <div class="text-3xl mb-2">🔬</div>
+                            <h4 class="font-bold text-lg">머지 랩스</h4>
+                            <p class="text-sm text-gray-600 mt-2">비침습적<br/>(분자 + 초음파)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm p-2 bg-gray-50 rounded">
+                            <span>시드 투자</span>
+                            <span class="font-bold text-green-600">$2.52억</span>
+                        </div>
+                        <div class="flex justify-between text-sm p-2 bg-gray-50 rounded">
+                            <span>기업가치</span>
+                            <span class="font-bold">$8.5억</span>
+                        </div>
+                        <div class="flex justify-between text-sm p-2 bg-gray-50 rounded">
+                            <span>최대 투자자</span>
+                            <span class="font-bold">OpenAI</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">"생각만으로 ChatGPT가 응답하는 것"이 목표. 2017년 올트먼은 "인간-기계 융합이 2025~2075년 사이 일어날 것"이라 예측.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-[#111] text-white py-10 px-4 mt-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl font-black">AI TREND REPORT</h2>
+                <p class="text-gray-400 text-sm mt-1">News Info v2.0</p>
+            </div>
+            <p class="text-sm text-gray-400">© 2026 AI News Lab</p>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // 차트 색상 팔레트
+        const chartColors = [
+            '#C4FFD6',  // pastel-green
+            '#C4E4FF',  // pastel-blue
+            '#FFF4BD',  // pastel-yellow
+            '#FFC4C4',  // pastel-red
+            '#E2C4FF'   // pastel-purple
+        ];
+
+        // OpenAI 매출 성장 차트
+        const openaiCtx = document.getElementById('openaiChart').getContext('2d');
+        new Chart(openaiCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2024', '2025'],
+                datasets: [{
+                    label: '연간 매출 ($억)',
+                    data: [60, 200],
+                    backgroundColor: [chartColors[1], chartColors[0]],
+                    borderColor: '#111',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value + '억';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 구글 제미니 API 호출 차트
+        const geminiCtx = document.getElementById('geminiChart').getContext('2d');
+        new Chart(geminiCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['제미니 (13.7%)', '기타 (86.3%)'],
+                datasets: [{
+                    data: [13.7, 86.3],
+                    backgroundColor: [chartColors[1], '#E5E5E5'],
+                    borderColor: '#111',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: 'Noto Sans KR', weight: 'bold', size: 12 },
+                            padding: 16
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'AI 모델 시장 점유율 (전년 대비 2배↑)',
+                        font: { family: 'Noto Sans KR', weight: 'bold', size: 12 }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
