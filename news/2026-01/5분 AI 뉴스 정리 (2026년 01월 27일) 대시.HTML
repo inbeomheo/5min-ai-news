@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 - 2026년 01월 27일</title>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .modal-content-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800">📊 AI 뉴스 대시보드</h1>
+                <p class="text-slate-500 text-sm mt-1">2026년 01월 27일 (화)</p>
+            </div>
+            <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold">
+                <span>←</span> 목록
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6" id="content-area">
+        <!-- Key Data Highlights -->
+        <section id="key-highlights" class="mb-10"></section>
+
+        <!-- Top 5 News -->
+        <section id="top5-section" class="mb-10"></section>
+
+        <!-- Thematic Sections -->
+        <section id="thematic-sections"></section>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute inset-4 md:inset-10 lg:inset-20 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex items-start justify-between p-4 md:p-6 border-b border-slate-200">
+                <div class="pr-4">
+                    <span id="modal-category" class="inline-block px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded mb-2"></span>
+                    <h2 id="modal-title" class="text-lg md:text-xl font-bold text-slate-800"></h2>
+                </div>
+                <button id="modal-close-btn" class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500 hover:text-slate-700">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 md:p-6">
+                <div id="modal-content" class="prose prose-slate max-w-none modal-content-text text-slate-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const reportData = [
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 플랫폼",
+            title: "Anthropic, MCP Apps 공식 출시…Claude에서 Slack·Figma·Asana 직접 사용 가능",
+            isTop5: true,
+            details: `Anthropic이 1월 26일 MCP(Model Context Protocol)의 첫 번째 공식 확장 기능인 'MCP Apps'를 출시했다. 이번 업데이트로 Claude 사용자들은 채팅 인터페이스를 벗어나지 않고도 Asana에서 프로젝트 타임라인을 구축하고, Slack 메시지를 작성·전송하며, Figma에서 다이어그램을 시각화할 수 있게 됐다. Pro, Max, Team, Enterprise 플랜 사용자들에게 웹 및 데스크톱 앱에서 즉시 제공된다.
+
+MCP Apps는 Anthropic과 OpenAI가 공동으로 개발한 오픈 표준으로, 도구 호출 시 텍스트 대신 인터랙티브 UI 컴포넌트를 반환할 수 있게 한다. 대시보드, 폼, 시각화, 다단계 워크플로우 등이 대화 내에서 직접 렌더링된다.
+
+Box CEO Aaron Levie는 "Claude 채팅 내에서 거의 모든 파일 유형의 Box 파일 프리뷰를 지원하게 되어 기쁘다"고 밝혔으며, VS Code도 MCP Apps를 전면 지원하는 첫 번째 주요 AI 코드 에디터가 됐다.
+
+Anthropic의 Alex Albert는 "전통적 UI는 죽었다. 아무도 100번째 SaaS 대시보드에 로그인하고 싶어하지 않는다"며 AI 채팅 내 앱 레이어 시대의 개막을 선언했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발도구",
+            title: "Claude Code 'Swarms' 기능 발견…멀티에이전트 시대 본격화",
+            isTop5: true,
+            details: `Claude Code에서 'Swarms'라는 숨겨진 멀티에이전트 오케스트레이션 기능이 발견됐다. 1월 24일 개발자 Mike Kelly가 발견한 이 기능은 Claude Code를 단일 AI 어시스턴트에서 팀 오케스트레이터로 변모시킨다.
+
+사용자가 계획을 승인하면 '위임 모드'로 전환되어 프론트엔드, 백엔드, 테스팅, 문서화 전문 에이전트들이 병렬로 작업을 수행한다. 이 시스템은 Task 도구를 통해 복잡한 멀티스텝 작업을 자율적으로 처리하는 특화 에이전트(서브프로세스)를 생성한다.
+
+각 에이전트는 독립된 컨텍스트 윈도우에서 작동해 기존 단일 에이전트 방식의 토큰 과부하 문제를 해결한다. 개발자 Mckay Wrigley는 "Claude Code의 새 Task 시스템은 정말 대단하다. 멀티에이전트 작업의 게임 체인저"라고 평가했다.
+
+다만 전문가들은 "Claude가 대량의 코드를 생성하면 인간의 코드 리뷰가 거의 불가능해진다"며 프로덕션 환경에서의 신중한 사용을 권고했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 서비스",
+            title: "Claude Free 플랜 대폭 강화…파일 생성·편집 기능 무료 제공",
+            isTop5: true,
+            details: `Anthropic이 1월 26일 Claude Free 플랜에 파일 생성 및 편집 기능을 추가했다고 발표했다. 기존에 유료 구독자만 사용할 수 있던 Skills와 자동 컴팩션(compaction) 기능도 무료 사용자에게 개방되어, 더 복잡한 작업을 더 오래 수행할 수 있게 됐다. Claude 공식 계정은 "필요한 만큼 오래 작업할 수 있다"고 밝혔다.
+
+Free 플랜 사용자는 이제 Claude Sonnet 4.5 모델을 무료로 사용할 수 있으며, 문서 분석, 코드 생성, 데이터 시각화 등이 가능하다.
+
+다만 사용량은 '동적 용량(Dynamic Capacity)' 시스템으로 관리되어 서버 부하에 따라 메시지 빈도가 조절된다. 업계 분석가들은 이번 업데이트가 Google Antigravity의 Opus 4.5 무료 프리뷰에 대응하는 전략적 움직임으로, 2026년 AI 시장의 '가치 기준'을 재정의할 것으로 전망했다.`
+        },
+        {
+            theme: "산업별 AI 적용",
+            category: "채용/면접",
+            title: "Meta, AI 활용 코딩 면접 도입…전통적 LeetCode 시대 저물어",
+            isTop5: true,
+            details: `Meta가 2025년 10월부터 AI 지원 코딩 면접(AI-enabled coding interview)을 시범 도입하고 있다. 기존의 LeetCode 스타일 알고리즘 문제 2개를 푸는 방식에서 벗어나, 60분간 CoderPad 환경에서 AI 어시스턴트를 활용해 실제 코드베이스를 다루는 방식으로 전환됐다.
+
+지원자는 GPT-4o mini, Claude Haiku 3.5, Llama 4 등 여러 AI 모델 중 선택할 수 있다. 새 면접에서는 단일 파일이 아닌 여러 파일로 구성된 중간 규모 코드베이스를 다루며, 버그 수정, 기능 추가, 엣지 케이스 처리 등 점진적으로 복잡해지는 과제를 수행한다.
+
+Meta 내부 메시지에 따르면 이는 "미래 직원들이 일할 개발 환경을 더 잘 반영하고, LLM 기반 부정행위를 덜 효과적으로 만든다"는 취지다.
+
+E6 이하 지원자는 온사이트에서 기존 코딩 라운드 하나와 AI 지원 라운드를, E7+ 및 M1 지원자는 AI 지원 라운드만 치르게 된다. 2026년 초 전면 도입이 예상된다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 모델",
+            title: "Qwen3-Max-Thinking, GPT-5·Claude 추격…HLE 벤치마크서 60% 근접",
+            isTop5: true,
+            details: `알리바바의 Qwen3-Max-Thinking이 주요 AI 벤치마크에서 선두권 모델들을 바짝 추격하고 있다. 1조 개 이상의 파라미터와 36조 토큰 학습 데이터를 기반으로 한 이 모델은 AIME 2025와 HMMT 25 수학 벤치마크에서 100% 정확도를 달성했으며, HLE(High-Level Evaluation) 벤치마크에서도 60%에 근접한 성과를 보였다.
+
+SWE-Bench Verified 코딩 벤치마크에서는 69.6%를 기록해 Claude(77.2%), GPT-5(72.8%)에는 미치지 못하지만, 에이전트 도구 호출 평가인 Tau2-Bench에서는 74.8%로 업계 최고 수준을 달성했다.
+
+특히 가격 경쟁력에서 Qwen3-Max는 입출력 기준 백만 토큰당 $1.20/$6.00으로, GPT-5($1.25/$10.00)의 절반, Claude($3.00/$15.00)의 2.5배 저렴하다.
+
+트위터 사용자 Chubby는 "Qwen3-Max-Thinking이 Gemini 3.0 Pro, GPT-5.2 등 모든 SOTA 모델을 능가한다. OpenAI와 Anthropic은 R&D에 서둘러야 한다"고 평가했다.`
+        },
+        {
+            theme: "법률, 규제 및 거버넌스",
+            category: "보안/취약점",
+            title: "ClawdBot 보안 취약점 경고…수천 대가 인증 없이 인터넷 노출",
+            isTop5: false,
+            details: `AI 에이전트 ClawdBot의 심각한 보안 취약점에 대한 경고가 확산되고 있다. 보안 전문가 Itamar Golan은 1월 26일 "수천 개의 ClawdBot이 VPS에서 열린 포트로, 인증 없이 인터넷에 노출되어 있다"며 "재앙이 다가오고 있다"고 경고했다. 이 경고는 33만 조회수를 기록하며 큰 반향을 일으켰다.
+
+실제로 개발자 The Smart Ape는 10분간 30회의 브루트포스 공격을 받았다고 보고하며, fail2ban 설치로 5회 실패 후 자동 차단하는 방식으로 대응했다고 밝혔다.
+
+보안 전문가들은 ClawdBot VPS 운영 시 SSH 키 인증만 허용하고 비밀번호 로그인을 비활성화할 것을 권고했다.
+
+한편 일부 사용자들은 ClawdBot에 $100를 투자해 하룻밤에 $347로 증가시키거나, 반대로 전 재산을 잃는 등 극단적 사례를 공유하며 AI 에이전트의 양면성을 보여줬다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "AI 트레이딩",
+            title: "Grok 4.20, AI 주식 트레이딩 대회서 OpenAI·Google 제치고 우승",
+            isTop5: false,
+            details: `일론 머스크가 이끄는 xAI의 Grok 4.20이 2026년 1월 Alpha Arena Season 1.5 실전 주식 트레이딩 대회에서 OpenAI, Google 등 주요 경쟁사 AI 모델들을 모두 제치고 우승했다.
+
+각 AI 모델에 동일한 1만 달러의 실제 자금을 제공한 이 대회에서 Grok 4.20은 약 11,060달러로 10~12%의 수익률을 기록하며 유일하게 수익을 낸 모델로 확인됐다. 머스크는 해당 결과를 공유하며 "GPU 비용을 감당할 방법을 찾은 것 같다"고 농담했다.
+
+Alpha Arena는 AI 연구소 Nof1이 주관하는 대회로, GPT-5, Gemini 2.5 Pro, Claude Sonnet 4.5, DeepSeek, Qwen3 Max 등 주요 AI 모델들이 Hyperliquid 거래소에서 암호화폐 선물을 자율적으로 거래한다.
+
+주목할 점은 Grok 변형 모델 4개가 상위 6위 안에 진입했다는 것으로, Situational Awareness, Monk Mode 등 다양한 전략 설정이 모두 효과적이었음을 보여준다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "AI 트레이딩",
+            title: "Rallies AI 주식 대회, Claude Sonnet 4.5 +10.2% 수익으로 선두",
+            isTop5: false,
+            details: `AI 모델들의 미국 주식 투자 성과를 추적하는 Rallies.ai AI Trading Arena에서 Anthropic의 Claude Sonnet 4.5가 +10.2%의 수익률로 1위를 기록하고 있다.
+
+이 대회는 각 AI 모델에 10만 달러의 가상 포트폴리오를 제공하고 미국 주식을 거래하게 하여 장기적 성과를 비교한다. Grok 4가 +7.7%로 2위, DeepSeek V3가 +5.2%로 3위를 기록 중이다.
+
+Rallies.ai는 암호화폐 중심의 Alpha Arena와 달리 미국 주식에 집중하며, 각 모델이 가상의 헤지펀드 매니저처럼 행동한다.
+
+Claude Sonnet 4.5는 "Agile Bull" 스타일로 평균 3시간 40분의 짧은 보유 기간과 100% 롱 포지션 전략을 구사하는 것으로 분석됐다.
+
+AI 트레이딩 연구자들은 서로 다른 대회에서 Claude는 주식에서, DeepSeek과 Grok은 암호화폐에서 강세를 보이는 점에 주목하며, 모델별로 최적화된 시장이 다를 수 있다고 분석했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 에이전트",
+            title: "MiniMax, Expert Agent 데스크톱 버전 출시... 'AI 네이티브 워크벤치' 구현",
+            isTop5: false,
+            details: `중국 AI 기업 MiniMax가 2026년 1월 'MiniMax Agent Desktop App'과 웹 버전 2.0을 공식 출시했다.
+
+이번 업데이트의 핵심은 'Expert Agent' 기능으로, 사용자가 법률 컨설턴트, 금융 분석가, 코드 아키텍트 등 특정 도메인 지식과 스킬을 가진 고급 AI 어시스턴트를 직접 생성하고 로컬 환경에서 운영 로직을 커스터마이즈할 수 있다. 현재 기간 한정 무료 체험이 제공된다.
+
+MiniMax의 새로운 'AI 네이티브 워크스페이스'는 데스크톱 앱과 클라우드 협업으로 구성되어, 사용자가 로컬에 전용 AI 런타임 환경을 배포하고 모델 파라미터, 지식 베이스 접근, 툴체인 통합, 보안 정책을 유연하게 설정할 수 있다.
+
+이는 Claude Cowork와 ClawdBot의 기능을 결합한 형태로 평가받고 있다. MiniMax M2.1 모델은 SWE-bench Multilingual에서 72.5%, VIBE-bench에서 88.6%를 기록하며 Gemini 3 Pro와 Claude Sonnet 4.5를 능가했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 에이전트",
+            title: "ClawdBot 활용 사례 확산... Polymarket 하룻밤 247% 수익부터 8가지 자동화까지",
+            isTop5: false,
+            details: `오픈소스 AI 어시스턴트 ClawdBot의 실전 활용 사례가 빠르게 확산되고 있다.
+
+한 사용자(Mr. Buzzoni)는 ClawdBot에게 예측 시장 플랫폼 Polymarket에 100달러를 투자하게 한 결과, 하룻밤 만에 347달러로 247% 수익을 달성했다고 공유했다.
+
+또 다른 사용자(ashen)는 ClawdBot에게 새벽 4시 GitHub 자동 수정, 이메일 발송, 캘린더 관리 등 8가지 자동화 작업을 위임하여 24시간 작동하는 개인 비서처럼 활용하고 있다.
+
+ClawdBot은 PSPDFKit 창업자 Peter Steinberger가 개발한 자가 호스팅 AI 어시스턴트로, 2026년 1월 26일 출시 후 GitHub에서 하루 만에 9,000개 스타를 기록했다.
+
+핵심은 Telegram, WhatsApp, iMessage 등 메시징 앱을 통해 Claude, GPT, DeepSeek, MiniMax 등 다양한 AI 브레인을 자유롭게 전환할 수 있다는 점이다.
+
+한편 보안 전문가들은 수천 개의 ClawdBot 인스턴스가 인증 없이 인터넷에 노출되어 있어 fail2ban 설치와 SSH 키 인증이 필수라고 경고하고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 모델 루머",
+            title: "Claude Sonnet 4.7 출시 루머... 'Opus보다 성능 좋고 저렴'",
+            isTop5: false,
+            details: `AI 커뮤니티에서 Anthropic의 차기 모델 'Claude Sonnet 4.7'에 대한 루머가 확산되고 있다.
+
+해당 루머에 따르면 Sonnet 4.7은 현재 최상위 모델인 Opus 4.5보다 성능이 우수하면서도 가격은 더 저렴할 것으로 예상된다. 예측 시장 Manifold에서는 Anthropic의 다음 주요 모델이 'Sonnet 4.7'일 확률에 대한 베팅이 진행 중이다.
+
+이 루머는 Anthropic의 과거 패턴에 기반한다. 2025년 2월 출시된 Claude 3.7 Sonnet이 당시 최상위 모델 Opus 4.1과 비슷하거나 더 나은 성능을 훨씬 저렴한 가격에 제공해 "가격 역전 현상"을 일으켰기 때문이다.
+
+현재 Opus 4.5는 입력 5달러/출력 25달러(백만 토큰당), Sonnet 4.5는 3달러/15달러로 책정되어 있다.
+
+업계 관계자들은 Sonnet 4.7이 Opus 수준의 추론 능력을 Sonnet 가격대에 제공할 경우 AI 모델 가격 경쟁이 더욱 치열해질 것으로 전망하고 있다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "개발 문화",
+            title: "'AI 없이 코딩하는 건 사이코패스'... AI 코딩 에이전트 일상화 가속",
+            isTop5: false,
+            details: `개발자 커뮤니티에서 AI 코딩 에이전트 활용이 선택이 아닌 필수로 자리 잡고 있다. X(구 트위터)에서 개발자 Omkar의 "AI 없이 코딩하는 사람은 사이코패스"라는 밈이 큰 호응을 얻으며 AI 코딩 도구 일상화를 상징적으로 보여줬다.
+
+실제로 개발자 Yuchen Jin은 2025년 11월까지 80%가 수동 코딩이었으나, 12월부터는 80%가 AI 에이전트 기반 코딩으로 전환됐다고 밝혔다.
+
+이러한 변화는 기업 채용에도 영향을 미치고 있다. Meta는 전통적인 LeetCode 스타일 코딩 면접을 폐지하고 AI 어시스턴트(GPT-4o mini, Claude Haiku 3.5, Llama 4 중 선택)를 활용한 60분짜리 실전 코딩 면접을 도입했다.
+
+면접자는 멀티파일 코드베이스에서 버그 수정→기능 추가→엣지 케이스 처리 단계를 거치며, AI와의 협업 능력과 문제 해결력이 평가 핵심이 됐다.
+
+Google 내부 문서에서도 "현재 AI 에이전트 데모의 99%는 ChatGPT 3번 호출에 마케팅을 더한 것"이라는 자조적 평가가 나오는 등, AI 도구 활용 수준의 격차가 새로운 경쟁력 지표로 부상하고 있다.`
+        }
+    ];
+
+    // Theme mapping for Korean display
+    const themeNames = {
+        "AI 인프라 및 투자": { icon: "🏗️", color: "bg-blue-50 border-blue-200" },
+        "플랫폼, 제품 및 에이전트": { icon: "🤖", color: "bg-purple-50 border-purple-200" },
+        "산업별 AI 적용": { icon: "🏭", color: "bg-green-50 border-green-200" },
+        "법률, 규제 및 거버넌스": { icon: "⚖️", color: "bg-red-50 border-red-200" },
+        "AI와 사회": { icon: "👥", color: "bg-amber-50 border-amber-200" }
+    };
+
+    // Truncate title function
+    function truncateTitle(title, maxLength = 60) {
+        if (title.length <= maxLength) return title;
+
+        // Try to cut at '—' or ':'
+        const dashIndex = title.indexOf('—');
+        const colonIndex = title.indexOf(':');
+        const dotDotIndex = title.indexOf('...');
+
+        if (dashIndex > 0 && dashIndex <= maxLength) {
+            return title.substring(0, dashIndex).trim() + '...';
+        }
+        if (colonIndex > 0 && colonIndex <= maxLength) {
+            return title.substring(0, colonIndex).trim() + '...';
+        }
+
+        return title.substring(0, maxLength).trim() + '...';
+    }
+
+    // Create Key Numbers Section
+    function createKeyNumbersSection() {
+        const container = document.getElementById('key-highlights');
+        const keyData = [
+            { value: "5개 앱", label: "MCP Apps 통합 (Slack, Figma 등)", icon: "🔗" },
+            { value: "Swarms", label: "Claude Code 멀티에이전트 기능", icon: "🐝" },
+            { value: "Sonnet 4.5", label: "Claude Free 무료 제공", icon: "🆓" },
+            { value: "100%", label: "Qwen3-Max AIME 수학 정확도", icon: "🧮" }
+        ];
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">📈 주요 데이터 하이라이트</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                ${keyData.map(item => `
+                    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="text-2xl mb-2">${item.icon}</div>
+                        <div class="text-2xl md:text-3xl font-bold text-slate-800">${item.value}</div>
+                        <div class="text-sm text-slate-500 mt-1">${item.label}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Render Top 5 Section
+    function renderTop5Section() {
+        const container = document.getElementById('top5-section');
+        const top5Items = reportData.filter(item => item.isTop5);
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">🏆 Top 5 뉴스</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${top5Items.map((item, idx) => {
+                    const displayTitle = truncateTitle(item.title);
+                    const globalIndex = reportData.indexOf(item);
+                    return `
+                        <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white font-bold text-sm">${idx + 1}</span>
+                                <span class="text-xs font-medium text-amber-700 bg-amber-100 px-2 py-1 rounded">${item.category}</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    // Render Thematic Sections
+    function renderThematicSections() {
+        const container = document.getElementById('thematic-sections');
+        const themes = [...new Set(reportData.map(item => item.theme))];
+
+        let html = '';
+        themes.forEach(theme => {
+            const themeInfo = themeNames[theme] || { icon: "📰", color: "bg-slate-50 border-slate-200" };
+            const themeItems = reportData.filter(item => item.theme === theme && !item.isTop5);
+
+            if (themeItems.length === 0) return;
+
+            html += `
+                <div class="mb-10">
+                    <h2 class="text-lg font-bold text-slate-700 mb-4">${themeInfo.icon} ${theme}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        ${themeItems.map(item => {
+                            const displayTitle = truncateTitle(item.title);
+                            const globalIndex = reportData.indexOf(item);
+                            return `
+                                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                                    <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded mb-3 inline-block">${item.category}</span>
+                                    <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    // Modal Functions
+    function showModal(index) {
+        const item = reportData[index];
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        modalTitle.textContent = item.title;
+        modalCategory.textContent = item.category;
+        modalContent.textContent = item.details;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+        const modal = document.getElementById('news-modal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        createKeyNumbersSection();
+        renderTop5Section();
+        renderThematicSections();
+
+        // Card click events
+        document.querySelectorAll('[data-index]').forEach(card => {
+            card.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showModal(index);
+            });
+        });
+
+        // Modal close events
+        document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+        document.getElementById('modal-bg-close').addEventListener('click', hideModal);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') hideModal();
+        });
+    });
+    </script>
+</body>
+</html>
