@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5분 AI 뉴스 정리 | 2026년 01월 23일</title>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+        }
+        .highlight-card {
+            background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+            border-left: 4px solid #f59e0b;
+        }
+        .theme-badge {
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+        .modal-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 3px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .key-number {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #e2e8f0 20%, #e2e8f0 80%, transparent 100%);
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <h1 class="text-2xl sm:text-3xl font-bold">
+                    <span class="gradient-text">5분 AI 뉴스</span>
+                    <span class="text-slate-700"> 정리</span>
+                </h1>
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-amber-100 text-amber-800 border border-amber-200">
+                        📅 2026년 01월 23일
+                    </span>
+                    <div class="text-sm font-medium text-slate-500">
+                        <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold">
+                            <span>←</span> 목록
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="content-area">
+        <!-- Key Data Highlights Section -->
+        <section id="key-numbers-section" class="mb-12"></section>
+
+        <!-- Top 5 News Section -->
+        <section id="top5-section" class="mb-12"></section>
+
+        <!-- Thematic Sections -->
+        <section id="thematic-sections"></section>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="absolute inset-4 sm:inset-8 md:inset-12 lg:inset-16 flex items-center justify-center">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-full flex flex-col overflow-hidden">
+                <div class="flex items-start justify-between p-6 border-b border-slate-100">
+                    <div class="flex-1 pr-4">
+                        <span id="modal-category" class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600 mb-2"></span>
+                        <h2 id="modal-title" class="text-xl sm:text-2xl font-bold text-slate-800 leading-tight"></h2>
+                    </div>
+                    <button id="modal-close-btn" class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 transition-colors">
+                        <span class="text-2xl leading-none">&times;</span>
+                    </button>
+                </div>
+                <div id="modal-content" class="modal-content p-6 text-slate-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportData = [
+            // === Top 5 뉴스 ===
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자/펀딩",
+                title: "앤트로픽, 세쿼이아 주도로 350억 달러 가치 평가 투자 라운드 진행",
+                isTop5: true,
+                details: `AI 스타트업 앤트로픽(Anthropic)이 세쿼이아 캐피탈 주도의 대규모 투자 라운드를 진행 중이다. 파이낸셜타임스에 따르면 이번 라운드에서 앤트로픽은 350억 달러 기업가치로 최소 250억 달러 이상의 투자 유치를 목표로 하고 있다.
+
+싱가포르 국부펀드 GIC와 코아투 매니지먼트(Coatue Management)가 각각 15억 달러씩 투자할 예정이며, 세쿼이아 캐피탈은 "대규모 투자"를 계획하고 있다.
+
+앤트로픽은 2021년 OpenAI 출신들이 설립한 회사로, Claude 챗봇으로 널리 알려져 있다. AI 안전을 최우선 가치로 삼는 것이 특징이다.
+
+이번 투자가 완료되면 앤트로픽의 총 투자 유치액은 400억 달러를 넘어서게 되며, OpenAI에 이어 세계에서 두 번째로 높은 기업가치를 가진 AI 스타트업이 된다. 앤트로픽 CEO 다리오 아모데이는 최근 다보스에서 AI 발전 속도에 대한 우려를 표명한 바 있다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "오픈소스",
+                title: "DeepSeek V4, 2월 중순 출시 예정…코딩 분야에서 GPT-4o, Claude 3.5 능가",
+                isTop5: true,
+                details: `중국 AI 스타트업 DeepSeek가 차세대 모델 V4를 2월 중순경 출시할 예정이라고 알려졌다. GitHub의 FlashMLA 코드베이스 업데이트에서 'MODEL1'이라는 새 모델 식별자가 114개 파일에서 28회 발견됐으며, 이는 R1 발표 1주년에 맞춰 공개됐다.
+
+내부 벤치마크에 따르면 V4는 앤트로픽의 Claude 3.5 Sonnet과 OpenAI의 GPT-4o를 코딩 작업에서 능가하는 것으로 알려졌다.
+
+DeepSeek는 R1 화이트페이퍼에 60페이지를 추가해 학습 비밀을 공개하며 V4 출시를 예고했다. 이는 R1의 '순수 추론' 초점에서 '응용 엔지니어링'(소프트웨어 개발)으로의 전환을 의미한다.
+
+블룸버그와 ZDNet에 따르면 DeepSeek는 2026년 말까지 완전 자율 AI 에이전트 출시도 준비 중이다. 단순 챗봇을 넘어 완전한 에이전틱 AI 시스템을 목표로 하고 있다.`
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "전망",
+                title: "일론 머스크 '2031년까지 AI가 전 인류 지능 합계 초월'…올해 말 가능성도",
+                isTop5: true,
+                details: `일론 머스크가 1월 23일 AI에 대한 새로운 전망을 발표했다. 그는 AI 시스템이 향후 10년 내 전 인류의 총합적 지능을 초월할 수 있다고 예측했다. 테슬라와 xAI의 수장인 머스크는 AI 발전 속도가 너무 빨라 개별 인간보다 뛰어난 기계가 예상보다 훨씬 빨리 등장할 수 있다고 말했다.
+
+머스크는 이 이정표가 올해 말에 도달할 수도 있으며, 늦어도 2031년까지는 확실히 달성될 것이라고 전망했다.
+
+이 발언은 다보스 포럼에서 여러 AI 리더들이 AI 발전 속도와 사회적 영향에 대한 우려를 표명한 가운데 나온 것이다. 앤트로픽 CEO 다리오 아모데이도 "AI가 정신이 아찔할 정도로 빠르게 발전하고 있다"며 비슷한 우려를 표명했다.
+
+머스크는 AI 위험에 대해 지속적으로 경고해왔지만, 동시에 xAI로 200억 달러 투자를 유치하며 가장 공격적인 AI 개발을 추진하고 있어 이중적이라는 비판도 받고 있다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "제품/서비스",
+                title: "구글, 'Personal Intelligence' 테스트 시작…앱 간 정보 연결 AI",
+                isTop5: true,
+                details: `구글이 'Personal Intelligence'라는 새로운 AI 기능 테스트를 시작했다. 이 기능은 Gmail, Google Photos 등 다양한 앱의 정보를 연결해 개인화된 답변을 제공한다.
+
+구글 랩스 VP 조시 우드워드(Josh Woodward)는 "이메일 스레드와 시청한 영상을 연결하거나 사진 라이브러리에서 뉘앙스를 찾는 등, Gemini가 이제 어디서 찾아야 할지 말하지 않아도 맥락을 이해한다"고 설명했다.
+
+이 기능은 애플 인텔리전스(Apple Intelligence)와 직접 경쟁할 것으로 보인다. 흥미롭게도 애플은 올해 하반기 예정된 주요 Siri 업그레이드에 구글을 파트너로 선택했다고 발표했다.
+
+Personal Intelligence는 사용자의 개인 데이터를 AI가 이해하고 활용하는 방식의 새로운 표준을 제시하며, 프라이버시와 편의성 사이의 균형에 대한 논의를 불러일으킬 것으로 예상된다.`
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "시장동향",
+                title: "엔비디아, 블랙웰·루빈 2026년 말까지 5,000억 달러 매출 전망",
+                isTop5: true,
+                details: `엔비디아가 자사의 AI 칩 플랫폼 블랙웰(Blackwell)과 후속작 베라 루빈(Vera Rubin)에 대한 강력한 고객 주문을 바탕으로 2026년 말까지 5,000억 달러의 매출 가시성을 확보했다고 밝혔다.
+
+2026 회계연도 4분기 매출 전망은 650억 달러로, AI 가속기의 강력한 판매세가 이어지고 있다.
+
+베라 루빈은 2026년 하반기에 출시될 예정이며, 블랙웰의 후속 아키텍처로 더욱 강력한 AI 연산 성능을 제공할 것으로 예상된다.
+
+엔비디아는 DeepSeek R1 발표로 인해 1월 27일 하루 만에 시가총액 6,000억 달러가 증발하는 충격을 받았지만, 장기적인 AI 칩 수요는 여전히 강력하다는 평가다. 젠슨 황 CEO는 "AI 컴퓨팅 수요가 공급을 크게 초과하고 있으며, 이러한 추세는 당분간 계속될 것"이라고 밝혔다.`
+            },
+
+            // === AI 인프라 및 투자 ===
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자/펀딩",
+                title: "LMArena, AI 모델 평가 플랫폼으로 1.5억 달러 투자 유치…기업가치 17억 달러",
+                isTop5: false,
+                details: `AI 모델 및 시스템 평가 플랫폼 LMArena가 1억 5천만 달러의 신규 투자를 유치했다. Felicis Ventures와 UC Investments가 이번 라운드를 주도했으며, 투자 후 기업가치는 17억 달러로 평가됐다.
+
+LMArena는 다양한 AI 모델의 성능을 비교 평가하는 플랫폼으로, AI 개발자와 기업들이 자신들의 사용 사례에 가장 적합한 모델을 선택하는 데 도움을 준다.
+
+AI 모델의 수가 급증하면서 객관적인 평가와 비교의 필요성이 커지고 있으며, LMArena는 이러한 시장 수요를 정확히 겨냥했다는 평가를 받고 있다.
+
+AI 붐에 힘입은 2025년 대규모 벤처 투자 이후, 2026년에도 투자 열기가 식지 않고 있음을 보여주는 사례다. 특히 AI 인프라 및 도구 분야에 대한 투자가 활발하게 이어지고 있다.`
+            },
+            {
+                theme: "AI 인프라 및 투자",
+                category: "투자동향",
+                title: "2026년 첫 주 펀딩 라운드, xAI 200억 달러 주도로 활발한 출발",
+                isTop5: false,
+                details: `2026년 AI 투자가 활발한 출발을 보이고 있다. 크런치베이스에 따르면 이번 주 가장 큰 펀딩 라운드 10개 중 xAI가 200억 달러로 선두를 차지했다.
+
+AI, 바이오텍, 인프라 분야에 대한 투자자들의 강한 확신이 엿보이며, 특히 AI 분야에 자본이 집중되는 현상이 지속되고 있다.
+
+2025년 북미 스타트업 투자가 46% 급증해 2,800억 달러에 달한 가운데, AI 스타트업이 그중 894억 달러(34%)를 차지했다. AI 스타트업은 투자받은 기업의 18%에 불과하지만 투자액의 3분의 1 이상을 끌어들이고 있다.
+
+업계 전문가들은 AI 투자의 과열에 대한 우려도 제기하고 있지만, 현재로서는 투자 모멘텀이 계속되고 있다고 평가한다.`
+            },
+
+            // === 플랫폼, 제품 및 에이전트 ===
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "제품/서비스",
+                title: "구글, Gemini 3 기반 새 이미지 AI 테스트 중…Flash 라인업 확대",
+                isTop5: false,
+                details: `구글이 'Nano Banana 2 Flash'라는 새로운 이미지 AI 모델을 테스트 중인 것으로 알려졌다. 이 모델은 Gemini의 Flash 라인업에 속하며, 구글의 가장 빠른 생성 AI 모델군이다.
+
+현재 Nano Banana Pro(Gemini 3 Pro Image)가 구글의 최상위 이미지 생성 및 편집 모델로, 새 모델은 이보다 더 빠른 처리 속도를 목표로 하고 있다.
+
+구글은 최근 Gmail에 Gemini 3 기반 AI 기능을 대거 도입하며 '제미니 시대'로의 진입을 선언한 바 있다. AI 오버뷰, Help Me Write, Suggested Replies 등의 기능이 Gmail에 통합됐다.
+
+Gemini 3 빌링(과금)은 1월 5일부터 시작됐으며, gemini-2.5-flash-image-preview 모델은 1월 15일에 종료됐다. 구글은 AI 모델 라인업을 지속적으로 업데이트하고 있다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "교육",
+                title: "구글-칸아카데미, Gemini 기반 'Writing Coach' 개발 협력 확대",
+                isTop5: false,
+                details: `BETT 2026 교육 기술 컨퍼런스에서 구글이 칸아카데미(Khan Academy)와의 협력 확대를 발표했다. Gemini 모델이 칸아카데미의 'Writing Coach' 기능을 구동하게 되며, 학생들의 글쓰기 능력 향상을 AI가 지원한다.
+
+구글은 "AI는 학생들이 더 효과적으로 사고하고, 글을 쓰고, 학습하도록 돕는 동시에 교사들의 행정 부담을 줄여야 한다"고 밝혔다.
+
+또한 구글은 Gemini in Workspace를 더 많은 교육자와 학생에게 추가 비용 없이 제공한다고 발표했다. 이는 교육 분야에서 AI 도구의 접근성을 높이려는 노력의 일환이다.
+
+칸아카데미는 이미 AI 튜터 'Khanmigo'를 운영 중이며, 이번 협력으로 글쓰기 교육에서도 AI 지원이 강화된다. 교육용 AI의 모범 사례로 평가받고 있다.`
+            },
+            {
+                theme: "플랫폼, 제품 및 에이전트",
+                category: "TV/미디어",
+                title: "구글, CES 2026서 TV용 Gemini 기능 공개…자연어로 TV 제어",
+                isTop5: false,
+                details: `구글이 CES 2026에서 Google TV용 Gemini 기능을 선보였다. 시청자들은 복잡한 설정을 탐색하는 대신 자연어로 TV를 제어하고, 주제에 대해 심층 탐색하며, AI로 개인 사진과 영상을 '재상상(reimagine)'할 수 있게 된다.
+
+이러한 Gemini 기능은 먼저 일부 TCL 텔레비전에 적용된 후, 다른 Google TV 기기로 확대될 예정이다.
+
+TV에서의 AI 통합은 스마트홈과 엔터테인먼트 영역에서 AI의 역할이 확대되고 있음을 보여준다. 사용자들은 "액션 영화 추천해줘" 또는 "화면 밝기를 낮춰줘" 같은 자연어 명령으로 TV를 제어할 수 있다.
+
+구글은 Google AI Pro(월 19.99달러)와 AI Ultra 구독 서비스를 통해 차별화된 AI 기능을 제공하고 있다.`
+            },
+
+            // === 법률, 규제 및 거버넌스 ===
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "규제",
+                title: "美 AI 규제 대격돌 본격화…연방 vs 주 정부 vs AI 기업 삼파전",
+                isTop5: false,
+                details: `AI 규제를 둘러싼 미국 내 대격돌이 2026년 본격화될 전망이다. 트럼프 대통령이 12월 11일 주(州) 차원의 AI 법률을 무력화하는 것을 목표로 하는 행정명령에 서명한 이후, 연방 정부, 주 정부, AI 기업 간의 갈등이 고조되고 있다.
+
+2026년에는 백악관과 주 정부 간의 정치적 충돌이 더욱 격화될 것으로 예상되며, AI 기업들은 규제를 억제하기 위한 강력한 로비 캠페인을 벌일 것으로 보인다.
+
+캘리포니아를 비롯한 여러 주가 독자적인 AI 규제법을 추진해왔지만, 연방 정부는 이러한 '패치워크' 규제가 혁신을 저해한다고 주장한다. 반면 주 정부들은 연방 수준의 규제가 미비한 상황에서 시민 보호를 위해 주 차원의 조치가 필요하다고 반박하고 있다.
+
+이 논쟁은 2026년 내내 미국 AI 정책의 핵심 이슈가 될 전망이다.`
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "업계동향",
+                title: "AI 업계 리더들, AGI 용어에 연이어 회의적 입장…실용주의로 전환",
+                isTop5: false,
+                details: `AI 업계 최고 리더들이 '범용인공지능(AGI)' 개념에 대해 잇따라 회의적인 입장을 표명하며 업계의 실용주의 전환을 시사하고 있다.
+
+세일즈포스 CEO 마크 베니오프는 AGI를 마케팅적 "최면(hypnosis)"이라고 표현했고, 앤트로픽 CEO 다리오 아모데이는 "항상 싫어했다"고 말했다. 앤트로픽 사장 다니엘라 아모데이는 AGI가 "구식(outdated)" 용어라고 지적했다.
+
+마이크로소프트 CEO 사티아 나델라는 한 발 더 나아가 "우리 계약에서 정의된 AGI는 조만간 달성되지 않을 것으로 본다"고 밝혔다.
+
+이러한 발언들은 AI 업계가 추상적인 목표보다 실용적인 AI 적용에 초점을 맞추는 방향으로 전환하고 있음을 보여준다. 2025년이 'AI 바이브 체크'의 해였다면, 2026년은 AI가 실용적으로 적용되는 해가 될 것이라는 전망이 힘을 얻고 있다.`
+            },
+            {
+                theme: "법률, 규제 및 거버넌스",
+                category: "정책연구",
+                title: "美 백악관, 'AI와 대분기' 보고서 발표…글로벌 경제 격차 분석",
+                isTop5: false,
+                details: `미국 백악관이 'Artificial Intelligence and the Great Divergence(AI와 대분기)'라는 제목의 연구 보고서를 발표했다. 이 보고서는 AI가 글로벌 경제 격차에 미치는 영향을 심층 분석하고 있다.
+
+보고서는 AI 기술 발전이 국가 간 경제적 불평등을 심화시킬 수 있다는 우려를 다루고 있으며, 특히 AI 인프라와 인재에 대한 접근성 차이가 핵심 요인으로 지목됐다.
+
+IMF 총재 크리스탈리나 게오르기에바도 다보스에서 "AI가 노동시장을 쓰나미처럼 강타하고 있으며 대부분의 국가가 준비되지 않았다"고 경고한 바 있다.
+
+백악관 보고서는 AI의 혜택이 모든 국가에 균등하게 분배될 수 있도록 하는 정책적 개입의 필요성을 제기하며, 국제 협력과 기술 이전의 중요성을 강조했다.`
+            },
+
+            // === 산업별 AI 적용 ===
+            {
+                theme: "산업별 AI 적용",
+                category: "HR/채용",
+                title: "맥킨지, 신입 컨설턴트 채용에 'AI 협업 평가' 도입",
+                isTop5: false,
+                details: `글로벌 컨설팅 기업 맥킨지앤컴퍼니가 신입 컨설턴트 채용 과정에 'AI 인터뷰' 단계를 도입했다. 최종 라운드 평가에서 지원자들은 맥킨지의 내부 AI 도구 'Lilli'와 협업하는 능력을 평가받게 된다.
+
+이는 AI가 단순히 채용 스크리닝 도구로 사용되는 것을 넘어, 지원자의 AI 활용 역량 자체가 평가 기준이 되는 새로운 트렌드를 보여준다.
+
+맥킨지의 Lilli는 방대한 지식 베이스를 기반으로 컨설턴트들의 연구와 분석을 지원하는 도구로, 지원자들이 이 도구를 얼마나 효과적으로 활용해 문제를 해결하는지가 평가된다.
+
+업계 전문가들은 이러한 변화가 향후 다른 기업들로 확산될 가능성이 높다고 전망한다. AI 시대에 인재의 정의가 '단독 역량'에서 'AI와의 협업 역량'으로 변화하고 있음을 보여주는 사례다.`
+            },
+            {
+                theme: "산업별 AI 적용",
+                category: "금융",
+                title: "JP모건, AI 투자를 'R&D'에서 '핵심 인프라'로 재분류",
+                isTop5: false,
+                details: `JP모건 체이스가 AI에 대한 대규모 투자를 실험적 R&D에서 '핵심 인프라' 지출로 재분류했다. 이는 AI가 더 이상 실험 단계가 아닌 은행 운영의 필수 요소로 자리잡았음을 보여준다.
+
+JP모건은 AI를 내부 생산성 향상, 사이버보안 강화, 리테일 뱅킹 개인화에 중점적으로 활용하고 있다.
+
+이러한 재분류는 회계 및 전략적으로 중요한 의미를 갖는다. R&D 지출은 종종 미래 가치에 대한 불확실성이 있지만, 핵심 인프라로의 재분류는 AI가 이미 측정 가능한 비즈니스 가치를 창출하고 있음을 인정하는 것이다.
+
+JP모건 CEO 제이미 다이먼은 이전에 AI가 "전기나 인터넷의 발명과 같은 수준의 혁명적 기술"이라고 평가한 바 있다.`
+            },
+
+            // === AI와 사회 (활용, 심리, 노동) ===
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "노동시장",
+                title: "AI 일자리 우려 28%→40%로 급증…IMF 총재 '쓰나미' 경고",
+                isTop5: false,
+                details: `국제통화기금(IMF) 총재 크리스탈리나 게오르기에바가 다보스 세계경제포럼에서 AI가 노동시장에 미치는 영향에 대해 강력한 경고를 발했다. 그녀는 AI가 "경제 성장의 주요 요인"이 되어 최대 0.8%의 성장 기여가 가능하지만, 동시에 "노동시장을 쓰나미처럼 강타하고 있다"고 지적했다.
+
+머서(Mercer)의 '글로벌 탤런트 트렌드 2026' 보고서 예비 조사 결과에 따르면, AI로 인한 일자리 상실 우려가 2024년 28%에서 2026년 40%로 급증했다. 이 조사는 전 세계 12,000명을 대상으로 실시됐다.
+
+게오르기에바 총재는 대부분의 국가와 기업이 이에 대비하지 못하고 있다고 경고하며, 재교육 프로그램과 사회 안전망 강화를 촉구했다. 특히 개발도상국의 경우 선진국보다 적응 속도가 느려 불균형이 심화될 수 있다고 우려했다.`
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "산업전망",
+                title: "사티아 나델라 '2026년이 AI 전환점…바이브 체크에서 실용 적용으로'",
+                isTop5: false,
+                details: `마이크로소프트 CEO 사티아 나델라가 2026년을 AI의 전환점이 될 해로 전망했다. 그는 "많은 기업들이 이제 첨단 AI에 접근할 수 있지만, 실제로 유용하게 활용하는 곳은 소수에 불과하다"며 "강력한 기술을 만드는 것만으로는 부족하고, 실제 문제를 해결해야 한다"고 강조했다.
+
+나델라 CEO는 다보스에서 AI의 혜택이 대형 기술 기업을 넘어 확산되지 않으면 거품이 될 수 있다고 경고하기도 했다.
+
+"2025년이 AI 바이브 체크의 해였다면, 2026년은 AI가 실용적으로 적용되는 해가 될 것"이라는 업계 전망에 동의했다. 대형 언어모델을 더 크게 만드는 것에서 AI를 실제로 사용 가능하게 만드는 어려운 작업으로 초점이 이동하고 있다.
+
+AT&T의 최고데이터책임자(CDO) 앤디 마커스도 "미세조정된 SLM(소형 언어모델)이 2026년의 큰 트렌드가 될 것"이라고 전망했다.`
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "기술인력",
+                title: "'Humans' 스타트업, 앤트로픽·xAI·구글 출신 설립…4.8억 달러 시드 유치",
+                isTop5: false,
+                details: `앤트로픽, xAI, 구글 출신들이 설립한 '인간 중심 AI' 스타트업 'Humans'가 4억 8천만 달러(약 7,000억 원) 규모의 시드 투자를 유치했다. 이는 역대 최대 규모의 시드 라운드 중 하나로 기록된다.
+
+TechCrunch에 따르면 Humans는 AI를 인간의 능력을 대체하기보다 증강하는 데 초점을 맞추고 있다.
+
+회사의 구체적인 제품이나 서비스는 아직 공개되지 않았지만, 창업팀의 경력과 투자 규모로 볼 때 AI 업계의 차세대 주자로 주목받고 있다.
+
+이 투자는 AI 스타트업에 대한 자본 유입이 여전히 강력함을 보여준다. 특히 '책임 있는 AI' 또는 '인간 중심 AI'를 표방하는 스타트업들이 투자자들의 관심을 받고 있다.`
+            },
+            {
+                theme: "AI와 사회 (활용, 심리, 노동)",
+                category: "오픈소스",
+                title: "2026년 미국 오픈소스 AI 스타트업 물결 전망…중국 모델 추월 예측",
+                isTop5: false,
+                details: `2025년의 AI 스토리가 중국 오픈소스 모델(DeepSeek 등)이 독점 프론티어 모델과의 성능 격차를 빠르게 좁히는 것이었다면, 2026년에는 새로운 미국 벤처 스타트업들이 오픈소스 AI 시장에 진입해 중국 경쟁사들을 추월할 것이라는 전망이 나오고 있다.
+
+업계 전문가들은 미국 스타트업들이 독점 프론티어 모델과 경쟁할 수 있는 오픈소스 모델을 출시할 것으로 예측하고 있다.
+
+DeepSeek R1이 600만 달러의 학습 비용으로 GPT-4 o1-mini를 여러 벤치마크에서 능가하며 화제를 모은 것처럼, 효율적인 학습 방법론이 확산되면서 오픈소스 AI의 경쟁력이 높아지고 있다.
+
+이러한 변화는 AI 민주화를 가속화하고, 소수 빅테크 기업의 AI 독점을 견제하는 역할을 할 것으로 기대된다.`
+            }
+        ];
+
+        const themeConfig = {
+            "AI 인프라 및 투자": { icon: "🏗️", color: "bg-blue-50 text-blue-700 border-blue-200" },
+            "플랫폼, 제품 및 에이전트": { icon: "🚀", color: "bg-purple-50 text-purple-700 border-purple-200" },
+            "산업별 AI 적용": { icon: "🏭", color: "bg-green-50 text-green-700 border-green-200" },
+            "법률, 규제 및 거버넌스": { icon: "⚖️", color: "bg-red-50 text-red-700 border-red-200" },
+            "AI와 사회 (활용, 심리, 노동)": { icon: "🧠", color: "bg-amber-50 text-amber-700 border-amber-200" }
+        };
+
+        function truncateTitle(title, maxLength = 60) {
+            if (title.length <= maxLength) return title;
+
+            const separators = ['—', ':', '…'];
+            for (const sep of separators) {
+                const idx = title.indexOf(sep);
+                if (idx > 0 && idx <= maxLength) {
+                    return title.substring(0, idx).trim();
+                }
+            }
+            return title.substring(0, maxLength).trim() + '...';
+        }
+
+        function createKeyNumbersSection() {
+            const keyNumbers = [
+                { value: "350억$", label: "앤트로픽 기업가치", subtext: "세쿼이아 주도 라운드" },
+                { value: "5,000억$", label: "엔비디아 칩 매출 전망", subtext: "블랙웰+루빈 2026년말" },
+                { value: "2031", label: "머스크 AI 초월 예측", subtext: "전 인류 지능 합계" },
+                { value: "40%", label: "AI 일자리 우려", subtext: "2년간 12%p 급증" }
+            ];
+
+            const section = document.getElementById('key-numbers-section');
+            section.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-slate-800 mb-1">📊 주요 데이터 하이라이트</h2>
+                    <p class="text-sm text-slate-500">오늘의 핵심 수치</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    ${keyNumbers.map(item => `
+                        <div class="key-number rounded-xl p-5 border border-slate-200 shadow-sm">
+                            <div class="text-2xl md:text-3xl font-bold gradient-text mb-1">${item.value}</div>
+                            <div class="text-sm font-medium text-slate-700 mb-1">${item.label}</div>
+                            <div class="text-xs text-slate-500">${item.subtext}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderTop5Section() {
+            const top5Items = reportData.filter(item => item.isTop5);
+            const section = document.getElementById('top5-section');
+
+            section.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-slate-800 mb-1">🏆 Top 5 뉴스</h2>
+                    <p class="text-sm text-slate-500">오늘의 가장 중요한 소식</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    ${top5Items.map((item, idx) => {
+                        const globalIndex = reportData.indexOf(item);
+                        const displayTitle = truncateTitle(item.title);
+                        const config = themeConfig[item.theme] || { icon: "📰", color: "bg-slate-50 text-slate-700 border-slate-200" };
+                        return `
+                            <div class="highlight-card rounded-xl p-5 cursor-pointer card-hover" data-index="${globalIndex}">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">${idx + 1}</span>
+                                    <span class="theme-badge px-2 py-0.5 rounded border ${config.color}">${item.category}</span>
+                                </div>
+                                <h3 class="text-base font-semibold text-slate-800 leading-snug line-clamp-3">${displayTitle}</h3>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function renderThematicSections() {
+            const themes = [...new Set(reportData.map(item => item.theme))];
+            const nonTop5Items = reportData.filter(item => !item.isTop5);
+            const container = document.getElementById('thematic-sections');
+
+            let html = '';
+
+            themes.forEach(theme => {
+                const themeItems = nonTop5Items.filter(item => item.theme === theme);
+                if (themeItems.length === 0) return;
+
+                const config = themeConfig[theme] || { icon: "📰", color: "bg-slate-50 text-slate-700 border-slate-200" };
+
+                html += `
+                    <div class="mb-10">
+                        <div class="section-divider mb-8"></div>
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-slate-800 mb-1">${config.icon} ${theme}</h2>
+                            <p class="text-sm text-slate-500">${themeItems.length}개의 관련 뉴스</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            ${themeItems.map(item => {
+                                const globalIndex = reportData.indexOf(item);
+                                const displayTitle = truncateTitle(item.title);
+                                return `
+                                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm cursor-pointer card-hover" data-index="${globalIndex}">
+                                        <div class="mb-3">
+                                            <span class="theme-badge px-2 py-0.5 rounded border ${config.color}">${item.category}</span>
+                                        </div>
+                                        <h3 class="text-base font-semibold text-slate-800 leading-snug line-clamp-3">${displayTitle}</h3>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function showModal(index) {
+            const item = reportData[index];
+            const modal = document.getElementById('news-modal');
+            const config = themeConfig[item.theme] || { icon: "📰", color: "bg-slate-50 text-slate-700 border-slate-200" };
+
+            document.getElementById('modal-category').textContent = `${config.icon} ${item.theme} · ${item.category}`;
+            document.getElementById('modal-category').className = `inline-block px-2 py-0.5 rounded text-xs font-medium ${config.color} mb-2`;
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-content').innerHTML = item.details.replace(/\n\n/g, '</p><p class="mt-4">').replace(/\n/g, '<br>');
+            document.getElementById('modal-content').innerHTML = '<p>' + document.getElementById('modal-content').innerHTML + '</p>';
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('news-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createKeyNumbersSection();
+            renderTop5Section();
+            renderThematicSections();
+
+            document.querySelectorAll('[data-index]').forEach(card => {
+                card.addEventListener('click', () => {
+                    const index = parseInt(card.getAttribute('data-index'));
+                    showModal(index);
+                });
+            });
+
+            document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+            document.getElementById('modal-bg-close').addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-8 border-t border-slate-200">
+        <p class="text-center text-sm text-slate-500">
+            📰 5분 AI 뉴스 정리 | 2026년 01월 23일 | 총 ${reportData.length}개 뉴스
+        </p>
+    </footer>
+</body>
+</html>

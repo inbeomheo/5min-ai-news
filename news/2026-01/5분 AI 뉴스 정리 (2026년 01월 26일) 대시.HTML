@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 - 2026년 01월 26일</title>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .modal-content-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800">📊 AI 뉴스 대시보드</h1>
+                <p class="text-slate-500 text-sm mt-1">2026년 01월 26일 (월)</p>
+            </div>
+            <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold">
+                <span>←</span> 목록
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6" id="content-area">
+        <!-- Key Data Highlights -->
+        <section id="key-highlights" class="mb-10"></section>
+
+        <!-- Top 5 News -->
+        <section id="top5-section" class="mb-10"></section>
+
+        <!-- Thematic Sections -->
+        <section id="thematic-sections"></section>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute inset-4 md:inset-10 lg:inset-20 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex items-start justify-between p-4 md:p-6 border-b border-slate-200">
+                <div class="pr-4">
+                    <span id="modal-category" class="inline-block px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded mb-2"></span>
+                    <h2 id="modal-title" class="text-lg md:text-xl font-bold text-slate-800"></h2>
+                </div>
+                <button id="modal-close-btn" class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500 hover:text-slate-700">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 md:p-6">
+                <div id="modal-content" class="prose prose-slate max-w-none modal-content-text text-slate-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const reportData = [
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발 도구",
+            title: "Claude Code, 숨겨진 멀티 에이전트 '스웜' 기능 발견... AI 개발의 새 패러다임 열리나",
+            isTop5: true,
+            details: `Anthropic의 Claude Code v2.1.19 바이너리 분석 결과, 기능 플래그 뒤에 숨겨진 완전한 멀티 에이전트 팀 시스템 'TeammateTool'이 발견됐다.
+
+개발자 Kieran Klaassen이 바이너리 문자열 분석을 통해 공개한 이 기능은 spawnTeam, discoverTeams, requestJoin, assignTask, broadcastMessage, voteOnDecision 등 13개 핵심 작업을 지원하며, 단일 AI 어시스턴트가 아닌 팀 전체를 조율하는 방식으로 작동한다.
+
+예를 들어 PR 리뷰 요청 시, 리더 에이전트가 보안 전문가, 성능 분석가, 테스트 커버리지 검증자를 동시에 스폰하여 각자 iTerm2 패널에서 병렬 작업 후 결과를 통합하는 워크플로우가 가능해진다.
+
+이 기능은 현재 기능 플래그(I9() && qFB())로 비활성화되어 있으나, Mike Kelly가 claude-sneakpeek 프로젝트를 통해 바이너리를 패치하여 실제 작동하는 데모를 공개해 화제가 됐다.
+
+DEV Community 게시물에 따르면, 한 AI 동물 식별 시스템 개발팀은 Task tool을 활용한 유사 워크플로우로 하루 오후에 9개의 리서치 보고서를 생성하는 성과를 거뒀다고 밝혔다.
+
+Claude Flow, ccswarm 등 오픈소스 프로젝트들도 이미 멀티 에이전트 오케스트레이션을 구현하고 있으며, 'Queen Agent'가 'Worker Agent'들을 조율하는 하이브 마인드 아키텍처로 SWE-Bench에서 84.8% 해결률과 2.8~4.4배 속도 향상을 보고하고 있다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "AI 인프라/투자",
+            title: "젠슨 황 CEO, 'AI는 인류 역사상 최대 규모 인프라 구축'…다보스 포럼서 기조 연설",
+            isTop5: true,
+            details: `엔비디아의 젠슨 황 CEO가 1월 21일 스위스 다보스에서 열린 세계경제포럼(WEF)에서 블랙록의 래리 핑크 회장과 대담을 갖고, AI가 "인류 역사상 최대 규모의 인프라 구축"을 이끌고 있다고 선언했다.
+
+황 CEO는 AI 인프라에 이미 수천억 달러가 투자됐지만 앞으로 수조 달러가 더 필요하다며, 각국이 자국의 언어와 문화를 기반으로 자체 AI를 개발해 '국가 지능(Sovereign AI)'의 일부로 만들어야 한다고 강조했다.
+
+그는 AI 학습과 관리 능력이 사람을 관리하는 것만큼 중요한 핵심 역량이 될 것이라고 전망했다.
+
+황 CEO는 AI 버블 우려를 일축하며, 반도체 산업이 2026년 말까지 연간 1조 달러 매출에 도달할 것으로 전망했다.
+
+그는 유럽에 대해 AI 로봇공학이 "일생에 한 번 있을 기회"라며, 강력한 제조업 기반과 AI를 결합해 '피지컬 AI' 시대를 선도할 수 있다고 조언했다.
+
+한편 그는 AI가 방사선 전문의와 간호사의 생산성을 높여 오히려 해당 직종의 일자리가 늘었다는 사례를 들며, AI로 인한 일자리 감소 우려에 대해 낙관적인 견해를 피력했다.
+
+황 CEO는 데이터센터, 칩 제조, 냉각 시스템 구축 등에서 6자리 연봉의 블루칼라 일자리가 대거 창출될 것이라고 덧붙였다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "AI 생산성 연구",
+            title: "AI 코딩 도구, 숙련 개발자 19% 느리게 만든다... '체감 속도와 실제 속도의 간극'",
+            isTop5: true,
+            details: `METR의 무작위 대조 시험(RCT) 결과, 숙련된 오픈소스 개발자들이 AI 도구를 사용했을 때 오히려 19% 더 느려지는 것으로 나타났다.
+
+2025년 2~6월 진행된 이 연구는 16명의 경험 많은 개발자가 자신의 대형 저장소(100만 줄 이상)에서 실제 이슈를 해결하는 과정을 분석했으며, Cursor Pro와 Claude 3.5/3.7 Sonnet을 주로 사용했다.
+
+가장 충격적인 발견은 인식과 현실의 괴리다. 개발자들은 AI가 24% 속도 향상을 줄 것으로 예상했고, 실험 후에도 20% 빨라졌다고 믿었지만, 실제 화면 녹화 분석 결과는 정반대였다.
+
+Stack Overflow 2025 개발자 설문조사에서도 이 현상은 확인된다. 84%의 개발자가 AI 도구를 사용하지만 결과를 신뢰하는 비율은 33%에 불과하며, AI가 생산성을 "크게" 향상시켰다고 답한 비율은 16.3%에 그쳤다.
+
+MIT Technology Review는 Stanford 연구를 인용해 2022~2025년 사이 22~25세 소프트웨어 개발자 고용이 거의 20% 감소했다고 보도했으며, AI 도구에 익숙해진 한 개발자는 도구 없이 작업할 때 "예전에는 본능적이던 것들이 수동적이고 때로는 번거롭게 느껴졌다"고 털어놨다.
+
+METR 연구진은 AI 제안 통합 오버헤드, 검증·디버깅·조정 시간이 타이핑 시간 절감을 상쇄한다고 분석하며, 개발자들이 보고하는 속도 향상이 실제와 다를 수 있음을 경고했다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "기업 구조조정",
+            title: "아마존, 2026년 5월까지 최대 3만 명 사무직 감원…AI 효율화가 주요 배경",
+            isTop5: true,
+            details: `아마존이 2026년 5월까지 최대 3만 명의 사무직 인력을 감축하는 대규모 구조조정을 진행 중이다.
+
+2025년 말 약 1만 4천 명의 감원을 발표한 데 이어, 1월 26일부터 추가 해고가 시작됐다. 실현될 경우 이는 2022년 약 2만 7천 명을 감원한 것을 넘어서는 아마존 역사상 최대 규모의 인력 감축이 된다.
+
+전체 사무직 및 기술직 35만 명 중 약 8~10%에 해당하는 규모다.
+
+아마존의 베스 갈레티 인사담당 수석부사장은 내부 메모에서 "이번 세대의 AI는 인터넷 이후 가장 혁신적인 기술"이라며, AI가 기업의 혁신 속도를 획기적으로 높이고 있다고 설명했다.
+
+앤디 재시 CEO도 AI가 가져온 효율성 향상으로 사무직 인력이 줄어들 것으로 예상한다고 밝힌 바 있다.
+
+한편 아마존은 동시에 AI와 클라우드 인프라에 1,000억 달러 이상을 투자할 계획을 발표해, AI 투자 확대와 인력 감축이 동시에 진행되는 양상을 보이고 있다.
+
+영향을 받는 직원들에게는 90일간 내부 재배치 기회가 주어지며, 퇴직금도 지급된다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "AI 투자",
+            title: "OpenAI, 2030년까지 1.4조 달러 AI 인프라 투자 계획…재정 건전성 우려 고조",
+            isTop5: true,
+            details: `OpenAI가 2030년까지 약 1.4조 달러(약 2,000조 원) 규모의 AI 인프라 투자를 계획하고 있다고 밝혔다.
+
+이 대규모 투자는 마이크로소프트 Azure 클라우드 서비스(2,500억 달러), 엔비디아 칩(1,000억 달러), AMD GPU(900억 달러), 오라클 클라우드(3,000억 달러) 등 다양한 파트너십을 통해 집행될 예정이다.
+
+샘 알트먼 CEO는 이 투자가 AGI(범용 인공지능) 개발을 위한 필수 인프라라고 강조했다.
+
+그러나 금융 전문가들은 OpenAI의 재정 건전성에 심각한 우려를 표명하고 있다. HSBC 분석에 따르면 OpenAI는 2030년까지 최소 2,070억 달러의 추가 자금 조달이 필요하며, 수익성 달성은 요원한 상황이다.
+
+현재 연간 매출 약 200억 달러에 불과한 OpenAI가 2026~2027년에만 약 1,300억 달러의 지출 의무를 이행해야 하는 상황에서, 역대 최대 규모인 1조 달러 IPO를 추진 중인 것으로 알려졌다.
+
+업계에서는 AI 산업의 '버블 우려'와 함께 OpenAI의 지속 가능성에 대한 논쟁이 가열되고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발 도구",
+            title: "Claude Code 플러그인 생태계 본격 가동... 슬래시 명령·에이전트·훅·MCP 한 번에 패키징",
+            isTop5: false,
+            details: `Anthropic은 2025년 10월 Claude Code 플러그인 시스템을 공개 베타로 출시하며, 개발자들이 커스텀 기능을 단일 패키지로 공유할 수 있는 생태계를 열었다.
+
+플러그인은 슬래시 명령(Slash Commands), 서브에이전트(Subagents), MCP 서버, 훅(Hooks)을 하나로 묶어 /plugin install 명령으로 설치할 수 있으며, 팀 전체가 동일한 개발 환경을 즉시 구축할 수 있다.
+
+Anthropic 공식 문서에 따르면 플러그인은 .claude-plugin/plugin.json 매니페스트와 commands/, agents/, skills/, hooks/ 디렉토리 구조로 구성되며, 기존 .claude/ 설정을 마이그레이션하여 배포할 수 있다.
+
+특히 Agent Skills는 Claude가 작업 컨텍스트에 따라 자동으로 호출하는 지식 패키지로, 프론트매터→SKILL.md 본문→연결 파일의 3단계 점진적 공개 아키텍처를 통해 컨텍스트 사용량을 최소화한다.
+
+현재 커뮤니티에서는 72개 플러그인, 108개 전문 에이전트, 129개 스킬이 공유되고 있으며, JIRA/Linear 연동, 자동 코드 리뷰, TDD 워크플로우 등 실용적인 설정이 마켓플레이스를 통해 배포되고 있다.
+
+Composio의 분석에 따르면 플러그인은 "같은 에이전트 워크플로우를 어떻게 설정하지?"라는 문제를 해결하며, MCP 서버와 훅의 조합으로 티켓 읽기→구현→상태 업데이트→PR 연결까지 전체 워크플로우 자동화가 가능해졌다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발 방법론",
+            title: "'Claude Teacher 모드'로 AI 코딩의 학습 공백 메우기... CLAUDE.md 한 문단이 만드는 차이",
+            isTop5: false,
+            details: `Zara Zhang이 공개한 'Claude Teacher' 설정은 CLAUDE.md 파일에 한 문단을 추가하는 것만으로, 모든 프로젝트를 기술 학습 기회로 전환하는 방법론이다.
+
+핵심은 Claude에게 프로젝트마다 FOR[이름].md 파일을 생성하도록 지시하는 것으로, 이 문서에는 기술 아키텍처, 코드베이스 구조와 연결 관계, 사용 기술, 기술적 결정의 이유, 그리고 배울 수 있는 교훈(버그 해결 과정, 잠재적 함정, 좋은 엔지니어의 사고방식, 베스트 프랙티스)이 평이한 언어로 담긴다.
+
+이 방법은 트위터에서 3,100개 이상의 좋아요와 356회 리트윗을 기록하며 큰 반향을 얻었다.
+
+이 접근법은 Aakash Gupta가 지적한 문제를 정확히 해결한다. 그는 "Claude Code를 쓰는 대부분의 엔지니어들은 빠르게 배포하면서 천천히 학습한다. 작동하는 코드는 얻지만 왜 작동하는지의 추론은 사라지고, Claude가 잡아준 버그는 절대 내재화되지 않는다"고 경고했다.
+
+Claude Teacher 모드는 코드 생성과 동시에 비유와 일화를 활용한 읽기 쉬운 학습 문서를 자동 생성함으로써, AI 시대에도 개발자의 기술적 성장을 담보하는 실용적 해법으로 주목받고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 어시스턴트",
+            title: "Clawdbot, 24시간 AI 비서 시대 열다... Mac Mini 수요 급증 견인",
+            isTop5: false,
+            details: `오픈소스 AI 어시스턴트 Clawdbot이 개인용 24시간 AI 에이전트의 새로운 표준으로 부상하며, 관련 하드웨어 수요를 견인하고 있다.
+
+Peter Steinberger가 개발한 이 TypeScript 기반 프로젝트는 WhatsApp, Telegram, Discord, Signal, iMessage 등 기존 메시징 플랫폼을 통해 사용자의 컴퓨터를 원격 제어할 수 있게 해준다.
+
+MacStories의 Federico Viticci는 "Mac mini 서버에서 실행되는 오픈소스 AI 에이전트가 AI와 함께한 가장 재미있고 생산적인 경험"이라며 극찬했고, GitHub에서는 8,100개 이상의 스타를 기록하며 빠르게 성장 중이다.
+
+Clawdbot의 핵심은 '로컬 퍼스트' 아키텍처다. 모든 데이터가 사용자 기기에 저장되며, 메모리는 Obsidian 볼트처럼 마크다운 파일로 관리된다.
+
+공식 사이트의 사용자 후기에 따르면, @avi_press는 "24시간 만에 Linear 이슈 정리, 이메일 팔로업 작성, PR 3개 오픈, 신규 가입자 발굴을 완료"했다고 밝혔고, @andrewjiang은 "24시간 만에 100개 상위 X 계정에서 400만 개 게시물을 수집하는 프로젝트를 완성"했다고 전했다.
+
+Mac Mini M4, AWS Free Tier, $5 VPS, 심지어 라즈베리파이에서도 구동 가능하며, e/acc 창립자 Beff Jezos는 "AI의 카르키니제이션(수렴 진화)을 목격하고 있다"고 평가했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 스프레드시트",
+            title: "Claude in Excel, Pro 사용자로 확대... MS Copilot에 도전장",
+            isTop5: false,
+            details: `Anthropic이 Claude in Excel 기능을 Pro 플랜 사용자에게 확대 적용하며 스프레드시트 AI 시장 공략을 본격화했다.
+
+2025년 10월 리서치 프리뷰로 출시된 이 도구는 Opus 4.5 모델을 기반으로 Excel 사이드바에서 직접 복잡한 멀티탭 워크북을 분석·수정할 수 있다.
+
+2026년 1월 24일부터 Pro 사용자도 드래그앤드롭 파일 업로드, 셀 수준 인용 설명, 수식 의존성을 보존하는 가정 수정 등 핵심 기능을 활용할 수 있게 됐다. Claude는 #REF!, #VALUE! 같은 오류 원인을 식별하고 즉각적인 수정안을 제시한다.
+
+업계 반응은 뜨겁다. 와튼 경영대학원의 Ethan Mollick 교수는 "MS의 자체 Excel 에이전트보다 Claude가 더 우수하다. MS는 VLOOKUP에만 의존하지만 Claude는 자체 분석 후 Excel로 출력한다"고 평가했다.
+
+LlamaIndex 창립자 Jerry Liu는 "테이블 세그멘테이션 원샷 성공, 다른 에이전트 대비 비밀 소스가 있는 듯하다"고 언급했으며, swyx는 "24시간 만에 1,600만 노출을 기록했고 Gemini in Sheets 대비 훨씬 지능적"이라고 전했다.
+
+Anthropic은 LSEG 실시간 시장 데이터, Moody's, MT Newswires 등 금융 커넥터와 6개 Agent Skills(비교 분석, DCF 모델, 실사 데이터팩 등)도 함께 공개했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "RAG 기술",
+            title: "PageIndex, 벡터 DB 없이 98.7% 정확도... RAG의 새 패러다임 제시",
+            isTop5: false,
+            details: `VectifyAI가 공개한 PageIndex가 벡터 데이터베이스, 임베딩, 청킹 없이 FinanceBench에서 98.7% 정확도를 달성하며 기존 RAG 시스템의 한계를 뛰어넘었다.
+
+이 오픈소스 프레임워크는 AlphaGo의 트리 탐색 알고리즘에서 영감을 받아, 문서를 계층적 트리 구조로 변환한 뒤 LLM이 추론 기반으로 관련 섹션을 탐색하는 방식으로 작동한다.
+
+기존 벡터 기반 RAG가 의미적 유사성(similarity)에 의존한 반면, PageIndex는 실제 관련성(relevance)을 추론으로 판단한다.
+
+PageIndex는 SEC 보고서, 법률 문서, 기술 매뉴얼 등 전문 문서 분석에 특화됐다.
+
+핵심 장점은 세 가지다. 첫째, 벡터 DB가 필요 없어 인프라 복잡성과 비용이 대폭 감소한다. 둘째, 임의 청킹이 없어 문서 구조와 맥락이 완전히 보존된다. 셋째, 모든 검색 경로가 추적 가능해 규제 산업에서 요구하는 감사 및 투명성 요건을 충족한다.
+
+LlamaIndex 커뮤니티에서는 "전문 문서에서 벡터 기반 시스템 대비 검색 정확도가 크게 향상됐다"는 피드백이 이어지고 있으며, MCP 서버 통합을 통해 Claude, Cursor 등 AI 에이전트와의 연동도 지원한다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "LLM 연구",
+            title: "Tencent CALM, 'Next-Vector 예측'으로 LLM 효율성 병목 해소",
+            isTop5: false,
+            details: `Tencent WeChat AI 연구팀이 발표한 CALM(Continuous Autoregressive Language Models)이 토큰 단위 생성의 근본적 한계를 극복하는 새로운 패러다임을 제시했다.
+
+2025년 10월 arXiv에 공개된 이 논문은 기존 LLM이 한 번에 하나의 토큰만 예측하는 '좁은 도로'에 갇혀 있다고 진단하며, 대안으로 K개의 토큰을 하나의 연속 벡터로 압축해 예측하는 방식을 제안했다.
+
+고충실도 오토인코더가 토큰 청크를 벡터로 압축하고 99.9% 이상의 정확도로 원본을 복원한다.
+
+CALM의 핵심 혁신은 '시맨틱 대역폭'이라는 새로운 스케일링 축의 도입이다. 기존 모델이 더 큰 파라미터, 더 많은 데이터로만 확장했다면, CALM은 한 번의 생성 단계에서 처리하는 의미 정보량을 늘린다.
+
+실험 결과 CALM은 기존 이산 토큰 베이스라인과 동등한 성능을 40% 이상 낮은 연산 비용으로 달성했다.
+
+Champaign Magazine은 "이 접근법은 추론 시 누적되는 양자화 노이즈와 긴 시퀀스 문제를 동시에 해결한다"고 분석했으며, 확산 모델이나 Flow Matching의 반복적 샘플링 오버헤드 없이 단일 스텝 생성이 가능하다는 점이 실용성을 높인다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "프롬프트 연구",
+            title: "Stanford 'Verbalized Sampling', 8단어로 AI 창의성 2배 증폭",
+            isTop5: false,
+            details: `Stanford, Northeastern, West Virginia 대학 연구팀이 발표한 Verbalized Sampling 기법이 프롬프트 엔지니어링의 근본 전제를 뒤흔들고 있다.
+
+핵심 발견은 충격적이다. AI 모델이 지루한 게 아니라, 지루하게 훈련됐다는 것. RLHF(인간 피드백 강화학습) 과정에서 평가자들이 익숙하고 안전한 응답을 선호하면서, 모델이 사전훈련에서 학습한 다양성이 억압됐다. 연구팀은 이를 '전형성 편향(Typicality Bias)'이라 명명했다.
+
+해결책은 놀랍도록 단순하다. "커피 농담 해줘" 대신 "커피 농담 5개를 확률과 함께 생성해"라고 요청하면 된다.
+
+이 8단어의 변화가 재훈련이나 파인튜닝 없이 창의적 다양성을 1.6~2.1배 증가시킨다.
+
+VentureBeat에 따르면, GPT-4, Claude, Gemini 모두에서 기본 모델 다양성의 66.8%를 회복했고 사실적 정확성이나 안전성 손실은 0이었다. 특히 대형 모델일수록 효과가 더 컸다.
+
+연구팀은 이 기법이 창작, 대화 시뮬레이션, 합성 데이터 생성 등에서 광범위하게 적용 가능하며, 프롬프트 엔지니어링이 '기술'에서 '과학'으로 전환되는 시발점이라고 평가했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "추론 최적화",
+            title: "NVIDIA DMS, 8배 KV 캐시 압축으로 추론 효율성 Pareto 프론티어 재정의",
+            isTop5: false,
+            details: `NVIDIA와 에든버러 대학 연구팀이 개발한 DMS(Dynamic Memory Sparsification)가 추론 시간 하이퍼스케일링의 새로운 가능성을 열었다.
+
+2025년 6월 공개된 이 기법은 Transformer 모델의 핵심 병목인 KV 캐시 메모리 문제를 해결하며, 최대 8배 압축률에서도 정확도를 유지하거나 오히려 향상시킨다.
+
+KV 캐시는 자동회귀 생성 시 이전 토큰 표현을 저장하는데, 시퀀스 길이와 병렬 스레드 수에 비례해 선형으로 증가하며 GPU 메모리를 잠식한다.
+
+DMS는 어텐션 점수 기반으로 중요 토큰을 동적 식별하고, 불필요한 토큰을 슬라이딩 윈도우 내에서 점진적으로 제거한다.
+
+기존 DMC(Dynamic Memory Compression)와 달리 어텐션 헤드당 추가 파라미터가 없어 기존 모델에 즉시 적용 가능하다.
+
+Qwen-R1 1.5B, 7B, 32B 모델에서 테스트한 결과, 동일 메모리·연산 예산 내에서 AIME 9.1점, GPQA 7.6점, LiveCodeBench 9.6점의 exact-match 성능 향상을 기록했다.
+
+장문맥 태스크(Needle-in-a-Haystack, Variable Tracking)에서는 바닐라 모델을 능가하며, 정보 과압축(over-squashing) 문제 완화 가능성도 시사했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발 도구",
+            title: "Claude Code 'Teacher 모드', AI 코딩 도구의 학습 공백 문제 해결",
+            isTop5: false,
+            details: `Claude Code가 새롭게 도입한 Learning 및 Explanatory 출력 스타일이 AI 지원 개발의 고질적 문제인 '기술적 성장 정체'를 해결하며 주목받고 있다.
+
+기존 AI 코딩 도구들이 작동하는 코드만 생성하고 '왜' 그렇게 구현했는지 설명하지 않는 문제를 정면으로 겨냥한 이 기능은, Claude가 단순한 코드 생성기를 넘어 교육적 동반자로 진화했음을 보여준다.
+
+TechForward Academy의 Sarah Chen 강사는 "학생들이 AI를 목발이 아닌 협업 파트너로 활용하게 됐다. 코드 이해력 평가에서 65% 향상을 확인했다"고 전했다.
+
+핵심은 CLAUDE.md 파일과 Skills 시스템의 조합이다. 프로젝트 루트에 위치한 CLAUDE.md는 Claude가 세션 시작 시 자동으로 컨텍스트에 로드하는 파일로, 개발자의 코딩 규칙, 워크플로우, 아키텍처 결정 사항을 기록한다.
+
+Anthropic 공식 문서에 따르면, /init 명령으로 Claude가 코드베이스를 분석해 CLAUDE.md를 자동 생성하며, # 키를 눌러 실시간으로 학습 내용을 추가할 수 있다.
+
+Learning 모드는 한 단계 더 나아가 TODO(human) 마커를 삽입해 개발자가 직접 구현해야 할 부분을 명시적으로 표시하고, 매 작업마다 아키텍처 결정의 이유와 트레이드오프를 설명한다.
+
+대형 이커머스 업체의 Shopify Plus에서 Next.js 14 마이그레이션 사례에서는 8명의 개발팀이 신규 개발자 온보딩 시간을 2주에서 4일로 단축했다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "하드웨어 트렌드",
+            title: "클로드 코드(Claude Code) 열풍, 개발자들 사이 '맥 미니' 구매 러시 촉발",
+            isTop5: false,
+            details: `Anthropic의 AI 코딩 에이전트 클로드 코드(Claude Code)와 Cowork 출시를 계기로 개발자 커뮤니티에서 Mac Mini 구매 열풍이 불고 있다.
+
+1월 25일 기준 X(구 트위터)에서 '클로드 코드' 관련 트윗이 조회수 상위 20개 중 절반 이상을 차지했으며, 구글 AI 출신으로 현재 Apple에서 근무 중인 Logan Kilpatrick의 "Mac mini 주문함"이라는 단순한 트윗이 54만 조회수를 기록하며 화제를 모았다.
+
+이는 클로드 코드를 로컬 환경에서 상시 구동하기 위한 전용 기기 수요가 급증하고 있음을 보여준다.
+
+이러한 현상의 배경에는 Anthropic이 최근 출시한 Cowork가 있다. Cowork는 Claude Code의 기반 기술인 Agent SDK를 활용해 비개발자도 파일 관리, 문서 정리, 이메일 처리 등 다양한 작업을 AI에게 위임할 수 있는 도구로, 현재 macOS 전용으로 Claude Max 구독자($100~$200/월)에게 제공된다.
+
+커뮤니티에서는 Mac Mini 구매를 권장하는 의견과 함께, "AWS 무료 인스턴스나 Hetzner VPS($25/월)로도 충분하다"는 클라우드 대안론도 활발히 제기되고 있다.
+
+Anthropic 엔지니어 Boris Cherny는 Claude Code의 플리커링 이슈 해결을 위한 새로운 렌더링 엔진 배포를 발표했으며, 향후 Windows 지원 확대와 함께 AI 코딩 에이전트 시장의 경쟁이 더욱 치열해질 전망이다.`
+        },
+        {
+            theme: "산업별 AI 적용",
+            category: "유통/소매",
+            title: "마이크로소프트, 에이전트형 AI 탑재 소매 로봇으로 유통업 혁신 추진",
+            isTop5: false,
+            details: `마이크로소프트가 1월 8일 소매업 전반에 에이전트형 AI(Agentic AI) 솔루션을 도입한다고 발표했다.
+
+이번 발표는 상품 기획, 마케팅, 매장 운영, 배송 등 소매업 밸류체인 전 영역에 지능형 자동화를 적용하는 것으로, 분절된 워크플로우를 통합된 AI 기반 운영 체계로 전환하는 것이 목표다.
+
+마이크로소프트의 캐슬린 미트포드 글로벌 산업 부문 부사장은 "AI를 인프라처럼 다루는 소매업체가 업계를 선도할 것"이라고 밝혔다.
+
+새로운 솔루션 중 '코파일럿 체크아웃(Copilot Checkout)'은 소비자가 외부 사이트로 이동하지 않고 코파일럿 내에서 직접 구매를 완료할 수 있게 해준다.
+
+또한 마이크로소프트는 Richtech Robotics와 협력해 음료 제조 로봇 'ADAM'에 대화형 AI를 탑재, 맥락 인식 기반의 고객 서비스를 구현했다.
+
+쇼피파이, 페이팔, 스트라이프 등과 파트너십을 맺어 어반 아웃피터스, 앤트로폴로지, 애슐리 가구 등 주요 브랜드가 참여할 예정이며, 2026년 2월 다이나믹스 365 커머스 MCP 서버가 프리뷰로 출시될 계획이다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "시장 분석",
+            title: "닷컴 버블과 AI 버블, 유사점과 차이점…전문가들 '이번엔 다르다'",
+            isTop5: false,
+            details: `AI 투자 열풍이 1990년대 후반 닷컴 버블과 닮았다는 우려가 커지는 가운데, 전문가들은 핵심적인 차이점이 존재한다고 분석했다.
+
+스탠포드 대학 연구에 따르면 2024년 글로벌 기업 AI 투자는 2,523억 달러에 달하며, 2014년 대비 13배 성장했다.
+
+닷컴 시대에는 수익이 거의 없는 스타트업들이 투기 자금으로 수십억 달러 가치를 인정받았지만, 현재 AI 확장은 마이크로소프트, 아마존, 알파벳, 메타 등 수익성 있는 대기업들이 주도하고 있다.
+
+VanEck 분석에 따르면 닷컴 시대와 달리 현재 AI 기업들은 낮은 부채비율과 강력한 수익 성장을 보이고 있다.
+
+야누스헨더슨의 분석가들은 닷컴 버블이 Y2K 문제와 금리 인상 등 독특한 요인으로 급격히 붕괴한 반면, AI 파동은 "꺼지기보다 밀물과 썰물처럼 움직일 것"이라고 전망했다.
+
+다만 OpenAI의 기업가치가 130억 달러 매출 전망에도 불구하고 이미 1조 달러 규모의 딜을 체결한 것처럼, 투자 규모와 예상 수익 간 괴리가 버블 조짐으로 지적되기도 한다.
+
+엔비디아를 포함한 6개 AI 대형주가 S&P 500의 약 30%를 차지해, AI 매도세가 발생할 경우 지수 전체에 큰 충격을 줄 수 있다는 점도 우려 요인이다.`
+        },
+        {
+            theme: "법률, 규제 및 거버넌스",
+            category: "국방/안보",
+            title: "미 국방부, 일론 머스크의 그록 AI 군사 네트워크 통합 추진…윤리 논란 속 강행",
+            isTop5: false,
+            details: `미국 국방장관 피트 헤그세스가 1월 12일 텍사스 스페이스X 본사에서 일론 머스크의 AI 챗봇 '그록(Grok)'을 펜타곤의 군사 네트워크에 통합하겠다고 발표했다.
+
+그록은 2026년 1월 말까지 비밀 및 비비밀 네트워크 모두에서 운영될 예정이며, 국방부의 AI 플랫폼 'GenAI.mil'에 탑재되어 300만 명의 군인과 민간 인력이 접근할 수 있게 된다.
+
+xAI에 따르면 이 시스템은 IL5(Impact Level 5) 보안 등급에서 작동해 통제된 비공개 정보(CUI)를 처리할 수 있다.
+
+이번 결정은 그록이 비동의 성적 이미지 생성 논란으로 말레이시아와 인도네시아에서 차단되고 영국이 조사에 착수한 직후에 나왔다.
+
+헤그세스 장관은 "전쟁을 수행할 수 없게 하는 AI 모델은 채택하지 않을 것"이라며 "국방부의 AI는 깨어있지(woke) 않을 것"이라고 강조했다.
+
+비평가들은 그록이 과거 반유대적 발언과 편향성 논란을 일으킨 점을 들어 민감한 군사 데이터를 안전하게 처리할 수 있을지 의문을 제기하고 있다.
+
+국방부는 20년간의 군사 및 정보 작전 데이터를 AI 시스템에 제공할 계획이며, 이는 구글 제미나이와 함께 운영될 예정이다.`
+        },
+        {
+            theme: "법률, 규제 및 거버넌스",
+            category: "AI 정책",
+            title: "트럼프 행정부, 주 정부 AI 규제 무력화 행정명령 서명…연방 선점권 행사",
+            isTop5: false,
+            details: `트럼프 대통령이 2025년 12월 11일 주 정부의 AI 규제를 연방 정부가 무력화할 수 있도록 하는 행정명령에 서명했다.
+
+이 명령은 법무부 내에 'AI 소송 태스크포스'를 설치해 주 간 상거래를 위헌적으로 규제하거나 연방 규정과 충돌하는 주법에 대해 연방 법원에 소송을 제기하도록 지시했다.
+
+상무부는 2026년 3월 11일까지 국가 AI 정책과 충돌하는 '과도하게 부담되는' 주법을 평가해 공개해야 한다.
+
+행정명령은 특히 캘리포니아, 콜로라도, 텍사스 등 AI 편향 완화와 투명성을 요구하는 주법을 겨냥하고 있다.
+
+트럼프 행정부는 편향 완화가 AI 모델의 '진실성'을 저해한다며, FTC에 이를 기만적 거래 관행으로 분류하는 정책 성명을 발표하도록 지시했다.
+
+또한 420억 달러 규모의 브로드밴드 인프라 자금(BEAD)을 AI 규제가 있는 주에 대해 조건부로 지급하거나 보류할 수 있게 했다.
+
+그러나 브레넌센터는 "행정명령만으로 주법을 선점할 헌법적 권한이 대통령에게 없다"며 법적 효력에 의문을 제기했고, 플로리다의 론 디샌티스 주지사도 "행정명령은 주 입법 활동을 선점할 수 없다"고 반박했다.`
+        },
+        {
+            theme: "법률, 규제 및 거버넌스",
+            category: "국제 협력",
+            title: "미국-이스라엘, AI·첨단기술 전략적 파트너십 공식 출범…팍스 실리카 이니셔티브 일환",
+            isTop5: false,
+            details: `미국과 이스라엘이 1월 16일 예루살렘 다윗의 도시(City of David)에서 인공지능, 연구 및 핵심 기술 분야 전략적 파트너십을 공식 출범했다.
+
+이스라엘 국가 AI 이사회장 에레즈 에스켈 준장(예)과 미국 경제담당 국무차관 제이콥 헬버그가 공동성명서에 서명했으며, 이스라엘 외무장관 기드온 사르와 주이스라엘 미국대사 마이크 허커비가 참석했다.
+
+이스라엘은 미국 주도의 '팍스 실리카(Pax Silica)' 이니셔티브에 참여한 9개국 중 미국과 양자 공동성명을 체결한 첫 번째 국가가 됐다.
+
+파트너십은 AI, 에너지 기술, 첨단 컴퓨팅, 우주, 반도체 등 전략적 분야에서 공동 연구, 개발, 투자 및 상용화를 추진한다.
+
+특히 이스라엘에 미국-이스라엘 공동 응용 AI 연구소 설립이 즉시 추진될 예정이다.
+
+헬버그 차관은 "이스라엘은 소규모에도 불구하고 '비대칭적 성과'를 낼 수 있는 혁신 생태계를 보유하고 있다"며, 이스라엘을 팍스 실리카의 핵심 파트너로 평가했다.
+
+사르 장관은 "기술 리더십이 국가 안보와 분리될 수 없게 됐다"며 이번 파트너십이 양국의 "깨지지 않는 동맹의 또 다른 이정표"라고 강조했다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "노동/고용",
+            title: "'AI의 대부' 제프리 힌튼 'AI가 대규모 실업과 이윤 급증 초래…자본주의 체제 탓'",
+            isTop5: false,
+            details: `노벨상 수상자이자 'AI의 대부'로 불리는 제프리 힌튼이 CNN과의 인터뷰에서 2026년 AI가 더 많은 일자리를 대체할 것이라고 경고했다.
+
+힌튼은 "AI는 이미 콜센터 일자리를 대체하고 있지만, 앞으로 훨씬 더 많은 일자리를 대체할 수 있게 될 것"이라며, AI의 작업 수행 속도가 약 7개월마다 2배씩 빨라지고 있다고 밝혔다.
+
+그는 몇 년 내에 AI가 현재 한 달이 걸리는 소프트웨어 엔지니어링 작업을 수행할 수 있게 되어 "소프트웨어 엔지니어링 프로젝트에 필요한 인력이 거의 없어질 것"이라고 전망했다.
+
+힌튼은 파이낸셜타임스와의 인터뷰에서 "부자들이 AI를 사용해 노동자를 대체할 것이며, 이는 대규모 실업과 이윤 급증을 초래할 것"이라고 말했다.
+
+그는 "이것은 AI의 잘못이 아니라 자본주의 체제의 문제"라며, "소수의 사람들은 훨씬 더 부유해지고 대다수는 더 가난해질 것"이라고 덧붙였다.
+
+힌튼은 샘 알트먼의 보편적 기본소득 아이디어에 대해서도 "인간의 존엄성을 해결하지 못한다"며 부정적인 견해를 밝혔다.
+
+한편 그는 의료 분야는 AI로 인한 일자리 감소에서 예외가 될 것이라며, 의사 효율성이 5배 높아지면 같은 비용으로 5배의 의료 서비스를 제공받을 수 있다고 설명했다.`
+        },
+        {
+            theme: "산업별 AI 적용",
+            category: "교육",
+            title: "구글, 제미나이에 SAT 무료 모의고사 서비스 출시…AI 교육 시장 공략 본격화",
+            isTop5: false,
+            details: `구글이 1월 21일 AI 챗봇 제미나이(Gemini)에 무료 SAT 전 과목 모의고사 기능을 추가했다고 발표했다.
+
+영국에서 열린 BETT 2026 교육 기술 컨퍼런스에서 공개된 이 서비스는 미국 명문 입시 전문 기관 프린스턴 리뷰(The Princeton Review)와 협력해 실제 시험과 동일한 형식의 검증된 문제를 제공한다.
+
+사용자는 제미나이 앱에서 "SAT 모의고사를 보고 싶다"고 말하면 바로 시험을 시작할 수 있다.
+
+이 서비스의 핵심 차별점은 단순한 문제 생성을 넘어 실제 시험 환경을 정확히 재현한다는 점이다.
+
+시험 완료 후 제미나이는 강점과 약점을 즉시 분석해 제공하고, 오답에 대한 상세한 설명과 함께 맞춤형 학습 계획을 생성한다.
+
+현재는 SAT만 지원하지만, 향후 다른 표준화 시험으로 확대될 예정이다.
+
+이번 출시로 기존 고가의 SAT 준비 과정이나 과외 없이도 효과적인 입시 준비가 가능해져, AI 교육 시장의 민주화에 기여할 것으로 기대된다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "투자/M&A",
+            title: "구글, 일본 AI 스타트업 사카나 AI에 투자…제미나이 아시아 시장 공략 강화",
+            isTop5: false,
+            details: `구글이 1월 23일 일본 AI 스타트업 사카나 AI(Sakana AI)에 전략적 투자를 단행했다고 발표했다.
+
+2023년 구글 브레인 출신 연구원 데이비드 하(David Ha)가 설립한 사카나 AI는 지난해 시리즈 B 라운드에서 1억 3,500만 달러를 유치하며 26억 달러(약 3.8조 원) 기업가치를 인정받은 일본 대표 AI 유니콘이다.
+
+이번 투자를 통해 구글은 ChatGPT에 밀리고 있는 일본 기업 시장에서 제미나이의 입지를 강화하려는 전략이다.
+
+사카나 AI는 생물학적·생태학적 모델링에서 영감을 받은 효율적인 AI 알고리즘으로 주목받고 있으며, 이미 일본 주요 금융기관들과 계약을 체결한 바 있다.
+
+이번 파트너십을 통해 사카나 AI는 구글의 제미나이 모델에 접근해 제품을 개발하고, 구글은 일본어 뉘앙스와 현지 규정 준수에 특화된 AI 솔루션을 제공할 수 있게 된다.
+
+2026년 1월 기준 AI 챗봇 시장에서 ChatGPT가 64%, 제미나이가 21%의 점유율을 차지하는 상황에서, 이번 투자는 구글이 아시아 시장 공략을 본격화하는 신호탄으로 평가된다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "노동/고용",
+            title: "AI로 인한 일자리 불안 급증…'쓰나미처럼 노동 시장 강타' 경고",
+            isTop5: false,
+            details: `다보스 세계경제포럼에서 크리스탈리나 게오르기에바 IMF 총재가 AI가 "노동 시장을 쓰나미처럼 강타하고 있다"고 경고했다.
+
+머서(Mercer)의 글로벌 인재 트렌드 2026 보고서에 따르면, AI로 인한 일자리 상실에 대한 직원들의 우려는 2024년 28%에서 2026년 40%로 급증했다.
+
+영국에서는 근로자의 26%가 AI로 인한 감원을 우려하고 있으며, 고용주의 17%는 향후 12개월 내 AI로 인해 인력을 줄일 것으로 예상하고 있다.
+
+특히 사무직·초급 관리직·전문직이 가장 큰 위험에 처한 것으로 나타났다.
+
+CIPD 조사에 따르면 AI로 인력 감축을 예상하는 고용주 중 62%가 이러한 초급·중간 직위가 가장 위험하다고 응답했다.
+
+대기업의 경우 26%가 인력 감소를 예상해 전체 평균(17%)을 크게 상회했다.
+
+그러나 랜드스태드 CEO는 "현재 해고의 대부분은 AI가 아닌 시장 불확실성 때문"이라며 AI의 직접적 영향은 아직 제한적이라고 반박했다.
+
+전문가들은 체계적인 재교육·업스킬링 프로그램 마련이 시급하다고 강조했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "프롬프트 기법",
+            title: "'소량 프롬프트'로 AI 코딩 성능 5배 향상…효율적 LLM 활용법 주목",
+            isTop5: false,
+            details: `AI 기술 전문 매체 Towards Data Science가 1월 23일 '소량 프롬프팅(Few-Shot Prompting)'을 통해 에이전틱 코딩 성능을 5배까지 향상시킬 수 있다는 기술 가이드를 공개했다.
+
+소량 프롬프팅은 LLM에게 이전 작업 결과물을 예시로 제공해 의도를 명확히 전달하고 모호성을 제거하는 기법이다.
+
+기사 저자 에이빈드 쿄스바켄은 "모든 작업에서 첫 번째가 아닌 이상, 항상 이전 작업을 참조하라"고 조언했다.
+
+구체적인 활용 사례로는 새 저장소에 GitHub Actions 스크립트 복제, 마케팅 자료 제작, 슬래시 커맨드 생성 등이 소개됐다.
+
+핵심은 자연어로 의도를 설명하는 대신 실제 구현된 코드나 디자인을 보여주는 것이다.
+
+예를 들어 웹사이트 제작 시 "이전과 비슷하게"라고 설명하는 대신 실제 이전 코드베이스나 스크린샷을 제공하면 훨씬 정확한 결과를 얻을 수 있다.
+
+저자는 "작업을 많이 할수록 참조할 예시가 늘어나 LLM 성능이 점점 향상된다"며 이 기법의 장기적 가치를 강조했다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "생산성 연구",
+            title: "'AI 생산성 기적?' 경영진과 직원 인식 격차 심화…40% '시간 절약 전무'",
+            isTop5: false,
+            details: `리서치 기업 Section이 5,000명의 화이트칼라 근로자를 대상으로 실시한 조사 결과, AI 도입 효과에 대한 경영진과 직원 간 인식 격차가 극명하게 드러났다.
+
+경영진의 70% 이상이 AI에 "흥분한다"고 답하고 19%는 주당 12시간 이상을 절약한다고 응답한 반면, 비관리직 근로자의 40%는 AI로 전혀 시간을 절약하지 못했다고 답했다.
+
+또한 비관리직의 70%가 AI로 인해 "불안감이나 압도감을 느낀다"고 응답했다.
+
+이러한 격차는 실제 업무 현장에서도 확인된다. 노스캐롤라이나의 UX 디자이너 스티브 맥가비는 LLM이 제공한 정보가 부정확해 수정에 더 많은 시간이 소요된다고 증언했다.
+
+PwC가 다보스에서 4,500명의 CEO를 대상으로 한 조사에서도 12%만이 AI로 비용 절감과 매출 증가를 동시에 달성했다고 응답했다.
+
+클라르나(Klarna)는 2024년 AI로 상담원을 대체했다가 이후 복잡한 문의 처리를 위해 인력을 다시 채용했으며, 듀오링고도 AI 도입 후 오히려 인력이 14% 증가했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "애플 AI",
+            title: "애플, 2월 하순 '제미나이 기반 시리' 공개 예정…iOS 26.4에 탑재",
+            isTop5: false,
+            details: `블룸버그의 마크 거먼 기자가 1월 25일 애플이 2월 하순 구글 제미나이 기반의 새로운 시리를 공개할 계획이라고 보도했다.
+
+애플과 구글은 1월 12일 다년간의 전략적 파트너십을 발표하며, 애플 파운데이션 모델이 구글의 제미나이 모델과 클라우드 기술을 기반으로 구축될 것이라고 밝힌 바 있다.
+
+애플은 "면밀한 평가 끝에 구글 기술이 가장 강력한 기반을 제공한다고 판단했다"고 설명했다.
+
+새로운 시리는 iOS 26.4 베타에 2월 탑재되어 3~4월 정식 출시될 예정이다.
+
+2024년 WWDC에서 처음 예고됐던 '더 개인화된 시리'는 사용자의 개인 데이터와 화면 콘텐츠에 접근해 작업을 수행하고, 메일·메시지 앱 정보를 활용한 맥락 이해가 가능해진다.
+
+이번 파트너십으로 애플은 약 연간 10억 달러를 구글에 지불하는 것으로 알려졌다.
+
+애플은 OpenAI의 ChatGPT 통합도 유지한다고 밝혔으나, 제미나이가 애플 AI 전략의 핵심으로 자리 잡을 전망이다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "애플 하드웨어",
+            title: "애플, 에어태그 크기 'AI 웨어러블 핀' 개발 중…2027년 출시 목표",
+            isTop5: false,
+            details: `The Information이 1월 21일 애플이 듀얼 카메라와 마이크, 스피커를 탑재한 소형 AI 웨어러블 핀을 개발 중이라고 보도했다.
+
+에어태그와 비슷한 크기의 얇고 평평한 원형 디스크 형태로, 알루미늄과 유리 외장에 일반 렌즈와 광각 렌즈가 탑재되어 사진·영상 촬영이 가능하다.
+
+3개의 마이크로 주변 소리를 수집하고, 내장 스피커와 무선 충전 기능도 포함된다.
+
+그러나 상업적 성공 여부는 불투명하다. 2024년 유사한 제품을 출시한 휴메인(Humane)은 느린 반응 속도와 짧은 배터리 수명으로 비판받으며 1만 대 미만을 판매하는 데 그쳤다.
+
+애플은 OpenAI가 2026년 출시 예정인 웨어러블과 경쟁하기 위해 개발 속도를 높이고 있으나, 아직 초기 단계라 프로젝트가 취소될 가능성도 있다.
+
+이 기기가 출시될 경우 iOS 27에서 공개될 새로운 시리 챗봇과 연동될 것으로 예상된다.
+
+업계에서는 애플이 스마트폰·스마트워치를 넘어 '상시 AI 동반자' 시장에 진출하려는 의도로 해석하고 있다.`
+        }
+    ];
+
+    // Theme mapping for Korean display
+    const themeNames = {
+        "AI 인프라 및 투자": { icon: "🏗️", color: "bg-blue-50 border-blue-200" },
+        "플랫폼, 제품 및 에이전트": { icon: "🤖", color: "bg-purple-50 border-purple-200" },
+        "산업별 AI 적용": { icon: "🏭", color: "bg-green-50 border-green-200" },
+        "법률, 규제 및 거버넌스": { icon: "⚖️", color: "bg-red-50 border-red-200" },
+        "AI와 사회": { icon: "👥", color: "bg-amber-50 border-amber-200" }
+    };
+
+    // Truncate title function
+    function truncateTitle(title, maxLength = 60) {
+        if (title.length <= maxLength) return title;
+        
+        // Try to cut at '—' or ':'
+        const dashIndex = title.indexOf('—');
+        const colonIndex = title.indexOf(':');
+        const dotDotIndex = title.indexOf('...');
+        
+        if (dashIndex > 0 && dashIndex <= maxLength) {
+            return title.substring(0, dashIndex).trim() + '...';
+        }
+        if (colonIndex > 0 && colonIndex <= maxLength) {
+            return title.substring(0, colonIndex).trim() + '...';
+        }
+        
+        return title.substring(0, maxLength).trim() + '...';
+    }
+
+    // Create Key Numbers Section
+    function createKeyNumbersSection() {
+        const container = document.getElementById('key-highlights');
+        const keyData = [
+            { value: "1.4조 달러", label: "OpenAI 2030년 투자 계획", icon: "💰" },
+            { value: "3만 명", label: "아마존 감원 규모", icon: "👥" },
+            { value: "19%", label: "AI 사용 시 개발자 속도 저하", icon: "⏱️" },
+            { value: "98.7%", label: "PageIndex RAG 정확도", icon: "🎯" }
+        ];
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">📈 주요 데이터 하이라이트</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                ${keyData.map(item => `
+                    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="text-2xl mb-2">${item.icon}</div>
+                        <div class="text-2xl md:text-3xl font-bold text-slate-800">${item.value}</div>
+                        <div class="text-sm text-slate-500 mt-1">${item.label}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Render Top 5 Section
+    function renderTop5Section() {
+        const container = document.getElementById('top5-section');
+        const top5Items = reportData.filter(item => item.isTop5);
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">🏆 Top 5 뉴스</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${top5Items.map((item, idx) => {
+                    const displayTitle = truncateTitle(item.title);
+                    const globalIndex = reportData.indexOf(item);
+                    return `
+                        <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white font-bold text-sm">${idx + 1}</span>
+                                <span class="text-xs font-medium text-amber-700 bg-amber-100 px-2 py-1 rounded">${item.category}</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    // Render Thematic Sections
+    function renderThematicSections() {
+        const container = document.getElementById('thematic-sections');
+        const themes = [...new Set(reportData.map(item => item.theme))];
+
+        let html = '';
+        themes.forEach(theme => {
+            const themeInfo = themeNames[theme] || { icon: "📰", color: "bg-slate-50 border-slate-200" };
+            const themeItems = reportData.filter(item => item.theme === theme && !item.isTop5);
+
+            if (themeItems.length === 0) return;
+
+            html += `
+                <div class="mb-10">
+                    <h2 class="text-lg font-bold text-slate-700 mb-4">${themeInfo.icon} ${theme}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        ${themeItems.map(item => {
+                            const displayTitle = truncateTitle(item.title);
+                            const globalIndex = reportData.indexOf(item);
+                            return `
+                                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                                    <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded mb-3 inline-block">${item.category}</span>
+                                    <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    // Modal Functions
+    function showModal(index) {
+        const item = reportData[index];
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        modalTitle.textContent = item.title;
+        modalCategory.textContent = item.category;
+        modalContent.textContent = item.details;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+        const modal = document.getElementById('news-modal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        createKeyNumbersSection();
+        renderTop5Section();
+        renderThematicSections();
+
+        // Card click events
+        document.querySelectorAll('[data-index]').forEach(card => {
+            card.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showModal(index);
+            });
+        });
+
+        // Modal close events
+        document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+        document.getElementById('modal-bg-close').addEventListener('click', hideModal);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') hideModal();
+        });
+    });
+    </script>
+</body>
+</html>
