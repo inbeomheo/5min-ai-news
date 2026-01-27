@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT | 2026.01.28</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            color: #111;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* 네오 브루탈리즘 컴포넌트 */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #111;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0px 0px #111;
+            transition: all 0.2s ease;
+        }
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #111;
+        }
+
+        .nb-btn {
+            border: 2px solid #111;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0px 0px #111;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px 0px #111;
+        }
+
+        .nb-tag {
+            border: 1.5px solid #111;
+            border-radius: 8px;
+            box-shadow: 2px 2px 0px 0px #111;
+        }
+
+        /* 파스텔 컬러 */
+        .bg-pastel-blue { background-color: #C4E4FF; }
+        .bg-pastel-red { background-color: #FFC4C4; }
+        .bg-pastel-green { background-color: #C4FFD6; }
+        .bg-pastel-yellow { background-color: #FFF4BD; }
+        .bg-pastel-purple { background-color: #E2C4FF; }
+
+        /* 스크롤바 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        /* 차트 컨테이너 */
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200">
+
+    <!-- ========== HEADER ========== -->
+    <header class="max-w-6xl mx-auto pt-10 pb-6 px-4 text-center">
+        <a href="../../index.html"
+           class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
+            ← 전체 목록
+        </a>
+        <div class="inline-block bg-black text-white px-4 py-1 rounded-full text-sm font-bold mb-3">
+            WEEKLY BRIEFING
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-2">
+            AI TREND REPORT
+        </h1>
+        <p class="text-lg text-gray-600 font-medium">
+            2026년 1월 28일 기준 · OpenAI Prism · MS Maia 200 · Kimi K2.5
+        </p>
+    </header>
+
+    <!-- ========== KPI DASHBOARD ========== -->
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box bg-pastel-purple p-5">
+                <span class="text-xs font-bold text-gray-600">🔬 OpenAI Prism</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">GPT-5.2</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">과학자용 AI 워크스페이스</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box bg-pastel-green p-5">
+                <span class="text-xs font-bold text-gray-600">🔧 MS Maia 200</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">1,400억+</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">트랜지스터 탑재</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box bg-pastel-blue p-5">
+                <span class="text-xs font-bold text-gray-600">💰 Google AI Plus</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$7.99</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">월 구독료 (60% 저렴)</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box bg-pastel-yellow p-5">
+                <span class="text-xs font-bold text-gray-600">🌌 ESA 허블 AI</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">800+</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">미발견 천체 발굴</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STICKY NAVIGATION ========== -->
+    <nav class="sticky top-4 z-50 px-4 mb-12">
+        <div class="max-w-4xl mx-auto nb-box bg-white p-2 flex justify-center gap-2 overflow-x-auto">
+            <a href="#theme1" class="nb-btn px-4 py-2 bg-pastel-purple text-sm whitespace-nowrap hover:opacity-80">🔬 Prism</a>
+            <a href="#theme2" class="nb-btn px-4 py-2 bg-pastel-green text-sm whitespace-nowrap hover:opacity-80">🔧 Maia 200</a>
+            <a href="#theme3" class="nb-btn px-4 py-2 bg-pastel-blue text-sm whitespace-nowrap hover:opacity-80">🐝 Kimi K2.5</a>
+            <a href="#theme4" class="nb-btn px-4 py-2 bg-pastel-yellow text-sm whitespace-nowrap hover:opacity-80">📜 AI 표준</a>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="max-w-6xl mx-auto px-4 space-y-20 pb-20">
+
+        <!-- ========== 테마 1: OpenAI Prism ========== -->
+        <section id="theme1" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">1</div>
+                <h2 class="text-2xl md:text-3xl font-black">OpenAI Prism - 과학자용 AI 워크스페이스</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1: Prism 개요 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🔬 GPT-5.2 기반 LaTeX 통합</h3>
+
+                    <!-- 핵심 기능 -->
+                    <div class="grid grid-cols-2 gap-3 py-4">
+                        <div class="nb-tag bg-pastel-purple px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">📝</div>
+                            <span class="font-bold text-sm">논문 초안</span>
+                        </div>
+                        <div class="nb-tag bg-pastel-blue px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">📊</div>
+                            <span class="font-bold text-sm">수식 처리</span>
+                        </div>
+                        <div class="nb-tag bg-pastel-green px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">📚</div>
+                            <span class="font-bold text-sm">인용 관리</span>
+                        </div>
+                        <div class="nb-tag bg-pastel-yellow px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">👥</div>
+                            <span class="font-bold text-sm">협업 기능</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-black text-white p-4 rounded-xl mt-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "2025년 AI가 소프트웨어 개발을<br/>
+                            영원히 바꿨듯이, 2026년에는<br/>
+                            <span class="text-yellow-400">과학 분야에서도 유사한 변화가</span>"
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">- OpenAI</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">ChatGPT 계정 보유자 누구나 무료 사용 가능. 매주 840만 건의 과학 주제 메시지 처리</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Google AI Plus -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">💰 Google AI Plus $7.99 출시</h3>
+
+                    <div class="text-center py-4">
+                        <div class="text-6xl font-black text-green-600">60%</div>
+                        <p class="text-lg font-bold mt-2">기존 AI Pro 대비 저렴</p>
+                    </div>
+
+                    <div class="space-y-3 mt-4">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">포함</span>
+                            <span class="text-sm">Gemini 3 Pro 접근</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">포함</span>
+                            <span class="text-sm">200GB 클라우드 저장공간</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">포함</span>
+                            <span class="text-sm">최대 5명 가족 공유</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <p class="text-sm font-bold text-green-800">🎯 신규 가입 혜택</p>
+                        <p class="text-sm text-green-700 mt-1">처음 2개월 $3.99 (50% 할인)</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">35개국 확대 출시. AI가 프리미엄에서 기본 기대치로 전환</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 2: Microsoft Maia 200 ========== -->
+        <section id="theme2" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">2</div>
+                <h2 class="text-2xl md:text-3xl font-black">Microsoft Maia 200 AI 칩</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: Maia 200 스펙 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🔧 2세대 AI 추론 칩 스펙</h3>
+
+                    <div class="space-y-4 py-4">
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <span class="font-bold">공정</span>
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">TSMC 3nm</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-bold">트랜지스터</span>
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">1,400억+</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <span class="font-bold">성능</span>
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">10+ PFLOPS</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <span class="font-bold">메모리</span>
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">216GB HBM3e</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">Amazon Trainium 3, Google TPU 7보다 더 많은 메모리 제공</p>
+                    </div>
+                </div>
+
+                <!-- Card: 가격 경쟁력 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">💵 동급 대비 30% 저렴</h3>
+
+                    <div class="bg-black text-white p-6 rounded-xl mb-4">
+                        <p class="text-lg font-bold leading-relaxed">
+                            "Maia는 현재 시장의<br/>
+                            어떤 AI 실리콘보다<br/>
+                            <span class="text-green-400 text-2xl">30% 저렴하다</span>"
+                        </p>
+                        <p class="text-sm text-gray-400 mt-3">- Scott Guthrie, MS 클라우드+AI 총괄</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">적용</span>
+                            <span class="text-sm">Microsoft 365 Copilot</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">적용</span>
+                            <span class="text-sm">OpenAI GPT-5.2</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">확장</span>
+                            <span class="text-sm">최대 6,144개 칩 연결</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">아이오와주 데이터센터에서 운영 중. SDK 프리뷰로 외부 개발자 지원</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 3: Kimi K2.5 에이전트 스웜 ========== -->
+        <section id="theme3" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">3</div>
+                <h2 class="text-2xl md:text-3xl font-black">Kimi K2.5 에이전트 스웜</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: 에이전트 스웜 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🐝 100개 병렬 에이전트 조율</h3>
+
+                    <!-- 프로세스 흐름 -->
+                    <div class="flex flex-col items-center gap-3 py-4">
+                        <div class="nb-tag bg-gray-100 px-4 py-3 rounded-lg text-center w-full">
+                            <span class="block text-xs text-gray-500 mb-1">INPUT</span>
+                            <span class="font-bold">복잡한 작업 요청</span>
+                        </div>
+                        <div class="text-2xl font-black text-gray-400">↓</div>
+                        <div class="nb-tag bg-pastel-yellow px-4 py-3 rounded-lg text-center w-full">
+                            <span class="block text-xs text-gray-500 mb-1">PARL</span>
+                            <span class="font-bold">병렬 에이전트 강화학습</span>
+                        </div>
+                        <div class="text-2xl font-black text-gray-400">↓</div>
+                        <div class="flex gap-2 w-full flex-wrap justify-center">
+                            <div class="nb-tag bg-pastel-blue px-2 py-2 rounded-lg text-center text-xs">
+                                <span class="font-bold">에이전트 1</span>
+                            </div>
+                            <div class="nb-tag bg-pastel-green px-2 py-2 rounded-lg text-center text-xs">
+                                <span class="font-bold">에이전트 2</span>
+                            </div>
+                            <div class="nb-tag bg-pastel-purple px-2 py-2 rounded-lg text-center text-xs">
+                                <span class="font-bold">...</span>
+                            </div>
+                            <div class="nb-tag bg-pastel-red px-2 py-2 rounded-lg text-center text-xs">
+                                <span class="font-bold">에이전트 100</span>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-black text-gray-400">↓</div>
+                        <div class="nb-tag bg-pastel-green px-4 py-3 rounded-lg text-center w-full border-2 border-black">
+                            <span class="block text-xs text-gray-500 mb-1">RESULT</span>
+                            <span class="font-bold">4.5배 빠른 실행</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">15조 개 토큰 사전훈련. 최대 1,500개 도구 호출 병렬 실행</p>
+                    </div>
+                </div>
+
+                <!-- Card: 성능 및 평가 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🏆 가장 강력한 오픈 웨이트 모델</h3>
+
+                    <div class="bg-black text-white p-6 rounded-xl mb-4">
+                        <p class="text-lg font-bold leading-relaxed">
+                            "K2.5는 현재<br/>
+                            <span class="text-green-400">가장 강력한 오픈 웨이트 모델</span><br/>
+                            OpenAI, Anthropic, Google만이 앞서"
+                        </p>
+                        <p class="text-sm text-gray-400 mt-3">- Artificial Analysis</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">강점</span>
+                            <span class="text-sm">프론트엔드 개발 특화</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">기능</span>
+                            <span class="text-sm">스크롤 트리거 + 애니메이션 생성</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">배포</span>
+                            <span class="text-sm">Kimi.com, API, Hugging Face</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-6">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">VS Code, Cursor, Zed 통합 지원. 중국 설 연휴 3주 전 출시</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 4: AI 에이전트 표준 & 개발 혁명 ========== -->
+        <section id="theme4" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">4</div>
+                <h2 class="text-2xl md:text-3xl font-black">AI 에이전트 표준 & 개발 혁명</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: AAIF 설립 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">📜 Agentic AI Foundation 설립</h3>
+
+                    <div class="grid grid-cols-3 gap-3 py-4">
+                        <div class="nb-tag bg-pastel-purple px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🔗</div>
+                            <span class="font-bold text-xs">MCP</span>
+                            <p class="text-xs text-gray-600 mt-1">Anthropic</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-blue px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🦆</div>
+                            <span class="font-bold text-xs">goose</span>
+                            <p class="text-xs text-gray-600 mt-1">Block</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-green px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">📄</div>
+                            <span class="font-bold text-xs">AGENTS.md</span>
+                            <p class="text-xs text-gray-600 mt-1">OpenAI</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm font-bold text-blue-800">🏢 플래티넘 멤버</p>
+                        <p class="text-xs text-blue-700 mt-1">AWS, Google, Microsoft, Bloomberg, Cloudflare</p>
+                    </div>
+
+                    <div class="space-y-2 mt-4">
+                        <div class="flex justify-between text-sm">
+                            <span>AGENTS.md 채택</span>
+                            <span class="font-bold">6만+ 프로젝트</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">단일 벤더 종속 없이 AI 에이전트 시대의 공유 인프라 구축 목표</p>
+                    </div>
+                </div>
+
+                <!-- Card: Karpathy 코딩 혁명 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🚀 20년 프로그래밍 역사상 가장 큰 변화</h3>
+
+                    <div class="bg-black text-white p-6 rounded-xl mb-4">
+                        <p class="text-lg font-bold leading-relaxed">
+                            "11월: 80% 수동 코딩<br/>
+                            12월: <span class="text-green-400 text-xl">80% 에이전트 코딩</span><br/>
+                            이제 대부분 영어로 프로그래밍"
+                        </p>
+                        <p class="text-sm text-gray-400 mt-3">- Andrej Karpathy</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-red-50 p-3 rounded-lg border border-red-200 text-center">
+                            <div class="text-xs text-gray-500">2025년 11월</div>
+                            <div class="text-2xl font-black text-red-600">80%</div>
+                            <p class="text-xs font-bold">수동 코딩</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg border border-green-200 text-center">
+                            <div class="text-xs text-gray-500">2025년 12월</div>
+                            <div class="text-2xl font-black text-green-600">80%</div>
+                            <p class="text-xs font-bold">에이전트 코딩</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-sm font-bold text-yellow-800">💬 Sam Altman 전망</p>
+                        <p class="text-xs text-yellow-700 mt-1">"올해 말 $100-$1,000으로 팀 1년치 소프트웨어 개발 가능"</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">LLM 에이전트 역량이 임계점 돌파. 2026년은 '고에너지 상태'가 될 것</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-[#111] text-white py-10 px-4 mt-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl font-black">AI TREND REPORT</h2>
+                <p class="text-gray-400 text-sm mt-1">News Info v2.0</p>
+            </div>
+            <p class="text-sm text-gray-400">© 2026 AI News Lab</p>
+        </div>
+    </footer>
+
+</body>
+</html>
