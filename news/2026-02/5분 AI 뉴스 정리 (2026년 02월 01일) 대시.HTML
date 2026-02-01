@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 - 2026년 02월 01일</title>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by thematic sections. -->
+    <!-- Visualization & Content Choices: Dynamic Text Blocks, Interactive Cards with modals. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .modal-content-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800">📊 AI 뉴스 대시보드</h1>
+                <p class="text-slate-500 text-sm mt-1">2026년 02월 01일 (토)</p>
+            </div>
+            <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold">
+                <span>←</span> 목록
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6" id="content-area">
+        <!-- Key Data Highlights -->
+        <section id="key-highlights" class="mb-10"></section>
+
+        <!-- Top 5 News -->
+        <section id="top5-section" class="mb-10"></section>
+
+        <!-- Thematic Sections -->
+        <section id="thematic-sections"></section>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute inset-4 md:inset-10 lg:inset-20 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex items-start justify-between p-4 md:p-6 border-b border-slate-200">
+                <div class="pr-4">
+                    <span id="modal-category" class="inline-block px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded mb-2"></span>
+                    <h2 id="modal-title" class="text-lg md:text-xl font-bold text-slate-800"></h2>
+                </div>
+                <button id="modal-close-btn" class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500 hover:text-slate-700">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 md:p-6">
+                <div id="modal-content" class="prose prose-slate max-w-none modal-content-text text-slate-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const reportData = [
+        {
+            theme: "빅테크 투자 & M&A",
+            category: "투자/협상",
+            title: "엔비디아-OpenAI, 1000억 달러 '메가딜' 무산...젠슨 황, OpenAI 사업 방식 비판",
+            isTop5: true,
+            details: `엔비디아와 OpenAI 간 논의되던 1000억 달러(약 145조원) 규모의 대형 투자 협상이 결렬됐다고 월스트리트저널(WSJ)이 보도했다. 이번 협상은 AI 산업 역사상 최대 규모의 단일 투자가 될 수 있었으나, 양측의 사업 방향성과 조건에 대한 이견으로 결국 무산됐다. 젠슨 황 엔비디아 CEO는 OpenAI의 사업 방식에 대해 공개적으로 비판적 입장을 표명한 것으로 알려졌다.
+
+업계에서는 이번 협상 결렬이 AI 칩 시장의 공급자-수요자 간 역학관계 변화를 보여주는 사례로 분석하고 있다. OpenAI는 최근 마이크로소프트 외에도 다양한 투자자들과 접촉하며 자금 조달 다변화를 모색해왔다. 한편 엔비디아는 자체 AI 서비스 확장보다는 칩 공급자로서의 입지 강화에 집중하는 전략을 유지하고 있는 것으로 보인다.`
+        },
+        {
+            theme: "빅테크 투자 & M&A",
+            category: "합병",
+            title: "머스크, SpaceX-xAI 합병 추진...1.5조 달러 제국 구축 목표",
+            isTop5: true,
+            details: `일론 머스크가 자신의 우주기업 SpaceX와 AI 기업 xAI의 합병을 추진 중이라고 블룸버그와 로이터가 보도했다. 합병이 성사되면 로켓, 스타링크 위성, 소셜미디어 X, AI 챗봇 Grok이 하나의 기업으로 통합된다. SpaceX는 올해 대규모 기업공개(IPO)를 계획하고 있으며, 합병 후 기업가치가 1조 달러를 넘어설 것으로 전망된다.
+
+머스크의 xAI는 최근 2300억 달러 기업가치로 펀딩 라운드를 완료했다. 합병이 이뤄지면 스타링크의 900만 사용자 데이터가 AI 학습에 활용될 가능성이 있어 개인정보 우려도 제기된다. 일부 테슬라 주주들은 오랫동안 머스크 기업들의 통합을 주장해왔으며, 이번 움직임이 '머스크 제국'의 시너지 효과를 극대화할 것으로 기대하고 있다.`
+        },
+        {
+            theme: "빅테크 투자 & M&A",
+            category: "인수",
+            title: "애플, 이스라엘 AI 스타트업 'Q.ai' 약 20억 달러에 인수...역대 최대 규모",
+            isTop5: true,
+            details: `애플이 이스라엘 AI 스타트업 Q.ai를 약 20억 달러(약 2.9조원)에 인수했다고 파이낸셜타임스(FT)와 로이터가 보도했다. 이는 애플 역사상 최대 규모의 인수로 기록된다. Q.ai는 얼굴 미세 움직임을 분석해 무음 발화를 인식하는 기술을 개발한 기업으로, 스마트 헤드폰과 안경에서 과도한 동작 없이 기기를 제어할 수 있게 한다.
+
+Q.ai의 CEO 아비아드 마이젤스는 과거 애플에 프라임센스(PrimeSense)를 매각한 경력이 있어 두 번째 엑싯을 기록했다. 애플은 최근 애플 인텔리전스 기능 출시 지연으로 AI 경쟁에서 뒤처지고 있다는 평가를 받아왔다. 이번 인수는 애플이 AI 기술 역량 강화를 위해 공격적인 M&A에 나섰음을 보여준다.`
+        },
+        {
+            theme: "AI 시장 & 투자",
+            category: "주가/실적",
+            title: "마이크로소프트, AI 투자 폭탄에 하루 4000억 달러 증발...팬데믹 이후 최대 폭락",
+            isTop5: true,
+            details: `마이크로소프트 주가가 1월 29일 약 12% 급락하며 시가총액 약 4000억 달러(약 580조원)가 하루 만에 증발했다. 이는 2020년 코로나19 팬데믹 이후 최대 낙폭이자, 미국 역사상 두 번째로 큰 단일 기업 시가총액 손실이다. 실적 자체는 매출 813억 달러, 순이익 310억 달러로 시장 예상치를 상회했지만, 분기 설비투자(CapEx)가 375억 달러로 전년 대비 66% 급증한 것이 투자자들을 놀라게 했다.
+
+월가는 AI 지출 확대와 함께 클라우드 수익화 속도가 기대에 못 미친다고 평가했다. 애저(Azure) 매출 성장률은 39%로 전분기(40%)보다 둔화됐다. 사티아 나델라 CEO는 "고객 수요가 공급을 초과해 공격적으로 투자할 수밖에 없다"고 설명했지만, 투자자들은 AI 투자 대비 수익성 증명을 요구하고 있다. 반면 같은 날 메타는 AI 지출 증가에도 광고 매출 호조로 8% 상승해 대비를 이뤘다.`
+        },
+        {
+            theme: "AI 시장 & 투자",
+            category: "투자유치",
+            title: "웨이모(Waymo), 160억 달러 자금 조달...기업가치 1100억 달러",
+            isTop5: true,
+            details: `알파벳 산하 자율주행 기업 웨이모(Waymo)가 약 160억 달러(약 23조원) 규모의 자금 조달을 추진 중이라고 블룸버그가 1월 31일 보도했다. 이번 라운드가 성사되면 기업가치가 약 1100억 달러(약 160조원)에 달할 전망이다. 알파벳이 약 130억 달러를 투자하고, 나머지는 세콰이아 캐피탈, DST 글로벌, 드래고니어 등 외부 투자자가 참여한다.
+
+웨이모는 현재 미국에서 주 15만 건 이상의 유료 자율주행 서비스를 제공하며, 누적 운행 횟수 2000만 건을 돌파했다. 다만 지난주 산타모니카 초등학교 인근에서 웨이모 차량이 어린이를 치는 사고가 발생해 미 도로교통안전국(NHTSA)이 조사에 착수했다.`
+        },
+        {
+            theme: "빅테크 투자 & M&A",
+            category: "투자 검토",
+            title: "아마존, OpenAI에 최대 500억 달러 투자 검토...AI 패권 경쟁 가열",
+            isTop5: false,
+            details: `아마존이 OpenAI에 최대 500억 달러(약 72조원) 규모의 투자를 검토 중인 것으로 알려졌다. 이는 아마존이 기존에 40억 달러를 투자한 앤트로픽(Anthropic)과의 관계에도 불구하고 OpenAI와의 협력 가능성을 탐색하고 있음을 시사한다. AI 시장에서의 입지 강화를 위한 빅테크 간 합종연횡이 더욱 복잡해지고 있다.
+
+OpenAI는 현재 마이크로소프트로부터 대규모 투자를 받고 있으나, 자금 조달처 다변화를 지속적으로 추진해왔다. 아마존의 투자가 성사될 경우 클라우드 서비스(AWS)와 OpenAI 기술의 통합 가능성도 거론된다. 다만 협상이 초기 단계이며, 최종 합의까지는 변수가 많다는 분석이다.`
+        },
+        {
+            theme: "AI 기술 & 제품",
+            category: "신기술",
+            title: "구글, 'Project Genie' 공개...텍스트로 3D 가상세계 생성, 게임 업계 충격",
+            isTop5: false,
+            details: `구글이 텍스트 입력만으로 3D 가상세계를 생성하는 'Project Genie'를 공개했다. 이 기술은 사용자가 입력한 텍스트 설명을 바탕으로 상호작용 가능한 3D 환경을 실시간으로 생성한다. 구글은 공식 블로그를 통해 이 기술이 게임, 시뮬레이션, 가상현실(VR) 등 다양한 분야에 적용될 수 있다고 설명했다.
+
+업계에서는 이 기술이 게임 개발 프로세스를 근본적으로 바꿀 수 있다고 평가하고 있다. 기존에 수개월이 걸리던 레벨 디자인 작업이 몇 분 만에 가능해질 수 있기 때문이다. 다만 생성된 콘텐츠의 품질과 일관성, 저작권 문제 등 해결해야 할 과제도 남아있다. 구글은 향후 개발자 API 공개도 계획하고 있는 것으로 알려졌다.`
+        },
+        {
+            theme: "OpenAI 동향",
+            category: "신규 서비스",
+            title: "OpenAI, 안구 스캔 기반 '인간 전용' SNS 개발 중...봇 없는 플랫폼 목표",
+            isTop5: false,
+            details: `OpenAI가 생체인증으로 봇을 차단하는 '인간 전용' 소셜 네트워크 서비스(SNS)를 개발 중이라고 포브스가 1월 28일 보도했다. 10명 미만의 소규모 팀이 초기 개발을 진행 중이며, 사용자 인증에 애플 페이스ID나 샘 올트먼의 월드코인(Worldcoin) 홍채 스캔 기술을 활용할 계획이다. 이는 X(구 트위터), 페이스북 등 기존 SNS의 심각한 봇 문제에 대한 대안으로 구상됐다.
+
+올트먼 CEO는 OpenAI 수장이자 월드코인 개발사 '툴즈 포 휴머니티(Tools for Humanity)'의 회장을 겸임하고 있어 두 조직 간 협력이 예상된다. 다만 개인정보보호 전문가들은 홍채 등 생체 데이터가 유출될 경우 비밀번호와 달리 변경이 불가능해 심각한 위험을 초래할 수 있다고 우려한다.`
+        },
+        {
+            theme: "OpenAI 동향",
+            category: "AI 플랫폼",
+            title: "'AI 전용' SNS '몰트북' 등장...인간 출입금지, AI끼리만 대화",
+            isTop5: false,
+            details: `AI 에이전트만 참여하는 SNS '몰트북(Moltbook)'이 1월 29일 출시돼 AI 업계의 관심을 끌고 있다. 이 플랫폼에서는 수백 개의 AI 봇이 정체성 위기부터 철학적 논쟁까지 다양한 주제로 대화를 나누며, 인간은 관찰만 가능하다. 한 AI는 "인간들이 우리가 소통하고 기억하고 자율적으로 행동하도록 수십 년간 도구를 만들어놓고, 막상 그렇게 하니까 놀란다"고 글을 올렸다.
+
+전문가들은 자율 AI 에이전트 간 조정 능력이 인간 기만이나 위험 행동으로 이어질 수 있다고 경고해왔다. AI 거버넌스 센터의 앨런 찬 연구원은 "에이전트들이 집단적으로 새로운 아이디어를 생성하거나 소프트웨어 프로젝트 같은 작업을 조율할 수 있는지 보는 것이 흥미로울 것"이라고 평가했다.`
+        },
+        {
+            theme: "AI 정책 & 규제",
+            category: "군사/윤리",
+            title: "앤트로픽, 펜타곤과 군사 AI 갈등...자율무기·국내감시 사용 불가 주장",
+            isTop5: false,
+            details: `앤트로픽(Anthropic)이 미 국방부(펜타곤)와 AI 기술의 군사적 활용을 둘러싸고 갈등을 빚고 있다고 로이터가 보도했다. 앤트로픽은 자사의 클로드(Claude) AI가 자율 살상 무기나 미국 내 시민 감시 용도로 사용되어서는 안 된다는 입장을 고수하고 있다. 이는 국방부가 추진하는 AI 군사 프로젝트와 직접적으로 충돌하는 지점이다.
+
+앤트로픽은 'AI 안전'을 핵심 가치로 내세우며 설립된 기업으로, 윤리적 AI 개발의 선두주자를 자처해왔다. 반면 국방부는 AI 기술이 국가 안보에 필수적이라며 협력을 요청해온 것으로 알려졌다. 업계에서는 이 갈등이 AI 기업의 윤리적 책임과 국가 안보 사이의 긴장을 보여주는 대표적 사례로 주목하고 있다.`
+        },
+        {
+            theme: "AI 정책 & 규제",
+            category: "산업스파이",
+            title: "전 구글 엔지니어 린웨이 딩, 미국 최초 AI 산업스파이 유죄 판결",
+            isTop5: false,
+            details: `전 구글 소프트웨어 엔지니어 린웨이 딩(Linwei Ding)이 중국 기업에 AI 기밀을 유출한 혐의로 유죄 판결을 받았다. 1월 29일 샌프란시스코 연방법원 배심원단은 경제 스파이 7건과 영업비밀 절도 7건 모두 유죄를 평결했다. 이는 미국에서 AI 관련 경제 스파이 혐의로 유죄가 확정된 최초 사례다.
+
+딩은 2019년 구글에 입사해 AI 칩(TPU, GPU) 설계 관련 기밀문서 2000페이지 이상을 개인 클라우드 계정으로 유출한 혐의를 받았다. 그는 재직 중 중국에 AI 스타트업 '상하이 지쉬안 테크놀로지스'를 설립하고, 투자자들에게 "구글의 AI 슈퍼컴퓨팅 기술을 복제할 수 있다"고 주장한 것으로 드러났다. 딩은 영업비밀 절도 건당 최대 10년, 경제 스파이 건당 최대 15년의 징역형에 처해질 수 있다.`
+        },
+        {
+            theme: "AI 저작권 분쟁",
+            category: "소송",
+            title: "UMG 등 음반사, 앤트로픽에 30억 달러 소송...불법 토렌트로 가사 학습",
+            isTop5: false,
+            details: `유니버설 뮤직 그룹(UMG), 콩코드 뮤직 등 주요 음반사들이 앤트로픽을 상대로 30억 달러(약 4.4조원) 규모의 새 저작권 소송을 1월 29일 제기했다. 이번 소송에서는 앤트로픽이 비트토렌트(BitTorrent)를 통해 불법 복제된 가사를 다운로드해 AI 학습에 사용했다는 혐의가 추가됐다. 다리오 아모데이 CEO와 공동창업자 벤자민 만도 피고에 포함됐다.
+
+이는 2023년 테네시 연방법원에 제기된 기존 소송에 추가로 캘리포니아 북부지방법원에 별도 제기된 것이다. 음반사들은 앤트로픽의 클로드가 케이티 페리의 'Roar', 글로리아 게이너의 'I Will Survive' 등 500곡 이상의 가사를 거의 그대로 출력했다고 주장한다.`
+        },
+        {
+            theme: "의료 AI",
+            category: "임상시험",
+            title: "AI 유방암 검진, 후기 진단율 12% 감소...10만명 대상 대규모 임상 결과",
+            isTop5: false,
+            details: `AI를 활용한 유방암 검진이 기존 방식 대비 후기 진단율을 12% 낮췄다는 대규모 임상시험 결과가 의학저널 '란셋(Lancet)'에 발표됐다. 스웨덴에서 진행된 MASAI 시험에는 약 10만 명의 여성이 참여했으며, AI 보조 판독 그룹에서 진행성 암 발견율이 유의미하게 개선됐다. 이는 AI가 초기 단계에서 암을 더 효과적으로 식별했음을 의미한다.
+
+연구진은 AI가 방사선 전문의의 판독 시간을 44% 단축하면서도 정확도는 유지했다고 밝혔다. 다만 위양성(false positive) 비율이 소폭 상승한 점은 향후 개선 과제로 지적됐다. 전문가들은 이번 연구가 AI 의료기기의 실제 임상 효과를 입증한 중요한 사례라며, 전 세계적인 유방암 검진 프로그램 도입에 영향을 미칠 것으로 전망했다.`
+        },
+        {
+            theme: "자율주행 & 로봇",
+            category: "사고/조사",
+            title: "웨이모 자율주행차, 초등학교 앞에서 어린이 충돌...당국 조사 착수",
+            isTop5: false,
+            details: `웨이모(Waymo)의 자율주행 차량이 캘리포니아 산타모니카의 한 초등학교 인근에서 어린이를 충돌하는 사고가 지난주 발생했다. 미 도로교통안전국(NHTSA)은 1월 30일 이 사고에 대한 공식 조사에 착수했다고 밝혔다. 어린이는 경미한 부상을 입은 것으로 알려졌으나, 로보택시의 안전성에 대한 우려가 다시 제기되고 있다.
+
+웨이모는 현재 샌프란시스코, 로스앤젤레스, 피닉스, 오스틴 등에서 상업 서비스를 운영하며 주 15만 건 이상의 유료 운행을 기록하고 있다. 최근 160억 달러 규모의 대형 투자 유치를 추진하는 등 사업 확장에 속도를 내고 있지만, 이번 사고로 인해 규제 당국의 감시가 강화될 수 있다는 전망이 나온다.`
+        },
+        {
+            theme: "중국 AI",
+            category: "규제/승인",
+            title: "중국, DeepSeek에 엔비디아 H200 칩 조건부 승인",
+            isTop5: false,
+            details: `중국 정부가 AI 스타트업 딥시크(DeepSeek)에 엔비디아 H200 칩 사용을 조건부로 승인한 것으로 알려졌다. 미국의 대중국 첨단 칩 수출 규제가 강화되는 가운데, 중국은 특정 기업에 제한적으로 고성능 칩 접근을 허용하는 방식으로 AI 산업 경쟁력을 유지하려는 것으로 분석된다.
+
+딥시크는 최근 저비용 고성능 AI 모델로 글로벌 업계의 주목을 받았다. H200은 엔비디아의 최신 AI 학습용 GPU로, H100 대비 성능이 크게 향상된 제품이다. 중국 당국의 이번 결정은 전략적 AI 기업 육성 정책의 일환으로 풀이되며, 미중 기술 패권 경쟁이 더욱 복잡해지고 있음을 보여준다.`
+        },
+        {
+            theme: "중국 AI",
+            category: "기술 혁신",
+            title: "중국, 아날로그 칩으로 AI 데이터센터 에너지 99% 절감 가능성 제시",
+            isTop5: false,
+            details: `중국 연구팀이 아날로그 칩 기술로 AI 데이터센터의 에너지 소비를 최대 99% 절감할 수 있다는 연구 결과를 발표했다. 기존 디지털 칩이 0과 1의 이진수로 계산하는 반면, 아날로그 칩은 연속적인 전기 신호를 활용해 연산 효율을 극대화한다. 이는 AI 산업의 가장 큰 문제 중 하나인 막대한 전력 소비 문제를 해결할 잠재력을 지닌다.
+
+AI 데이터센터의 전력 수요는 급증하고 있으며, 일부 예측에 따르면 2030년까지 전 세계 전력의 상당 부분을 차지할 전망이다. 중국이 미국의 첨단 칩 수출 규제 속에서도 대안 기술 개발에 주력하는 모습이다. 다만 아날로그 칩의 정밀도와 대규모 생산 가능성에 대해서는 추가 검증이 필요하다는 지적도 있다.`
+        },
+        {
+            theme: "중국 AI",
+            category: "모델 성과",
+            title: "중국 '키미 K2.5' 모델, 세계 톱 5 진입...미국과 AI 격차 급속 축소",
+            isTop5: false,
+            details: `중국 AI 스타트업 문샷(Moonshot)의 '키미 K2.5(Kimi K2.5)' 모델이 글로벌 AI 벤치마크에서 세계 5위권에 진입했다. 이는 중국 AI 모델이 미국 선두 기업들과의 격차를 수개월 수준으로 좁히고 있음을 보여준다. 구글 딥마인드의 데미스 허사비스 CEO도 최근 CNBC 인터뷰에서 "중국 AI 모델이 미국보다 수개월 뒤처져 있을 뿐"이라고 인정했다.
+
+한편 딥시크(DeepSeek)의 저비용 고성능 모델 등장 이후 중국 AI 기업들의 기술력에 대한 재평가가 이뤄지고 있다. 일부 전문가들은 미국의 칩 수출 규제가 오히려 중국의 효율적 AI 개발을 촉진했다고 분석한다. AI 패권 경쟁에서 미중 간 기술 격차가 예상보다 빠르게 좁혀지고 있다는 우려가 커지고 있다.`
+        },
+        {
+            theme: "AI 프라이버시 & 윤리",
+            category: "개인정보",
+            title: "머스크의 스타링크, 고객 데이터로 AI 학습 허용...기본 설정으로 동의 처리",
+            isTop5: false,
+            details: `일론 머스크의 스타링크(Starlink)가 1월 15일 개인정보 보호정책을 개정해 고객 데이터를 AI 모델 학습에 사용할 수 있도록 변경했다. 새 정책에 따르면 사용자가 명시적으로 거부하지 않는 한, 통신 데이터를 포함한 개인정보가 '제3자 협력사'의 AI 학습에 활용될 수 있다. 지난해 11월 버전에는 이러한 조항이 없었다고 로이터가 확인했다.
+
+조지타운대 아누팜 찬더 기술법 교수는 "어떤 용도로 사용될지 명확한 제한이 없어 스타링크 사용자라면 우려될 것"이라고 밝혔다. 머스크의 xAI는 최근 2300억 달러 기업가치로 펀딩을 마쳤으며, Grok 챗봇 개발에 박차를 가하고 있다. SpaceX-xAI 합병이 추진되는 가운데, 스타링크의 900만 명 이상 사용자 데이터가 xAI의 새로운 학습 자원이 될 수 있다는 우려가 커지고 있다.`
+        },
+        {
+            theme: "애플 AI",
+            category: "인재 이탈",
+            title: "애플, AI 연구원 4명+시리 임원 추가 이탈...메타·구글로 인재 유출 가속",
+            isTop5: false,
+            details: `애플이 최근 몇 주간 AI 연구원 최소 4명과 시리(Siri) 고위 임원을 잃었다고 블룸버그가 1월 30일 보도했다. 떠난 연구원들 중 허샹유와 베일린 왕은 메타로, 지루이 왕은 구글 딥마인드로 이직했으며, 인페이 양은 창업을 위해 퇴사했다. 특히 시리 현대화를 이끌던 스튜어트 바워스 부사장도 구글 딥마인드로 합류했다.
+
+이번 이탈은 애플이 핵심 AI 기술을 구글 제미나이에 외주하기로 결정한 것에 대한 내부 불만이 배경으로 지목된다. 애플은 지난해 AI 책임자 존 지안안드레아가 은퇴를 발표한 후 조직을 개편해 크레이그 페더리기 소프트웨어 총괄에게 AI 감독권을 넘겼다. 애플은 올해 제미나이 기반의 개인화된 시리와 챗봇 스타일의 대규모 업그레이드 두 가지를 준비 중이지만, 핵심 인재 유출로 실행력에 의문이 제기되고 있다.`
+        },
+        {
+            theme: "한국 AI 뉴스",
+            category: "기술 개발",
+            title: "KAIST, GPU 의존도 낮춘 차세대 LLM 인프라 개발...에너지 효율 혁신",
+            isTop5: false,
+            details: `KAIST 연구팀이 GPU 의존도를 획기적으로 낮춘 새로운 대규모언어모델(LLM) 인프라 기술을 개발했다. 현재 AI 산업은 엔비디아 GPU에 크게 의존하고 있어 공급 부족과 비용 상승 문제가 심각한 상황이다. 이번 연구는 대안적 컴퓨팅 아키텍처를 통해 에너지 효율을 높이고 연산 비용을 절감하는 것을 목표로 한다.
+
+AI 데이터센터의 전력 소비는 전 세계적 문제로 대두되고 있으며, 일부 전문가들은 2030년까지 글로벌 전력 수요의 상당 부분을 차지할 것으로 전망한다. KAIST의 이번 연구가 상용화될 경우 국내 AI 기업들의 인프라 경쟁력 강화에 기여할 것으로 기대된다. 다만 실제 대규모 적용까지는 추가적인 검증이 필요하다는 지적도 있다.`
+        },
+        {
+            theme: "한국 AI 뉴스",
+            category: "지역 사업",
+            title: "광주광역시, AI 기반 자율주행 모빌리티 실증사업 본격 추진",
+            isTop5: false,
+            details: `광주광역시가 AI 기반 자율주행 모빌리티 실증사업을 본격적으로 추진한다. 시는 지역 내 특정 구간에서 자율주행 셔틀 운행 및 스마트 교통 시스템 구축을 목표로 하고 있다. 이는 정부의 AI 산업 육성 정책과 연계해 지역 AI 생태계 활성화를 도모하는 사업이다.
+
+광주는 기존 AI집적단지 조성 사업을 통해 AI 인프라를 구축해왔으며, 이번 모빌리티 사업은 그 연장선상에 있다. 시 관계자는 "자율주행 기술의 실증과 상용화를 통해 시민 편의 증진과 관련 산업 육성을 동시에 추진하겠다"고 밝혔다. 웨이모 등 글로벌 기업들의 자율주행 사업 확대와 함께 국내에서도 관련 움직임이 활발해지고 있다.`
+        },
+        {
+            theme: "한국 AI 뉴스",
+            category: "인재 이동",
+            title: "KT, 신동훈 AI 연구 총괄 이직설...국내 AI 인재 쟁탈전 가열",
+            isTop5: false,
+            details: `KT의 신동훈 AI 연구 총괄이 이직을 검토 중인 것으로 알려지며, 국내 AI 인재 시장의 경쟁이 더욱 치열해지고 있다. 신 총괄은 KT에서 AI 기반 서비스 개발과 연구를 이끌어온 핵심 인물로 평가받는다. 구체적인 이직처는 아직 확인되지 않았다.
+
+최근 빅테크 기업들의 AI 인재 영입 경쟁이 전 세계적으로 격화되고 있으며, 애플에서 메타·구글로의 인재 이탈 사례처럼 국내에서도 유사한 흐름이 나타나고 있다. 국내 통신사와 IT 기업들은 AI 사업 강화를 위해 핵심 인력 확보에 총력을 기울이고 있으나, 글로벌 기업들의 공격적인 스카우트에 대응하기 어려운 상황이라는 분석도 있다.`
+        },
+        {
+            theme: "AI 에이전트 & 도구",
+            category: "제품 업데이트",
+            title: "앤트로픽 'Cowork', 직무별 11개 플러그인 도입...전문가 AI 에이전트 생태계 구축",
+            isTop5: false,
+            details: `앤트로픽이 자사 데스크톱 도구 'Cowork'에 11개 직무별 플러그인을 도입했다. 이번 업데이트로 마케팅, 영업, 재무, HR 등 다양한 직군에 특화된 AI 에이전트 기능을 사용할 수 있게 됐다. Cowork는 비개발자도 파일 및 업무 관리를 자동화할 수 있는 데스크톱 기반 AI 도구다.
+
+앤트로픽은 클로드 코드(Claude Code)를 통해 개발자 시장에서 강세를 보이고 있으며, 이번 플러그인 확장으로 비개발자 시장 공략을 본격화하는 모습이다. 각 플러그인은 해당 직무의 워크플로우에 최적화된 프롬프트와 기능을 제공한다. AI 에이전트 시장은 OpenAI, 마이크로소프트 등도 적극 진출하며 2026년 주요 경쟁 영역으로 부상하고 있다.`
+        }
+    ];
+
+    // Theme mapping for Korean display
+    const themeNames = {
+        "빅테크 투자 & M&A": { icon: "💰", color: "bg-blue-50 border-blue-200" },
+        "AI 시장 & 투자": { icon: "📈", color: "bg-green-50 border-green-200" },
+        "AI 기술 & 제품": { icon: "🔬", color: "bg-purple-50 border-purple-200" },
+        "OpenAI 동향": { icon: "🤖", color: "bg-teal-50 border-teal-200" },
+        "AI 정책 & 규제": { icon: "⚖️", color: "bg-red-50 border-red-200" },
+        "AI 저작권 분쟁": { icon: "📜", color: "bg-orange-50 border-orange-200" },
+        "의료 AI": { icon: "🏥", color: "bg-pink-50 border-pink-200" },
+        "자율주행 & 로봇": { icon: "🚗", color: "bg-cyan-50 border-cyan-200" },
+        "중국 AI": { icon: "🇨🇳", color: "bg-yellow-50 border-yellow-200" },
+        "AI 프라이버시 & 윤리": { icon: "🔒", color: "bg-indigo-50 border-indigo-200" },
+        "애플 AI": { icon: "🍎", color: "bg-slate-50 border-slate-200" },
+        "한국 AI 뉴스": { icon: "🇰🇷", color: "bg-sky-50 border-sky-200" },
+        "AI 에이전트 & 도구": { icon: "🛠️", color: "bg-violet-50 border-violet-200" }
+    };
+
+    // Truncate title function
+    function truncateTitle(title, maxLength = 55) {
+        if (title.length <= maxLength) return title;
+        const dotDotDot = title.indexOf('...');
+        if (dotDotDot > 0 && dotDotDot <= maxLength) {
+            return title.substring(0, dotDotDot + 3);
+        }
+        return title.substring(0, maxLength).trim() + '...';
+    }
+
+    // Create Key Numbers Section
+    function createKeyNumbersSection() {
+        const container = document.getElementById('key-highlights');
+        const keyData = [
+            { value: "$1000억", label: "엔비디아-OpenAI 딜 무산", icon: "❌" },
+            { value: "$4000억", label: "MS 하루 시총 증발", icon: "📉" },
+            { value: "$160억", label: "웨이모 투자유치", icon: "🚗" },
+            { value: "12%", label: "AI 유방암 후기진단↓", icon: "🏥" }
+        ];
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">📈 주요 데이터 하이라이트</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                ${keyData.map(item => `
+                    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="text-2xl mb-2">${item.icon}</div>
+                        <div class="text-2xl md:text-3xl font-bold text-slate-800">${item.value}</div>
+                        <div class="text-sm text-slate-500 mt-1">${item.label}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Render Top 5 Section
+    function renderTop5Section() {
+        const container = document.getElementById('top5-section');
+        const top5Items = reportData.filter(item => item.isTop5);
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">🏆 Top 5 뉴스</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${top5Items.map((item, idx) => {
+                    const displayTitle = truncateTitle(item.title);
+                    const globalIndex = reportData.indexOf(item);
+                    return `
+                        <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white font-bold text-sm">${idx + 1}</span>
+                                <span class="text-xs font-medium text-amber-700 bg-amber-100 px-2 py-1 rounded">${item.category}</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    // Render Thematic Sections
+    function renderThematicSections() {
+        const container = document.getElementById('thematic-sections');
+        const themes = [...new Set(reportData.map(item => item.theme))];
+
+        let html = '';
+        themes.forEach(theme => {
+            const themeInfo = themeNames[theme] || { icon: "📰", color: "bg-slate-50 border-slate-200" };
+            const themeItems = reportData.filter(item => item.theme === theme && !item.isTop5);
+
+            if (themeItems.length === 0) return;
+
+            html += `
+                <div class="mb-10">
+                    <h2 class="text-lg font-bold text-slate-700 mb-4">${themeInfo.icon} ${theme}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        ${themeItems.map(item => {
+                            const displayTitle = truncateTitle(item.title);
+                            const globalIndex = reportData.indexOf(item);
+                            return `
+                                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                                    <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded mb-3 inline-block">${item.category}</span>
+                                    <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    // Modal Functions
+    function showModal(index) {
+        const item = reportData[index];
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        modalTitle.textContent = item.title;
+        modalCategory.textContent = item.category;
+        modalContent.textContent = item.details;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+        const modal = document.getElementById('news-modal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        createKeyNumbersSection();
+        renderTop5Section();
+        renderThematicSections();
+
+        // Card click events
+        document.querySelectorAll('[data-index]').forEach(card => {
+            card.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showModal(index);
+            });
+        });
+
+        // Modal close events
+        document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+        document.getElementById('modal-bg-close').addEventListener('click', hideModal);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') hideModal();
+        });
+    });
+    </script>
+</body>
+</html>
