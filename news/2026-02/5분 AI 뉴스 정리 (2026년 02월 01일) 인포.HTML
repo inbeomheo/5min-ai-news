@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT | 2026.02.01</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            color: #111;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* 네오 브루탈리즘 컴포넌트 */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #111;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0px 0px #111;
+            transition: all 0.2s ease;
+        }
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #111;
+        }
+
+        .nb-btn {
+            border: 2px solid #111;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0px 0px #111;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px 0px #111;
+        }
+
+        .nb-tag {
+            border: 1.5px solid #111;
+            border-radius: 8px;
+            box-shadow: 2px 2px 0px 0px #111;
+        }
+
+        /* 파스텔 컬러 */
+        .bg-pastel-blue { background-color: #C4E4FF; }
+        .bg-pastel-red { background-color: #FFC4C4; }
+        .bg-pastel-green { background-color: #C4FFD6; }
+        .bg-pastel-yellow { background-color: #FFF4BD; }
+        .bg-pastel-purple { background-color: #E2C4FF; }
+
+        /* 스크롤바 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        /* 차트 컨테이너 */
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200">
+
+    <!-- ========== HEADER ========== -->
+    <header class="max-w-6xl mx-auto pt-10 pb-6 px-4 text-center">
+        <a href="../../index.html"
+           class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
+            ← 전체 목록
+        </a>
+        <div class="inline-block bg-black text-white px-4 py-1 rounded-full text-sm font-bold mb-3">
+            WEEKLY BRIEFING
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-2">
+            AI TREND REPORT
+        </h1>
+        <p class="text-lg text-gray-600 font-medium">
+            2026년 2월 1일 기준 · 엔비디아-OpenAI 딜 무산 · MS 시총 4000억$ 증발 · 웨이모 160억$ 투자유치
+        </p>
+    </header>
+
+    <!-- ========== KPI DASHBOARD ========== -->
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box bg-pastel-red p-5">
+                <span class="text-xs font-bold text-gray-600">❌ 엔비디아-OpenAI</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$1000억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">메가딜 무산</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box bg-pastel-purple p-5">
+                <span class="text-xs font-bold text-gray-600">📉 MS 시총 증발</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$4000억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">팬데믹 이후 최대</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box bg-pastel-green p-5">
+                <span class="text-xs font-bold text-gray-600">🚗 웨이모 투자유치</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$160억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">기업가치 $1100억</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box bg-pastel-blue p-5">
+                <span class="text-xs font-bold text-gray-600">🍎 애플 Q.ai 인수</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$20억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">역대 최대 규모</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STICKY NAVIGATION ========== -->
+    <nav class="sticky top-4 z-50 px-4 mb-12">
+        <div class="max-w-4xl mx-auto nb-box bg-white p-2 flex justify-center gap-2 overflow-x-auto">
+            <a href="#theme1" class="nb-btn px-4 py-2 bg-pastel-red text-sm whitespace-nowrap hover:opacity-80">💰 빅테크 M&A</a>
+            <a href="#theme2" class="nb-btn px-4 py-2 bg-pastel-purple text-sm whitespace-nowrap hover:opacity-80">📉 MS 폭락</a>
+            <a href="#theme3" class="nb-btn px-4 py-2 bg-pastel-green text-sm whitespace-nowrap hover:opacity-80">🚗 웨이모</a>
+            <a href="#theme4" class="nb-btn px-4 py-2 bg-pastel-blue text-sm whitespace-nowrap hover:opacity-80">🇨🇳 중국 AI</a>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="max-w-6xl mx-auto px-4 space-y-20 pb-20">
+
+        <!-- ========== 테마 1: 빅테크 M&A ========== -->
+        <section id="theme1" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">1</div>
+                <h2 class="text-2xl md:text-3xl font-black">빅테크 투자 & M&A 대격변</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1: 엔비디아-OpenAI -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">❌ 엔비디아-OpenAI $1000억 딜 무산</h3>
+
+                    <div class="bg-black text-white p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "AI 산업 역사상<br/>
+                            최대 규모 단일 투자<br/>
+                            <span class="text-red-400">사업 방향성 이견으로 결렬"</span>
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">- WSJ 보도</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-red px-3 py-1 text-xs font-bold">규모</span>
+                            <span class="text-sm">$1000억 (약 145조원)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">원인</span>
+                            <span class="text-sm">젠슨 황, OpenAI 사업 방식 비판</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">분석</span>
+                            <span class="text-sm">공급자-수요자 역학관계 변화</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">엔비디아는 칩 공급자 입지 강화, OpenAI는 자금 다변화 모색</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: 머스크 합병 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🚀 머스크, SpaceX-xAI 합병 추진</h3>
+
+                    <div class="text-center py-4">
+                        <div class="text-5xl font-black text-purple-600">$1.5조</div>
+                        <p class="text-lg font-bold mt-2">목표 기업가치</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="nb-tag bg-pastel-purple px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🚀</div>
+                            <span class="font-bold text-xs">SpaceX</span>
+                        </div>
+                        <div class="nb-tag bg-pastel-blue px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🤖</div>
+                            <span class="font-bold text-xs">xAI (Grok)</span>
+                        </div>
+                        <div class="nb-tag bg-pastel-green px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">📡</div>
+                            <span class="font-bold text-xs">스타링크</span>
+                        </div>
+                        <div class="nb-tag bg-pastel-yellow px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">𝕏</div>
+                            <span class="font-bold text-xs">X (트위터)</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-sm font-bold text-yellow-800">⚠️ 개인정보 우려</p>
+                        <p class="text-xs text-yellow-700 mt-1">스타링크 900만 사용자 데이터 AI 학습 활용 가능성</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 추가 카드: 애플, 아마존 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🍎 애플, Q.ai $20억 인수 (역대 최대)</h3>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">기술</span>
+                            <span class="text-sm">얼굴 미세 움직임 → 무음 발화 인식</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">적용</span>
+                            <span class="text-sm">스마트 헤드폰·안경 제어</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">CEO</span>
+                            <span class="text-sm">아비아드 마이젤스 (2번째 엑싯)</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">애플 인텔리전스 지연 속 공격적 AI M&A 본격화</p>
+                    </div>
+                </div>
+
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">📦 아마존, OpenAI $500억 투자 검토</h3>
+
+                    <div class="bg-black text-white p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "앤트로픽 $40억 투자에도<br/>
+                            OpenAI 협력 탐색<br/>
+                            <span class="text-green-400">빅테크 합종연횡 복잡화"</span>
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">기존</span>
+                            <span class="text-sm">앤트로픽 $40억 투자</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">검토</span>
+                            <span class="text-sm">OpenAI 최대 $500억 (72조원)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 2: MS 폭락 ========== -->
+        <section id="theme2" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">2</div>
+                <h2 class="text-2xl md:text-3xl font-black">마이크로소프트 역사적 폭락</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: 폭락 상세 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">📉 하루 $4000억 시총 증발</h3>
+
+                    <div class="space-y-4 py-4">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">주가 하락률</span>
+                                <span class="text-3xl font-black text-red-600">-12%</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">팬데믹 이후 최대, 미국 역사상 2위</p>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">분기 CapEx</span>
+                                <span class="text-2xl font-black text-purple-600">$375억</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">전년 대비 66% 급증</p>
+                        </div>
+
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">Azure 성장률</span>
+                                <span class="text-2xl font-black text-blue-600">39%</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">전분기 40%에서 둔화</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: 시장 반응 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">💬 시장 반응 & 대조</h3>
+
+                    <div class="bg-black text-white p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "고객 수요가 공급을 초과해<br/>
+                            <span class="text-yellow-400">공격적으로 투자할 수밖에 없다"</span>
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">- 사티아 나델라 CEO</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200 text-center">
+                            <div class="text-3xl mb-2">📉</div>
+                            <div class="text-xl font-black text-red-600">MS -12%</div>
+                            <p class="text-xs text-gray-600 mt-1">AI 투자 부담</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <div class="text-3xl mb-2">📈</div>
+                            <div class="text-xl font-black text-green-600">메타 +8%</div>
+                            <p class="text-xs text-gray-600 mt-1">광고 매출 호조</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">투자자들, AI 지출 대비 수익성 증명 요구 본격화</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 3: 웨이모 ========== -->
+        <section id="theme3" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">3</div>
+                <h2 class="text-2xl md:text-3xl font-black">웨이모 $160억 투자유치 & 사고</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: 투자유치 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">💰 기업가치 $1100억 달성</h3>
+
+                    <div class="text-center py-4">
+                        <div class="text-5xl font-black text-green-600">$160억</div>
+                        <p class="text-lg font-bold mt-2">투자 유치 규모</p>
+                    </div>
+
+                    <div class="space-y-3 mt-4">
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <span class="font-bold">알파벳</span>
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">$130억</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-bold">외부 투자자</span>
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">$30억</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <p class="text-sm font-bold text-purple-800">📊 운영 현황</p>
+                        <p class="text-xs text-purple-700 mt-1">주 15만 건 유료 운행, 누적 2000만 건 돌파</p>
+                    </div>
+                </div>
+
+                <!-- Card: 사고 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">⚠️ 초등학교 앞 어린이 충돌 사고</h3>
+
+                    <div class="bg-black text-white p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "산타모니카 초등학교 인근<br/>
+                            자율주행차 어린이 충돌<br/>
+                            <span class="text-red-400">NHTSA 공식 조사 착수"</span>
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">부상</span>
+                            <span class="text-sm">어린이 경미한 부상</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-red px-3 py-1 text-xs font-bold">조사</span>
+                            <span class="text-sm">미 도로교통안전국(NHTSA) 착수</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">전망</span>
+                            <span class="text-sm">규제 당국 감시 강화 예상</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">대형 투자 유치와 안전 우려가 동시에 부각</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 4: 중국 AI ========== -->
+        <section id="theme4" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">4</div>
+                <h2 class="text-2xl md:text-3xl font-black">중국 AI 급부상</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: 키미 K2.5 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🏆 키미 K2.5, 세계 톱 5 진입</h3>
+
+                    <div class="bg-black text-white p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "중국 AI 모델이 미국보다<br/>
+                            <span class="text-yellow-400">수개월 뒤처져 있을 뿐"</span>
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">- 데미스 허사비스, 구글 딥마인드 CEO</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">개발사</span>
+                            <span class="text-sm">문샷(Moonshot)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">성과</span>
+                            <span class="text-sm">글로벌 벤치마크 5위권</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">분석</span>
+                            <span class="text-sm">미중 격차 수개월 수준으로 축소</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: DeepSeek & 아날로그 칩 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🔧 DeepSeek H200 승인 & 아날로그 칩</h3>
+
+                    <div class="space-y-4 py-4">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">DeepSeek</span>
+                                <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">H200 승인</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">전략적 AI 기업 육성 정책</p>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">아날로그 칩</span>
+                                <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">99% 절감</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">AI 데이터센터 에너지 소비 혁신</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">미국 칩 규제가 오히려 중국의 효율적 AI 개발 촉진</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-[#111] text-white py-10 px-4 mt-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl font-black">AI TREND REPORT</h2>
+                <p class="text-gray-400 text-sm mt-1">News Info v2.0</p>
+            </div>
+            <p class="text-sm text-gray-400">© 2026 AI News Lab</p>
+        </div>
+    </footer>
+
+</body>
+</html>
