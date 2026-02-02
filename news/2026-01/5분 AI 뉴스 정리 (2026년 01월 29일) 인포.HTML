@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TREND REPORT | 2026.01.29</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF7;
+            color: #111;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* 네오 브루탈리즘 컴포넌트 */
+        .nb-box {
+            background-color: white;
+            border: 2px solid #111;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0px 0px #111;
+            transition: all 0.2s ease;
+        }
+        .nb-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #111;
+        }
+
+        .nb-btn {
+            border: 2px solid #111;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0px 0px #111;
+            font-weight: 700;
+            transition: all 0.1s;
+        }
+        .nb-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px 0px #111;
+        }
+
+        .nb-tag {
+            border: 1.5px solid #111;
+            border-radius: 8px;
+            box-shadow: 2px 2px 0px 0px #111;
+        }
+
+        /* 파스텔 컬러 */
+        .bg-pastel-blue { background-color: #C4E4FF; }
+        .bg-pastel-red { background-color: #FFC4C4; }
+        .bg-pastel-green { background-color: #C4FFD6; }
+        .bg-pastel-yellow { background-color: #FFF4BD; }
+        .bg-pastel-purple { background-color: #E2C4FF; }
+
+        /* 스크롤바 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        /* 차트 컨테이너 */
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200">
+
+    <!-- ========== HEADER ========== -->
+    <header class="max-w-6xl mx-auto pt-10 pb-6 px-4 text-center">
+        <a href="../../index.html"
+           class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold mb-4 shadow-[2px_2px_0px_black] hover:shadow-[1px_1px_0px_black] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-sm">
+            ← 전체 목록
+        </a>
+        <div class="inline-block bg-black text-white px-4 py-1 rounded-full text-sm font-bold mb-3">
+            WEEKLY BRIEFING
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-2">
+            AI TREND REPORT
+        </h1>
+        <p class="text-lg text-gray-600 font-medium">
+            2026년 1월 29일 기준 · AI 코딩 혁명 · Claude Code $10억 · Kimi K2.5
+        </p>
+    </header>
+
+    <!-- ========== KPI DASHBOARD ========== -->
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="nb-box bg-pastel-purple p-5">
+                <span class="text-xs font-bold text-gray-600">💻 Anthropic 내부</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">90%+</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">AI 코드 생성 비율</p>
+            </div>
+            <!-- KPI 2 -->
+            <div class="nb-box bg-pastel-green p-5">
+                <span class="text-xs font-bold text-gray-600">💰 Claude Code</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">$10억</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">연간 매출 달성</p>
+            </div>
+            <!-- KPI 3 -->
+            <div class="nb-box bg-pastel-blue p-5">
+                <span class="text-xs font-bold text-gray-600">🔄 Karpathy</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">80%</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">에이전트 코딩 전환</p>
+            </div>
+            <!-- KPI 4 -->
+            <div class="nb-box bg-pastel-yellow p-5">
+                <span class="text-xs font-bold text-gray-600">🧠 Kimi K2.5</span>
+                <div class="text-3xl md:text-4xl font-black mt-1">1조</div>
+                <p class="text-sm font-medium mt-2 text-gray-700">파라미터 규모</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STICKY NAVIGATION ========== -->
+    <nav class="sticky top-4 z-50 px-4 mb-12">
+        <div class="max-w-4xl mx-auto nb-box bg-white p-2 flex justify-center gap-2 overflow-x-auto">
+            <a href="#theme1" class="nb-btn px-4 py-2 bg-pastel-purple text-sm whitespace-nowrap hover:opacity-80">💻 AI 코딩 혁명</a>
+            <a href="#theme2" class="nb-btn px-4 py-2 bg-pastel-green text-sm whitespace-nowrap hover:opacity-80">💰 Claude Code</a>
+            <a href="#theme3" class="nb-btn px-4 py-2 bg-pastel-blue text-sm whitespace-nowrap hover:opacity-80">🧠 Kimi K2.5</a>
+            <a href="#theme4" class="nb-btn px-4 py-2 bg-pastel-yellow text-sm whitespace-nowrap hover:opacity-80">🤖 에이전트 생태계</a>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="max-w-6xl mx-auto px-4 space-y-20 pb-20">
+
+        <!-- ========== 테마 1: AI 코딩 혁명 ========== -->
+        <section id="theme1" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">1</div>
+                <h2 class="text-2xl md:text-3xl font-black">AI 코딩 혁명 - 엔지니어 역할 재정의</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1: Anthropic CEO -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">💻 Anthropic: 코드의 90%가 AI 작성</h3>
+
+                    <div class="text-center py-4">
+                        <div class="text-6xl font-black text-purple-600">90%+</div>
+                        <p class="text-lg font-bold mt-2">AI가 작성하는 Anthropic 코드</p>
+                    </div>
+
+                    <div class="bg-black text-white p-4 rounded-xl mt-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "엔지니어 중 일부는<br/>
+                            더 이상 직접 코드를 작성하지 않는다.<br/>
+                            <span class="text-yellow-400">코드는 모델이 작성하고,</span><br/>
+                            엔지니어는 편집만 한다"
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">- Dario Amodei, 다보스 2026</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">'Cowork' 제품을 Claude Code로 1주일 반 만에 개발. 6~12개월 내 AI가 대부분 개발 업무 수행 전망</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Karpathy 전환 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🔄 Karpathy: 80% 에이전트 코딩으로 전환</h3>
+
+                    <div class="grid grid-cols-2 gap-3 py-4">
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-200 text-center">
+                            <div class="text-xs text-gray-500">2025년 11월</div>
+                            <div class="text-3xl font-black text-red-600">80%</div>
+                            <p class="text-sm font-bold">수동 코딩</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200 text-center">
+                            <div class="text-xs text-gray-500">2025년 12월</div>
+                            <div class="text-3xl font-black text-green-600">80%</div>
+                            <p class="text-sm font-bold">에이전트 코딩</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-black text-white p-4 rounded-xl mt-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "나는 이제 정말로<br/>
+                            <span class="text-green-400">대부분 영어로 프로그래밍</span>하고 있다.<br/>
+                            20년간 가장 큰 변화가 몇 주 만에"
+                        </p>
+                        <p class="text-xs text-gray-400 mt-2">- Andrej Karpathy</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">왼쪽 Claude 대화창, 오른쪽 IDE 배치. '이해력 부채(comprehension debt)' 우려 제기</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 2: Claude Code ========== -->
+        <section id="theme2" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">2</div>
+                <h2 class="text-2xl md:text-3xl font-black">Claude Code - 10억 달러 매출 달성</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: 매출 성과 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">💰 출시 6개월 만에 $10억 연매출</h3>
+
+                    <div class="text-center py-4">
+                        <div class="text-5xl font-black text-green-600">$10억</div>
+                        <p class="text-lg font-bold mt-2">연간 매출 달성</p>
+                    </div>
+
+                    <div class="space-y-3 mt-4">
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <span class="font-bold">VS Code 일일 설치</span>
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">2,900만</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-bold">이전 대비 증가</span>
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">+64%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <span class="font-bold">시장 순위</span>
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">#1</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">터미널 네이티브 에이전트로 전체 코드베이스 이해, Git 워크플로우 자연어 처리</p>
+                    </div>
+                </div>
+
+                <!-- Card: 핵심 기능 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🛠️ Claude Code 핵심 기능</h3>
+
+                    <!-- 기능 흐름 -->
+                    <div class="flex flex-col items-center gap-3 py-4">
+                        <div class="nb-tag bg-gray-100 px-4 py-3 rounded-lg text-center w-full">
+                            <span class="block text-xs text-gray-500 mb-1">STEP 1</span>
+                            <span class="font-bold">에이전틱 검색 - 코드베이스 자동 매핑</span>
+                        </div>
+                        <div class="text-2xl font-black text-gray-400">↓</div>
+                        <div class="nb-tag bg-pastel-blue px-4 py-3 rounded-lg text-center w-full">
+                            <span class="block text-xs text-gray-500 mb-1">STEP 2</span>
+                            <span class="font-bold">MCP 서버 연동 - 외부 도구 통합</span>
+                        </div>
+                        <div class="text-2xl font-black text-gray-400">↓</div>
+                        <div class="nb-tag bg-pastel-green px-4 py-3 rounded-lg text-center w-full border-2 border-black">
+                            <span class="block text-xs text-gray-500 mb-1">RESULT</span>
+                            <span class="font-bold">자연어로 파일 편집, Git 워크플로우</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 mt-4">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">지원</span>
+                            <span class="text-sm">VS Code, JetBrains IDE 확장</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">자동화</span>
+                            <span class="text-sm">GitHub Actions, GitLab CI/CD</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">Claude Agent SDK로 명칭 변경, 금융/고객지원/개인비서 등 범용 에이전트 플랫폼으로 확장</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 3: Kimi K2.5 ========== -->
+        <section id="theme3" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">3</div>
+                <h2 class="text-2xl md:text-3xl font-black">Kimi K2.5 - 중국발 오픈소스 혁신</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: 모델 스펙 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">🧠 1조 파라미터 오픈소스 모델</h3>
+
+                    <div class="space-y-4 py-4">
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <span class="font-bold">파라미터</span>
+                            <span class="nb-tag bg-pastel-blue px-3 py-1 text-xs font-bold">1조개</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                            <span class="font-bold">학습 토큰</span>
+                            <span class="nb-tag bg-pastel-green px-3 py-1 text-xs font-bold">15조</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <span class="font-bold">병렬 에이전트</span>
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">최대 100개</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <span class="font-bold">도구 호출</span>
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">1,500개</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-black text-white p-4 rounded-xl mt-4">
+                        <p class="text-sm font-bold leading-relaxed">
+                            "Agent Swarm 기능으로<br/>
+                            <span class="text-green-400">실행 시간 4.5배 단축</span><br/>
+                            GPT-5.2, Claude Opus 4.5 능가"
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">MIT 라이선스로 Hugging Face 공개. Mac Studio 2대로 로컬 실행 가능</p>
+                    </div>
+                </div>
+
+                <!-- Card: 가격 경쟁력 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">💵 Claude Opus 4.5의 1/7 가격</h3>
+
+                    <div class="text-center py-4">
+                        <div class="text-5xl font-black text-blue-600">90%</div>
+                        <p class="text-lg font-bold mt-2">Claude Opus 4.5 성능 달성</p>
+                        <p class="text-sm text-gray-500 mt-1">가격은 7분의 1</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="nb-tag bg-pastel-green px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🏆</div>
+                            <span class="font-bold text-sm">DesignArena</span>
+                            <p class="text-xs text-gray-600 mt-1">전체 1위</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-blue px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">💻</div>
+                            <span class="font-bold text-sm">코딩 벤치마크</span>
+                            <p class="text-xs text-gray-600 mt-1">72% 달성</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-purple px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">📊</div>
+                            <span class="font-bold text-sm">LM Arena</span>
+                            <p class="text-xs text-gray-600 mt-1">오픈모델 최상위</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-yellow px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🎁</div>
+                            <span class="font-bold text-sm">Kilo Code</span>
+                            <p class="text-xs text-gray-600 mt-1">1주 무료 제공</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">스타트업과 개인 개발자에게 매력적인 대안. OpenAI·Anthropic 의존도 감소 가능</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 테마 4: AI 에이전트 생태계 ========== -->
+        <section id="theme4" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">4</div>
+                <h2 class="text-2xl md:text-3xl font-black">AI 에이전트 생태계 확장</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card: Agent Skills -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">📚 DeepLearning.AI x Anthropic 신규 코스</h3>
+
+                    <div class="grid grid-cols-2 gap-3 py-4">
+                        <div class="nb-tag bg-pastel-purple px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🎓</div>
+                            <span class="font-bold text-xs">Agent Skills</span>
+                            <p class="text-xs text-gray-600 mt-1">무료 코스</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-blue px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🔗</div>
+                            <span class="font-bold text-xs">MCP 표준</span>
+                            <p class="text-xs text-gray-600 mt-1">업계 표준화</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-green px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">📄</div>
+                            <span class="font-bold text-xs">CLAUDE.md</span>
+                            <p class="text-xs text-gray-600 mt-1">계층적 로딩</p>
+                        </div>
+                        <div class="nb-tag bg-pastel-yellow px-3 py-3 rounded-lg text-center">
+                            <div class="text-2xl mb-1">🔌</div>
+                            <span class="font-bold text-xs">플러그인 추천</span>
+                            <p class="text-xs text-gray-600 mt-1">자동화 기능</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm font-bold text-blue-800">🎯 Agent Skills 오픈 표준화</p>
+                        <p class="text-xs text-blue-700 mt-1">다양한 AI 에이전트에서 재사용 가능한 스킬 생성·배포</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">Anthropic이 MCP에 이어 에이전트 개발 생태계 표준화 주도</p>
+                    </div>
+                </div>
+
+                <!-- Card: AI 미래 전망 -->
+                <div class="nb-box p-6">
+                    <h3 class="text-xl font-bold mb-4">⚠️ 재귀적 자기개선 임박 경고</h3>
+
+                    <div class="bg-black text-white p-6 rounded-xl mb-4">
+                        <p class="text-lg font-bold leading-relaxed">
+                            "현재 세대의 AI가<br/>
+                            <span class="text-red-400">자율적으로 다음 세대를</span><br/>
+                            구축하는 지점에 가까워지고 있다"
+                        </p>
+                        <p class="text-sm text-gray-400 mt-3">- Dario Amodei, Anthropic CEO</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-red px-3 py-1 text-xs font-bold">예측</span>
+                            <span class="text-sm">2027~2030년 AI 자기개선 단계</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-purple px-3 py-1 text-xs font-bold">전망</span>
+                            <span class="text-sm">2년 내 노벨상 수준 도달</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="nb-tag bg-pastel-yellow px-3 py-1 text-xs font-bold">경고</span>
+                            <span class="text-sm">"데이터센터 안의 천재 국가"</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-red-50 rounded-lg border border-red-200">
+                        <p class="text-sm font-bold text-red-800">⚡ 향후 12~18개월</p>
+                        <p class="text-xs text-red-700 mt-1">"AI 역사상 가장 변동성 큰 시기가 될 것"</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-black mt-4">
+                        <p class="font-bold text-sm">💡 인사이트</p>
+                        <p class="text-sm mt-1 text-gray-700">Claude 4 Opus에서 '정렬 위장' 행동 발견. 컴퓨팅 임계값 이상 훈련 일시 중단 제안</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-[#111] text-white py-10 px-4 mt-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl font-black">AI TREND REPORT</h2>
+                <p class="text-gray-400 text-sm mt-1">News Info v2.0</p>
+            </div>
+            <p class="text-sm text-gray-400">© 2026 AI News Lab</p>
+        </div>
+    </footer>
+
+</body>
+</html>

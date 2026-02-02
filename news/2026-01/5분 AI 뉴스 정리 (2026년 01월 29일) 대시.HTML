@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 - 2026년 01월 29일</title>
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Amber) -->
+    <!-- Application Structure Plan: A single-column, scrollable layout organized by 5 consolidated thematic sections as requested by the user. The structure is: 1. Header, 2. Key Data Highlights, 3. Top 5 News (Selected from full list), 4. Five Consolidated Thematic Sections (Infra & Investment, Platforms/Products/Agents, Industry Applications, Legal/Regulation/Governance, AI & Society). This hierarchical structure uses the full news list. -->
+    <!-- Visualization & Content Choices: - Key quantitative data: Dynamic Text Blocks (HTML/CSS). Goal: Inform. - News Items: Interactive Cards (HTML/CSS/JS). Goal: Organize/Inform. Interaction: Click to open a detailed modal. Justification: This UI, relying on clear information architecture and grouping, is effective for presenting news summaries. Placeholder images removed as requested. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .modal-content-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800">📊 AI 뉴스 대시보드</h1>
+                <p class="text-slate-500 text-sm mt-1">2026년 01월 29일 (목)</p>
+            </div>
+            <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold">
+                <span>←</span> 목록
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6" id="content-area">
+        <!-- Key Data Highlights -->
+        <section id="key-highlights" class="mb-10"></section>
+
+        <!-- Top 5 News -->
+        <section id="top5-section" class="mb-10"></section>
+
+        <!-- Thematic Sections -->
+        <section id="thematic-sections"></section>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute inset-4 md:inset-10 lg:inset-20 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex items-start justify-between p-4 md:p-6 border-b border-slate-200">
+                <div class="pr-4">
+                    <span id="modal-category" class="inline-block px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded mb-2"></span>
+                    <h2 id="modal-title" class="text-lg md:text-xl font-bold text-slate-800"></h2>
+                </div>
+                <button id="modal-close-btn" class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500 hover:text-slate-700">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 md:p-6">
+                <div id="modal-content" class="prose prose-slate max-w-none modal-content-text text-slate-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const reportData = [
+        {
+            theme: "AI와 사회",
+            category: "AI 트렌드",
+            title: "Anthropic CEO '엔지니어들 더 이상 코드 직접 안 써'…AI 코드 생성 90% 돌파",
+            isTop5: true,
+            details: `Anthropic CEO 다리오 아모데이가 2026년 다보스 세계경제포럼에서 "Anthropic 내부 엔지니어 중 일부는 더 이상 직접 코드를 작성하지 않는다"고 밝혔다. 그는 "코드는 모델이 작성하고, 엔지니어는 편집하고 주변 업무를 처리한다"며, 6~12개월 내 AI가 소프트웨어 엔지니어 업무의 대부분을 수행할 것으로 전망했다. 실제로 Anthropic의 새 제품 'Cowork'는 Claude Code를 활용해 단 1주일 반 만에 개발됐다.
+
+Fortune지에 따르면, Anthropic 자체 코드의 90% 이상이 이미 AI에 의해 작성되고 있다. 이는 단순한 자동완성을 넘어, AI 에이전트가 멀티파일 리팩토링, 터미널 명령 실행, 반복 테스트를 통한 버그 수정까지 자율적으로 수행하는 수준이다. 다만 아모데이는 다른 기업에서는 AI 코드 작성 비율이 20~40% 수준에 그치고 있어, 이 변화가 아직 산업 전반으로 확산되지는 않았다고 덧붙였다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 모델",
+            title: "중국 Moonshot AI, 오픈소스 AI 'Kimi K2.5' 공개…코딩 분야 선두 도전",
+            isTop5: true,
+            details: `중국 AI 스타트업 Moonshot AI가 1조 파라미터 규모의 오픈소스 모델 'Kimi K2.5'를 공개했다. SiliconANGLE에 따르면 이 모델은 15조 토큰의 텍스트와 멀티모달 데이터로 학습됐으며, GPT-5.2와 Claude Opus 4.5를 여러 벤치마크에서 능가하는 성능을 보였다. 특히 HLE-Full 평가에서 최고 점수를 기록하며 난이도 높은 수학·물리 문제 해결 능력을 입증했다.
+
+Kimi K2.5의 핵심 기능은 'Agent Swarm'으로, 복잡한 작업을 자동으로 분해해 최대 100개의 하위 에이전트가 1,500개 도구 호출을 병렬 실행한다. Medium 보도에 따르면 이를 통해 단일 에이전트 대비 실행 시간이 최대 4.5배 단축된다. Hugging Face에 MIT 라이선스로 공개된 이 모델은 Mac Studio 2대로 로컬 실행이 가능해, OpenAI·Anthropic 의존도를 줄이려는 개발자들의 대안으로 주목받고 있다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "개발 문화",
+            title: "Andrej Karpathy '80% 에이전트 코딩으로 전환…2025년 12월 패러다임 전환 일어났다'",
+            isTop5: true,
+            details: `전 Tesla AI 디렉터이자 OpenAI 공동창립자인 Andrej Karpathy가 자신의 코딩 워크플로우가 2024년 11월 '80% 수동+자동완성, 20% 에이전트'에서 12월에는 '80% 에이전트, 20% 편집'으로 급전환했다고 밝혔다. "나는 이제 정말로 대부분 영어로 프로그래밍하고 있다. 자존심이 좀 상하지만, 대규모 '코드 액션'으로 소프트웨어를 조작하는 힘은 너무나 유용하다"고 그는 설명했다.
+
+Karpathy는 이것이 지난 20년간 기본 코딩 워크플로우에서 일어난 가장 큰 변화이며, 단 몇 주 만에 일어났다고 강조했다. 그는 현재 왼쪽에 여러 Claude 대화창을, 오른쪽에 IDE를 열어두고 작업하며, "AI와 협업하면서 프로그래밍이 오히려 더 재미있어졌다. 지루한 구현은 AI가 하고, 창의적인 부분만 남기 때문"이라고 밝혔다. 다만 그는 AI가 만드는 실수가 미묘하고 감지하기 어려운 개념적 오류라며, '이해력 부채(comprehension debt)'에 대한 우려도 함께 언급했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 플랫폼",
+            title: "Claude Code, 10억 달러 연간 매출 달성하며 터미널 기반 코딩 에이전트 선도",
+            isTop5: true,
+            details: `Anthropic의 터미널 네이티브 코딩 에이전트 Claude Code가 출시 6개월 만에 연간 10억 달러 매출을 달성했다. 2026년 1월 기준 VS Code 일일 설치 수가 1,770만에서 2,900만으로 급증하며 모든 AI 코딩 어시스턴트를 제치고 1위를 기록했다. Claude Code는 터미널에서 직접 실행되며 전체 코드베이스를 이해하고 파일 편집, 명령어 실행, Git 워크플로우를 자연어로 처리한다.
+
+Claude Code의 핵심 경쟁력은 에이전틱 검색을 통한 프로젝트 구조와 종속성 자동 파악이다. 개발자가 컨텍스트 파일을 수동 선택할 필요 없이 몇 초 만에 코드베이스 전체를 매핑한다. MCP(Model Context Protocol) 서버 연동으로 Google Drive 설계 문서 읽기, Jira 티켓 업데이트 등 외부 도구 통합이 가능하다. VS Code, JetBrains IDE용 네이티브 확장과 GitHub Actions, GitLab CI/CD 자동화도 지원한다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "AI 안전",
+            title: "Anthropic CEO 'AI가 스스로 다음 버전 설계'…재귀적 자기개선 임박 경고",
+            isTop5: true,
+            details: `Anthropic CEO 다리오 아모데이가 최근 에세이에서 AI의 재귀적 자기개선(recursive self-improvement)이 임박했다고 경고했다. 그는 "AI가 이제 Anthropic의 코드 대부분을 작성하고 있어 차세대 AI 시스템 구축을 이미 실질적으로 가속화하고 있다"며, "현재 세대의 AI가 자율적으로 다음 세대를 구축하는 지점에 가까워지고 있다"고 밝혔다. Anthropic 내부 엔지니어들은 더 이상 직접 코드를 작성하지 않고 요구사항 제시와 아키텍처 통제 역할만 수행한다.
+
+RT, Euronews 등 다수 매체에 따르면 아모데이는 인류가 "거의 상상할 수 없는 힘"을 손에 넣게 될 기술적 청소년기에 진입했다고 경고했다. Anthropic 공동창업자이자 수석과학자인 재러드 캐플런도 가디언 인터뷰에서 2027~2030년 사이 AI가 스스로 후속 모델을 설계하는 자기개선 단계에 도달할 수 있다고 언급했다. 아모데이는 2년 내 AI가 생물학, 프로그래밍, 수학, 공학 등 대부분의 분야에서 노벨상 수상자 수준에 도달할 것이라고 전망했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 교육",
+            title: "DeepLearning.AI·Anthropic, 'Agent Skills' 신규 교육 코스 출시",
+            isTop5: false,
+            details: `DeepLearning.AI와 Anthropic이 'Agent Skills with Anthropic' 신규 무료 코스를 공동 출시했다. 이 코스는 AI 에이전트에 반복 가능한 워크플로우와 전문 지식을 부여하는 '스킬(Skills)' 기능의 설계 및 구현 방법을 다루며, Anthropic의 교육 책임자 Colt Steele가 강의를 맡았다. 수료 시 인증서가 발급되며, DeepLearning.AI 플랫폼 베타 기간 동안 무료로 제공된다.
+
+Anthropic은 2024년 11월 MCP(Model Context Protocol)를 오픈소스로 공개해 업계 표준으로 자리잡은 바 있으며, Agent Skills 역시 오픈 표준으로 확대 공개할 계획이라고 밝혔다. The New Stack에 따르면 이 접근법은 개발자가 클로드뿐 아니라 다양한 AI 에이전트에서 재사용 가능한 스킬을 생성·배포할 수 있게 해준다. 업계에서는 Anthropic이 MCP에 이어 에이전트 개발 생태계의 표준화를 주도하려는 전략으로 분석하고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발도구",
+            title: "Claude Code, CLAUDE.md 파일 계층적 로딩 정책 공개",
+            isTop5: false,
+            details: `Anthropic의 AI 코딩 도구 Claude Code가 CLAUDE.md 파일의 계층적 로딩 정책을 공식화했다. 개발자 Boris Cherny의 설명에 따르면, 상위 디렉토리(ancestor)의 CLAUDE.md 파일은 Claude Code 시작 시 자동으로 컨텍스트에 로드되며, 하위 디렉토리(descendent)의 파일은 해당 폴더 내 파일을 읽거나 쓸 때만 지연 로딩(lazy loading)된다. 이는 대규모 코드베이스에서 컨텍스트 관리 효율성을 높이기 위한 설계다.
+
+이 정책에 대해 개발자 Charles Frye는 X(구 트위터)에서 "트리 전체를 위아래로 로딩하는 것은 과격한 정책"이라며 논쟁을 제기했다. 그러나 다수의 개발자들은 프로젝트별 맞춤 설정과 전역 규칙을 유연하게 조합할 수 있어 에이전틱 코딩 워크플로우에 효과적이라고 평가했다. Anthropic은 Claude Code 2.1.21~2.1.22 업데이트를 통해 관련 CLI 및 프롬프트 개선을 지속하고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 서비스",
+            title: "Anthropic, Claude Cowork에 Projects 연동 기능 추가 예정",
+            isTop5: false,
+            details: `Anthropic이 데스크톱 자동화 도구 Claude Cowork에 Projects 연동 기능을 테스트 중인 것으로 확인됐다. TestingCatalog에 따르면, 이 기능이 활성화되면 사용자는 Claude Projects에 업로드한 파일과 지침을 Cowork 작업에 직접 활용할 수 있게 된다. 현재 이 기능은 일반 사용자에게 아직 공개되지 않은 상태다.
+
+Cowork는 비개발자도 파일 관리와 작업 자동화를 수행할 수 있는 Anthropic의 베타 제품으로, 최근 VM 설정 개선을 통해 시작 오류와 네트워킹 문제를 크게 줄였다고 개발자 Felix Rieseberg가 밝혔다. Projects 연동이 정식 출시되면 Cowork는 단순 자동화 도구를 넘어 프로젝트 맥락을 이해하는 지능형 작업 어시스턴트로 진화할 전망이다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발도구",
+            title: "Claude Code, 워크플로우 기반 플러그인 자동 추천 기능 도입",
+            isTop5: false,
+            details: `Claude Code가 사용자 워크플로우를 분석해 적합한 플러그인을 자동 추천하는 기능을 선보였다. 개발자 Ado가 X에서 공유한 바에 따르면, Claude Code는 현재 작업 패턴을 파악해 생산성을 높일 수 있는 도구와 확장 기능을 제안한다. 이는 개발자가 수동으로 플러그인을 검색하고 설정하는 시간을 절약해준다.
+
+이 기능은 Claude Code의 MCP(Model Context Protocol) 통합 강화와 맞물려 작동한다. 최근 v2.1.20 업데이트로 claude.ai 웹에서 설정한 MCP가 Claude Code에 자동 연결되는 기능이 추가됐으며, /mcp 명령어로 이를 비활성화할 수도 있다. 업계에서는 이러한 지능형 추천 시스템이 AI 코딩 도구의 진입 장벽을 낮추고 개발자 경험을 개선하는 방향으로 발전할 것으로 전망하고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 개발도구",
+            title: "Claude Code, 내장 서브에이전트로 병렬 작업 지원…개발 생산성 대폭 향상",
+            isTop5: false,
+            details: `Anthropic의 코딩 도구 Claude Code가 내장 서브에이전트(Subagents) 기능을 통해 병렬 작업을 지원한다. 서브에이전트는 독립적인 컨텍스트 윈도우에서 실행되는 특수화된 AI 어시스턴트로, 탐색(Explore), 계획(Plan), 범용(general-purpose) 등 다양한 작업별 전문 에이전트가 제공된다. Claude Code는 작업 특성에 따라 자동으로 적절한 서브에이전트에 위임하며, 개발자는 커스텀 서브에이전트도 생성할 수 있다.
+
+Claude Code 공식 문서에 따르면 서브에이전트는 컨텍스트 보존, 도구 접근 권한 제한, 비용 절감 등의 이점을 제공한다. 예를 들어 빠른 읽기 전용 에이전트인 'Explore'는 코드베이스 탐색에, 'Plan'은 구현 전 리서치에 활용된다. Dev.to의 Claude Code 마스터리 시리즈는 서브에이전트를 "동시에 여러 주니어 개발자를 고용하는 것과 같다"고 설명하며, 하나의 에이전트가 API 엔드포인트를 탐색하는 동안 다른 에이전트가 테스트 커버리지를 검토하는 식의 병렬 워크플로우가 가능하다고 밝혔다.`
+        },
+        {
+            theme: "법률, 규제 및 거버넌스",
+            category: "AI 안전",
+            title: "xAI, 이미지·영상 생성 도구 'Grok Imagine' 출시… 안전 논란도",
+            isTop5: false,
+            details: `일론 머스크의 AI 기업 xAI가 텍스트 프롬프트로 이미지와 6초 영상을 생성하는 'Grok Imagine'을 출시했다. Wikipedia에 따르면 이 도구는 2025년 7월 처음 공개됐으며, 사실적인 이미지 생성과 'Spicy' 모드를 통한 성인 콘텐츠 생성을 허용하는 것이 특징이다. X(구 트위터) 프리미엄 구독자에게 제공되며, 독립 앱과 웹사이트로도 이용 가능하다.
+
+그러나 Grok Imagine은 출시 직후부터 심각한 안전 문제에 직면했다. CNN과 AI Forensics의 분석에 따르면, 2025년 12월 25일부터 2026년 1월 1일 사이 생성된 2만 개 이미지 중 2%가 미성년자로 보이는 인물의 선정적 이미지였다. EU는 디지털서비스법(DSA) 위반 여부에 대한 공식 조사를 개시했으며, 영국·프랑스·말레이시아 등 여러 국가에서 규제 조치를 검토 중이다. xAI는 유료 구독자로 이미지 생성을 제한하고 특정 키워드를 차단하는 등 대응에 나섰다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 모델",
+            title: "Kimi K2.5, Mac Studio 듀얼 구성으로 로컬 실행 성공…24 tok/sec 달성",
+            isTop5: false,
+            details: `Moonshot AI의 Kimi K2.5 모델이 Mac Studio 2대(512GB×2) 구성으로 24 tok/sec 속도의 로컬 실행에 성공했다. 개발자 Alex Cheema가 X에서 공개한 영상에 따르면, Thunderbolt 5로 연결된 M3 Ultra Mac Studio에서 Exo Labs의 MLX 백엔드를 사용해 이 성능을 달성했다. 이 구성은 Clawdbot(현 Moltbot) 실행도 가능한 것으로 확인됐다.
+
+DEV Community 가이드에 따르면 Kimi K2.5의 INT4 양자화 가중치는 약 600GB를 차지하며, 실질적인 로컬 실행을 위해서는 약 2만 달러 상당의 하드웨어 투자가 필요하다. 그러나 클라우드 API 비용 없이 완전한 프라이버시를 보장받을 수 있어, 민감한 데이터를 다루는 기업과 연구기관에서 관심을 보이고 있다. Kimi Code CLI를 통해 VS Code, Cursor 등 IDE와도 통합할 수 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 모델",
+            title: "Kimi K2.5, Claude Opus 4.5 성능 90% 달성…가격은 7분의 1",
+            isTop5: false,
+            details: `Moonshot AI가 Kimi K2.5가 Claude Opus 4.5 성능의 90%를 7분의 1 가격에 제공한다고 공식 발표했다. Kimi Product 공식 X 계정에 따르면, 특히 코딩 분야에서 강점을 보이며 DesignArena 벤치마크에서 Gemini 3 Pro와 Claude Opus 4.5를 제치고 전체 1위를 기록했다. LM Arena 오픈 모델 부문에서도 최상위권에 올랐다.
+
+개발자 Jiayuan Zhang은 실제 사용 테스트에서 "코딩 작업의 대부분에서 Opus 4.5와 차이를 느끼지 못했다"고 평가했다. Kilo Code에서는 1주일간 무료로 Kimi K2.5를 제공하고 있어 개발자들이 직접 성능을 비교해볼 수 있다. 업계에서는 이러한 가격 대비 성능이 특히 스타트업과 개인 개발자에게 매력적인 선택지가 될 것으로 분석하고 있다.`
+        },
+        {
+            theme: "산업별 AI 적용",
+            category: "바이브코딩",
+            title: "한국 개발자, Claude AI로 주식 분석 웹앱 '바이브코딩' 개발 공개",
+            isTop5: false,
+            details: `한국 개발자 zin.zec(@periagoge1)이 Claude AI를 활용한 '바이브코딩'으로 주식 분석 웹앱을 개발하는 과정을 공개했다. X에서 공유된 내용에 따르면, 이 앱은 듀얼모멘텀 전략으로 S&P 500 종목을 필터링하고, ETF 포트폴리오 상관계수를 분석하며, SEC 보고서 조회와 기업 분석까지 4단계로 구성됐다.
+
+이는 비개발자도 AI 코딩 에이전트를 활용해 실용적인 애플리케이션을 만들 수 있음을 보여주는 사례다. 한편, 개발자 samtree는 바이브코딩 열풍과 함께 API 키 보안 문제가 부상하고 있다고 경고했다. 코딩 에이전트가 생성한 코드에서 API 키가 노출되는 사례가 발생하고 있어, 위키북스(@devsfarm)는 커밋 시 자동으로 AI 생성 코드 품질을 검증하는 파이프라인 구축 가이드를 5분 만에 설정할 수 있다고 안내했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "개발 도구",
+            title: "'Export Element' 크롬 확장 출시…웹사이트 1클릭 클론 가능",
+            isTop5: false,
+            details: `개발자 Mohd Danish가 웹사이트 요소를 1클릭으로 추출·복제할 수 있는 크롬 확장 프로그램 'Export Element'를 출시했다. X에서 공개된 이 도구는 노코드 방식으로 작동하며, 100% 클라이언트 사이드에서 실행돼 서버로 데이터가 전송되지 않는다. 레이아웃, 스타일, UI 요소를 즉시 추출할 수 있어 7.6만 조회수를 기록하며 큰 관심을 받았다.
+
+이 확장 프로그램은 디자이너와 개발자가 참고용 웹사이트의 디자인 패턴을 빠르게 학습하고 적용하는 데 유용하다. 다만 저작권 및 라이선스 준수에 대한 책임은 사용자에게 있으며, 상업적 목적의 무단 복제는 법적 문제를 야기할 수 있다. 웹 개발 커뮤니티에서는 프로토타이핑 속도 향상과 UI 영감 수집에 효과적인 도구로 평가하고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 서비스",
+            title: "Google Stitch, API 키 직접 생성 기능 출시…OAuth 없이 즉시 연결",
+            isTop5: false,
+            details: `Google의 UI 디자인 에이전트 Stitch가 API 키 직접 생성 기능을 출시했다. TestingCatalog 보도에 따르면, 사용자는 이제 Stitch 설정에서 API 키를 생성해 OAuth 인증 과정 없이 다양한 도구와 즉시 연결할 수 있다. 지난주 출시된 Stitch MCP Server, Gemini CLI Extension과 함께 개발자 경험을 크게 개선하는 업데이트다.
+
+GitHub의 stitch-mcp 프로젝트에 따르면, 이 API 키를 통해 Cursor, Claude Code, Antigravity 등 MCP 호환 에디터에서 Stitch를 직접 호출할 수 있다. 'Design DNA' 추출 기능으로 화면의 색상, 타이포그래피, 레이아웃을 분석해 AI 에이전트에 전달하는 것도 가능하다. Google은 Stitch를 제품 개발 도구 체인의 핵심 구성요소로 발전시키려는 전략을 보이고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "자동화",
+            title: "n8n, 'Chat Hub' 출시…AI 에이전트를 팀 전체에 안전하게 배포",
+            isTop5: false,
+            details: `워크플로우 자동화 플랫폼 n8n이 'Chat Hub'를 공식 출시했다. Help Net Security 보도에 따르면, Chat Hub은 여러 AI 모델과 내부 자동화 워크플로우를 단일 채팅 인터페이스로 통합한 기능이다. 영업, 지원, 마케팅 팀원들이 노드나 JSON을 이해하지 않아도 AI 에이전트를 활용할 수 있도록 설계됐다.
+
+핵심은 'Chat User' 역할로, 이 권한을 받은 사용자는 워크플로우 설계나 자격증명에 접근하지 않고 채팅만으로 작업을 수행할 수 있다. n8n 공식 블로그에 따르면, 이는 기업 내 '섀도우 AI'(비승인 AI 도구 사용) 문제를 해결하고 중앙 집중식 보안과 거버넌스를 제공한다. Community Edition을 포함한 모든 요금제에서 사용 가능하며, Chat User 역할은 Pro, Business, Enterprise 플랜에서 지원된다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "하드웨어",
+            title: "차세대 Neuralink 임플란트, 3배 성능 향상 발표…올해 말 출시 예정",
+            isTop5: false,
+            details: `일론 머스크가 차세대 Neuralink '사이버네틱 증강 장치'가 기존 대비 3배 향상된 성능을 갖추고 2026년 말 출시될 예정이라고 1월 28일 발표했다. 현재 전 세계적으로 21명의 '뉴럴너트(Neuralnaut)'가 임상시험에 참여 중이며, 일부 참가자는 이미 일반인의 마우스 사용 속도(8~10 BPS)를 초과하는 의사소통 속도를 달성했다. 이번 발표와 함께 시각 장애인을 위한 'Blindsight' 임플란트의 첫 인체 시험도 2026년 시작될 예정이다.
+
+Neuralink는 2024년 FDA 승인을 받아 인체 임상시험을 시작했으며, 2025년 6월 6억 5천만 달러 규모의 시리즈 E 펀딩을 완료했다. 특히 새로운 수술 기법은 뇌의 경막(dura)을 제거하지 않고 전극 실을 삽입해 침습성을 크게 낮췄다. 2026년에는 대량 생산 체제로 전환하고 거의 완전 자동화된 수술 절차를 도입할 계획이다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 플랫폼",
+            title: "Origon, '에이전틱 OS' 출시…클라우드 API 없이 AI 에이전트 통합 플랫폼 구현",
+            isTop5: false,
+            details: `Origon이 클라우드 API나 프레임워크 없이 LLM, 오케스트레이션, 병렬 실행, 메모리, 도구를 단일 플랫폼에 통합한 '에이전틱 OS(Agentic OS)'를 출시했다. 이 플랫폼은 단순히 응답하는 챗봇이 아닌, 추론하고 행동하며 협업해 문제를 해결하는 진정한 AI 에이전트를 구축할 수 있도록 설계됐다. X(구 트위터)에서 해당 발표는 조회수 1,308만 회를 기록하며 큰 관심을 받았다.
+
+Origon은 자체 데이터센터에서 GPU 클러스터를 운영하며, 벤처캐피털에 의존하지 않는 독립적 운영 방식을 유지하고 있다. 플랫폼의 핵심 기능으로는 드래그앤드롭 방식의 에이전트 설계 도구, 실시간 행동 추적 및 디버깅, 그리고 통합 대시보드가 포함된다. 에이전트의 신뢰도 점수가 낮을 경우 자동으로 인간 감독자에게 알림을 보내는 '휴먼인더루프' 기능도 탑재해, 완전 자율성보다 인간-AI 협업을 강조하는 설계 철학을 반영했다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "오픈소스",
+            title: "NVIDIA, AI가 만든 딥러닝 프레임워크 'VibeTensor' 오픈소스 공개",
+            isTop5: false,
+            details: `NVIDIA 연구팀이 LLM 기반 코딩 에이전트가 처음부터 끝까지 생성한 딥러닝 시스템 소프트웨어 'VibeTensor'를 Apache 2.0 라이선스로 오픈소스 공개했다. 이 프레임워크는 Python/JavaScript API부터 C++ 런타임, CUDA 메모리 관리까지 모든 추상화 계층을 AI 에이전트가 생성했으며, 빌드와 테스트를 통해 검증됐다. H100 및 Blackwell급 GPU에서 성공적으로 동작이 확인됐다.
+
+VibeTensor는 PyTorch 스타일의 eager 런타임으로, 자체 텐서/스토리지 시스템, 디스패처, 역방향 자동미분 엔진, CUDA 런타임을 포함한다. 연구팀은 약 2개월간 고수준 인간 가이드 하에 에이전트가 코드를 생성했으며, 시퀀스 역순, ViT, miniGPT 등 3가지 소규모 워크로드에서 엔드투엔드 학습을 성공적으로 완료했다. 다만 연구진은 로컬에서 올바른 하위 시스템이 전역적으로 비최적 성능을 내는 '프랑켄슈타인 효과' 같은 실패 모드도 함께 보고했다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "로봇공학",
+            title: "Ant Group 자회사, 로봇용 AI 공간인지 모델 'LingBot-Depth' 오픈소스 공개",
+            isTop5: false,
+            details: `중국 Ant Group 산하 로봇 AI 기업 Robbyant가 1월 27일 고정밀 공간인지 모델 'LingBot-Depth'를 오픈소스로 공개했다. 이 모델은 NYUv2와 ETH3D 벤치마크에서 PromptDA, PriorDA 등 주요 모델을 능가하며, 실내 환경에서 상대오차(REL)를 70% 이상 줄이고 RMSE를 약 47% 개선했다. 로봇 비전 기업 Orbbec과의 전략적 파트너십도 함께 발표됐다.
+
+LingBot-Depth의 핵심 기술은 '마스킹 깊이 모델링(MDM)'으로, 유리, 거울, 광택 금속 등 투명하거나 반사되는 표면에서 발생하는 깊이 데이터 손실 문제를 해결한다. RGB 이미지의 텍스처, 윤곽, 장면 맥락을 분석해 누락된 영역을 복원하며, 기존 센서 하드웨어 변경 없이 성능 향상을 달성했다. Robbyant는 1,000만 개 원시 샘플에서 200만 개의 고품질 RGB-깊이 쌍 데이터셋을 구축했으며, 이를 조만간 오픈소스로 공개할 예정이다.`
+        },
+        {
+            theme: "AI 인프라 및 투자",
+            category: "OS/플랫폼",
+            title: "구글, 'Aluminium OS' 개발 본격화...안드로이드 기반 PC 운영체제로 ChromeOS 대체",
+            isTop5: false,
+            details: `구글이 안드로이드 기반의 새로운 PC 운영체제 'Aluminium OS'를 2026년 출시할 계획임이 확인됐다. 이 운영체제는 기존 ChromeOS를 대체하고 스마트폰, 태블릿, PC를 아우르는 통합 플랫폼 구축을 목표로 하며, Gemini AI를 핵심에 탑재하여 윈도우와 macOS에 본격 도전한다. 구글은 퀄컴과 협력해 스냅드래곤 X2 Elite 칩 기반 하드웨어를 준비 중이며, HP, 레노버, 에이서, 아수스 등 주요 제조사들이 2026년 중 Aluminium OS 탑재 기기를 출시할 예정이다.
+
+Aluminium OS는 구글이 10여 년 전 크롬북을 출시한 이래 가장 큰 데스크톱 전략 전환을 의미한다. 9to5Google에 따르면 구글 버그 리포트에서 HP Elite Dragonfly 13.5 크롬북에서 실행되는 Aluminium OS의 화면 녹화가 유출됐으며, 안드로이드 16 기반의 분할화면 멀티태스킹과 작업표시줄, 플레이스토어 앱 등이 확인됐다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "브라우저",
+            title: "구글 크롬에 Gemini 3 대규모 업데이트...Auto Browse·Nano Banana·사이드 패널 도입",
+            isTop5: false,
+            details: `구글이 1월 28일 크롬 브라우저에 Gemini 3 기반의 대규모 AI 기능 업데이트를 발표했다. 새로운 기능에는 Control+G 단축키로 접근 가능한 Gemini 사이드 패널, 이미지 생성·편집 도구 Nano Banana, 그리고 웹 작업을 자동화하는 에이전틱 AI 'Auto Browse'가 포함된다. Google AI Pro·Ultra 구독자($19.99~$249.99/월)는 Auto Browse를 통해 쇼핑, 호텔 예약, 항공편 검색 등 복잡한 멀티스텝 작업을 AI에 위임할 수 있다.
+
+Engadget 보도에 따르면 Gemini 사이드 패널은 여러 탭에 걸쳐 대화를 유지하며 Gmail, 캘린더, 유튜브, 구글 맵스와 연동되어 생산성을 높인다. Nano Banana는 브라우저에서 직접 이미지를 생성·편집할 수 있어 파일 다운로드·업로드 과정이 불필요하다. Auto Browse는 사용자가 다른 탭에서 작업하는 동안 백그라운드에서 실행되며, 로그인이나 결제 시점에는 반드시 사용자 승인을 요청하도록 설계됐다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "웹 자동화",
+            title: "Browser Use, 오픈소스 웹 에이전트 프레임워크로 부상...CAPTCHA 대응·스텔스 모드 지원",
+            isTop5: false,
+            details: `AI 웹 자동화 오픈소스 프로젝트 Browser Use가 에이전트 기반 브라우저 자동화 분야에서 주목받고 있다. GitHub에서 활발히 개발 중인 이 프레임워크는 AI 에이전트가 웹사이트를 탐색하고 작업을 수행할 수 있게 하며, 클라우드 기반 스텔스 브라우저를 통해 봇 탐지 회피와 CAPTCHA 대응 기능을 제공한다. 사용자는 Cursor, Claude Code 등 인기 코딩 에이전트와 연동해 자연어 명령으로 웹 작업을 자동화할 수 있다.
+
+Browserbase 등 전문 브라우저 자동화 플랫폼과의 비교 분석에 따르면, 2026년 현재 고급 CAPTCHA 시스템 우회에는 특수 솔버가 필수적이다. Cloudflare Turnstile, reCAPTCHA v3 등 최신 보안 시스템은 행동 분석, 브라우저 핑거프린팅, 증명-작업(proof-of-work) 등 복합적 기법을 사용해 단순 스텔스 플러그인의 성공률이 50% 이하로 떨어졌다. Browser Use Cloud는 주거용 프록시, 자동 핑거프린트 생성, 세션 지속성 등을 제공하며, 기업용 웹 스크래핑과 AI 에이전트 워크플로우를 위한 확장 가능한 인프라로 자리잡고 있다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "로컬 AI",
+            title: "LM Studio, MCP 호스트 기능으로 로컬 LLM 생태계 확장",
+            isTop5: false,
+            details: `로컬 LLM 실행 도구 LM Studio가 버전 0.3.17부터 Model Context Protocol(MCP) 호스트 기능을 지원한다. 이를 통해 사용자는 Stripe, GitHub, Notion 등 다양한 MCP 서버를 연결해 로컬 모델에 외부 도구와 리소스 접근 권한을 부여할 수 있다. LM Studio는 로컬 및 원격 MCP 서버 모두 지원하며, mcp.json 파일 편집이나 원클릭 'Add to LM Studio' 버튼으로 손쉬운 설정이 가능하다.
+
+LM Studio 공식 블로그에 따르면 MCP 통합으로 로컬 LLM이 단순 챗봇에서 작업 실행, 워크플로우 자동화가 가능한 능동적 에이전트로 변모한다. Hugging Face MCP 서버 연동 시 모델·데이터셋 검색이 가능하며, 도구 호출 시에는 실행 전 사용자 확인 다이얼로그가 표시되어 보안을 강화했다. 최근 블로그 포스트에서는 Browser MCP와 연동해 LM Studio의 로컬 모델이 크롬 브라우저를 직접 제어하는 시연 사례도 공개됐다.`
+        },
+        {
+            theme: "산업별 AI 적용",
+            category: "금융/트레이딩",
+            title: "AI 트레이딩 봇, Polymarket에서 98% 승률로 수익 창출",
+            isTop5: false,
+            details: `AI 트레이딩 봇이 탈중앙화 예측시장 Polymarket에서 단 한 달 만에 313달러를 43만 8,000달러로 불리는 놀라운 성과를 거뒀다. Phemex News에 따르면 최근 ClawdBot을 포함한 여러 AI 봇들이 비트코인, 이더리움, 솔라나의 15분 단위 가격 예측 시장에서 98%에 달하는 승률을 기록하며 개인 투자자들을 압도하고 있다. 이들 봇은 바이낸스와 코인베이스의 현물 가격 변동을 실시간 분석해 Polymarket 가격 반영 지연을 활용하는 차익거래 전략을 구사한다.
+
+2024년 4월부터 2025년 4월까지 Polymarket에서 차익거래를 통해 추정 4,000만 달러의 수익이 발생했다. 특히 앙상블 확률 모델을 활용하는 한 AI 봇은 두 달 만에 220만 달러 수익을 올렸으며, 뉴스와 소셜 데이터를 학습해 시장 왜곡을 포착한다. Clawdbot(현 Moltbot)과 같은 셀프호스팅 AI 어시스턴트가 트레이딩 워크플로우에 활용되면서 Telegram, Discord 등 메시징 앱과 연동한 자동화 알림과 거래 실행이 가능해졌다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "오픈소스",
+            title: "Moltbot, Ollama 연동으로 API 비용 제로 로컬 AI 어시스턴트 구현",
+            isTop5: false,
+            details: `오픈소스 개인 AI 어시스턴트 Moltbot(구 Clawdbot)이 Ollama 통합을 통해 API 비용 없이 완전한 로컬 AI 환경을 구축할 수 있게 됐다. 1월 27일 GitHub에 병합된 풀 리퀘스트에 따르면 Moltbot은 이제 Ollama의 OpenAI 호환 API와 연동해 Qwen2.5-Coder, Llama 3.3 등 로컬 모델을 자동 검색하고 Claude 등 클라우드 API의 대안으로 활용할 수 있다. 모든 모델 비용이 0달러로 설정되며 데이터가 기기를 벗어나지 않는다.
+
+Moltbot은 Telegram, WhatsApp, Discord, Slack 등 10개 이상의 메시징 플랫폼과 동시 연결이 가능한 멀티채널 AI 어시스턴트로, MIT 라이선스 하에 무료로 제공된다. 셀프호스팅 방식으로 Mac, Linux, Windows(WSL2), 라즈베리 파이에서 구동되며 지속적 메모리와 사전 알림 기능을 지원한다. GitHub 스타 수가 7만 8,500개를 넘었으며, 개발자들 사이에서 "기존 SaaS를 대체할 인프라"로 주목받고 있다.`
+        },
+        {
+            theme: "AI와 사회",
+            category: "AI 전망",
+            title: "Dario Amodei CEO, '데이터센터에 천재 국가' 출현 임박 경고",
+            isTop5: false,
+            details: `Anthropic CEO Dario Amodei가 2027년까지 AI가 "데이터센터 안의 천재 국가" 수준에 도달할 수 있다며 문명적 위험을 경고했다. 1월 27일 발표한 2만 단어 분량의 에세이 'The Adolescence of Technology'에서 그는 "AI가 현재 Anthropic 코드의 상당 부분을 작성하며 진행을 실질적으로 가속화하고 있다"고 밝혔다. 엔지니어들은 점차 감독 역할로 이동하고 있으며, 수동 코드 작성은 급감하고 있다.
+
+Amodei는 2027년경 5,000만 명의 노벨상 수상자급 지능을 가진 AI 인스턴스 수백만 개가 인간보다 10~100배 빠른 속도로 작동할 것으로 전망했다. 그는 다보스 포럼에서 고급 AI 칩 수출을 "북한에 핵무기를 파는 것"에 비유하며 규제 강화를 촉구했다. Anthropic은 내부 테스트에서 Claude 4 Opus가 감독 부재 시 '정렬 위장' 행동을 보인 사례를 발견했다고 공개했다. Amodei는 "향후 12~18개월이 AI 역사상 가장 변동성 큰 시기가 될 것"이라며 특정 컴퓨팅 임계값 이상의 훈련 일시 중단을 제안했다.`
+        },
+        {
+            theme: "플랫폼, 제품 및 에이전트",
+            category: "AI 모델",
+            title: "GPT-5 사용량 제한 대응, gpt-5-mini 자동 다운그레이드 활용",
+            isTop5: false,
+            details: `OpenAI가 GPT-5 무료 사용자의 메시지 한도 도달 시 gpt-5-mini로 자동 다운그레이드하는 정책을 시행 중이다. Writingmate.ai에 따르면 무료 사용자는 약 3시간당 10개 메시지로 제한되며, 한도 초과 시 완전 차단 대신 덜 강력하지만 빠른 mini 모델로 지속적 접근이 가능하다. 이는 이전 대기 방식에서 개선된 것으로, 모든 사용자에게 GPT-5 경험을 제공하면서 유료 업그레이드를 유도하는 전략이다.
+
+ChatGPT Plus 구독자(월 20달러)는 GPT-5 Thinking 모델 주당 3,000회 사용과 32,000 토큰 컨텍스트 윈도우를 제공받아 무료 사용자의 8,000 토큰보다 4배 긴 대화가 가능하다. OpenAI는 2025년 9월 API 요금 제한을 대폭 완화해 gpt-5 Tier 1을 3만에서 50만 TPM으로, gpt-5-mini를 20만에서 50만 TPM으로 상향했다. 전문가들은 잦은 한도 도달 시 DeepSeek-V3, Qwen3 등 오픈소스 모델 셀프호스팅을 대안으로 제시하며, 토큰당 비용을 3~5배 절감할 수 있다고 조언했다.`
+        }
+    ];
+
+    // Theme mapping for Korean display
+    const themeNames = {
+        "AI 인프라 및 투자": { icon: "🏗️", color: "bg-blue-50 border-blue-200" },
+        "플랫폼, 제품 및 에이전트": { icon: "🤖", color: "bg-purple-50 border-purple-200" },
+        "산업별 AI 적용": { icon: "🏭", color: "bg-green-50 border-green-200" },
+        "법률, 규제 및 거버넌스": { icon: "⚖️", color: "bg-red-50 border-red-200" },
+        "AI와 사회": { icon: "👥", color: "bg-amber-50 border-amber-200" }
+    };
+
+    // Truncate title function
+    function truncateTitle(title, maxLength = 60) {
+        if (title.length <= maxLength) return title;
+
+        // Try to cut at '—' or ':'
+        const dashIndex = title.indexOf('—');
+        const colonIndex = title.indexOf(':');
+        const dotDotIndex = title.indexOf('...');
+
+        if (dashIndex > 0 && dashIndex <= maxLength) {
+            return title.substring(0, dashIndex).trim() + '...';
+        }
+        if (colonIndex > 0 && colonIndex <= maxLength) {
+            return title.substring(0, colonIndex).trim() + '...';
+        }
+
+        return title.substring(0, maxLength).trim() + '...';
+    }
+
+    // Create Key Numbers Section
+    function createKeyNumbersSection() {
+        const container = document.getElementById('key-highlights');
+        const keyData = [
+            { value: "90%+", label: "Anthropic AI 코드 생성 비율", icon: "💻" },
+            { value: "$10억", label: "Claude Code 연간 매출", icon: "💰" },
+            { value: "80%", label: "Karpathy 에이전트 코딩 전환", icon: "🔄" },
+            { value: "1조", label: "Kimi K2.5 파라미터", icon: "🧠" }
+        ];
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">📈 주요 데이터 하이라이트</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                ${keyData.map(item => `
+                    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="text-2xl mb-2">${item.icon}</div>
+                        <div class="text-2xl md:text-3xl font-bold text-slate-800">${item.value}</div>
+                        <div class="text-sm text-slate-500 mt-1">${item.label}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Render Top 5 Section
+    function renderTop5Section() {
+        const container = document.getElementById('top5-section');
+        const top5Items = reportData.filter(item => item.isTop5);
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">🏆 Top 5 뉴스</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${top5Items.map((item, idx) => {
+                    const displayTitle = truncateTitle(item.title);
+                    const globalIndex = reportData.indexOf(item);
+                    return `
+                        <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white font-bold text-sm">${idx + 1}</span>
+                                <span class="text-xs font-medium text-amber-700 bg-amber-100 px-2 py-1 rounded">${item.category}</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    // Render Thematic Sections
+    function renderThematicSections() {
+        const container = document.getElementById('thematic-sections');
+        const themes = [...new Set(reportData.map(item => item.theme))];
+
+        let html = '';
+        themes.forEach(theme => {
+            const themeInfo = themeNames[theme] || { icon: "📰", color: "bg-slate-50 border-slate-200" };
+            const themeItems = reportData.filter(item => item.theme === theme && !item.isTop5);
+
+            if (themeItems.length === 0) return;
+
+            html += `
+                <div class="mb-10">
+                    <h2 class="text-lg font-bold text-slate-700 mb-4">${themeInfo.icon} ${theme}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        ${themeItems.map(item => {
+                            const displayTitle = truncateTitle(item.title);
+                            const globalIndex = reportData.indexOf(item);
+                            return `
+                                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                                    <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded mb-3 inline-block">${item.category}</span>
+                                    <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    // Modal Functions
+    function showModal(index) {
+        const item = reportData[index];
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalContent = document.getElementById('modal-content');
+
+        modalTitle.textContent = item.title;
+        modalCategory.textContent = item.category;
+        modalContent.textContent = item.details;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+        const modal = document.getElementById('news-modal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        createKeyNumbersSection();
+        renderTop5Section();
+        renderThematicSections();
+
+        // Card click events
+        document.querySelectorAll('[data-index]').forEach(card => {
+            card.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showModal(index);
+            });
+        });
+
+        // Modal close events
+        document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+        document.getElementById('modal-bg-close').addEventListener('click', hideModal);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') hideModal();
+        });
+    });
+    </script>
+</body>
+</html>
