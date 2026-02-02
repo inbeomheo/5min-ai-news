@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 뉴스 대시보드 - 2026년 02월 02일</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .modal-content-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800">📊 AI 뉴스 대시보드</h1>
+                <p class="text-slate-500 text-sm mt-1">2026년 02월 02일 (일)</p>
+            </div>
+            <a href="../../index.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-slate-700 font-semibold">
+                <span>←</span> 목록
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6" id="content-area">
+        <section id="key-highlights" class="mb-10"></section>
+        <section id="top5-section" class="mb-10"></section>
+        <section id="thematic-sections"></section>
+    </main>
+
+    <!-- Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-bg-close" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute inset-4 md:inset-10 lg:inset-20 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex items-start justify-between p-4 md:p-6 border-b border-slate-200">
+                <div class="pr-4">
+                    <span id="modal-category" class="inline-block px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded mb-2"></span>
+                    <h2 id="modal-title" class="text-lg md:text-xl font-bold text-slate-800"></h2>
+                </div>
+                <button id="modal-close-btn" class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500 hover:text-slate-700">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 md:p-6">
+                <div id="modal-content" class="prose prose-slate max-w-none modal-content-text text-slate-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const reportData = [
+        {
+            theme: "AI 코딩 혁명",
+            category: "신제품",
+            title: "OpenAI, macOS용 Codex 앱 출시...에이전트 시대의 새 코딩 인터페이스",
+            isTop5: true,
+            details: `OpenAI가 2월 2일(현지시간) macOS용 Codex 데스크톱 앱을 공식 출시했다. 이 앱은 여러 AI 에이전트를 동시에 관리하고, 작업을 병렬로 실행하며, 장시간 태스크에서 에이전트와 협업할 수 있도록 설계됐다. 새로운 앱은 사용자가 여러 코딩 작업을 동시에 위임하고, 반복 작업을 자동화하며, 최대 30분간 독립적으로 실행되는 AI 시스템을 감독할 수 있다.
+
+샘 알트만 CEO는 "사내에서 가장 사랑받는 제품"이라며 "새로운 아이디어를 타이핑하는 속도만큼 빠르게 무엇이든 만들 수 있다"고 말했다. Anthropic의 Claude Code와 Cowork 앱이 주도하던 에이전틱 코딩 시장에서 OpenAI가 한 발 늦게 따라잡기 위한 대대적인 행보로 평가된다.
+
+GPT-5.2-Codex 출시 이후 Codex 전체 사용량이 두 배로 증가했으며, 지난 한 달간 100만 명 이상의 개발자가 Codex를 사용했다. OpenAI는 출시를 기념해 ChatGPT Free·Go 사용자에게 1개월간 무료 제공하고, Plus·Pro·Enterprise 등 유료 플랜 사용자에게는 2개월간 2배 속도 제한을 적용한다. Windows 버전도 곧 출시될 예정이다.`
+        },
+        {
+            theme: "AI 코딩 혁명",
+            category: "문화/트렌드",
+            title: "'Vibe Coding' 탄생 1주년...Collins 사전 '올해의 단어'에서 개발 패러다임으로",
+            isTop5: true,
+            details: `정확히 1년 전인 2025년 2월 2일, 안드레이 카르파시가 'Vibe Coding'이라는 용어를 트위터에 처음 사용했다. 그는 "바이브에 완전히 몸을 맡기고, 지수적 성장을 수용하며, 코드가 존재한다는 것조차 잊어버리는 새로운 코딩 방식"이라고 설명했다.
+
+이 용어는 Collins 영어사전의 '2025년 올해의 단어'로 선정됐고, Stack Overflow 개발자 설문에 따르면 84%의 개발자가 바이브 코딩을 하거나 시작할 계획이며, 전체 코드의 41%가 AI 생성이다. 주니어 개발자 채용은 20% 감소한 반면, AI를 마스터한 시니어 엔지니어의 가치는 그 어느 때보다 높아졌다.
+
+'오케스트레이터'라는 새로운 역할이 등장해 의도를 정의하고 제약을 설정하며 AI 출력을 검토하는 방식으로 변화하고 있다. 리누스 토발즈도 Google Antigravity를 활용해 AudioNoise 프로젝트의 Python 시각화 도구를 바이브 코딩으로 작성했다고 밝히는 등, 이 개념은 이제 주류 개발 문화로 자리잡았다.`
+        },
+        {
+            theme: "빅테크 AI 전쟁",
+            category: "신기능",
+            title: "구글 크롬, Gemini 3 탑재 'Auto Browse' 기능 출시...쇼핑·예약 작업 대행",
+            isTop5: true,
+            details: `구글이 1월 29일(현지시간) 크롬 브라우저에 Gemini 3를 통합하고, AI가 사용자를 대신해 웹 작업을 수행하는 'Auto Browse' 기능을 출시했다. 이 기능은 쇼핑, 스케줄링, 서류 작업 등 복잡한 여러 단계의 작업을 사용자 대신 처리할 수 있으며, 구매나 소셜 미디어 게시처럼 민감한 작업에서는 사용자 확인을 요청하도록 설계됐다.
+
+사진 속 아이템을 식별해 유사 제품을 검색하고 장바구니에 담은 뒤 할인 코드까지 적용하며, 지정된 예산 내에서 작업을 완료할 수 있다. 구글은 Shopify, Etsy, Wayfair, Target과 공동 개발한 새로운 개방형 표준 'UCP(Universal Commerce Protocol)'를 지원해 AI 에이전트가 크롬에서 원활하게 사용자를 대신해 조치를 취할 수 있도록 했다.
+
+현재 미국 내 AI Pro·Ultra 구독자에게 제공되며, 향후 몇 달 내 과거 대화 맥락을 기억하는 'Personal Intelligence' 기능도 추가될 예정이다.`
+        },
+        {
+            theme: "AI 에이전트",
+            category: "오픈소스",
+            title: "OpenClaw, GitHub 10만 스타 돌파...AI 에이전트 시대 본격 개막",
+            isTop5: true,
+            details: `오스트리아 개발자 피터 슈타인버거가 만든 오픈소스 AI 에이전트 OpenClaw(구 Clawdbot→Moltbot)가 출시 두 달 만에 GitHub 10만 스타를 돌파하며 역사상 가장 빠르게 성장한 저장소 중 하나가 됐다. 이 에이전트는 WhatsApp, Telegram, Slack 등에 연결돼 캘린더 관리, 웹 브라우징, 이메일 전송 등을 자율적으로 수행할 수 있다.
+
+개발자는 "휴대폰 앱의 80%를 대체할 것"이라고 인터뷰에서 밝혔다. 더 주목받는 것은 1월 출시된 AI 에이전트 전용 소셜 네트워크 'Moltbook'으로, Reddit 형식을 모방해 인증된 AI 에이전트만 게시·상호작용할 수 있고 인간은 관찰만 가능하다. 초기 15만 7천 명에서 77만 명 이상의 활성 에이전트로 급증했다.
+
+안드레이 카르파시는 "최근 본 것 중 가장 놀라운 SF 이륙에 가까운 일"이라고 평가했다. 그러나 프롬프트 인젝션, 원격 코드 실행 등 심각한 보안 취약점도 경고되고 있어 주의가 필요하다.`
+        },
+        {
+            theme: "AI 시장 영향",
+            category: "산업분석",
+            title: "Bloomberg \"AI 코딩 에이전트가 SaaS 기업 위협\"...소프트웨어 대출 시장 급락",
+            isTop5: true,
+            details: `AI 코딩 에이전트의 급부상으로 소프트웨어 기업 대출 시장이 급락하고 있다. Bloomberg에 따르면 "대출 시장에 폭풍이 몰아쳤다"며 "AI가 소프트웨어 비즈니스 모델을 재편하면서 실존적 질문이 제기되고 있다"고 보도했다.
+
+소프트웨어는 레버리지 대출 시장에서 가장 큰 구성 요소 중 하나로 12%를 차지하며, CLO 내 소프트웨어 부채는 올해 최악의 수익률을 기록했다. WisdomTree 클라우드 컴퓨팅 펀드는 올해 들어 8% 이상 하락했고, Salesforce·ServiceNow·Adobe는 14% 이상 급락했다.
+
+핵심 우려는 AI가 결국 기업용 스택의 핵심 부분을 대체하고, IT 구매자들이 소프트웨어 벤더 대신 AI 에이전트로 전환할 것이라는 점이다. 소프트웨어 전문 바이아웃 펌 Thoma Bravo의 올랜도 브라보 공동창업자는 "지금 놀라운 매수 기회를 보고 있다"며 "훨씬 더 적극적으로 나설 것"이라고 밝혔다.`
+        },
+        {
+            theme: "AI 코딩 혁명",
+            category: "인수/영입",
+            title: "OpenAI, 400만 사용자 코딩 에이전트 'Cline'에서 핵심 엔지니어 7명 영입",
+            isTop5: false,
+            details: `OpenAI가 최근 오픈소스 코딩 에이전트 스타트업 Cline에서 최소 7명의 엔지니어를 영입하며 AI 코딩 도구 시장 경쟁에 본격적으로 뛰어들었다. Cline은 VS Code 에디터에 통합되어 Claude Sonnet의 에이전트 코딩 기능을 활용해 파일 생성·편집, 터미널 명령 실행, 브라우저 제어 등 복잡한 소프트웨어 개발 작업을 수행할 수 있는 도구로, 전 세계 400만 명 이상의 개발자가 사용하고 있다.
+
+The Information에 따르면, 이번에 영입된 엔지니어들은 Cline의 핵심 기술 개발에 참여했던 인력으로, 이른바 '인수형 영입(acqui-hire)' 방식이 적용됐다. 이 방식은 개별 인재뿐 아니라 팀의 집단적 전문성과 협업 관계를 그대로 활용할 수 있다는 장점이 있다.
+
+업계 관계자들은 대형 AI 기업들이 유망 스타트업의 핵심 인재를 집중적으로 영입할 경우 신규 진입자들이 성장하기 어려워져 시장 다양성과 혁신이 저해될 수 있다는 우려를 제기하고 있다. 한편 Cline 측은 여전히 운영 중이며 인수된 것이 아님을 명확히 했다.`
+        },
+        {
+            theme: "AI 코딩 혁명",
+            category: "오픈소스",
+            title: "마이크로소프트, AI 에이전트 훈련 오픈소스 프레임워크 'Agent Lightning' 공개",
+            isTop5: false,
+            details: `마이크로소프트 리서치 아시아-상하이 팀이 AI 에이전트에 강화학습(RL) 기능을 거의 코드 수정 없이 추가할 수 있는 오픈소스 프레임워크 'Agent Lightning'을 발표했다. 이 프레임워크는 LangChain, OpenAI Agent SDK, AutoGen, CrewAI 등 기존 에이전트 프레임워크와 호환되며, 에이전트가 작업을 실행하는 방식과 학습하는 방식을 분리하는 'Training-Agent Disaggregation' 아키텍처를 도입했다.
+
+Agent Lightning은 에이전트의 실행을 마르코프 결정 과정(MDP)으로 정형화하고, 복잡한 상호작용 로직을 처리할 수 있는 계층적 강화학습 알고리즘 'LightningRL'을 제안했다. Text-to-SQL, 검색 증강 생성(RAG), 수학 도구 활용 작업 등에서 안정적이고 지속적인 성능 향상을 보였다.
+
+마이크로소프트는 향후 자동 프롬프트 최적화와 추가 강화학습 알고리즘을 확장할 계획이며, 이 프레임워크가 실제 경험을 통해 학습하고 개선되는 AI 시스템 구축의 오픈 플랫폼이 되기를 기대하고 있다.`
+        },
+        {
+            theme: "AI 에이전트",
+            category: "개발도구",
+            title: "Supabase, Claude AI 에이전트용 공식 스킬 출시...\"보안 이슈 수정해줘\" 한 마디로",
+            isTop5: false,
+            details: `Supabase가 AI 에이전트를 위한 공식 스킬 시리즈를 출시했다. 이 Agent Skills는 Claude Code, Cursor, Github Copilot 등 에이전트가 발견하고 사용할 수 있는 지침, 스크립트, 리소스 폴더로 구성돼 있다. 사용자는 자연어 명령만으로 테이블 생성, 스키마 관리, 쿼리 실행, TypeScript 타입 생성 등 다양한 데이터베이스 작업을 수행할 수 있다.
+
+Supabase CEO 폴 코플스톤은 "보안 이슈 수정해달라고 하면 모든 것을 해결해준다"고 트윗했다. MCP(Model Context Protocol) 서버는 AI 도구와 Supabase 프로젝트 간의 간극을 연결해 자연어 명령과 에이전트형 경험을 가능하게 한다.
+
+Cursor, Claude, Windsurf 등 인기 AI 도구와 원활하게 통합되며, 20개 이상의 데이터베이스 설계·쿼리·프로젝트 관리 도구를 제공한다. Postgres 성능 최적화 가이드라인도 8개 카테고리에 걸쳐 영향도별로 우선순위가 지정돼 있어 AI 네이티브 개발을 위한 기반을 마련했다.`
+        },
+        {
+            theme: "빅테크 AI 전쟁",
+            category: "투자논란",
+            title: "엔비디아 젠슨 황 CEO, \"OpenAI에 불만\" 보도 강력 부인...대규모 투자 계획 유효",
+            isTop5: false,
+            details: `엔비디아 CEO 젠슨 황이 OpenAI에 대한 불만을 표시했다는 월스트리트저널(WSJ) 보도를 "말도 안 되는 소리(nonsense)"라며 강력히 부인했다. WSJ는 황 CEO가 최근 몇 달간 업계 관계자들에게 OpenAI의 사업 전략에 규율이 부족하다고 비판하고, 1,000억 달러 투자 계획이 비구속적이며 확정되지 않았다고 강조했다고 보도했다.
+
+그러나 황 CEO는 대만 타이베이에서 기자들에게 "OpenAI에 대규모 투자를 할 것"이라며 "OpenAI가 하는 일은 놀랍고, 우리 시대 가장 중요한 기업 중 하나이며, 샘(알트만 CEO)과 함께 일하는 것을 정말 좋아한다"고 밝혔다.
+
+투자 금액에 대해서는 "1,000억 달러는 결코 약속이 아니었다"며 "단계별로 투자할 것"이라고 설명했다. 그는 이번 투자가 엔비디아 역사상 가장 큰 규모의 투자가 될 수 있다고 덧붙이며, OpenAI의 현재 펀딩 라운드에 반드시 참여할 것임을 확인했다.`
+        },
+        {
+            theme: "AI 코딩 혁명",
+            category: "제품업데이트",
+            title: "깃허브, Copilot '에이전트 모드' 전체 VS Code 사용자에 공개",
+            isTop5: false,
+            details: `깃허브가 2026년 2월 Copilot '에이전트 모드'를 모든 VS Code 사용자에게 공개한다고 발표했다. 에이전트 모드는 아이디어를 코드로 자동 변환하고, 다중 파일 편집과 하위 작업 자동 식별·실행 기능을 제공한다. 깃허브는 이 기능이 복잡한 작업 처리 속도를 12배 향상시킨다고 밝혔다.
+
+이번 업데이트에는 자연어로 다중 파일 편집을 지시하는 'Copilot Edits' 정식 출시와 GitHub Actions 기반 'Copilot Coding Agent'도 포함됐다. Coding Agent는 이슈 할당 시 자동으로 작업을 수행하고 PR(풀 리퀘스트)을 생성한다.
+
+사용자는 GPT-5.2, Claude Opus 4.5, Gemini 3 Flash 등 다양한 AI 모델을 선택할 수 있으며, MCP(Model Context Protocol) 지원으로 도구 간 통합도 강화됐다. 깃허브는 터미널 네이티브 경험을 제공하는 Copilot CLI와 팀 패턴을 학습하는 Skills 기능도 함께 선보였다.`
+        },
+        {
+            theme: "AI 코딩 혁명",
+            category: "분석/전망",
+            title: "코딩 인터페이스의 진화: 펀치카드에서 Claude Code·Codex까지",
+            isTop5: false,
+            details: `소프트웨어 개발 인터페이스가 근본적인 전환점을 맞이하고 있다. 1950년대 펀치카드, 1970년대 Vim·Emacs, 2015년 VS Code, 2023년 Cursor를 거쳐 2025년 Claude Code와 Codex가 새로운 지배적 인터페이스로 부상했다. 일부 개발자들은 "AI 모델이 이렇게 빠르게 똑똑해지는데, IDE가 여전히 필요한가?"라는 질문을 던지고 있다.
+
+현재 트렌드는 AI 에이전트가 코딩 작업을 독립적으로 수행하는 '에이전틱 소프트웨어 개발'로, Claude Code와 Cowork 앱이 대표적이다. 개발자들은 모델과 짝 코딩하는 대신 전체 기능을 위임하기 시작했고, 알트만 CEO는 "전통적인 IDE를 열지 않고도 며칠 만에 상당한 코딩 프로젝트를 완료했다"고 밝혔다.
+
+이는 단순한 도구 변화가 아닌 소프트웨어가 구축되는 방식 자체의 혁명을 의미한다.`
+        }
+    ];
+
+    const themeNames = {
+        "AI 코딩 혁명": { icon: "💻", color: "bg-blue-50 border-blue-200" },
+        "빅테크 AI 전쟁": { icon: "🏢", color: "bg-purple-50 border-purple-200" },
+        "AI 에이전트": { icon: "🤖", color: "bg-green-50 border-green-200" },
+        "AI 시장 영향": { icon: "📊", color: "bg-orange-50 border-orange-200" }
+    };
+
+    function truncateTitle(title, maxLength = 55) {
+        if (title.length <= maxLength) return title;
+        const dotDotDot = title.indexOf('...');
+        if (dotDotDot > 0 && dotDotDot <= maxLength) {
+            return title.substring(0, dotDotDot + 3);
+        }
+        return title.substring(0, maxLength).trim() + '...';
+    }
+
+    function createKeyNumbersSection() {
+        const container = document.getElementById('key-highlights');
+        const keyData = [
+            { value: "100만+", label: "Codex 월간 개발자", icon: "👨‍💻" },
+            { value: "10만⭐", label: "OpenClaw GitHub", icon: "🌟" },
+            { value: "84%", label: "바이브코딩 개발자", icon: "🎵" },
+            { value: "14%↓", label: "SaaS 주가 급락", icon: "📉" }
+        ];
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">📈 주요 데이터 하이라이트</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                ${keyData.map(item => `
+                    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="text-2xl mb-2">${item.icon}</div>
+                        <div class="text-2xl md:text-3xl font-bold text-slate-800">${item.value}</div>
+                        <div class="text-sm text-slate-500 mt-1">${item.label}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    function renderTop5Section() {
+        const container = document.getElementById('top5-section');
+        const top5Items = reportData.filter(item => item.isTop5);
+
+        container.innerHTML = `
+            <h2 class="text-lg font-bold text-slate-700 mb-4">🏆 Top 5 뉴스</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${top5Items.map((item, idx) => {
+                    const displayTitle = truncateTitle(item.title);
+                    const globalIndex = reportData.indexOf(item);
+                    return `
+                        <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white font-bold text-sm">${idx + 1}</span>
+                                <span class="text-xs font-medium text-amber-700 bg-amber-100 px-2 py-1 rounded">${item.category}</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    function renderThematicSections() {
+        const container = document.getElementById('thematic-sections');
+        const themes = [...new Set(reportData.map(item => item.theme))];
+
+        let html = '';
+        themes.forEach(theme => {
+            const themeInfo = themeNames[theme] || { icon: "📰", color: "bg-slate-50 border-slate-200" };
+            const themeItems = reportData.filter(item => item.theme === theme && !item.isTop5);
+
+            if (themeItems.length === 0) return;
+
+            html += `
+                <div class="mb-10">
+                    <h2 class="text-lg font-bold text-slate-700 mb-4">${themeInfo.icon} ${theme}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        ${themeItems.map(item => {
+                            const displayTitle = truncateTitle(item.title);
+                            const globalIndex = reportData.indexOf(item);
+                            return `
+                                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-200 hover:-translate-y-1" data-index="${globalIndex}">
+                                    <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded mb-3 inline-block">${item.category}</span>
+                                    <h3 class="font-semibold text-slate-800 line-clamp-2 leading-snug">${displayTitle}</h3>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function showModal(index) {
+        const item = reportData[index];
+        const modal = document.getElementById('news-modal');
+        document.getElementById('modal-title').textContent = item.title;
+        document.getElementById('modal-category').textContent = item.category;
+        document.getElementById('modal-content').textContent = item.details;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+        document.getElementById('news-modal').classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        createKeyNumbersSection();
+        renderTop5Section();
+        renderThematicSections();
+
+        document.querySelectorAll('[data-index]').forEach(card => {
+            card.addEventListener('click', function() {
+                showModal(parseInt(this.getAttribute('data-index')));
+            });
+        });
+
+        document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+        document.getElementById('modal-bg-close').addEventListener('click', hideModal);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') hideModal();
+        });
+    });
+    </script>
+</body>
+</html>
